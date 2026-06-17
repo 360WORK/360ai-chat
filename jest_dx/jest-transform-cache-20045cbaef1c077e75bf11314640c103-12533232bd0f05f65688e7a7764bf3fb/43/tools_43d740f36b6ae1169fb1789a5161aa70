@@ -1,0 +1,107 @@
+f6a88385aa6338f4cb4fbdacd5b31aca
+/* istanbul ignore next */
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.AI360_TOOLS = void 0;
+exports.is360Tool = is360Tool;
+function cov_hyz6wyrvb() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Chat/Messages/Content/AI360/tools.ts";
+  var hash = "ac5faeb79362d03c1e28ae948b02412a01c2a4be";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Chat/Messages/Content/AI360/tools.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 1,
+          column: 27
+        },
+        end: {
+          line: 8,
+          column: 10
+        }
+      },
+      "1": {
+        start: {
+          line: 13,
+          column: 2
+        },
+        end: {
+          line: 13,
+          column: 65
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "is360Tool",
+        decl: {
+          start: {
+            line: 12,
+            column: 16
+          },
+          end: {
+            line: 12,
+            column: 25
+          }
+        },
+        loc: {
+          start: {
+            line: 12,
+            column: 63
+          },
+          end: {
+            line: 14,
+            column: 1
+          }
+        },
+        line: 12
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "ac5faeb79362d03c1e28ae948b02412a01c2a4be"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_hyz6wyrvb = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_hyz6wyrvb();
+const AI360_TOOLS =
+/* istanbul ignore next */
+exports.AI360_TOOLS = (cov_hyz6wyrvb().s[0]++, {
+  search_companies: 'companies',
+  search_talents: 'talents',
+  search_candidates: 'talents',
+  search_jobs: 'jobs',
+  list_jobs: 'jobs',
+  get_job: 'job'
+});
+function is360Tool(name) {
+  /* istanbul ignore next */
+  cov_hyz6wyrvb().f[0]++;
+  cov_hyz6wyrvb().s[1]++;
+  return Object.prototype.hasOwnProperty.call(AI360_TOOLS, name);
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfaHl6Nnd5cnZiIiwiYWN0dWFsQ292ZXJhZ2UiLCJBSTM2MF9UT09MUyIsImV4cG9ydHMiLCJzIiwic2VhcmNoX2NvbXBhbmllcyIsInNlYXJjaF90YWxlbnRzIiwic2VhcmNoX2NhbmRpZGF0ZXMiLCJzZWFyY2hfam9icyIsImxpc3Rfam9icyIsImdldF9qb2IiLCJpczM2MFRvb2wiLCJuYW1lIiwiZiIsIk9iamVjdCIsInByb3RvdHlwZSIsImhhc093blByb3BlcnR5IiwiY2FsbCJdLCJzb3VyY2VzIjpbInRvb2xzLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCBBSTM2MF9UT09MUyA9IHtcbiAgc2VhcmNoX2NvbXBhbmllczogJ2NvbXBhbmllcycsXG4gIHNlYXJjaF90YWxlbnRzOiAndGFsZW50cycsXG4gIHNlYXJjaF9jYW5kaWRhdGVzOiAndGFsZW50cycsXG4gIHNlYXJjaF9qb2JzOiAnam9icycsXG4gIGxpc3Rfam9iczogJ2pvYnMnLFxuICBnZXRfam9iOiAnam9iJyxcbn0gYXMgY29uc3Q7XG5cbmV4cG9ydCB0eXBlIEFJMzYwVG9vbE5hbWUgPSBrZXlvZiB0eXBlb2YgQUkzNjBfVE9PTFM7XG5cbmV4cG9ydCBmdW5jdGlvbiBpczM2MFRvb2wobmFtZTogc3RyaW5nKTogbmFtZSBpcyBBSTM2MFRvb2xOYW1lIHtcbiAgcmV0dXJuIE9iamVjdC5wcm90b3R5cGUuaGFzT3duUHJvcGVydHkuY2FsbChBSTM2MF9UT09MUywgbmFtZSk7XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGFBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGFBQUE7QUFmTCxNQUFNRSxXQUFXO0FBQUE7QUFBQUMsT0FBQSxDQUFBRCxXQUFBLElBQUFGLGFBQUEsR0FBQUksQ0FBQSxPQUFHO0VBQ3pCQyxnQkFBZ0IsRUFBRSxXQUFXO0VBQzdCQyxjQUFjLEVBQUUsU0FBUztFQUN6QkMsaUJBQWlCLEVBQUUsU0FBUztFQUM1QkMsV0FBVyxFQUFFLE1BQU07RUFDbkJDLFNBQVMsRUFBRSxNQUFNO0VBQ2pCQyxPQUFPLEVBQUU7QUFDWCxDQUFDLENBQVM7QUFJSCxTQUFTQyxTQUFTQSxDQUFDQyxJQUFZLEVBQXlCO0VBQUE7RUFBQVosYUFBQSxHQUFBYSxDQUFBO0VBQUFiLGFBQUEsR0FBQUksQ0FBQTtFQUM3RCxPQUFPVSxNQUFNLENBQUNDLFNBQVMsQ0FBQ0MsY0FBYyxDQUFDQyxJQUFJLENBQUNmLFdBQVcsRUFBRVUsSUFBSSxDQUFDO0FBQ2hFIiwiaWdub3JlTGlzdCI6W119

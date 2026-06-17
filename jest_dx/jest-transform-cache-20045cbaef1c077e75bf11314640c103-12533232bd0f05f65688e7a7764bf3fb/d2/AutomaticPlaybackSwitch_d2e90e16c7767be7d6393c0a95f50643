@@ -1,0 +1,92 @@
+1334ee785732ccfc39c767aab1c43508
+/* istanbul ignore next */
+function cov_1irq88a1dq() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Nav/SettingsTabs/Speech/TTS/AutomaticPlaybackSwitch.tsx";
+  var hash = "5deaeffbea1e9687091af18b8b22ccfd2c38a77b";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Nav/SettingsTabs/Speech/TTS/AutomaticPlaybackSwitch.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 9,
+          column: 2
+        },
+        end: {
+          line: 16,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "AutomaticPlaybackSwitch",
+        decl: {
+          start: {
+            line: 4,
+            column: 24
+          },
+          end: {
+            line: 4,
+            column: 47
+          }
+        },
+        loc: {
+          start: {
+            line: 8,
+            column: 3
+          },
+          end: {
+            line: 17,
+            column: 1
+          }
+        },
+        line: 8
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "5deaeffbea1e9687091af18b8b22ccfd2c38a77b"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1irq88a1dq = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1irq88a1dq();
+import ToggleSwitch from '../../ToggleSwitch';
+import store from "../../../../../store";
+/* istanbul ignore next */
+import { jsx as _jsx } from "react/jsx-runtime";
+export default function AutomaticPlaybackSwitch({
+  onCheckedChange
+}) {
+  /* istanbul ignore next */
+  cov_1irq88a1dq().f[0]++;
+  cov_1irq88a1dq().s[0]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(ToggleSwitch,
+  /* istanbul ignore next */
+  {
+    stateAtom: store.automaticPlayback,
+    localizationKey: 'com_nav_automatic_playback',
+    switchId: "AutomaticPlayback",
+    onCheckedChange: onCheckedChange
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMWlycTg4YTFkcSIsImFjdHVhbENvdmVyYWdlIiwiVG9nZ2xlU3dpdGNoIiwic3RvcmUiLCJqc3giLCJfanN4IiwiQXV0b21hdGljUGxheWJhY2tTd2l0Y2giLCJvbkNoZWNrZWRDaGFuZ2UiLCJmIiwicyIsInN0YXRlQXRvbSIsImF1dG9tYXRpY1BsYXliYWNrIiwibG9jYWxpemF0aW9uS2V5Iiwic3dpdGNoSWQiXSwic291cmNlcyI6WyJBdXRvbWF0aWNQbGF5YmFja1N3aXRjaC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFRvZ2dsZVN3aXRjaCBmcm9tICcuLi8uLi9Ub2dnbGVTd2l0Y2gnO1xuaW1wb3J0IHN0b3JlIGZyb20gJ34vc3RvcmUnO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBBdXRvbWF0aWNQbGF5YmFja1N3aXRjaCh7XG4gIG9uQ2hlY2tlZENoYW5nZSxcbn06IHtcbiAgb25DaGVja2VkQ2hhbmdlPzogKHZhbHVlOiBib29sZWFuKSA9PiB2b2lkO1xufSkge1xuICByZXR1cm4gKFxuICAgIDxUb2dnbGVTd2l0Y2hcbiAgICAgIHN0YXRlQXRvbT17c3RvcmUuYXV0b21hdGljUGxheWJhY2t9XG4gICAgICBsb2NhbGl6YXRpb25LZXk9eydjb21fbmF2X2F1dG9tYXRpY19wbGF5YmFjaycgYXMgY29uc3R9XG4gICAgICBzd2l0Y2hJZD1cIkF1dG9tYXRpY1BsYXliYWNrXCJcbiAgICAgIG9uQ2hlY2tlZENoYW5nZT17b25DaGVja2VkQ2hhbmdlfVxuICAgIC8+XG4gICk7XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGNBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGNBQUE7QUFmWixPQUFPRSxZQUFZLE1BQU0sb0JBQW9CO0FBQzdDLE9BQU9DLEtBQUssTUFBTSxzQkFBUztBQUFDO0FBQUEsU0FBQUMsR0FBQSxJQUFBQyxJQUFBO0FBRTVCLGVBQWUsU0FBU0MsdUJBQXVCQSxDQUFDO0VBQzlDQztBQUdGLENBQUMsRUFBRTtFQUFBO0VBQUFQLGNBQUEsR0FBQVEsQ0FBQTtFQUFBUixjQUFBLEdBQUFTLENBQUE7RUFDRCxvQkFDRSwyQkFBQUosSUFBQSxDQUFDSCxZQUFZO0VBQUE7RUFBQTtJQUNYUSxTQUFTLEVBQUVQLEtBQUssQ0FBQ1EsaUJBQWtCO0lBQ25DQyxlQUFlLEVBQUUsNEJBQXNDO0lBQ3ZEQyxRQUFRLEVBQUMsbUJBQW1CO0lBQzVCTixlQUFlLEVBQUVBO0VBQWdCLENBQ2xDLENBQUM7QUFFTiIsImlnbm9yZUxpc3QiOltdfQ==

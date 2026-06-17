@@ -1,0 +1,188 @@
+76990922f6b2786b76c103a15edcd7a1
+/* istanbul ignore next */
+function cov_1enjc662ss() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/Providers/SetConvoContext.tsx";
+  var hash = "ba92a024885e3da7250a5361a420ec87b650c7d7";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/Providers/SetConvoContext.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 6,
+          column: 31
+        },
+        end: {
+          line: 6,
+          column: 84
+        }
+      },
+      "1": {
+        start: {
+          line: 8,
+          column: 32
+        },
+        end: {
+          line: 12,
+          column: 1
+        }
+      },
+      "2": {
+        start: {
+          line: 9,
+          column: 29
+        },
+        end: {
+          line: 9,
+          column: 51
+        }
+      },
+      "3": {
+        start: {
+          line: 11,
+          column: 2
+        },
+        end: {
+          line: 11,
+          column: 100
+        }
+      },
+      "4": {
+        start: {
+          line: 14,
+          column: 34
+        },
+        end: {
+          line: 14,
+          column: 67
+        }
+      },
+      "5": {
+        start: {
+          line: 14,
+          column: 40
+        },
+        end: {
+          line: 14,
+          column: 67
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 8,
+            column: 32
+          },
+          end: {
+            line: 8,
+            column: 33
+          }
+        },
+        loc: {
+          start: {
+            line: 8,
+            column: 81
+          },
+          end: {
+            line: 12,
+            column: 1
+          }
+        },
+        line: 8
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 14,
+            column: 34
+          },
+          end: {
+            line: 14,
+            column: 35
+          }
+        },
+        loc: {
+          start: {
+            line: 14,
+            column: 40
+          },
+          end: {
+            line: 14,
+            column: 67
+          }
+        },
+        line: 14
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "ba92a024885e3da7250a5361a420ec87b650c7d7"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1enjc662ss = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1enjc662ss();
+import { createContext, useContext, useRef } from 'react';
+/* istanbul ignore next */
+import { jsx as _jsx } from "react/jsx-runtime";
+export const SetConvoContext =
+/* istanbul ignore next */
+(cov_1enjc662ss().s[0]++, /*#__PURE__*/createContext({}));
+/* istanbul ignore next */
+cov_1enjc662ss().s[1]++;
+export const SetConvoProvider = ({
+  children
+}) => {
+  /* istanbul ignore next */
+  cov_1enjc662ss().f[0]++;
+  const hasSetConversation =
+  /* istanbul ignore next */
+  (cov_1enjc662ss().s[2]++, useRef(false));
+  /* istanbul ignore next */
+  cov_1enjc662ss().s[3]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(
+  /* istanbul ignore next */
+  SetConvoContext.Provider,
+  /* istanbul ignore next */
+  {
+    value: hasSetConversation,
+    children: children
+  });
+};
+/* istanbul ignore next */
+cov_1enjc662ss().s[4]++;
+export const useSetConvoContext = () => {
+  /* istanbul ignore next */
+  cov_1enjc662ss().f[1]++;
+  cov_1enjc662ss().s[5]++;
+  return useContext(SetConvoContext);
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMWVuamM2NjJzcyIsImFjdHVhbENvdmVyYWdlIiwiY3JlYXRlQ29udGV4dCIsInVzZUNvbnRleHQiLCJ1c2VSZWYiLCJqc3giLCJfanN4IiwiU2V0Q29udm9Db250ZXh0IiwicyIsIlNldENvbnZvUHJvdmlkZXIiLCJjaGlsZHJlbiIsImYiLCJoYXNTZXRDb252ZXJzYXRpb24iLCJQcm92aWRlciIsInZhbHVlIiwidXNlU2V0Q29udm9Db250ZXh0Il0sInNvdXJjZXMiOlsiU2V0Q29udm9Db250ZXh0LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBjcmVhdGVDb250ZXh0LCB1c2VDb250ZXh0LCB1c2VSZWYgfSBmcm9tICdyZWFjdCc7XG5pbXBvcnQgdHlwZSB7IE11dGFibGVSZWZPYmplY3QgfSBmcm9tICdyZWFjdCc7XG5cbnR5cGUgU2V0Q29udm9Db250ZXh0ID0gTXV0YWJsZVJlZk9iamVjdDxib29sZWFuPjtcblxuZXhwb3J0IGNvbnN0IFNldENvbnZvQ29udGV4dCA9IGNyZWF0ZUNvbnRleHQ8U2V0Q29udm9Db250ZXh0Pih7fSBhcyBTZXRDb252b0NvbnRleHQpO1xuXG5leHBvcnQgY29uc3QgU2V0Q29udm9Qcm92aWRlciA9ICh7IGNoaWxkcmVuIH06IHsgY2hpbGRyZW46IFJlYWN0LlJlYWN0Tm9kZSB9KSA9PiB7XG4gIGNvbnN0IGhhc1NldENvbnZlcnNhdGlvbiA9IHVzZVJlZjxib29sZWFuPihmYWxzZSk7XG5cbiAgcmV0dXJuIDxTZXRDb252b0NvbnRleHQuUHJvdmlkZXIgdmFsdWU9e2hhc1NldENvbnZlcnNhdGlvbn0+e2NoaWxkcmVufTwvU2V0Q29udm9Db250ZXh0LlByb3ZpZGVyPjtcbn07XG5cbmV4cG9ydCBjb25zdCB1c2VTZXRDb252b0NvbnRleHQgPSAoKSA9PiB1c2VDb250ZXh0KFNldENvbnZvQ29udGV4dCk7XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsY0FBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsY0FBQTtBQWZaLFNBQVNFLGFBQWEsRUFBRUMsVUFBVSxFQUFFQyxNQUFNLFFBQVEsT0FBTztBQUFDO0FBQUEsU0FBQUMsR0FBQSxJQUFBQyxJQUFBO0FBSzFELE9BQU8sTUFBTUMsZUFBZTtBQUFBO0FBQUEsQ0FBQVAsY0FBQSxHQUFBUSxDQUFBLG9CQUFHTixhQUFhLENBQWtCLENBQUMsQ0FBb0IsQ0FBQztBQUFDO0FBQUFGLGNBQUEsR0FBQVEsQ0FBQTtBQUVyRixPQUFPLE1BQU1DLGdCQUFnQixHQUFHQSxDQUFDO0VBQUVDO0FBQXdDLENBQUMsS0FBSztFQUFBO0VBQUFWLGNBQUEsR0FBQVcsQ0FBQTtFQUMvRSxNQUFNQyxrQkFBa0I7RUFBQTtFQUFBLENBQUFaLGNBQUEsR0FBQVEsQ0FBQSxPQUFHSixNQUFNLENBQVUsS0FBSyxDQUFDO0VBQUM7RUFBQUosY0FBQSxHQUFBUSxDQUFBO0VBRWxELG9CQUFPLDJCQUFBRixJQUFBO0VBQUE7RUFBQ0MsZUFBZSxDQUFDTSxRQUFRO0VBQUE7RUFBQTtJQUFDQyxLQUFLLEVBQUVGLGtCQUFtQjtJQUFBRixRQUFBLEVBQUVBO0VBQVEsQ0FBMkIsQ0FBQztBQUNuRyxDQUFDO0FBQUM7QUFBQVYsY0FBQSxHQUFBUSxDQUFBO0FBRUYsT0FBTyxNQUFNTyxrQkFBa0IsR0FBR0EsQ0FBQSxLQUFNO0VBQUE7RUFBQWYsY0FBQSxHQUFBVyxDQUFBO0VBQUFYLGNBQUEsR0FBQVEsQ0FBQTtFQUFBLE9BQUFMLFVBQVUsQ0FBQ0ksZUFBZSxDQUFDO0FBQUQsQ0FBQyIsImlnbm9yZUxpc3QiOltdfQ==

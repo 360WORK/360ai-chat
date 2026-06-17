@@ -1,0 +1,61 @@
+beeea61a6e5a9fb1f382f80c5b5d7ba7
+/* istanbul ignore next */
+function cov_3kcexhzsz() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/Providers/index.ts";
+  var hash = "3ceb4c6f3efa9cf493c8ab1ff67e0ba8027edb44";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/Providers/index.ts",
+    statementMap: {},
+    fnMap: {},
+    branchMap: {},
+    s: {},
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "3ceb4c6f3efa9cf493c8ab1ff67e0ba8027edb44"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_3kcexhzsz = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_3kcexhzsz();
+export { default as AssistantsProvider } from './AssistantsContext';
+export { default as AgentsProvider } from './AgentsContext';
+export * from './ActivePanelContext';
+export * from './AgentPanelContext';
+export * from './ChatContext';
+export * from './ShareContext';
+export * from './FileMapContext';
+export * from './AddedChatContext';
+export * from './EditorContext';
+export * from './ChatFormContext';
+export * from './BookmarkContext';
+export * from './MessageContext';
+export * from './AssistantsContext';
+export * from './AgentsContext';
+export * from './AssistantsMapContext';
+export * from './AnnouncerContext';
+export * from './AgentsMapContext';
+export * from './ArtifactContext';
+export * from './CodeBlockContext';
+export * from './ToolCallsMapContext';
+export * from './SetConvoContext';
+export * from './SearchContext';
+export * from './BadgeRowContext';
+export * from './DragDropContext';
+export * from './ArtifactsContext';
+export * from './PromptGroupsContext';
+export * from './MessagesViewContext';
+export { default as BadgeRowProvider } from './BadgeRowContext';
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfM2tjZXhoenN6IiwiYWN0dWFsQ292ZXJhZ2UiLCJkZWZhdWx0IiwiQXNzaXN0YW50c1Byb3ZpZGVyIiwiQWdlbnRzUHJvdmlkZXIiLCJCYWRnZVJvd1Byb3ZpZGVyIl0sInNvdXJjZXMiOlsiaW5kZXgudHMiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IHsgZGVmYXVsdCBhcyBBc3Npc3RhbnRzUHJvdmlkZXIgfSBmcm9tICcuL0Fzc2lzdGFudHNDb250ZXh0JztcbmV4cG9ydCB7IGRlZmF1bHQgYXMgQWdlbnRzUHJvdmlkZXIgfSBmcm9tICcuL0FnZW50c0NvbnRleHQnO1xuZXhwb3J0ICogZnJvbSAnLi9BY3RpdmVQYW5lbENvbnRleHQnO1xuZXhwb3J0ICogZnJvbSAnLi9BZ2VudFBhbmVsQ29udGV4dCc7XG5leHBvcnQgKiBmcm9tICcuL0NoYXRDb250ZXh0JztcbmV4cG9ydCAqIGZyb20gJy4vU2hhcmVDb250ZXh0JztcbmV4cG9ydCAqIGZyb20gJy4vRmlsZU1hcENvbnRleHQnO1xuZXhwb3J0ICogZnJvbSAnLi9BZGRlZENoYXRDb250ZXh0JztcbmV4cG9ydCAqIGZyb20gJy4vRWRpdG9yQ29udGV4dCc7XG5leHBvcnQgKiBmcm9tICcuL0NoYXRGb3JtQ29udGV4dCc7XG5leHBvcnQgKiBmcm9tICcuL0Jvb2ttYXJrQ29udGV4dCc7XG5leHBvcnQgKiBmcm9tICcuL01lc3NhZ2VDb250ZXh0JztcbmV4cG9ydCAqIGZyb20gJy4vQXNzaXN0YW50c0NvbnRleHQnO1xuZXhwb3J0ICogZnJvbSAnLi9BZ2VudHNDb250ZXh0JztcbmV4cG9ydCAqIGZyb20gJy4vQXNzaXN0YW50c01hcENvbnRleHQnO1xuZXhwb3J0ICogZnJvbSAnLi9Bbm5vdW5jZXJDb250ZXh0JztcbmV4cG9ydCAqIGZyb20gJy4vQWdlbnRzTWFwQ29udGV4dCc7XG5leHBvcnQgKiBmcm9tICcuL0FydGlmYWN0Q29udGV4dCc7XG5leHBvcnQgKiBmcm9tICcuL0NvZGVCbG9ja0NvbnRleHQnO1xuZXhwb3J0ICogZnJvbSAnLi9Ub29sQ2FsbHNNYXBDb250ZXh0JztcbmV4cG9ydCAqIGZyb20gJy4vU2V0Q29udm9Db250ZXh0JztcbmV4cG9ydCAqIGZyb20gJy4vU2VhcmNoQ29udGV4dCc7XG5leHBvcnQgKiBmcm9tICcuL0JhZGdlUm93Q29udGV4dCc7XG5leHBvcnQgKiBmcm9tICcuL0RyYWdEcm9wQ29udGV4dCc7XG5leHBvcnQgKiBmcm9tICcuL0FydGlmYWN0c0NvbnRleHQnO1xuZXhwb3J0ICogZnJvbSAnLi9Qcm9tcHRHcm91cHNDb250ZXh0JztcbmV4cG9ydCAqIGZyb20gJy4vTWVzc2FnZXNWaWV3Q29udGV4dCc7XG5leHBvcnQgeyBkZWZhdWx0IGFzIEJhZGdlUm93UHJvdmlkZXIgfSBmcm9tICcuL0JhZGdlUm93Q29udGV4dCc7XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsYUFBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsYUFBQTtBQWZaLFNBQVNFLE9BQU8sSUFBSUMsa0JBQWtCLFFBQVEscUJBQXFCO0FBQ25FLFNBQVNELE9BQU8sSUFBSUUsY0FBYyxRQUFRLGlCQUFpQjtBQUMzRCxjQUFjLHNCQUFzQjtBQUNwQyxjQUFjLHFCQUFxQjtBQUNuQyxjQUFjLGVBQWU7QUFDN0IsY0FBYyxnQkFBZ0I7QUFDOUIsY0FBYyxrQkFBa0I7QUFDaEMsY0FBYyxvQkFBb0I7QUFDbEMsY0FBYyxpQkFBaUI7QUFDL0IsY0FBYyxtQkFBbUI7QUFDakMsY0FBYyxtQkFBbUI7QUFDakMsY0FBYyxrQkFBa0I7QUFDaEMsY0FBYyxxQkFBcUI7QUFDbkMsY0FBYyxpQkFBaUI7QUFDL0IsY0FBYyx3QkFBd0I7QUFDdEMsY0FBYyxvQkFBb0I7QUFDbEMsY0FBYyxvQkFBb0I7QUFDbEMsY0FBYyxtQkFBbUI7QUFDakMsY0FBYyxvQkFBb0I7QUFDbEMsY0FBYyx1QkFBdUI7QUFDckMsY0FBYyxtQkFBbUI7QUFDakMsY0FBYyxpQkFBaUI7QUFDL0IsY0FBYyxtQkFBbUI7QUFDakMsY0FBYyxtQkFBbUI7QUFDakMsY0FBYyxvQkFBb0I7QUFDbEMsY0FBYyx1QkFBdUI7QUFDckMsY0FBYyx1QkFBdUI7QUFDckMsU0FBU0YsT0FBTyxJQUFJRyxnQkFBZ0IsUUFBUSxtQkFBbUIiLCJpZ25vcmVMaXN0IjpbXX0=

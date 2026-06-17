@@ -80,6 +80,21 @@ const MessageIcon = memo(({ iconData, assistant, agent }: MessageIconProps) => {
     );
   }
 
+  if (iconData?.isCreatedByUser !== true && !avatarURL && !isImageURL(endpointIconURL)) {
+    return (
+      <div
+        style={{ width: 28.8, height: 28.8 }}
+        className="relative flex items-center justify-center overflow-hidden rounded-sm bg-white p-1 dark:bg-gray-800"
+      >
+        <img
+          src="assets/360-mark.png"
+          alt="360AI"
+          className="h-full w-full object-contain dark:invert"
+        />
+      </div>
+    );
+  }
+
   return (
     <Icon
       isCreatedByUser={iconData?.isCreatedByUser ?? false}

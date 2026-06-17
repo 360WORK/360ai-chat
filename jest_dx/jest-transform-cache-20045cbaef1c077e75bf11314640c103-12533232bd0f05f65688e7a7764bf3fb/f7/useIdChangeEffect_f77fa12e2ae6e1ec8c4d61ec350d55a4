@@ -1,0 +1,241 @@
+0e4a79be1a3cf08ebbb140379df23d67
+/* istanbul ignore next */
+function cov_1vhg7jjg11() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/hooks/Chat/useIdChangeEffect.ts";
+  var hash = "f2ee09c33b28eb01742f6ac7db859ea6b4fec2eb";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/hooks/Chat/useIdChangeEffect.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 11,
+          column: 22
+        },
+        end: {
+          line: 11,
+          column: 49
+        }
+      },
+      "1": {
+        start: {
+          line: 12,
+          column: 32
+        },
+        end: {
+          line: 12,
+          column: 75
+        }
+      },
+      "2": {
+        start: {
+          line: 14,
+          column: 2
+        },
+        end: {
+          line: 20,
+          column: 46
+        }
+      },
+      "3": {
+        start: {
+          line: 15,
+          column: 4
+        },
+        end: {
+          line: 18,
+          column: 5
+        }
+      },
+      "4": {
+        start: {
+          line: 16,
+          column: 6
+        },
+        end: {
+          line: 16,
+          column: 59
+        }
+      },
+      "5": {
+        start: {
+          line: 17,
+          column: 6
+        },
+        end: {
+          line: 17,
+          column: 30
+        }
+      },
+      "6": {
+        start: {
+          line: 19,
+          column: 4
+        },
+        end: {
+          line: 19,
+          column: 41
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "useIdChangeEffect",
+        decl: {
+          start: {
+            line: 10,
+            column: 24
+          },
+          end: {
+            line: 10,
+            column: 41
+          }
+        },
+        loc: {
+          start: {
+            line: 10,
+            column: 66
+          },
+          end: {
+            line: 21,
+            column: 1
+          }
+        },
+        line: 10
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 14,
+            column: 12
+          },
+          end: {
+            line: 14,
+            column: 13
+          }
+        },
+        loc: {
+          start: {
+            line: 14,
+            column: 18
+          },
+          end: {
+            line: 20,
+            column: 3
+          }
+        },
+        line: 14
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 15,
+            column: 4
+          },
+          end: {
+            line: 18,
+            column: 5
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 15,
+            column: 4
+          },
+          end: {
+            line: 18,
+            column: 5
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 15
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0
+    },
+    b: {
+      "0": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "f2ee09c33b28eb01742f6ac7db859ea6b4fec2eb"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1vhg7jjg11 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1vhg7jjg11();
+import { useEffect, useRef } from 'react';
+import { useResetRecoilState } from 'recoil';
+import { logger } from "../../utils";
+import store from "../../store";
+
+/**
+ * Hook to reset visible artifacts when the conversation ID changes
+ * @param conversationId - The current conversation ID
+ */
+export default function useIdChangeEffect(conversationId) {
+  /* istanbul ignore next */
+  cov_1vhg7jjg11().f[0]++;
+  const lastConvoId =
+  /* istanbul ignore next */
+  (cov_1vhg7jjg11().s[0]++, useRef(null));
+  const resetVisibleArtifacts =
+  /* istanbul ignore next */
+  (cov_1vhg7jjg11().s[1]++, useResetRecoilState(store.visibleArtifacts));
+  /* istanbul ignore next */
+  cov_1vhg7jjg11().s[2]++;
+  useEffect(() => {
+    /* istanbul ignore next */
+    cov_1vhg7jjg11().f[1]++;
+    cov_1vhg7jjg11().s[3]++;
+    if (conversationId !== lastConvoId.current) {
+      /* istanbul ignore next */
+      cov_1vhg7jjg11().b[0][0]++;
+      cov_1vhg7jjg11().s[4]++;
+      logger.log('conversation', 'Conversation ID change');
+      /* istanbul ignore next */
+      cov_1vhg7jjg11().s[5]++;
+      resetVisibleArtifacts();
+    } else
+    /* istanbul ignore next */
+    {
+      cov_1vhg7jjg11().b[0][1]++;
+    }
+    cov_1vhg7jjg11().s[6]++;
+    lastConvoId.current = conversationId;
+  }, [conversationId, resetVisibleArtifacts]);
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMXZoZzdqamcxMSIsImFjdHVhbENvdmVyYWdlIiwidXNlRWZmZWN0IiwidXNlUmVmIiwidXNlUmVzZXRSZWNvaWxTdGF0ZSIsImxvZ2dlciIsInN0b3JlIiwidXNlSWRDaGFuZ2VFZmZlY3QiLCJjb252ZXJzYXRpb25JZCIsImYiLCJsYXN0Q29udm9JZCIsInMiLCJyZXNldFZpc2libGVBcnRpZmFjdHMiLCJ2aXNpYmxlQXJ0aWZhY3RzIiwiY3VycmVudCIsImIiLCJsb2ciXSwic291cmNlcyI6WyJ1c2VJZENoYW5nZUVmZmVjdC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyB1c2VFZmZlY3QsIHVzZVJlZiB9IGZyb20gJ3JlYWN0JztcbmltcG9ydCB7IHVzZVJlc2V0UmVjb2lsU3RhdGUgfSBmcm9tICdyZWNvaWwnO1xuaW1wb3J0IHsgbG9nZ2VyIH0gZnJvbSAnfi91dGlscyc7XG5pbXBvcnQgc3RvcmUgZnJvbSAnfi9zdG9yZSc7XG5cbi8qKlxuICogSG9vayB0byByZXNldCB2aXNpYmxlIGFydGlmYWN0cyB3aGVuIHRoZSBjb252ZXJzYXRpb24gSUQgY2hhbmdlc1xuICogQHBhcmFtIGNvbnZlcnNhdGlvbklkIC0gVGhlIGN1cnJlbnQgY29udmVyc2F0aW9uIElEXG4gKi9cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIHVzZUlkQ2hhbmdlRWZmZWN0KGNvbnZlcnNhdGlvbklkOiBzdHJpbmcpIHtcbiAgY29uc3QgbGFzdENvbnZvSWQgPSB1c2VSZWY8c3RyaW5nIHwgbnVsbD4obnVsbCk7XG4gIGNvbnN0IHJlc2V0VmlzaWJsZUFydGlmYWN0cyA9IHVzZVJlc2V0UmVjb2lsU3RhdGUoc3RvcmUudmlzaWJsZUFydGlmYWN0cyk7XG5cbiAgdXNlRWZmZWN0KCgpID0+IHtcbiAgICBpZiAoY29udmVyc2F0aW9uSWQgIT09IGxhc3RDb252b0lkLmN1cnJlbnQpIHtcbiAgICAgIGxvZ2dlci5sb2coJ2NvbnZlcnNhdGlvbicsICdDb252ZXJzYXRpb24gSUQgY2hhbmdlJyk7XG4gICAgICByZXNldFZpc2libGVBcnRpZmFjdHMoKTtcbiAgICB9XG4gICAgbGFzdENvbnZvSWQuY3VycmVudCA9IGNvbnZlcnNhdGlvbklkO1xuICB9LCBbY29udmVyc2F0aW9uSWQsIHJlc2V0VmlzaWJsZUFydGlmYWN0c10pO1xufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsY0FBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsY0FBQTtBQWZaLFNBQVNFLFNBQVMsRUFBRUMsTUFBTSxRQUFRLE9BQU87QUFDekMsU0FBU0MsbUJBQW1CLFFBQVEsUUFBUTtBQUM1QyxTQUFTQyxNQUFNLFFBQVEsYUFBUztBQUNoQyxPQUFPQyxLQUFLLE1BQU0sYUFBUzs7QUFFM0I7QUFDQTtBQUNBO0FBQ0E7QUFDQSxlQUFlLFNBQVNDLGlCQUFpQkEsQ0FBQ0MsY0FBc0IsRUFBRTtFQUFBO0VBQUFSLGNBQUEsR0FBQVMsQ0FBQTtFQUNoRSxNQUFNQyxXQUFXO0VBQUE7RUFBQSxDQUFBVixjQUFBLEdBQUFXLENBQUEsT0FBR1IsTUFBTSxDQUFnQixJQUFJLENBQUM7RUFDL0MsTUFBTVMscUJBQXFCO0VBQUE7RUFBQSxDQUFBWixjQUFBLEdBQUFXLENBQUEsT0FBR1AsbUJBQW1CLENBQUNFLEtBQUssQ0FBQ08sZ0JBQWdCLENBQUM7RUFBQztFQUFBYixjQUFBLEdBQUFXLENBQUE7RUFFMUVULFNBQVMsQ0FBQyxNQUFNO0lBQUE7SUFBQUYsY0FBQSxHQUFBUyxDQUFBO0lBQUFULGNBQUEsR0FBQVcsQ0FBQTtJQUNkLElBQUlILGNBQWMsS0FBS0UsV0FBVyxDQUFDSSxPQUFPLEVBQUU7TUFBQTtNQUFBZCxjQUFBLEdBQUFlLENBQUE7TUFBQWYsY0FBQSxHQUFBVyxDQUFBO01BQzFDTixNQUFNLENBQUNXLEdBQUcsQ0FBQyxjQUFjLEVBQUUsd0JBQXdCLENBQUM7TUFBQztNQUFBaEIsY0FBQSxHQUFBVyxDQUFBO01BQ3JEQyxxQkFBcUIsQ0FBQyxDQUFDO0lBQ3pCLENBQUM7SUFBQTtJQUFBO01BQUFaLGNBQUEsR0FBQWUsQ0FBQTtJQUFBO0lBQUFmLGNBQUEsR0FBQVcsQ0FBQTtJQUNERCxXQUFXLENBQUNJLE9BQU8sR0FBR04sY0FBYztFQUN0QyxDQUFDLEVBQUUsQ0FBQ0EsY0FBYyxFQUFFSSxxQkFBcUIsQ0FBQyxDQUFDO0FBQzdDIiwiaWdub3JlTGlzdCI6W119

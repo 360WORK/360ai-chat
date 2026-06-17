@@ -1,0 +1,285 @@
+7b3ba60baf1c0408e6c48850226254ac
+/* istanbul ignore next */
+function cov_1yqm1n2o6x() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Nav/SettingsTabs/Chat/ShowThinking.tsx";
+  var hash = "d5d8f760aaa944be45f48ea1985b7e21ef5dae87";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Nav/SettingsTabs/Chat/ShowThinking.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 11,
+          column: 42
+        },
+        end: {
+          line: 11,
+          column: 67
+        }
+      },
+      "1": {
+        start: {
+          line: 12,
+          column: 19
+        },
+        end: {
+          line: 12,
+          column: 32
+        }
+      },
+      "2": {
+        start: {
+          line: 14,
+          column: 30
+        },
+        end: {
+          line: 19,
+          column: 3
+        }
+      },
+      "3": {
+        start: {
+          line: 15,
+          column: 4
+        },
+        end: {
+          line: 15,
+          column: 27
+        }
+      },
+      "4": {
+        start: {
+          line: 16,
+          column: 4
+        },
+        end: {
+          line: 18,
+          column: 5
+        }
+      },
+      "5": {
+        start: {
+          line: 17,
+          column: 6
+        },
+        end: {
+          line: 17,
+          column: 29
+        }
+      },
+      "6": {
+        start: {
+          line: 21,
+          column: 2
+        },
+        end: {
+          line: 36,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "SaveDraft",
+        decl: {
+          start: {
+            line: 6,
+            column: 24
+          },
+          end: {
+            line: 6,
+            column: 33
+          }
+        },
+        loc: {
+          start: {
+            line: 10,
+            column: 3
+          },
+          end: {
+            line: 37,
+            column: 1
+          }
+        },
+        line: 10
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 14,
+            column: 30
+          },
+          end: {
+            line: 14,
+            column: 31
+          }
+        },
+        loc: {
+          start: {
+            line: 14,
+            column: 50
+          },
+          end: {
+            line: 19,
+            column: 3
+          }
+        },
+        line: 14
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 16,
+            column: 4
+          },
+          end: {
+            line: 18,
+            column: 5
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 16,
+            column: 4
+          },
+          end: {
+            line: 18,
+            column: 5
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 16
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0
+    },
+    b: {
+      "0": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "d5d8f760aaa944be45f48ea1985b7e21ef5dae87"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1yqm1n2o6x = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1yqm1n2o6x();
+import { useAtom } from 'jotai';
+import { Switch, InfoHoverCard, ESide } from '@librechat/client';
+import { showThinkingAtom } from "../../../../store/showThinking";
+import { useLocalize } from "../../../../hooks";
+/* istanbul ignore next */
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+export default function SaveDraft({
+  onCheckedChange
+}) {
+  /* istanbul ignore next */
+  cov_1yqm1n2o6x().f[0]++;
+  const [showThinking, setShowThinking] =
+  /* istanbul ignore next */
+  (cov_1yqm1n2o6x().s[0]++, useAtom(showThinkingAtom));
+  const localize =
+  /* istanbul ignore next */
+  (cov_1yqm1n2o6x().s[1]++, useLocalize());
+  /* istanbul ignore next */
+  cov_1yqm1n2o6x().s[2]++;
+  const handleCheckedChange = value => {
+    /* istanbul ignore next */
+    cov_1yqm1n2o6x().f[1]++;
+    cov_1yqm1n2o6x().s[3]++;
+    setShowThinking(value);
+    /* istanbul ignore next */
+    cov_1yqm1n2o6x().s[4]++;
+    if (onCheckedChange) {
+      /* istanbul ignore next */
+      cov_1yqm1n2o6x().b[0][0]++;
+      cov_1yqm1n2o6x().s[5]++;
+      onCheckedChange(value);
+    } else
+    /* istanbul ignore next */
+    {
+      cov_1yqm1n2o6x().b[0][1]++;
+    }
+  };
+  /* istanbul ignore next */
+  cov_1yqm1n2o6x().s[6]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsxs(
+  /* istanbul ignore next */
+  "div",
+  /* istanbul ignore next */
+  {
+    className: "flex items-center justify-between",
+    children: [/*#__PURE__*/
+    /* istanbul ignore next */
+    _jsxs(
+    /* istanbul ignore next */
+    "div",
+    /* istanbul ignore next */
+    {
+      className: "flex items-center space-x-2",
+      children: [/*#__PURE__*/
+      /* istanbul ignore next */
+      _jsx(
+      /* istanbul ignore next */
+      "div",
+      /* istanbul ignore next */
+      {
+        children: localize('com_nav_show_thinking')
+      }), /*#__PURE__*/
+      /* istanbul ignore next */
+      _jsx(InfoHoverCard,
+      /* istanbul ignore next */
+      {
+        side: ESide.Bottom,
+        text: localize('com_nav_info_show_thinking')
+      })]
+    }), /*#__PURE__*/
+    /* istanbul ignore next */
+    _jsx(Switch,
+    /* istanbul ignore next */
+    {
+      id: "showThinking",
+      checked: showThinking,
+      onCheckedChange: handleCheckedChange,
+      className: "ml-4",
+      /* istanbul ignore next */
+      "data-testid": "showThinking",
+      /* istanbul ignore next */
+      "aria-label": localize('com_nav_show_thinking')
+    })]
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMXlxbTFuMm82eCIsImFjdHVhbENvdmVyYWdlIiwidXNlQXRvbSIsIlN3aXRjaCIsIkluZm9Ib3ZlckNhcmQiLCJFU2lkZSIsInNob3dUaGlua2luZ0F0b20iLCJ1c2VMb2NhbGl6ZSIsImpzeCIsIl9qc3giLCJqc3hzIiwiX2pzeHMiLCJTYXZlRHJhZnQiLCJvbkNoZWNrZWRDaGFuZ2UiLCJmIiwic2hvd1RoaW5raW5nIiwic2V0U2hvd1RoaW5raW5nIiwicyIsImxvY2FsaXplIiwiaGFuZGxlQ2hlY2tlZENoYW5nZSIsInZhbHVlIiwiYiIsImNsYXNzTmFtZSIsImNoaWxkcmVuIiwic2lkZSIsIkJvdHRvbSIsInRleHQiLCJpZCIsImNoZWNrZWQiXSwic291cmNlcyI6WyJTaG93VGhpbmtpbmcudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHVzZUF0b20gfSBmcm9tICdqb3RhaSc7XG5pbXBvcnQgeyBTd2l0Y2gsIEluZm9Ib3ZlckNhcmQsIEVTaWRlIH0gZnJvbSAnQGxpYnJlY2hhdC9jbGllbnQnO1xuaW1wb3J0IHsgc2hvd1RoaW5raW5nQXRvbSB9IGZyb20gJ34vc3RvcmUvc2hvd1RoaW5raW5nJztcbmltcG9ydCB7IHVzZUxvY2FsaXplIH0gZnJvbSAnfi9ob29rcyc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIFNhdmVEcmFmdCh7XG4gIG9uQ2hlY2tlZENoYW5nZSxcbn06IHtcbiAgb25DaGVja2VkQ2hhbmdlPzogKHZhbHVlOiBib29sZWFuKSA9PiB2b2lkO1xufSkge1xuICBjb25zdCBbc2hvd1RoaW5raW5nLCBzZXRTaG93VGhpbmtpbmddID0gdXNlQXRvbShzaG93VGhpbmtpbmdBdG9tKTtcbiAgY29uc3QgbG9jYWxpemUgPSB1c2VMb2NhbGl6ZSgpO1xuXG4gIGNvbnN0IGhhbmRsZUNoZWNrZWRDaGFuZ2UgPSAodmFsdWU6IGJvb2xlYW4pID0+IHtcbiAgICBzZXRTaG93VGhpbmtpbmcodmFsdWUpO1xuICAgIGlmIChvbkNoZWNrZWRDaGFuZ2UpIHtcbiAgICAgIG9uQ2hlY2tlZENoYW5nZSh2YWx1ZSk7XG4gICAgfVxuICB9O1xuXG4gIHJldHVybiAoXG4gICAgPGRpdiBjbGFzc05hbWU9XCJmbGV4IGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWJldHdlZW5cIj5cbiAgICAgIDxkaXYgY2xhc3NOYW1lPVwiZmxleCBpdGVtcy1jZW50ZXIgc3BhY2UteC0yXCI+XG4gICAgICAgIDxkaXY+e2xvY2FsaXplKCdjb21fbmF2X3Nob3dfdGhpbmtpbmcnKX08L2Rpdj5cbiAgICAgICAgPEluZm9Ib3ZlckNhcmQgc2lkZT17RVNpZGUuQm90dG9tfSB0ZXh0PXtsb2NhbGl6ZSgnY29tX25hdl9pbmZvX3Nob3dfdGhpbmtpbmcnKX0gLz5cbiAgICAgIDwvZGl2PlxuICAgICAgPFN3aXRjaFxuICAgICAgICBpZD1cInNob3dUaGlua2luZ1wiXG4gICAgICAgIGNoZWNrZWQ9e3Nob3dUaGlua2luZ31cbiAgICAgICAgb25DaGVja2VkQ2hhbmdlPXtoYW5kbGVDaGVja2VkQ2hhbmdlfVxuICAgICAgICBjbGFzc05hbWU9XCJtbC00XCJcbiAgICAgICAgZGF0YS10ZXN0aWQ9XCJzaG93VGhpbmtpbmdcIlxuICAgICAgICBhcmlhLWxhYmVsPXtsb2NhbGl6ZSgnY29tX25hdl9zaG93X3RoaW5raW5nJyl9XG4gICAgICAvPlxuICAgIDwvZGl2PlxuICApO1xufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsY0FBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsY0FBQTtBQWZaLFNBQVNFLE9BQU8sUUFBUSxPQUFPO0FBQy9CLFNBQVNDLE1BQU0sRUFBRUMsYUFBYSxFQUFFQyxLQUFLLFFBQVEsbUJBQW1CO0FBQ2hFLFNBQVNDLGdCQUFnQixRQUFRLGdDQUFzQjtBQUN2RCxTQUFTQyxXQUFXLFFBQVEsbUJBQVM7QUFBQztBQUFBLFNBQUFDLEdBQUEsSUFBQUMsSUFBQSxFQUFBQyxJQUFBLElBQUFDLEtBQUE7QUFFdEMsZUFBZSxTQUFTQyxTQUFTQSxDQUFDO0VBQ2hDQztBQUdGLENBQUMsRUFBRTtFQUFBO0VBQUFiLGNBQUEsR0FBQWMsQ0FBQTtFQUNELE1BQU0sQ0FBQ0MsWUFBWSxFQUFFQyxlQUFlLENBQUM7RUFBQTtFQUFBLENBQUFoQixjQUFBLEdBQUFpQixDQUFBLE9BQUdmLE9BQU8sQ0FBQ0ksZ0JBQWdCLENBQUM7RUFDakUsTUFBTVksUUFBUTtFQUFBO0VBQUEsQ0FBQWxCLGNBQUEsR0FBQWlCLENBQUEsT0FBR1YsV0FBVyxDQUFDLENBQUM7RUFBQztFQUFBUCxjQUFBLEdBQUFpQixDQUFBO0VBRS9CLE1BQU1FLG1CQUFtQixHQUFJQyxLQUFjLElBQUs7SUFBQTtJQUFBcEIsY0FBQSxHQUFBYyxDQUFBO0lBQUFkLGNBQUEsR0FBQWlCLENBQUE7SUFDOUNELGVBQWUsQ0FBQ0ksS0FBSyxDQUFDO0lBQUM7SUFBQXBCLGNBQUEsR0FBQWlCLENBQUE7SUFDdkIsSUFBSUosZUFBZSxFQUFFO01BQUE7TUFBQWIsY0FBQSxHQUFBcUIsQ0FBQTtNQUFBckIsY0FBQSxHQUFBaUIsQ0FBQTtNQUNuQkosZUFBZSxDQUFDTyxLQUFLLENBQUM7SUFDeEIsQ0FBQztJQUFBO0lBQUE7TUFBQXBCLGNBQUEsR0FBQXFCLENBQUE7SUFBQTtFQUNILENBQUM7RUFBQztFQUFBckIsY0FBQSxHQUFBaUIsQ0FBQTtFQUVGLG9CQUNFLDJCQUFBTixLQUFBO0VBQUE7RUFBQTtFQUFBO0VBQUE7SUFBS1csU0FBUyxFQUFDLG1DQUFtQztJQUFBQyxRQUFBO0lBQ2hEO0lBQUFaLEtBQUE7SUFBQTtJQUFBO0lBQUE7SUFBQTtNQUFLVyxTQUFTLEVBQUMsNkJBQTZCO01BQUFDLFFBQUE7TUFDMUM7TUFBQWQsSUFBQTtNQUFBO01BQUE7TUFBQTtNQUFBO1FBQUFjLFFBQUEsRUFBTUwsUUFBUSxDQUFDLHVCQUF1QjtNQUFDLENBQU0sQ0FBQztNQUM5QztNQUFBVCxJQUFBLENBQUNMLGFBQWE7TUFBQTtNQUFBO1FBQUNvQixJQUFJLEVBQUVuQixLQUFLLENBQUNvQixNQUFPO1FBQUNDLElBQUksRUFBRVIsUUFBUSxDQUFDLDRCQUE0QjtNQUFFLENBQUUsQ0FBQztJQUFBLENBQ2hGLENBQUM7SUFDTjtJQUFBVCxJQUFBLENBQUNOLE1BQU07SUFBQTtJQUFBO01BQ0x3QixFQUFFLEVBQUMsY0FBYztNQUNqQkMsT0FBTyxFQUFFYixZQUFhO01BQ3RCRixlQUFlLEVBQUVNLG1CQUFvQjtNQUNyQ0csU0FBUyxFQUFDLE1BQU07TUFDaEI7TUFBQSxlQUFZLGNBQWM7TUFDMUI7TUFBQSxjQUFZSixRQUFRLENBQUMsdUJBQXVCO0lBQUUsQ0FDL0MsQ0FBQztFQUFBLENBQ0MsQ0FBQztBQUVWIiwiaWdub3JlTGlzdCI6W119

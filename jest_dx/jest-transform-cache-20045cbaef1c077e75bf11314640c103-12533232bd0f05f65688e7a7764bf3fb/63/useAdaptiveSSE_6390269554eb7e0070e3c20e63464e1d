@@ -1,0 +1,363 @@
+f8ee9c27c22680ee2f8354956fe83b14
+/* istanbul ignore next */
+function cov_19o5nuiuii() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/hooks/SSE/useAdaptiveSSE.ts";
+  var hash = "27b56e8ed5672f266be9ee61b778cd837abc60b1";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/hooks/SSE/useAdaptiveSSE.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 25,
+          column: 19
+        },
+        end: {
+          line: 25,
+          column: 53
+        }
+      },
+      "1": {
+        start: {
+          line: 26,
+          column: 23
+        },
+        end: {
+          line: 26,
+          column: 61
+        }
+      },
+      "2": {
+        start: {
+          line: 27,
+          column: 25
+        },
+        end: {
+          line: 27,
+          column: 49
+        }
+      },
+      "3": {
+        start: {
+          line: 28,
+          column: 23
+        },
+        end: {
+          line: 28,
+          column: 59
+        }
+      },
+      "4": {
+        start: {
+          line: 29,
+          column: 27
+        },
+        end: {
+          line: 29,
+          column: 40
+        }
+      },
+      "5": {
+        start: {
+          line: 31,
+          column: 2
+        },
+        end: {
+          line: 31,
+          column: 86
+        }
+      },
+      "6": {
+        start: {
+          line: 33,
+          column: 23
+        },
+        end: {
+          line: 38,
+          column: 3
+        }
+      },
+      "7": {
+        start: {
+          line: 40,
+          column: 2
+        },
+        end: {
+          line: 40,
+          column: 40
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "useAdaptiveSSE",
+        decl: {
+          start: {
+            line: 19,
+            column: 24
+          },
+          end: {
+            line: 19,
+            column: 38
+          }
+        },
+        loc: {
+          start: {
+            line: 24,
+            column: 2
+          },
+          end: {
+            line: 41,
+            column: 1
+          }
+        },
+        line: 24
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 22,
+            column: 2
+          },
+          end: {
+            line: 22,
+            column: 24
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 22,
+            column: 19
+          },
+          end: {
+            line: 22,
+            column: 24
+          }
+        }],
+        line: 22
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 23,
+            column: 2
+          },
+          end: {
+            line: 23,
+            column: 14
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 23,
+            column: 13
+          },
+          end: {
+            line: 23,
+            column: 14
+          }
+        }],
+        line: 23
+      },
+      "2": {
+        loc: {
+          start: {
+            line: 27,
+            column: 25
+          },
+          end: {
+            line: 27,
+            column: 49
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 27,
+            column: 25
+          },
+          end: {
+            line: 27,
+            column: 37
+          }
+        }, {
+          start: {
+            line: 27,
+            column: 41
+          },
+          end: {
+            line: 27,
+            column: 49
+          }
+        }],
+        line: 27
+      },
+      "3": {
+        loc: {
+          start: {
+            line: 31,
+            column: 9
+          },
+          end: {
+            line: 31,
+            column: 45
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 31,
+            column: 28
+          },
+          end: {
+            line: 31,
+            column: 32
+          }
+        }, {
+          start: {
+            line: 31,
+            column: 35
+          },
+          end: {
+            line: 31,
+            column: 45
+          }
+        }],
+        line: 31
+      },
+      "4": {
+        loc: {
+          start: {
+            line: 34,
+            column: 4
+          },
+          end: {
+            line: 34,
+            column: 40
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 34,
+            column: 23
+          },
+          end: {
+            line: 34,
+            column: 33
+          }
+        }, {
+          start: {
+            line: 34,
+            column: 36
+          },
+          end: {
+            line: 34,
+            column: 40
+          }
+        }],
+        line: 34
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {
+      "0": [0],
+      "1": [0],
+      "2": [0, 0],
+      "3": [0, 0],
+      "4": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "27b56e8ed5672f266be9ee61b778cd837abc60b1"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_19o5nuiuii = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_19o5nuiuii();
+import { isAssistantsEndpoint } from 'librechat-data-provider';
+import useResumableSSE from './useResumableSSE';
+import useSSE from './useSSE';
+/**
+ * Adaptive SSE hook that switches between standard and resumable modes.
+ * Uses resumable streams by default, falls back to standard SSE for assistants endpoints.
+ *
+ * Note: Both hooks are always called to comply with React's Rules of Hooks.
+ * We pass null submission to the inactive one.
+ */
+export default function useAdaptiveSSE(submission, chatHelpers, isAddedRequest =
+/* istanbul ignore next */
+(cov_19o5nuiuii().b[0][0]++, false), runIndex =
+/* istanbul ignore next */
+(cov_19o5nuiuii().b[1][0]++, 0)) {
+  /* istanbul ignore next */
+  cov_19o5nuiuii().f[0]++;
+  const endpoint =
+  /* istanbul ignore next */
+  (cov_19o5nuiuii().s[0]++, submission?.conversation?.endpoint);
+  const endpointType =
+  /* istanbul ignore next */
+  (cov_19o5nuiuii().s[1]++, submission?.conversation?.endpointType);
+  const actualEndpoint =
+  /* istanbul ignore next */
+  (cov_19o5nuiuii().s[2]++,
+  /* istanbul ignore next */
+  (cov_19o5nuiuii().b[2][0]++, endpointType) ??
+  /* istanbul ignore next */
+  (cov_19o5nuiuii().b[2][1]++, endpoint));
+  const isAssistants =
+  /* istanbul ignore next */
+  (cov_19o5nuiuii().s[3]++, isAssistantsEndpoint(actualEndpoint));
+  const resumableEnabled =
+  /* istanbul ignore next */
+  (cov_19o5nuiuii().s[4]++, !isAssistants);
+  /* istanbul ignore next */
+  cov_19o5nuiuii().s[5]++;
+  useSSE(resumableEnabled ?
+  /* istanbul ignore next */
+  (cov_19o5nuiuii().b[3][0]++, null) :
+  /* istanbul ignore next */
+  (cov_19o5nuiuii().b[3][1]++, submission), chatHelpers, isAddedRequest, runIndex);
+  const {
+    streamId
+  } =
+  /* istanbul ignore next */
+  (cov_19o5nuiuii().s[6]++, useResumableSSE(resumableEnabled ?
+  /* istanbul ignore next */
+  (cov_19o5nuiuii().b[4][0]++, submission) :
+  /* istanbul ignore next */
+  (cov_19o5nuiuii().b[4][1]++, null), chatHelpers, isAddedRequest, runIndex));
+  /* istanbul ignore next */
+  cov_19o5nuiuii().s[7]++;
+  return {
+    streamId,
+    resumableEnabled
+  };
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMTlvNW51aXVpaSIsImFjdHVhbENvdmVyYWdlIiwiaXNBc3Npc3RhbnRzRW5kcG9pbnQiLCJ1c2VSZXN1bWFibGVTU0UiLCJ1c2VTU0UiLCJ1c2VBZGFwdGl2ZVNTRSIsInN1Ym1pc3Npb24iLCJjaGF0SGVscGVycyIsImlzQWRkZWRSZXF1ZXN0IiwiYiIsInJ1bkluZGV4IiwiZiIsImVuZHBvaW50IiwicyIsImNvbnZlcnNhdGlvbiIsImVuZHBvaW50VHlwZSIsImFjdHVhbEVuZHBvaW50IiwiaXNBc3Npc3RhbnRzIiwicmVzdW1hYmxlRW5hYmxlZCIsInN0cmVhbUlkIl0sInNvdXJjZXMiOlsidXNlQWRhcHRpdmVTU0UudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgaXNBc3Npc3RhbnRzRW5kcG9pbnQgfSBmcm9tICdsaWJyZWNoYXQtZGF0YS1wcm92aWRlcic7XG5pbXBvcnQgdHlwZSB7IFRTdWJtaXNzaW9uIH0gZnJvbSAnbGlicmVjaGF0LWRhdGEtcHJvdmlkZXInO1xuaW1wb3J0IHR5cGUgeyBFdmVudEhhbmRsZXJQYXJhbXMgfSBmcm9tICcuL3VzZUV2ZW50SGFuZGxlcnMnO1xuaW1wb3J0IHVzZVJlc3VtYWJsZVNTRSBmcm9tICcuL3VzZVJlc3VtYWJsZVNTRSc7XG5pbXBvcnQgdXNlU1NFIGZyb20gJy4vdXNlU1NFJztcblxudHlwZSBDaGF0SGVscGVycyA9IFBpY2s8XG4gIEV2ZW50SGFuZGxlclBhcmFtcyxcbiAgJ3NldE1lc3NhZ2VzJyB8ICdnZXRNZXNzYWdlcycgfCAnc2V0Q29udmVyc2F0aW9uJyB8ICdzZXRJc1N1Ym1pdHRpbmcnIHwgJ25ld0NvbnZlcnNhdGlvbidcbj47XG5cbi8qKlxuICogQWRhcHRpdmUgU1NFIGhvb2sgdGhhdCBzd2l0Y2hlcyBiZXR3ZWVuIHN0YW5kYXJkIGFuZCByZXN1bWFibGUgbW9kZXMuXG4gKiBVc2VzIHJlc3VtYWJsZSBzdHJlYW1zIGJ5IGRlZmF1bHQsIGZhbGxzIGJhY2sgdG8gc3RhbmRhcmQgU1NFIGZvciBhc3Npc3RhbnRzIGVuZHBvaW50cy5cbiAqXG4gKiBOb3RlOiBCb3RoIGhvb2tzIGFyZSBhbHdheXMgY2FsbGVkIHRvIGNvbXBseSB3aXRoIFJlYWN0J3MgUnVsZXMgb2YgSG9va3MuXG4gKiBXZSBwYXNzIG51bGwgc3VibWlzc2lvbiB0byB0aGUgaW5hY3RpdmUgb25lLlxuICovXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiB1c2VBZGFwdGl2ZVNTRShcbiAgc3VibWlzc2lvbjogVFN1Ym1pc3Npb24gfCBudWxsLFxuICBjaGF0SGVscGVyczogQ2hhdEhlbHBlcnMsXG4gIGlzQWRkZWRSZXF1ZXN0ID0gZmFsc2UsXG4gIHJ1bkluZGV4ID0gMCxcbikge1xuICBjb25zdCBlbmRwb2ludCA9IHN1Ym1pc3Npb24/LmNvbnZlcnNhdGlvbj8uZW5kcG9pbnQ7XG4gIGNvbnN0IGVuZHBvaW50VHlwZSA9IHN1Ym1pc3Npb24/LmNvbnZlcnNhdGlvbj8uZW5kcG9pbnRUeXBlO1xuICBjb25zdCBhY3R1YWxFbmRwb2ludCA9IGVuZHBvaW50VHlwZSA/PyBlbmRwb2ludDtcbiAgY29uc3QgaXNBc3Npc3RhbnRzID0gaXNBc3Npc3RhbnRzRW5kcG9pbnQoYWN0dWFsRW5kcG9pbnQpO1xuICBjb25zdCByZXN1bWFibGVFbmFibGVkID0gIWlzQXNzaXN0YW50cztcblxuICB1c2VTU0UocmVzdW1hYmxlRW5hYmxlZCA/IG51bGwgOiBzdWJtaXNzaW9uLCBjaGF0SGVscGVycywgaXNBZGRlZFJlcXVlc3QsIHJ1bkluZGV4KTtcblxuICBjb25zdCB7IHN0cmVhbUlkIH0gPSB1c2VSZXN1bWFibGVTU0UoXG4gICAgcmVzdW1hYmxlRW5hYmxlZCA/IHN1Ym1pc3Npb24gOiBudWxsLFxuICAgIGNoYXRIZWxwZXJzLFxuICAgIGlzQWRkZWRSZXF1ZXN0LFxuICAgIHJ1bkluZGV4LFxuICApO1xuXG4gIHJldHVybiB7IHN0cmVhbUlkLCByZXN1bWFibGVFbmFibGVkIH07XG59XG4iXSwibWFwcGluZ3Mi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

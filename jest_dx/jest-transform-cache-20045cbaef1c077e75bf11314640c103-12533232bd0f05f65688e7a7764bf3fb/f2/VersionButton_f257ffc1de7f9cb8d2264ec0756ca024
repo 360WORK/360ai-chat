@@ -1,0 +1,174 @@
+33ab8ce87720880939d26b9a3f0377a8
+/* istanbul ignore next */
+function cov_hxlq9506i() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/SidePanel/Agents/Version/VersionButton.tsx";
+  var hash = "05534a728aa5200906eefbefc30a871c357e1e7c";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/SidePanel/Agents/Version/VersionButton.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 10,
+          column: 22
+        },
+        end: {
+          line: 25,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 11,
+          column: 19
+        },
+        end: {
+          line: 11,
+          column: 32
+        }
+      },
+      "2": {
+        start: {
+          line: 13,
+          column: 2
+        },
+        end: {
+          line: 24,
+          column: 4
+        }
+      },
+      "3": {
+        start: {
+          line: 18,
+          column: 21
+        },
+        end: {
+          line: 18,
+          column: 50
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 10,
+            column: 22
+          },
+          end: {
+            line: 10,
+            column: 23
+          }
+        },
+        loc: {
+          start: {
+            line: 10,
+            column: 66
+          },
+          end: {
+            line: 25,
+            column: 1
+          }
+        },
+        line: 10
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 18,
+            column: 15
+          },
+          end: {
+            line: 18,
+            column: 16
+          }
+        },
+        loc: {
+          start: {
+            line: 18,
+            column: 21
+          },
+          end: {
+            line: 18,
+            column: 50
+          }
+        },
+        line: 18
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "05534a728aa5200906eefbefc30a871c357e1e7c"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_hxlq9506i = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_hxlq9506i();
+import { History } from 'lucide-react';
+import { Button } from '@librechat/client';
+import { useLocalize } from "../../../../hooks";
+import { Panel } from "../../../../common";
+/* istanbul ignore next */
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+cov_hxlq9506i().s[0]++;
+const VersionButton = ({
+  setActivePanel
+}) => {
+  /* istanbul ignore next */
+  cov_hxlq9506i().f[0]++;
+  const localize =
+  /* istanbul ignore next */
+  (cov_hxlq9506i().s[1]++, useLocalize());
+  /* istanbul ignore next */
+  cov_hxlq9506i().s[2]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsxs(Button,
+  /* istanbul ignore next */
+  {
+    size: 'sm',
+    variant: 'outline',
+    className: "btn btn-neutral border-token-border-light relative h-9 w-full gap-1 rounded-lg font-medium",
+    onClick: () => {
+      /* istanbul ignore next */
+      cov_hxlq9506i().f[1]++;
+      cov_hxlq9506i().s[3]++;
+      return setActivePanel(Panel.version);
+    },
+    /* istanbul ignore next */
+    "aria-label": localize('com_ui_agent_version'),
+    children: [/*#__PURE__*/
+    /* istanbul ignore next */
+    _jsx(History,
+    /* istanbul ignore next */
+    {
+      className: "h-4 w-4 cursor-pointer",
+      /* istanbul ignore next */
+      "aria-hidden": "true"
+    }), localize('com_ui_agent_version')]
+  });
+};
+export default VersionButton;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfaHhscTk1MDZpIiwiYWN0dWFsQ292ZXJhZ2UiLCJIaXN0b3J5IiwiQnV0dG9uIiwidXNlTG9jYWxpemUiLCJQYW5lbCIsImpzeCIsIl9qc3giLCJqc3hzIiwiX2pzeHMiLCJzIiwiVmVyc2lvbkJ1dHRvbiIsInNldEFjdGl2ZVBhbmVsIiwiZiIsImxvY2FsaXplIiwic2l6ZSIsInZhcmlhbnQiLCJjbGFzc05hbWUiLCJvbkNsaWNrIiwidmVyc2lvbiIsImNoaWxkcmVuIl0sInNvdXJjZXMiOlsiVmVyc2lvbkJ1dHRvbi50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgSGlzdG9yeSB9IGZyb20gJ2x1Y2lkZS1yZWFjdCc7XG5pbXBvcnQgeyBCdXR0b24gfSBmcm9tICdAbGlicmVjaGF0L2NsaWVudCc7XG5pbXBvcnQgeyB1c2VMb2NhbGl6ZSB9IGZyb20gJ34vaG9va3MnO1xuaW1wb3J0IHsgUGFuZWwgfSBmcm9tICd+L2NvbW1vbic7XG5cbmludGVyZmFjZSBWZXJzaW9uQnV0dG9uUHJvcHMge1xuICBzZXRBY3RpdmVQYW5lbDogKHBhbmVsOiBQYW5lbCkgPT4gdm9pZDtcbn1cblxuY29uc3QgVmVyc2lvbkJ1dHRvbiA9ICh7IHNldEFjdGl2ZVBhbmVsIH06IFZlcnNpb25CdXR0b25Qcm9wcykgPT4ge1xuICBjb25zdCBsb2NhbGl6ZSA9IHVzZUxvY2FsaXplKCk7XG5cbiAgcmV0dXJuIChcbiAgICA8QnV0dG9uXG4gICAgICBzaXplPXsnc20nfVxuICAgICAgdmFyaWFudD17J291dGxpbmUnfVxuICAgICAgY2xhc3NOYW1lPVwiYnRuIGJ0bi1uZXV0cmFsIGJvcmRlci10b2tlbi1ib3JkZXItbGlnaHQgcmVsYXRpdmUgaC05IHctZnVsbCBnYXAtMSByb3VuZGVkLWxnIGZvbnQtbWVkaXVtXCJcbiAgICAgIG9uQ2xpY2s9eygpID0+IHNldEFjdGl2ZVBhbmVsKFBhbmVsLnZlcnNpb24pfVxuICAgICAgYXJpYS1sYWJlbD17bG9jYWxpemUoJ2NvbV91aV9hZ2VudF92ZXJzaW9uJyl9XG4gICAgPlxuICAgICAgPEhpc3RvcnkgY2xhc3NOYW1lPVwiaC00IHctNCBjdXJzb3ItcG9pbnRlclwiIGFyaWEtaGlkZGVuPVwidHJ1ZVwiIC8+XG4gICAgICB7bG9jYWxpemUoJ2NvbV91aV9hZ2VudF92ZXJzaW9uJyl9XG4gICAgPC9CdXR0b24+XG4gICk7XG59O1xuXG5leHBvcnQgZGVmYXVsdCBWZXJzaW9uQnV0dG9uO1xuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsYUFBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsYUFBQTtBQWZaLFNBQVNFLE9BQU8sUUFBUSxjQUFjO0FBQ3RDLFNBQVNDLE1BQU0sUUFBUSxtQkFBbUI7QUFDMUMsU0FBU0MsV0FBVyxRQUFRLG1CQUFTO0FBQ3JDLFNBQVNDLEtBQUssUUFBUSxvQkFBVTtBQUFDO0FBQUEsU0FBQUMsR0FBQSxJQUFBQyxJQUFBLEVBQUFDLElBQUEsSUFBQUMsS0FBQTtBQUFBVCxhQUFBLEdBQUFVLENBQUE7QUFNakMsTUFBTUMsYUFBYSxHQUFHQSxDQUFDO0VBQUVDO0FBQW1DLENBQUMsS0FBSztFQUFBO0VBQUFaLGFBQUEsR0FBQWEsQ0FBQTtFQUNoRSxNQUFNQyxRQUFRO0VBQUE7RUFBQSxDQUFBZCxhQUFBLEdBQUFVLENBQUEsT0FBR04sV0FBVyxDQUFDLENBQUM7RUFBQztFQUFBSixhQUFBLEdBQUFVLENBQUE7RUFFL0Isb0JBQ0UsMkJBQUFELEtBQUEsQ0FBQ04sTUFBTTtFQUFBO0VBQUE7SUFDTFksSUFBSSxFQUFFLElBQUs7SUFDWEMsT0FBTyxFQUFFLFNBQVU7SUFDbkJDLFNBQVMsRUFBQyw0RkFBNEY7SUFDdEdDLE9BQU8sRUFBRUEsQ0FBQSxLQUFNO01BQUE7TUFBQWxCLGFBQUEsR0FBQWEsQ0FBQTtNQUFBYixhQUFBLEdBQUFVLENBQUE7TUFBQSxPQUFBRSxjQUFjLENBQUNQLEtBQUssQ0FBQ2MsT0FBTyxDQUFDO0lBQUQsQ0FBRTtJQUM3QztJQUFBLGNBQVlMLFFBQVEsQ0FBQyxzQkFBc0IsQ0FBRTtJQUFBTSxRQUFBO0lBRTdDO0lBQUFiLElBQUEsQ0FBQ0wsT0FBTztJQUFBO0lBQUE7TUFBQ2UsU0FBUyxFQUFDLHdCQUF3QjtNQUFDO01BQUEsZUFBWTtJQUFNLENBQUUsQ0FBQyxFQUNoRUgsUUFBUSxDQUFDLHNCQUFzQixDQUFDO0VBQUEsQ0FDM0IsQ0FBQztBQUViLENBQUM7QUFFRCxlQUFlSCxhQUFhIiwiaWdub3JlTGlzdCI6W119

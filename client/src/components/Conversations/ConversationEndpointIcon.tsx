@@ -1,11 +1,6 @@
 import { memo } from 'react';
-import type { TConversation, TEndpointsConfig } from 'librechat-data-provider';
-import { useAgentsMapContext, useAssistantsMapContext } from '~/Providers';
-import EndpointIcon from '~/components/Endpoints/EndpointIcon';
+import type { TConversation } from 'librechat-data-provider';
 import { areConversationIconFieldsEqual } from './utils';
-import { useGetEndpointsQuery } from '~/data-provider';
-
-const emptyEndpointsConfig = {} as TEndpointsConfig;
 
 type EndpointIconContext = 'message' | 'nav' | 'landing' | 'menu-item';
 
@@ -16,26 +11,18 @@ type ConversationEndpointIconProps = {
   size?: number;
 };
 
-function ConversationEndpointIcon({
-  conversation,
-  className,
-  context = 'menu-item',
-  size = 20,
-}: ConversationEndpointIconProps) {
-  const { data: endpointsConfig = emptyEndpointsConfig } = useGetEndpointsQuery();
-  const agentsMap = useAgentsMapContext();
-  const assistantMap = useAssistantsMapContext();
-
+function ConversationEndpointIcon({ className, size = 20 }: ConversationEndpointIconProps) {
   return (
-    <EndpointIcon
-      conversation={conversation}
-      endpointsConfig={endpointsConfig}
-      assistantMap={assistantMap}
-      agentsMap={agentsMap}
-      className={className}
-      size={size}
-      context={context}
-    />
+    <div
+      style={{ width: size, height: size }}
+      className={`flex flex-shrink-0 items-center justify-center overflow-hidden ${className ?? ''}`}
+    >
+      <img
+        src="assets/360-mark.png"
+        alt="360AI"
+        className="h-full w-full object-contain dark:invert"
+      />
+    </div>
   );
 }
 

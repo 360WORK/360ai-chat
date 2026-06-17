@@ -1,0 +1,206 @@
+994cba06882dd2ce380ac3706a0a044b
+/* istanbul ignore next */
+function cov_4n95aupzg() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Chat/Messages/MessageAudio.tsx";
+  var hash = "35b48f41b475db9c335aeb8bc53d02dfa53f18e7";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Chat/Messages/MessageAudio.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 9,
+          column: 20
+        },
+        end: {
+          line: 9,
+          column: 59
+        }
+      },
+      "1": {
+        start: {
+          line: 11,
+          column: 24
+        },
+        end: {
+          line: 14,
+          column: 3
+        }
+      },
+      "2": {
+        start: {
+          line: 16,
+          column: 22
+        },
+        end: {
+          line: 16,
+          column: 46
+        }
+      },
+      "3": {
+        start: {
+          line: 17,
+          column: 2
+        },
+        end: {
+          line: 19,
+          column: 3
+        }
+      },
+      "4": {
+        start: {
+          line: 18,
+          column: 4
+        },
+        end: {
+          line: 18,
+          column: 16
+        }
+      },
+      "5": {
+        start: {
+          line: 20,
+          column: 2
+        },
+        end: {
+          line: 20,
+          column: 36
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "MessageAudio",
+        decl: {
+          start: {
+            line: 8,
+            column: 9
+          },
+          end: {
+            line: 8,
+            column: 21
+          }
+        },
+        loc: {
+          start: {
+            line: 8,
+            column: 44
+          },
+          end: {
+            line: 21,
+            column: 1
+          }
+        },
+        line: 8
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 17,
+            column: 2
+          },
+          end: {
+            line: 19,
+            column: 3
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 17,
+            column: 2
+          },
+          end: {
+            line: 19,
+            column: 3
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 17
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {
+      "0": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "35b48f41b475db9c335aeb8bc53d02dfa53f18e7"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_4n95aupzg = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_4n95aupzg();
+import { memo } from 'react';
+import { useRecoilValue } from 'recoil';
+import { BrowserTTS, ExternalTTS } from "../../Audio/TTS";
+import { TTSEndpoints } from "../../../common";
+import store from "../../../store";
+/* istanbul ignore next */
+import { jsx as _jsx } from "react/jsx-runtime";
+function MessageAudio(props) {
+  /* istanbul ignore next */
+  cov_4n95aupzg().f[0]++;
+  const engineTTS =
+  /* istanbul ignore next */
+  (cov_4n95aupzg().s[0]++, useRecoilValue(store.engineTTS));
+  const TTSComponents =
+  /* istanbul ignore next */
+  (cov_4n95aupzg().s[1]++, {
+    [TTSEndpoints.browser]: BrowserTTS,
+    [TTSEndpoints.external]: ExternalTTS
+  });
+  const SelectedTTS =
+  /* istanbul ignore next */
+  (cov_4n95aupzg().s[2]++, TTSComponents[engineTTS]);
+  /* istanbul ignore next */
+  cov_4n95aupzg().s[3]++;
+  if (!SelectedTTS) {
+    /* istanbul ignore next */
+    cov_4n95aupzg().b[0][0]++;
+    cov_4n95aupzg().s[4]++;
+    return null;
+  } else
+  /* istanbul ignore next */
+  {
+    cov_4n95aupzg().b[0][1]++;
+  }
+  cov_4n95aupzg().s[5]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(SelectedTTS,
+  /* istanbul ignore next */
+  {
+    ...props
+  });
+}
+export default /*#__PURE__*/memo(MessageAudio);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfNG45NWF1cHpnIiwiYWN0dWFsQ292ZXJhZ2UiLCJtZW1vIiwidXNlUmVjb2lsVmFsdWUiLCJCcm93c2VyVFRTIiwiRXh0ZXJuYWxUVFMiLCJUVFNFbmRwb2ludHMiLCJzdG9yZSIsImpzeCIsIl9qc3giLCJNZXNzYWdlQXVkaW8iLCJwcm9wcyIsImYiLCJlbmdpbmVUVFMiLCJzIiwiVFRTQ29tcG9uZW50cyIsImJyb3dzZXIiLCJleHRlcm5hbCIsIlNlbGVjdGVkVFRTIiwiYiJdLCJzb3VyY2VzIjpbIk1lc3NhZ2VBdWRpby50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgbWVtbyB9IGZyb20gJ3JlYWN0JztcbmltcG9ydCB7IHVzZVJlY29pbFZhbHVlIH0gZnJvbSAncmVjb2lsJztcbmltcG9ydCB0eXBlIHsgVE1lc3NhZ2VBdWRpbyB9IGZyb20gJ34vY29tbW9uJztcbmltcG9ydCB7IEJyb3dzZXJUVFMsIEV4dGVybmFsVFRTIH0gZnJvbSAnfi9jb21wb25lbnRzL0F1ZGlvL1RUUyc7XG5pbXBvcnQgeyBUVFNFbmRwb2ludHMgfSBmcm9tICd+L2NvbW1vbic7XG5pbXBvcnQgc3RvcmUgZnJvbSAnfi9zdG9yZSc7XG5cbmZ1bmN0aW9uIE1lc3NhZ2VBdWRpbyhwcm9wczogVE1lc3NhZ2VBdWRpbykge1xuICBjb25zdCBlbmdpbmVUVFMgPSB1c2VSZWNvaWxWYWx1ZTxzdHJpbmc+KHN0b3JlLmVuZ2luZVRUUyk7XG5cbiAgY29uc3QgVFRTQ29tcG9uZW50cyA9IHtcbiAgICBbVFRTRW5kcG9pbnRzLmJyb3dzZXJdOiBCcm93c2VyVFRTLFxuICAgIFtUVFNFbmRwb2ludHMuZXh0ZXJuYWxdOiBFeHRlcm5hbFRUUyxcbiAgfTtcblxuICBjb25zdCBTZWxlY3RlZFRUUyA9IFRUU0NvbXBvbmVudHNbZW5naW5lVFRTXTtcbiAgaWYgKCFTZWxlY3RlZFRUUykge1xuICAgIHJldHVybiBudWxsO1xuICB9XG4gIHJldHVybiA8U2VsZWN0ZWRUVFMgey4uLnByb3BzfSAvPjtcbn1cblxuZXhwb3J0IGRlZmF1bHQgbWVtbyhNZXNzYWdlQXVkaW8pO1xuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsYUFBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsYUFBQTtBQWZaLFNBQVNFLElBQUksUUFBUSxPQUFPO0FBQzVCLFNBQVNDLGNBQWMsUUFBUSxRQUFRO0FBRXZDLFNBQVNDLFVBQVUsRUFBRUMsV0FBVyxRQUFRLGlCQUF3QjtBQUNoRSxTQUFTQyxZQUFZLFFBQVEsaUJBQVU7QUFDdkMsT0FBT0MsS0FBSyxNQUFNLGdCQUFTO0FBQUM7QUFBQSxTQUFBQyxHQUFBLElBQUFDLElBQUE7QUFFNUIsU0FBU0MsWUFBWUEsQ0FBQ0MsS0FBb0IsRUFBRTtFQUFBO0VBQUFYLGFBQUEsR0FBQVksQ0FBQTtFQUMxQyxNQUFNQyxTQUFTO0VBQUE7RUFBQSxDQUFBYixhQUFBLEdBQUFjLENBQUEsT0FBR1gsY0FBYyxDQUFTSSxLQUFLLENBQUNNLFNBQVMsQ0FBQztFQUV6RCxNQUFNRSxhQUFhO0VBQUE7RUFBQSxDQUFBZixhQUFBLEdBQUFjLENBQUEsT0FBRztJQUNwQixDQUFDUixZQUFZLENBQUNVLE9BQU8sR0FBR1osVUFBVTtJQUNsQyxDQUFDRSxZQUFZLENBQUNXLFFBQVEsR0FBR1o7RUFDM0IsQ0FBQztFQUVELE1BQU1hLFdBQVc7RUFBQTtFQUFBLENBQUFsQixhQUFBLEdBQUFjLENBQUEsT0FBR0MsYUFBYSxDQUFDRixTQUFTLENBQUM7RUFBQztFQUFBYixhQUFBLEdBQUFjLENBQUE7RUFDN0MsSUFBSSxDQUFDSSxXQUFXLEVBQUU7SUFBQTtJQUFBbEIsYUFBQSxHQUFBbUIsQ0FBQTtJQUFBbkIsYUFBQSxHQUFBYyxDQUFBO0lBQ2hCLE9BQU8sSUFBSTtFQUNiLENBQUM7RUFBQTtFQUFBO0lBQUFkLGFBQUEsR0FBQW1CLENBQUE7RUFBQTtFQUFBbkIsYUFBQSxHQUFBYyxDQUFBO0VBQ0Qsb0JBQU8sMkJBQUFMLElBQUEsQ0FBQ1MsV0FBVztFQUFBO0VBQUE7SUFBQSxHQUFLUDtFQUFLLENBQUcsQ0FBQztBQUNuQztBQUVBLDRCQUFlVCxJQUFJLENBQUNRLFlBQVksQ0FBQyIsImlnbm9yZUxpc3QiOltdfQ==

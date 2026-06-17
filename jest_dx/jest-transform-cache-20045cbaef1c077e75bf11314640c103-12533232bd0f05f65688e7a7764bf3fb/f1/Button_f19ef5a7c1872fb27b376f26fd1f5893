@@ -1,0 +1,162 @@
+2d8018a8462412749bbf8360365059ce
+/* istanbul ignore next */
+function cov_26ruljf6jz() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Input/Generations/Button.tsx";
+  var hash = "980ece125740c9566c49cb2bc017d1fb5c29f8a7";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Input/Generations/Button.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 14,
+          column: 2
+        },
+        end: {
+          line: 26,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "Button",
+        decl: {
+          start: {
+            line: 3,
+            column: 24
+          },
+          end: {
+            line: 3,
+            column: 30
+          }
+        },
+        loc: {
+          start: {
+            line: 13,
+            column: 3
+          },
+          end: {
+            line: 27,
+            column: 1
+          }
+        },
+        line: 13
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 4,
+            column: 2
+          },
+          end: {
+            line: 4,
+            column: 21
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 4,
+            column: 9
+          },
+          end: {
+            line: 4,
+            column: 21
+          }
+        }],
+        line: 4
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 7,
+            column: 2
+          },
+          end: {
+            line: 7,
+            column: 16
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 7,
+            column: 14
+          },
+          end: {
+            line: 7,
+            column: 16
+          }
+        }],
+        line: 7
+      }
+    },
+    s: {
+      "0": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {
+      "0": [0],
+      "1": [0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "980ece125740c9566c49cb2bc017d1fb5c29f8a7"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_26ruljf6jz = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_26ruljf6jz();
+import { cn, removeFocusOutlines } from "../../../utils/";
+/* istanbul ignore next */
+import { jsx as _jsx } from "react/jsx-runtime";
+export default function Button({
+  type =
+  /* istanbul ignore next */
+  (cov_26ruljf6jz().b[0][0]++, 'regenerate'),
+  children,
+  onClick,
+  className =
+  /* istanbul ignore next */
+  (cov_26ruljf6jz().b[1][0]++, '')
+}) {
+  /* istanbul ignore next */
+  cov_26ruljf6jz().f[0]++;
+  cov_26ruljf6jz().s[0]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(
+  /* istanbul ignore next */
+  "button",
+  /* istanbul ignore next */
+  {
+    /* istanbul ignore next */
+    "data-testid": `${type}-generation-button`,
+    className: cn('custom-btn btn-neutral relative -z-0 whitespace-nowrap border-0 md:border', removeFocusOutlines, className),
+    onClick: onClick,
+    children: /*#__PURE__*/
+    /* istanbul ignore next */
+    _jsx(
+    /* istanbul ignore next */
+    "div",
+    /* istanbul ignore next */
+    {
+      className: "flex w-full items-center justify-center gap-2",
+      children: children
+    })
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMjZydWxqZjZqeiIsImFjdHVhbENvdmVyYWdlIiwiY24iLCJyZW1vdmVGb2N1c091dGxpbmVzIiwianN4IiwiX2pzeCIsIkJ1dHRvbiIsInR5cGUiLCJiIiwiY2hpbGRyZW4iLCJvbkNsaWNrIiwiY2xhc3NOYW1lIiwiZiIsInMiXSwic291cmNlcyI6WyJCdXR0b24udHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGNuLCByZW1vdmVGb2N1c091dGxpbmVzIH0gZnJvbSAnfi91dGlscy8nO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBCdXR0b24oe1xuICB0eXBlID0gJ3JlZ2VuZXJhdGUnLFxuICBjaGlsZHJlbixcbiAgb25DbGljayxcbiAgY2xhc3NOYW1lID0gJycsXG59OiB7XG4gIHR5cGU/OiAncmVnZW5lcmF0ZScgfCAnY29udGludWUnIHwgJ3N0b3AnO1xuICBjaGlsZHJlbjogUmVhY3QuUmVhY3ROb2RlO1xuICBvbkNsaWNrOiAoZTogUmVhY3QuTW91c2VFdmVudDxIVE1MQnV0dG9uRWxlbWVudD4pID0+IHZvaWQ7XG4gIGNsYXNzTmFtZT86IHN0cmluZztcbn0pIHtcbiAgcmV0dXJuIChcbiAgICA8YnV0dG9uXG4gICAgICBkYXRhLXRlc3RpZD17YCR7dHlwZX0tZ2VuZXJhdGlvbi1idXR0b25gfVxuICAgICAgY2xhc3NOYW1lPXtjbihcbiAgICAgICAgJ2N1c3RvbS1idG4gYnRuLW5ldXRyYWwgcmVsYXRpdmUgLXotMCB3aGl0ZXNwYWNlLW5vd3JhcCBib3JkZXItMCBtZDpib3JkZXInLFxuICAgICAgICByZW1vdmVGb2N1c091dGxpbmVzLFxuICAgICAgICBjbGFzc05hbWUsXG4gICAgICApfVxuICAgICAgb25DbGljaz17b25DbGlja31cbiAgICA+XG4gICAgICA8ZGl2IGNsYXNzTmFtZT1cImZsZXggdy1mdWxsIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWNlbnRlciBnYXAtMlwiPntjaGlsZHJlbn08L2Rpdj5cbiAgICA8L2J1dHRvbj5cbiAgKTtcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGNBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGNBQUE7QUFmWixTQUFTRSxFQUFFLEVBQUVDLG1CQUFtQixRQUFRLGlCQUFVO0FBQUM7QUFBQSxTQUFBQyxHQUFBLElBQUFDLElBQUE7QUFFbkQsZUFBZSxTQUFTQyxNQUFNQSxDQUFDO0VBQzdCQyxJQUFJO0VBQUE7RUFBQSxDQUFBUCxjQUFBLEdBQUFRLENBQUEsVUFBRyxZQUFZO0VBQ25CQyxRQUFRO0VBQ1JDLE9BQU87RUFDUEMsU0FBUztFQUFBO0VBQUEsQ0FBQVgsY0FBQSxHQUFBUSxDQUFBLFVBQUcsRUFBRTtBQU1oQixDQUFDLEVBQUU7RUFBQTtFQUFBUixjQUFBLEdBQUFZLENBQUE7RUFBQVosY0FBQSxHQUFBYSxDQUFBO0VBQ0Qsb0JBQ0UsMkJBQUFSLElBQUE7RUFBQTtFQUFBO0VBQUE7RUFBQTtJQUNFO0lBQUEsZUFBYSxHQUFHRSxJQUFJLG9CQUFxQjtJQUN6Q0ksU0FBUyxFQUFFVCxFQUFFLENBQ1gsMkVBQTJFLEVBQzNFQyxtQkFBbUIsRUFDbkJRLFNBQ0YsQ0FBRTtJQUNGRCxPQUFPLEVBQUVBLE9BQVE7SUFBQUQsUUFBQTtJQUVqQjtJQUFBSixJQUFBO0lBQUE7SUFBQTtJQUFBO0lBQUE7TUFBS00sU0FBUyxFQUFDLCtDQUErQztNQUFBRixRQUFBLEVBQUVBO0lBQVEsQ0FBTTtFQUFDLENBQ3pFLENBQUM7QUFFYiIsImlnbm9yZUxpc3QiOltdfQ==

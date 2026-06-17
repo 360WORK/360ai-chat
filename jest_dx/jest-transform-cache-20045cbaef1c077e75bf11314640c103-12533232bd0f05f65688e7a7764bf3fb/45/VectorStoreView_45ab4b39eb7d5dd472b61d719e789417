@@ -1,0 +1,299 @@
+665e9deffd1ba4841617a5f604f32204
+/* istanbul ignore next */
+function cov_b63bqdo89() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Files/VectorStoreView.tsx";
+  var hash = "469fde51ee953ac324ecc6f5af35f9868c66d88e";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Files/VectorStoreView.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 17
+        },
+        end: {
+          line: 8,
+          column: 28
+        }
+      },
+      "1": {
+        start: {
+          line: 9,
+          column: 19
+        },
+        end: {
+          line: 9,
+          column: 32
+        }
+      },
+      "2": {
+        start: {
+          line: 10,
+          column: 2
+        },
+        end: {
+          line: 42,
+          column: 4
+        }
+      },
+      "3": {
+        start: {
+          line: 19,
+          column: 12
+        },
+        end: {
+          line: 19,
+          column: 41
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "VectorStoreView",
+        decl: {
+          start: {
+            line: 7,
+            column: 24
+          },
+          end: {
+            line: 7,
+            column: 39
+          }
+        },
+        loc: {
+          start: {
+            line: 7,
+            column: 42
+          },
+          end: {
+            line: 43,
+            column: 1
+          }
+        },
+        line: 7
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 18,
+            column: 19
+          },
+          end: {
+            line: 18,
+            column: 20
+          }
+        },
+        loc: {
+          start: {
+            line: 18,
+            column: 25
+          },
+          end: {
+            line: 20,
+            column: 11
+          }
+        },
+        line: 18
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 28,
+            column: 12
+          },
+          end: {
+            line: 28,
+            column: 81
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 28,
+            column: 35
+          },
+          end: {
+            line: 28,
+            column: 67
+          }
+        }, {
+          start: {
+            line: 28,
+            column: 70
+          },
+          end: {
+            line: 28,
+            column: 81
+          }
+        }],
+        line: 28
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 35,
+            column: 12
+          },
+          end: {
+            line: 35,
+            column: 74
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 35,
+            column: 35
+          },
+          end: {
+            line: 35,
+            column: 45
+          }
+        }, {
+          start: {
+            line: 35,
+            column: 48
+          },
+          end: {
+            line: 35,
+            column: 74
+          }
+        }],
+        line: 35
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0
+    },
+    b: {
+      "0": [0, 0],
+      "1": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "469fde51ee953ac324ecc6f5af35f9868c66d88e"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_b63bqdo89 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_b63bqdo89();
+import React from 'react';
+import VectorStoreSidePanel from './VectorStore/VectorStoreSidePanel';
+import FilesSectionSelector from './FilesSectionSelector';
+import { Button } from '../ui';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
+/* istanbul ignore next */
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+export default function VectorStoreView() {
+  /* istanbul ignore next */
+  cov_b63bqdo89().f[0]++;
+  const params =
+  /* istanbul ignore next */
+  (cov_b63bqdo89().s[0]++, useParams());
+  const navigate =
+  /* istanbul ignore next */
+  (cov_b63bqdo89().s[1]++, useNavigate());
+  /* istanbul ignore next */
+  cov_b63bqdo89().s[2]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsxs(
+  /* istanbul ignore next */
+  "div",
+  /* istanbul ignore next */
+  {
+    className: "max-h-[100vh] bg-[#f9f9f9] p-0 lg:p-7",
+    children: [/*#__PURE__*/
+    /* istanbul ignore next */
+    _jsxs(
+    /* istanbul ignore next */
+    "div",
+    /* istanbul ignore next */
+    {
+      className: "m-4 flex max-h-[10vh] w-full flex-row justify-between md:m-2",
+      children: [/*#__PURE__*/
+      /* istanbul ignore next */
+      _jsx(FilesSectionSelector,
+      /* istanbul ignore next */
+      {}), /*#__PURE__*/
+      /* istanbul ignore next */
+      _jsx(Button,
+      /* istanbul ignore next */
+      {
+        className: "block lg:hidden",
+        variant: 'outline',
+        size: 'sm',
+        onClick: () => {
+          /* istanbul ignore next */
+          cov_b63bqdo89().f[1]++;
+          cov_b63bqdo89().s[3]++;
+          navigate('/d/vector-stores');
+        },
+        children: "Go back"
+      })]
+    }), /*#__PURE__*/
+    /* istanbul ignore next */
+    _jsxs(
+    /* istanbul ignore next */
+    "div",
+    /* istanbul ignore next */
+    {
+      className: "flex max-h-[90vh] w-full flex-row divide-x",
+      children: [/*#__PURE__*/
+      /* istanbul ignore next */
+      _jsx(
+      /* istanbul ignore next */
+      "div",
+      /* istanbul ignore next */
+      {
+        className: `max-h-full w-full xl:w-1/3 ${params.vectorStoreId ?
+        /* istanbul ignore next */
+        (cov_b63bqdo89().b[0][0]++, 'hidden w-1/2 lg:block lg:w-1/2') :
+        /* istanbul ignore next */
+        (cov_b63bqdo89().b[0][1]++, 'md:w-full')}`,
+        children: /*#__PURE__*/
+        /* istanbul ignore next */
+        _jsx(VectorStoreSidePanel,
+        /* istanbul ignore next */
+        {})
+      }), /*#__PURE__*/
+      /* istanbul ignore next */
+      _jsx(
+      /* istanbul ignore next */
+      "div",
+      /* istanbul ignore next */
+      {
+        className: `max-h-full w-full overflow-y-auto xl:w-2/3 ${params.vectorStoreId ?
+        /* istanbul ignore next */
+        (cov_b63bqdo89().b[1][0]++, 'lg:w-1/2') :
+        /* istanbul ignore next */
+        (cov_b63bqdo89().b[1][1]++, 'hidden md:w-1/2 lg:block')}`,
+        children: /*#__PURE__*/
+        /* istanbul ignore next */
+        _jsx(Outlet,
+        /* istanbul ignore next */
+        {})
+      })]
+    })]
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfYjYzYnFkbzg5IiwiYWN0dWFsQ292ZXJhZ2UiLCJSZWFjdCIsIlZlY3RvclN0b3JlU2lkZVBhbmVsIiwiRmlsZXNTZWN0aW9uU2VsZWN0b3IiLCJCdXR0b24iLCJPdXRsZXQiLCJ1c2VOYXZpZ2F0ZSIsInVzZVBhcmFtcyIsImpzeCIsIl9qc3giLCJqc3hzIiwiX2pzeHMiLCJWZWN0b3JTdG9yZVZpZXciLCJmIiwicGFyYW1zIiwicyIsIm5hdmlnYXRlIiwiY2xhc3NOYW1lIiwiY2hpbGRyZW4iLCJ2YXJpYW50Iiwic2l6ZSIsIm9uQ2xpY2siLCJ2ZWN0b3JTdG9yZUlkIiwiYiJdLCJzb3VyY2VzIjpbIlZlY3RvclN0b3JlVmlldy50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JztcbmltcG9ydCBWZWN0b3JTdG9yZVNpZGVQYW5lbCBmcm9tICcuL1ZlY3RvclN0b3JlL1ZlY3RvclN0b3JlU2lkZVBhbmVsJztcbmltcG9ydCBGaWxlc1NlY3Rpb25TZWxlY3RvciBmcm9tICcuL0ZpbGVzU2VjdGlvblNlbGVjdG9yJztcbmltcG9ydCB7IEJ1dHRvbiB9IGZyb20gJy4uL3VpJztcbmltcG9ydCB7IE91dGxldCwgdXNlTmF2aWdhdGUsIHVzZVBhcmFtcyB9IGZyb20gJ3JlYWN0LXJvdXRlci1kb20nO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBWZWN0b3JTdG9yZVZpZXcoKSB7XG4gIGNvbnN0IHBhcmFtcyA9IHVzZVBhcmFtcygpO1xuICBjb25zdCBuYXZpZ2F0ZSA9IHVzZU5hdmlnYXRlKCk7XG4gIHJldHVybiAoXG4gICAgPGRpdiBjbGFzc05hbWU9XCJtYXgtaC1bMTAwdmhdIGJnLVsjZjlmOWY5XSBwLTAgbGc6cC03XCI+XG4gICAgICA8ZGl2IGNsYXNzTmFtZT1cIm0tNCBmbGV4IG1heC1oLVsxMHZoXSB3LWZ1bGwgZmxleC1yb3cganVzdGlmeS1iZXR3ZWVuIG1kOm0tMlwiPlxuICAgICAgICA8RmlsZXNTZWN0aW9uU2VsZWN0b3IgLz5cbiAgICAgICAgPEJ1dHRvblxuICAgICAgICAgIGNsYXNzTmFtZT1cImJsb2NrIGxnOmhpZGRlblwiXG4gICAgICAgICAgdmFyaWFudD17J291dGxpbmUnfVxuICAgICAgICAgIHNpemU9eydzbSd9XG4gICAgICAgICAgb25DbGljaz17KCkgPT4ge1xuICAgICAgICAgICAgbmF2aWdhdGUoJy9kL3ZlY3Rvci1zdG9yZXMnKTtcbiAgICAgICAgICB9fVxuICAgICAgICA+XG4gICAgICAgICAgR28gYmFja1xuICAgICAgICA8L0J1dHRvbj5cbiAgICAgIDwvZGl2PlxuICAgICAgPGRpdiBjbGFzc05hbWU9XCJmbGV4IG1heC1oLVs5MHZoXSB3LWZ1bGwgZmxleC1yb3cgZGl2aWRlLXhcIj5cbiAgICAgICAgPGRpdlxuICAgICAgICAgIGNsYXNzTmFtZT17YG1heC1oLWZ1bGwgdy1mdWxsIHhsOnctMS8zICR7XG4gICAgICAgICAgICBwYXJhbXMudmVjdG9yU3RvcmVJZCA/ICdoaWRkZW4gdy0xLzIgbGc6YmxvY2sgbGc6dy0xLzInIDogJ21kOnctZnVsbCdcbiAgICAgICAgICB9YH1cbiAgICAgICAgPlxuICAgICAgICAgIDxWZWN0b3JTdG9yZVNpZGVQYW5lbCAvPlxuICAgICAgICA8L2Rpdj5cbiAgICAgICAgPGRpdlxuICAgICAgICAgIGNsYXNzTmFtZT17YG1heC1oLWZ1bGwgdy1mdWxsIG92ZXJmbG93LXktYXV0byB4bDp3LTIvMyAke1xuICAgICAgICAgICAgcGFyYW1zLnZlY3RvclN0b3JlSWQgPyAnbGc6dy0xLzInIDogJ2hpZGRlbiBtZDp3LTEvMiBsZzpibG9jaydcbiAgICAgICAgICB9YH1cbiAgICAgICAgPlxuICAgICAgICAgIDxPdXRsZXQgLz5cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L2Rpdj5cbiAgICA8L2Rpdj5cbiAgKTtcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7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

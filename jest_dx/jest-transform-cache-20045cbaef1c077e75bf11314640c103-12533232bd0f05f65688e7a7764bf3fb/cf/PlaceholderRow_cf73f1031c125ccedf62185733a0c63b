@@ -1,0 +1,118 @@
+a8fcaeffbb46e10331eb8eda52bdbbfe
+/* istanbul ignore next */
+function cov_1n92fwbfb3() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Chat/Messages/ui/PlaceholderRow.tsx";
+  var hash = "e2b39020630bb754f92b6631c35113ff10c5abf0";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Chat/Messages/ui/PlaceholderRow.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 4,
+          column: 23
+        },
+        end: {
+          line: 6,
+          column: 2
+        }
+      },
+      "1": {
+        start: {
+          line: 5,
+          column: 2
+        },
+        end: {
+          line: 5,
+          column: 58
+        }
+      },
+      "2": {
+        start: {
+          line: 7,
+          column: 0
+        },
+        end: {
+          line: 7,
+          column: 46
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "PlaceholderRow",
+        decl: {
+          start: {
+            line: 4,
+            column: 37
+          },
+          end: {
+            line: 4,
+            column: 51
+          }
+        },
+        loc: {
+          start: {
+            line: 4,
+            column: 54
+          },
+          end: {
+            line: 6,
+            column: 1
+          }
+        },
+        line: 4
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "e2b39020630bb754f92b6631c35113ff10c5abf0"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1n92fwbfb3 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1n92fwbfb3();
+import { memo } from 'react';
+
+/** Height matches the SubRow action buttons row (31px) — keep in sync with HoverButtons */
+/* istanbul ignore next */
+import { jsx as _jsx } from "react/jsx-runtime";
+const PlaceholderRow =
+/* istanbul ignore next */
+(cov_1n92fwbfb3().s[0]++, /*#__PURE__*/memo(function PlaceholderRow() {
+  /* istanbul ignore next */
+  cov_1n92fwbfb3().f[0]++;
+  cov_1n92fwbfb3().s[1]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(
+  /* istanbul ignore next */
+  "div",
+  /* istanbul ignore next */
+  {
+    className: "mt-1 h-[31px] bg-transparent"
+  });
+}));
+/* istanbul ignore next */
+cov_1n92fwbfb3().s[2]++;
+PlaceholderRow.displayName = 'PlaceholderRow';
+export default PlaceholderRow;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMW45MmZ3YmZiMyIsImFjdHVhbENvdmVyYWdlIiwibWVtbyIsImpzeCIsIl9qc3giLCJQbGFjZWhvbGRlclJvdyIsInMiLCJmIiwiY2xhc3NOYW1lIiwiZGlzcGxheU5hbWUiXSwic291cmNlcyI6WyJQbGFjZWhvbGRlclJvdy50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgbWVtbyB9IGZyb20gJ3JlYWN0JztcblxuLyoqIEhlaWdodCBtYXRjaGVzIHRoZSBTdWJSb3cgYWN0aW9uIGJ1dHRvbnMgcm93ICgzMXB4KSDigJQga2VlcCBpbiBzeW5jIHdpdGggSG92ZXJCdXR0b25zICovXG5jb25zdCBQbGFjZWhvbGRlclJvdyA9IG1lbW8oZnVuY3Rpb24gUGxhY2Vob2xkZXJSb3coKSB7XG4gIHJldHVybiA8ZGl2IGNsYXNzTmFtZT1cIm10LTEgaC1bMzFweF0gYmctdHJhbnNwYXJlbnRcIiAvPjtcbn0pO1xuUGxhY2Vob2xkZXJSb3cuZGlzcGxheU5hbWUgPSAnUGxhY2Vob2xkZXJSb3cnO1xuXG5leHBvcnQgZGVmYXVsdCBQbGFjZWhvbGRlclJvdztcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGNBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGNBQUE7QUFmWixTQUFTRSxJQUFJLFFBQVEsT0FBTzs7QUFFNUI7QUFBQTtBQUFBLFNBQUFDLEdBQUEsSUFBQUMsSUFBQTtBQUNBLE1BQU1DLGNBQWM7QUFBQTtBQUFBLENBQUFMLGNBQUEsR0FBQU0sQ0FBQSxvQkFBR0osSUFBSSxDQUFDLFNBQVNHLGNBQWNBLENBQUEsRUFBRztFQUFBO0VBQUFMLGNBQUEsR0FBQU8sQ0FBQTtFQUFBUCxjQUFBLEdBQUFNLENBQUE7RUFDcEQsb0JBQU8sMkJBQUFGLElBQUE7RUFBQTtFQUFBO0VBQUE7RUFBQTtJQUFLSSxTQUFTLEVBQUM7RUFBOEIsQ0FBRSxDQUFDO0FBQ3pELENBQUMsQ0FBQztBQUFDO0FBQUFSLGNBQUEsR0FBQU0sQ0FBQTtBQUNIRCxjQUFjLENBQUNJLFdBQVcsR0FBRyxnQkFBZ0I7QUFFN0MsZUFBZUosY0FBYyIsImlnbm9yZUxpc3QiOltdfQ==

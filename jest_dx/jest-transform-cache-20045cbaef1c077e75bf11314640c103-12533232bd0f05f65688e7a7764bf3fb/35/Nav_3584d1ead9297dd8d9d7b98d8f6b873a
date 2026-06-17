@@ -1,0 +1,245 @@
+33f8f9217a843f6ca06561c3ab9aab2b
+/* istanbul ignore next */
+function cov_1jpxsoiyjk() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/SidePanel/Nav.tsx";
+  var hash = "ef56ef21ec3ee488183153857028067c415b6bca";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/SidePanel/Nav.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 5,
+          column: 21
+        },
+        end: {
+          line: 5,
+          column: 37
+        }
+      },
+      "1": {
+        start: {
+          line: 6,
+          column: 26
+        },
+        end: {
+          line: 6,
+          column: 59
+        }
+      },
+      "2": {
+        start: {
+          line: 7,
+          column: 2
+        },
+        end: {
+          line: 13,
+          column: 4
+        }
+      },
+      "3": {
+        start: {
+          line: 10,
+          column: 8
+        },
+        end: {
+          line: 10,
+          column: 95
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "Nav",
+        decl: {
+          start: {
+            line: 4,
+            column: 24
+          },
+          end: {
+            line: 4,
+            column: 27
+          }
+        },
+        loc: {
+          start: {
+            line: 4,
+            column: 61
+          },
+          end: {
+            line: 14,
+            column: 1
+          }
+        },
+        line: 4
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 9,
+            column: 17
+          },
+          end: {
+            line: 9,
+            column: 18
+          }
+        },
+        loc: {
+          start: {
+            line: 10,
+            column: 8
+          },
+          end: {
+            line: 10,
+            column: 95
+          }
+        },
+        line: 10
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 10,
+            column: 8
+          },
+          end: {
+            line: 10,
+            column: 95
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 10,
+            column: 56
+          },
+          end: {
+            line: 10,
+            column: 88
+          }
+        }, {
+          start: {
+            line: 10,
+            column: 91
+          },
+          end: {
+            line: 10,
+            column: 95
+          }
+        }],
+        line: 10
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 10,
+            column: 8
+          },
+          end: {
+            line: 10,
+            column: 53
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 10,
+            column: 8
+          },
+          end: {
+            line: 10,
+            column: 35
+          }
+        }, {
+          start: {
+            line: 10,
+            column: 39
+          },
+          end: {
+            line: 10,
+            column: 53
+          }
+        }],
+        line: 10
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0
+    },
+    b: {
+      "0": [0, 0],
+      "1": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "ef56ef21ec3ee488183153857028067c415b6bca"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1jpxsoiyjk = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1jpxsoiyjk();
+import { useActivePanel, resolveActivePanel } from "../../Providers";
+/* istanbul ignore next */
+import { jsx as _jsx } from "react/jsx-runtime";
+export default function Nav({
+  links
+}) {
+  /* istanbul ignore next */
+  cov_1jpxsoiyjk().f[0]++;
+  const {
+    active
+  } =
+  /* istanbul ignore next */
+  (cov_1jpxsoiyjk().s[0]++, useActivePanel());
+  const effectiveActive =
+  /* istanbul ignore next */
+  (cov_1jpxsoiyjk().s[1]++, resolveActivePanel(active, links));
+  /* istanbul ignore next */
+  cov_1jpxsoiyjk().s[2]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(
+  /* istanbul ignore next */
+  "div",
+  /* istanbul ignore next */
+  {
+    className: "flex h-full min-h-0 flex-col overflow-y-auto overflow-x-hidden text-text-primary",
+    children: links.map(link => {
+      /* istanbul ignore next */
+      cov_1jpxsoiyjk().f[1]++;
+      cov_1jpxsoiyjk().s[3]++;
+      return /* istanbul ignore next */(cov_1jpxsoiyjk().b[1][0]++, link.id === effectiveActive) &&
+      /* istanbul ignore next */
+      (cov_1jpxsoiyjk().b[1][1]++, link.Component) ?
+      /* istanbul ignore next */
+      (cov_1jpxsoiyjk().b[0][0]++, /*#__PURE__*/
+      /* istanbul ignore next */
+      _jsx(
+      /* istanbul ignore next */
+      link.Component,
+      /* istanbul ignore next */
+      {}, link.id)) :
+      /* istanbul ignore next */
+      (cov_1jpxsoiyjk().b[0][1]++, null);
+    })
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMWpweHNvaXlqayIsImFjdHVhbENvdmVyYWdlIiwidXNlQWN0aXZlUGFuZWwiLCJyZXNvbHZlQWN0aXZlUGFuZWwiLCJqc3giLCJfanN4IiwiTmF2IiwibGlua3MiLCJmIiwiYWN0aXZlIiwicyIsImVmZmVjdGl2ZUFjdGl2ZSIsImNsYXNzTmFtZSIsImNoaWxkcmVuIiwibWFwIiwibGluayIsImIiLCJpZCIsIkNvbXBvbmVudCJdLCJzb3VyY2VzIjpbIk5hdi50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHR5cGUgeyBOYXZMaW5rIH0gZnJvbSAnfi9jb21tb24nO1xuaW1wb3J0IHsgdXNlQWN0aXZlUGFuZWwsIHJlc29sdmVBY3RpdmVQYW5lbCB9IGZyb20gJ34vUHJvdmlkZXJzJztcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gTmF2KHsgbGlua3MgfTogeyBsaW5rczogTmF2TGlua1tdIH0pIHtcbiAgY29uc3QgeyBhY3RpdmUgfSA9IHVzZUFjdGl2ZVBhbmVsKCk7XG4gIGNvbnN0IGVmZmVjdGl2ZUFjdGl2ZSA9IHJlc29sdmVBY3RpdmVQYW5lbChhY3RpdmUsIGxpbmtzKTtcbiAgcmV0dXJuIChcbiAgICA8ZGl2IGNsYXNzTmFtZT1cImZsZXggaC1mdWxsIG1pbi1oLTAgZmxleC1jb2wgb3ZlcmZsb3cteS1hdXRvIG92ZXJmbG93LXgtaGlkZGVuIHRleHQtdGV4dC1wcmltYXJ5XCI+XG4gICAgICB7bGlua3MubWFwKChsaW5rKSA9PlxuICAgICAgICBsaW5rLmlkID09PSBlZmZlY3RpdmVBY3RpdmUgJiYgbGluay5Db21wb25lbnQgPyA8bGluay5Db21wb25lbnQga2V5PXtsaW5rLmlkfSAvPiA6IG51bGwsXG4gICAgICApfVxuICAgIDwvZGl2PlxuICApO1xufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGNBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGNBQUE7QUFkWixTQUFTRSxjQUFjLEVBQUVDLGtCQUFrQixRQUFRLGlCQUFhO0FBQUM7QUFBQSxTQUFBQyxHQUFBLElBQUFDLElBQUE7QUFFakUsZUFBZSxTQUFTQyxHQUFHQSxDQUFDO0VBQUVDO0FBQTRCLENBQUMsRUFBRTtFQUFBO0VBQUFQLGNBQUEsR0FBQVEsQ0FBQTtFQUMzRCxNQUFNO0lBQUVDO0VBQU8sQ0FBQztFQUFBO0VBQUEsQ0FBQVQsY0FBQSxHQUFBVSxDQUFBLE9BQUdSLGNBQWMsQ0FBQyxDQUFDO0VBQ25DLE1BQU1TLGVBQWU7RUFBQTtFQUFBLENBQUFYLGNBQUEsR0FBQVUsQ0FBQSxPQUFHUCxrQkFBa0IsQ0FBQ00sTUFBTSxFQUFFRixLQUFLLENBQUM7RUFBQztFQUFBUCxjQUFBLEdBQUFVLENBQUE7RUFDMUQsb0JBQ0UsMkJBQUFMLElBQUE7RUFBQTtFQUFBO0VBQUE7RUFBQTtJQUFLTyxTQUFTLEVBQUMsa0ZBQWtGO0lBQUFDLFFBQUEsRUFDOUZOLEtBQUssQ0FBQ08sR0FBRyxDQUFFQyxJQUFJLElBQ2Q7TUFBQTtNQUFBZixjQUFBLEdBQUFRLENBQUE7TUFBQVIsY0FBQSxHQUFBVSxDQUFBO01BQUEsa0NBQUFWLGNBQUEsR0FBQWdCLENBQUEsVUFBQUQsSUFBSSxDQUFDRSxFQUFFLEtBQUtOLGVBQWU7TUFBQTtNQUFBLENBQUFYLGNBQUEsR0FBQWdCLENBQUEsVUFBSUQsSUFBSSxDQUFDRyxTQUFTO01BQUE7TUFBQSxDQUFBbEIsY0FBQSxHQUFBZ0IsQ0FBQTtNQUFHO01BQUFYLElBQUE7TUFBQTtNQUFDVSxJQUFJLENBQUNHLFNBQVM7TUFBQTtNQUFBLElBQU1ILElBQUksQ0FBQ0UsRUFBSyxDQUFDO01BQUE7TUFBQSxDQUFBakIsY0FBQSxHQUFBZ0IsQ0FBQSxVQUFHLElBQUk7SUFBRCxDQUN4RjtFQUFDLENBQ0UsQ0FBQztBQUVWIiwiaWdub3JlTGlzdCI6W119

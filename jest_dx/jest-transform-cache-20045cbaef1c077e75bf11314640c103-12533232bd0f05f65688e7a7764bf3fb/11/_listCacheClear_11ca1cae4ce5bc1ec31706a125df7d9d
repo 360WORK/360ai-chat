@@ -1,0 +1,16 @@
+c9d2a57e6f45964db50f008bc6ebeac9
+"use strict";
+
+/**
+ * Removes all key-value entries from the list cache.
+ *
+ * @private
+ * @name clear
+ * @memberOf ListCache
+ */
+function listCacheClear() {
+  this.__data__ = [];
+  this.size = 0;
+}
+module.exports = listCacheClear;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJsaXN0Q2FjaGVDbGVhciIsIl9fZGF0YV9fIiwic2l6ZSIsIm1vZHVsZSIsImV4cG9ydHMiXSwic291cmNlcyI6WyJfbGlzdENhY2hlQ2xlYXIuanMiXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBSZW1vdmVzIGFsbCBrZXktdmFsdWUgZW50cmllcyBmcm9tIHRoZSBsaXN0IGNhY2hlLlxuICpcbiAqIEBwcml2YXRlXG4gKiBAbmFtZSBjbGVhclxuICogQG1lbWJlck9mIExpc3RDYWNoZVxuICovXG5mdW5jdGlvbiBsaXN0Q2FjaGVDbGVhcigpIHtcbiAgdGhpcy5fX2RhdGFfXyA9IFtdO1xuICB0aGlzLnNpemUgPSAwO1xufVxuXG5tb2R1bGUuZXhwb3J0cyA9IGxpc3RDYWNoZUNsZWFyO1xuIl0sIm1hcHBpbmdzIjoiOztBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsU0FBU0EsY0FBY0EsQ0FBQSxFQUFHO0VBQ3hCLElBQUksQ0FBQ0MsUUFBUSxHQUFHLEVBQUU7RUFDbEIsSUFBSSxDQUFDQyxJQUFJLEdBQUcsQ0FBQztBQUNmO0FBRUFDLE1BQU0sQ0FBQ0MsT0FBTyxHQUFHSixjQUFjIiwiaWdub3JlTGlzdCI6W119

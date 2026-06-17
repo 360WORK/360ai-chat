@@ -1,0 +1,195 @@
+9a99370a74fd259abbd087c788cbc998
+/* istanbul ignore next */
+function cov_okhnbrqah() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Chat/Input/Files/DragDropWrapper.tsx";
+  var hash = "7b67b07f05323255f95ab7d3d33e60028a02bd72";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Chat/Input/Files/DragDropWrapper.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 14,
+          column: 4
+        },
+        end: {
+          line: 14,
+          column: 20
+        }
+      },
+      "1": {
+        start: {
+          line: 16,
+          column: 19
+        },
+        end: {
+          line: 16,
+          column: 36
+        }
+      },
+      "2": {
+        start: {
+          line: 18,
+          column: 2
+        },
+        end: {
+          line: 32,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "DragDropWrapper",
+        decl: {
+          start: {
+            line: 12,
+            column: 24
+          },
+          end: {
+            line: 12,
+            column: 39
+          }
+        },
+        loc: {
+          start: {
+            line: 12,
+            column: 87
+          },
+          end: {
+            line: 33,
+            column: 1
+          }
+        },
+        line: 12
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 16,
+            column: 19
+          },
+          end: {
+            line: 16,
+            column: 36
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 16,
+            column: 19
+          },
+          end: {
+            line: 16,
+            column: 26
+          }
+        }, {
+          start: {
+            line: 16,
+            column: 30
+          },
+          end: {
+            line: 16,
+            column: 36
+          }
+        }],
+        line: 16
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {
+      "0": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "7b67b07f05323255f95ab7d3d33e60028a02bd72"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_okhnbrqah = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_okhnbrqah();
+import { useDragHelpers } from "../../../../hooks";
+import DragDropOverlay from "./DragDropOverlay";
+import DragDropModal from "./DragDropModal";
+import { DragDropProvider } from "../../../../Providers";
+import { cn } from "../../../../utils";
+/* istanbul ignore next */
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+export default function DragDropWrapper({
+  children,
+  className
+}) {
+  /* istanbul ignore next */
+  cov_okhnbrqah().f[0]++;
+  const {
+    isOver,
+    canDrop,
+    drop,
+    showModal,
+    setShowModal,
+    draggedFiles,
+    handleOptionSelect
+  } =
+  /* istanbul ignore next */
+  (cov_okhnbrqah().s[0]++, useDragHelpers());
+  const isActive =
+  /* istanbul ignore next */
+  (cov_okhnbrqah().s[1]++,
+  /* istanbul ignore next */
+  (cov_okhnbrqah().b[0][0]++, canDrop) &&
+  /* istanbul ignore next */
+  (cov_okhnbrqah().b[0][1]++, isOver));
+  /* istanbul ignore next */
+  cov_okhnbrqah().s[2]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsxs(
+  /* istanbul ignore next */
+  "div",
+  /* istanbul ignore next */
+  {
+    ref: drop,
+    className: cn('relative flex h-full w-full', className),
+    children: [children, /*#__PURE__*/
+    /* istanbul ignore next */
+    _jsx(DragDropOverlay,
+    /* istanbul ignore next */
+    {
+      isActive: isActive
+    }), /*#__PURE__*/
+    /* istanbul ignore next */
+    _jsx(DragDropProvider,
+    /* istanbul ignore next */
+    {
+      children: /*#__PURE__*/
+      /* istanbul ignore next */
+      _jsx(DragDropModal,
+      /* istanbul ignore next */
+      {
+        files: draggedFiles,
+        isVisible: showModal,
+        setShowModal: setShowModal,
+        onOptionSelect: handleOptionSelect
+      })
+    })]
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3Zfb2tobmJycWFoIiwiYWN0dWFsQ292ZXJhZ2UiLCJ1c2VEcmFnSGVscGVycyIsIkRyYWdEcm9wT3ZlcmxheSIsIkRyYWdEcm9wTW9kYWwiLCJEcmFnRHJvcFByb3ZpZGVyIiwiY24iLCJqc3giLCJfanN4IiwianN4cyIsIl9qc3hzIiwiRHJhZ0Ryb3BXcmFwcGVyIiwiY2hpbGRyZW4iLCJjbGFzc05hbWUiLCJmIiwiaXNPdmVyIiwiY2FuRHJvcCIsImRyb3AiLCJzaG93TW9kYWwiLCJzZXRTaG93TW9kYWwiLCJkcmFnZ2VkRmlsZXMiLCJoYW5kbGVPcHRpb25TZWxlY3QiLCJzIiwiaXNBY3RpdmUiLCJiIiwicmVmIiwiZmlsZXMiLCJpc1Zpc2libGUiLCJvbk9wdGlvblNlbGVjdCJdLCJzb3VyY2VzIjpbIkRyYWdEcm9wV3JhcHBlci50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgdXNlRHJhZ0hlbHBlcnMgfSBmcm9tICd+L2hvb2tzJztcbmltcG9ydCBEcmFnRHJvcE92ZXJsYXkgZnJvbSAnfi9jb21wb25lbnRzL0NoYXQvSW5wdXQvRmlsZXMvRHJhZ0Ryb3BPdmVybGF5JztcbmltcG9ydCBEcmFnRHJvcE1vZGFsIGZyb20gJ34vY29tcG9uZW50cy9DaGF0L0lucHV0L0ZpbGVzL0RyYWdEcm9wTW9kYWwnO1xuaW1wb3J0IHsgRHJhZ0Ryb3BQcm92aWRlciB9IGZyb20gJ34vUHJvdmlkZXJzJztcbmltcG9ydCB7IGNuIH0gZnJvbSAnfi91dGlscyc7XG5cbmludGVyZmFjZSBEcmFnRHJvcFdyYXBwZXJQcm9wcyB7XG4gIGNoaWxkcmVuOiBSZWFjdC5SZWFjdE5vZGU7XG4gIGNsYXNzTmFtZT86IHN0cmluZztcbn1cblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gRHJhZ0Ryb3BXcmFwcGVyKHsgY2hpbGRyZW4sIGNsYXNzTmFtZSB9OiBEcmFnRHJvcFdyYXBwZXJQcm9wcykge1xuICBjb25zdCB7IGlzT3ZlciwgY2FuRHJvcCwgZHJvcCwgc2hvd01vZGFsLCBzZXRTaG93TW9kYWwsIGRyYWdnZWRGaWxlcywgaGFuZGxlT3B0aW9uU2VsZWN0IH0gPVxuICAgIHVzZURyYWdIZWxwZXJzKCk7XG5cbiAgY29uc3QgaXNBY3RpdmUgPSBjYW5Ecm9wICYmIGlzT3ZlcjtcblxuICByZXR1cm4gKFxuICAgIDxkaXYgcmVmPXtkcm9wfSBjbGFzc05hbWU9e2NuKCdyZWxhdGl2ZSBmbGV4IGgtZnVsbCB3LWZ1bGwnLCBjbGFzc05hbWUpfT5cbiAgICAgIHtjaGlsZHJlbn1cbiAgICAgIHsvKiogQWx3YXlzIHJlbmRlciBvdmVybGF5IHRvIGF2b2lkIG1vdW50L3VubW91bnQgb3ZlcmhlYWQgKi99XG4gICAgICA8RHJhZ0Ryb3BPdmVybGF5IGlzQWN0aXZlPXtpc0FjdGl2ZX0gLz5cbiAgICAgIDxEcmFnRHJvcFByb3ZpZGVyPlxuICAgICAgICA8RHJhZ0Ryb3BNb2RhbFxuICAgICAgICAgIGZpbGVzPXtkcmFnZ2VkRmlsZXN9XG4gICAgICAgICAgaXNWaXNpYmxlPXtzaG93TW9kYWx9XG4gICAgICAgICAgc2V0U2hvd01vZGFsPXtzZXRTaG93TW9kYWx9XG4gICAgICAgICAgb25PcHRpb25TZWxlY3Q9e2hhbmRsZU9wdGlvblNlbGVjdH1cbiAgICAgICAgLz5cbiAgICAgIDwvRHJhZ0Ryb3BQcm92aWRlcj5cbiAgICA8L2Rpdj5cbiAgKTtcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGFBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGFBQUE7QUFmWixTQUFTRSxjQUFjLFFBQVEsbUJBQVM7QUFDeEMsT0FBT0MsZUFBZSxNQUFNLG1CQUErQztBQUMzRSxPQUFPQyxhQUFhLE1BQU0saUJBQTZDO0FBQ3ZFLFNBQVNDLGdCQUFnQixRQUFRLHVCQUFhO0FBQzlDLFNBQVNDLEVBQUUsUUFBUSxtQkFBUztBQUFDO0FBQUEsU0FBQUMsR0FBQSxJQUFBQyxJQUFBLEVBQUFDLElBQUEsSUFBQUMsS0FBQTtBQU83QixlQUFlLFNBQVNDLGVBQWVBLENBQUM7RUFBRUMsUUFBUTtFQUFFQztBQUFnQyxDQUFDLEVBQUU7RUFBQTtFQUFBYixhQUFBLEdBQUFjLENBQUE7RUFDckYsTUFBTTtJQUFFQyxNQUFNO0lBQUVDLE9BQU87SUFBRUMsSUFBSTtJQUFFQyxTQUFTO0lBQUVDLFlBQVk7SUFBRUMsWUFBWTtJQUFFQztFQUFtQixDQUFDO0VBQUE7RUFBQSxDQUFBckIsYUFBQSxHQUFBc0IsQ0FBQSxPQUN4RnBCLGNBQWMsQ0FBQyxDQUFDO0VBRWxCLE1BQU1xQixRQUFRO0VBQUE7RUFBQSxDQUFBdkIsYUFBQSxHQUFBc0IsQ0FBQTtFQUFHO0VBQUEsQ0FBQXRCLGFBQUEsR0FBQXdCLENBQUEsVUFBQVIsT0FBTztFQUFBO0VBQUEsQ0FBQWhCLGFBQUEsR0FBQXdCLENBQUEsVUFBSVQsTUFBTTtFQUFDO0VBQUFmLGFBQUEsR0FBQXNCLENBQUE7RUFFbkMsb0JBQ0UsMkJBQUFaLEtBQUE7RUFBQTtFQUFBO0VBQUE7RUFBQTtJQUFLZSxHQUFHLEVBQUVSLElBQUs7SUFBQ0osU0FBUyxFQUFFUCxFQUFFLENBQUMsNkJBQTZCLEVBQUVPLFNBQVMsQ0FBRTtJQUFBRCxRQUFBLEdBQ3JFQSxRQUFRO0lBRVQ7SUFBQUosSUFBQSxDQUFDTCxlQUFlO0lBQUE7SUFBQTtNQUFDb0IsUUFBUSxFQUFFQTtJQUFTLENBQUUsQ0FBQztJQUN2QztJQUFBZixJQUFBLENBQUNILGdCQUFnQjtJQUFBO0lBQUE7TUFBQU8sUUFBQTtNQUNmO01BQUFKLElBQUEsQ0FBQ0osYUFBYTtNQUFBO01BQUE7UUFDWnNCLEtBQUssRUFBRU4sWUFBYTtRQUNwQk8sU0FBUyxFQUFFVCxTQUFVO1FBQ3JCQyxZQUFZLEVBQUVBLFlBQWE7UUFDM0JTLGNBQWMsRUFBRVA7TUFBbUIsQ0FDcEM7SUFBQyxDQUNjLENBQUM7RUFBQSxDQUNoQixDQUFDO0FBRVYiLCJpZ25vcmVMaXN0IjpbXX0=

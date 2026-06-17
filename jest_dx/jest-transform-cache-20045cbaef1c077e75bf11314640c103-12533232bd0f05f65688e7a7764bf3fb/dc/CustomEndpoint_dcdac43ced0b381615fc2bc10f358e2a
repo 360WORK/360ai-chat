@@ -1,0 +1,283 @@
+440ee71e2fc63cf291206273b3cf555f
+/* istanbul ignore next */
+function cov_15wrpja6b4() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Input/SetKeyDialog/CustomEndpoint.tsx";
+  var hash = "1a46043cf654fad1988a479b6050781364374ca0";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Input/SetKeyDialog/CustomEndpoint.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 5,
+          column: 23
+        },
+        end: {
+          line: 45,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 12,
+          column: 22
+        },
+        end: {
+          line: 12,
+          column: 38
+        }
+      },
+      "2": {
+        start: {
+          line: 13,
+          column: 2
+        },
+        end: {
+          line: 44,
+          column: 4
+        }
+      },
+      "3": {
+        start: {
+          line: 19,
+          column: 10
+        },
+        end: {
+          line: 26,
+          column: 12
+        }
+      },
+      "4": {
+        start: {
+          line: 34,
+          column: 12
+        },
+        end: {
+          line: 39,
+          column: 14
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 5,
+            column: 23
+          },
+          end: {
+            line: 5,
+            column: 24
+          }
+        },
+        loc: {
+          start: {
+            line: 11,
+            column: 6
+          },
+          end: {
+            line: 45,
+            column: 1
+          }
+        },
+        line: 11
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 18,
+            column: 16
+          },
+          end: {
+            line: 18,
+            column: 17
+          }
+        },
+        loc: {
+          start: {
+            line: 19,
+            column: 10
+          },
+          end: {
+            line: 26,
+            column: 12
+          }
+        },
+        line: 19
+      },
+      "2": {
+        name: "(anonymous_2)",
+        decl: {
+          start: {
+            line: 33,
+            column: 18
+          },
+          end: {
+            line: 33,
+            column: 19
+          }
+        },
+        loc: {
+          start: {
+            line: 34,
+            column: 12
+          },
+          end: {
+            line: 39,
+            column: 14
+          }
+        },
+        line: 34
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 29,
+            column: 7
+          },
+          end: {
+            line: 42,
+            column: 7
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 29,
+            column: 7
+          },
+          end: {
+            line: 29,
+            column: 21
+          }
+        }, {
+          start: {
+            line: 30,
+            column: 8
+          },
+          end: {
+            line: 41,
+            column: 10
+          }
+        }],
+        line: 29
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    b: {
+      "0": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "1a46043cf654fad1988a479b6050781364374ca0"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_15wrpja6b4 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_15wrpja6b4();
+import { useFormContext, Controller } from 'react-hook-form';
+import InputWithLabel from './InputWithLabel';
+/* istanbul ignore next */
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+cov_15wrpja6b4().s[0]++;
+const CustomEndpoint = ({
+  endpoint,
+  userProvideURL
+}) => {
+  /* istanbul ignore next */
+  cov_15wrpja6b4().f[0]++;
+  const {
+    control
+  } =
+  /* istanbul ignore next */
+  (cov_15wrpja6b4().s[1]++, useFormContext());
+  /* istanbul ignore next */
+  cov_15wrpja6b4().s[2]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsxs(
+  /* istanbul ignore next */
+  "form",
+  /* istanbul ignore next */
+  {
+    className: "flex-wrap",
+    children: [/*#__PURE__*/
+    /* istanbul ignore next */
+    _jsx(Controller,
+    /* istanbul ignore next */
+    {
+      name: "apiKey",
+      control: control,
+      render: ({
+        field
+      }) => {
+        /* istanbul ignore next */
+        cov_15wrpja6b4().f[1]++;
+        cov_15wrpja6b4().s[3]++;
+        return /*#__PURE__*/ /* istanbul ignore next */_jsx(InputWithLabel,
+        /* istanbul ignore next */
+        {
+          id: "apiKey",
+          ...field,
+          label: `${endpoint} API Key`,
+          labelClassName: "mb-1",
+          inputClassName: "mb-2",
+          secret:
+          /* istanbul ignore next */
+          true
+        });
+      }
+    }),
+    /* istanbul ignore next */
+    (cov_15wrpja6b4().b[0][0]++, userProvideURL) &&
+    /* istanbul ignore next */
+    (cov_15wrpja6b4().b[0][1]++, /*#__PURE__*/
+    /* istanbul ignore next */
+    _jsx(Controller,
+    /* istanbul ignore next */
+    {
+      name: "baseURL",
+      control: control,
+      render: ({
+        field
+      }) => {
+        /* istanbul ignore next */
+        cov_15wrpja6b4().f[2]++;
+        cov_15wrpja6b4().s[4]++;
+        return /*#__PURE__*/ /* istanbul ignore next */_jsx(InputWithLabel,
+        /* istanbul ignore next */
+        {
+          id: "baseURL",
+          ...field,
+          label: `${endpoint} API URL`,
+          labelClassName: "mb-1"
+        });
+      }
+    }))]
+  });
+};
+export default CustomEndpoint;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMTV3cnBqYTZiNCIsImFjdHVhbENvdmVyYWdlIiwidXNlRm9ybUNvbnRleHQiLCJDb250cm9sbGVyIiwiSW5wdXRXaXRoTGFiZWwiLCJqc3giLCJfanN4IiwianN4cyIsIl9qc3hzIiwicyIsIkN1c3RvbUVuZHBvaW50IiwiZW5kcG9pbnQiLCJ1c2VyUHJvdmlkZVVSTCIsImYiLCJjb250cm9sIiwiY2xhc3NOYW1lIiwiY2hpbGRyZW4iLCJuYW1lIiwicmVuZGVyIiwiZmllbGQiLCJpZCIsImxhYmVsIiwibGFiZWxDbGFzc05hbWUiLCJpbnB1dENsYXNzTmFtZSIsInNlY3JldCIsImIiXSwic291cmNlcyI6WyJDdXN0b21FbmRwb2ludC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgRU1vZGVsRW5kcG9pbnQgfSBmcm9tICdsaWJyZWNoYXQtZGF0YS1wcm92aWRlcic7XG5pbXBvcnQgeyB1c2VGb3JtQ29udGV4dCwgQ29udHJvbGxlciB9IGZyb20gJ3JlYWN0LWhvb2stZm9ybSc7XG5pbXBvcnQgSW5wdXRXaXRoTGFiZWwgZnJvbSAnLi9JbnB1dFdpdGhMYWJlbCc7XG5cbmNvbnN0IEN1c3RvbUVuZHBvaW50ID0gKHtcbiAgZW5kcG9pbnQsXG4gIHVzZXJQcm92aWRlVVJMLFxufToge1xuICBlbmRwb2ludDogRU1vZGVsRW5kcG9pbnQgfCBzdHJpbmc7XG4gIHVzZXJQcm92aWRlVVJMPzogYm9vbGVhbiB8IG51bGw7XG59KSA9PiB7XG4gIGNvbnN0IHsgY29udHJvbCB9ID0gdXNlRm9ybUNvbnRleHQoKTtcbiAgcmV0dXJuIChcbiAgICA8Zm9ybSBjbGFzc05hbWU9XCJmbGV4LXdyYXBcIj5cbiAgICAgIDxDb250cm9sbGVyXG4gICAgICAgIG5hbWU9XCJhcGlLZXlcIlxuICAgICAgICBjb250cm9sPXtjb250cm9sfVxuICAgICAgICByZW5kZXI9eyh7IGZpZWxkIH0pID0+IChcbiAgICAgICAgICA8SW5wdXRXaXRoTGFiZWxcbiAgICAgICAgICAgIGlkPVwiYXBpS2V5XCJcbiAgICAgICAgICAgIHsuLi5maWVsZH1cbiAgICAgICAgICAgIGxhYmVsPXtgJHtlbmRwb2ludH0gQVBJIEtleWB9XG4gICAgICAgICAgICBsYWJlbENsYXNzTmFtZT1cIm1iLTFcIlxuICAgICAgICAgICAgaW5wdXRDbGFzc05hbWU9XCJtYi0yXCJcbiAgICAgICAgICAgIHNlY3JldFxuICAgICAgICAgIC8+XG4gICAgICAgICl9XG4gICAgICAvPlxuICAgICAge3VzZXJQcm92aWRlVVJMICYmIChcbiAgICAgICAgPENvbnRyb2xsZXJcbiAgICAgICAgICBuYW1lPVwiYmFzZVVSTFwiXG4gICAgICAgICAgY29udHJvbD17Y29udHJvbH1cbiAgICAgICAgICByZW5kZXI9eyh7IGZpZWxkIH0pID0+IChcbiAgICAgICAgICAgIDxJbnB1dFdpdGhMYWJlbFxuICAgICAgICAgICAgICBpZD1cImJhc2VVUkxcIlxuICAgICAgICAgICAgICB7Li4uZmllbGR9XG4gICAgICAgICAgICAgIGxhYmVsPXtgJHtlbmRwb2ludH0gQVBJIFVSTGB9XG4gICAgICAgICAgICAgIGxhYmVsQ2xhc3NOYW1lPVwibWItMVwiXG4gICAgICAgICAgICAvPlxuICAgICAgICAgICl9XG4gICAgICAgIC8+XG4gICAgICApfVxuICAgIDwvZm9ybT5cbiAgKTtcbn07XG5cbmV4cG9ydCBkZWZhdWx0IEN1c3RvbUVuZHBvaW50O1xuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsY0FBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsY0FBQTtBQWRaLFNBQVNFLGNBQWMsRUFBRUMsVUFBVSxRQUFRLGlCQUFpQjtBQUM1RCxPQUFPQyxjQUFjLE1BQU0sa0JBQWtCO0FBQUM7QUFBQSxTQUFBQyxHQUFBLElBQUFDLElBQUEsRUFBQUMsSUFBQSxJQUFBQyxLQUFBO0FBQUFSLGNBQUEsR0FBQVMsQ0FBQTtBQUU5QyxNQUFNQyxjQUFjLEdBQUdBLENBQUM7RUFDdEJDLFFBQVE7RUFDUkM7QUFJRixDQUFDLEtBQUs7RUFBQTtFQUFBWixjQUFBLEdBQUFhLENBQUE7RUFDSixNQUFNO0lBQUVDO0VBQVEsQ0FBQztFQUFBO0VBQUEsQ0FBQWQsY0FBQSxHQUFBUyxDQUFBLE9BQUdQLGNBQWMsQ0FBQyxDQUFDO0VBQUM7RUFBQUYsY0FBQSxHQUFBUyxDQUFBO0VBQ3JDLG9CQUNFLDJCQUFBRCxLQUFBO0VBQUE7RUFBQTtFQUFBO0VBQUE7SUFBTU8sU0FBUyxFQUFDLFdBQVc7SUFBQUMsUUFBQTtJQUN6QjtJQUFBVixJQUFBLENBQUNILFVBQVU7SUFBQTtJQUFBO01BQ1RjLElBQUksRUFBQyxRQUFRO01BQ2JILE9BQU8sRUFBRUEsT0FBUTtNQUNqQkksTUFBTSxFQUFFQSxDQUFDO1FBQUVDO01BQU0sQ0FBQyxLQUNoQjtRQUFBO1FBQUFuQixjQUFBLEdBQUFhLENBQUE7UUFBQWIsY0FBQSxHQUFBUyxDQUFBO1FBQUEsK0NBQUFILElBQUEsQ0FBQ0YsY0FBYztRQUFBO1FBQUE7VUFDYmdCLEVBQUUsRUFBQyxRQUFRO1VBQUEsR0FDUEQsS0FBSztVQUNURSxLQUFLLEVBQUUsR0FBR1YsUUFBUSxVQUFXO1VBQzdCVyxjQUFjLEVBQUMsTUFBTTtVQUNyQkMsY0FBYyxFQUFDLE1BQU07VUFDckJDLE1BQU07VUFBQTtVQUFBO1FBQUEsQ0FDUCxDQUFDO01BQUQ7SUFDRCxDQUNILENBQUM7SUFDRDtJQUFBLENBQUF4QixjQUFBLEdBQUF5QixDQUFBLFVBQUFiLGNBQWM7SUFBQTtJQUFBLENBQUFaLGNBQUEsR0FBQXlCLENBQUE7SUFDYjtJQUFBbkIsSUFBQSxDQUFDSCxVQUFVO0lBQUE7SUFBQTtNQUNUYyxJQUFJLEVBQUMsU0FBUztNQUNkSCxPQUFPLEVBQUVBLE9BQVE7TUFDakJJLE1BQU0sRUFBRUEsQ0FBQztRQUFFQztNQUFNLENBQUMsS0FDaEI7UUFBQTtRQUFBbkIsY0FBQSxHQUFBYSxDQUFBO1FBQUFiLGNBQUEsR0FBQVMsQ0FBQTtRQUFBLCtDQUFBSCxJQUFBLENBQUNGLGNBQWM7UUFBQTtRQUFBO1VBQ2JnQixFQUFFLEVBQUMsU0FBUztVQUFBLEdBQ1JELEtBQUs7VUFDVEUsS0FBSyxFQUFFLEdBQUdWLFFBQVEsVUFBVztVQUM3QlcsY0FBYyxFQUFDO1FBQU0sQ0FDdEIsQ0FBQztNQUFEO0lBQ0QsQ0FDSCxDQUFDLENBQ0g7RUFBQSxDQUNHLENBQUM7QUFFWCxDQUFDO0FBRUQsZUFBZVosY0FBYyIsImlnbm9yZUxpc3QiOltdfQ==

@@ -1,0 +1,93 @@
+65ab2acfae2a80e45c67993f410f7267
+/* istanbul ignore next */
+function cov_26lx5lnae3() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Nav/SettingsTabs/Speech/STT/SpeechToTextSwitch.tsx";
+  var hash = "932e68ea9b45c16090c10a133fd1acbd2ad6f52b";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Nav/SettingsTabs/Speech/STT/SpeechToTextSwitch.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 9,
+          column: 2
+        },
+        end: {
+          line: 17,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "SpeechToTextSwitch",
+        decl: {
+          start: {
+            line: 4,
+            column: 24
+          },
+          end: {
+            line: 4,
+            column: 42
+          }
+        },
+        loc: {
+          start: {
+            line: 8,
+            column: 3
+          },
+          end: {
+            line: 18,
+            column: 1
+          }
+        },
+        line: 8
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "932e68ea9b45c16090c10a133fd1acbd2ad6f52b"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_26lx5lnae3 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_26lx5lnae3();
+import ToggleSwitch from '../../ToggleSwitch';
+import store from "../../../../../store";
+/* istanbul ignore next */
+import { jsx as _jsx } from "react/jsx-runtime";
+export default function SpeechToTextSwitch({
+  onCheckedChange
+}) {
+  /* istanbul ignore next */
+  cov_26lx5lnae3().f[0]++;
+  cov_26lx5lnae3().s[0]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(ToggleSwitch,
+  /* istanbul ignore next */
+  {
+    stateAtom: store.speechToText,
+    localizationKey: 'com_nav_speech_to_text',
+    switchId: "SpeechToText",
+    onCheckedChange: onCheckedChange,
+    strongLabel: true
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMjZseDVsbmFlMyIsImFjdHVhbENvdmVyYWdlIiwiVG9nZ2xlU3dpdGNoIiwic3RvcmUiLCJqc3giLCJfanN4IiwiU3BlZWNoVG9UZXh0U3dpdGNoIiwib25DaGVja2VkQ2hhbmdlIiwiZiIsInMiLCJzdGF0ZUF0b20iLCJzcGVlY2hUb1RleHQiLCJsb2NhbGl6YXRpb25LZXkiLCJzd2l0Y2hJZCIsInN0cm9uZ0xhYmVsIl0sInNvdXJjZXMiOlsiU3BlZWNoVG9UZXh0U3dpdGNoLnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgVG9nZ2xlU3dpdGNoIGZyb20gJy4uLy4uL1RvZ2dsZVN3aXRjaCc7XG5pbXBvcnQgc3RvcmUgZnJvbSAnfi9zdG9yZSc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIFNwZWVjaFRvVGV4dFN3aXRjaCh7XG4gIG9uQ2hlY2tlZENoYW5nZSxcbn06IHtcbiAgb25DaGVja2VkQ2hhbmdlPzogKHZhbHVlOiBib29sZWFuKSA9PiB2b2lkO1xufSkge1xuICByZXR1cm4gKFxuICAgIDxUb2dnbGVTd2l0Y2hcbiAgICAgIHN0YXRlQXRvbT17c3RvcmUuc3BlZWNoVG9UZXh0fVxuICAgICAgbG9jYWxpemF0aW9uS2V5PXsnY29tX25hdl9zcGVlY2hfdG9fdGV4dCcgYXMgY29uc3R9XG4gICAgICBzd2l0Y2hJZD1cIlNwZWVjaFRvVGV4dFwiXG4gICAgICBvbkNoZWNrZWRDaGFuZ2U9e29uQ2hlY2tlZENoYW5nZX1cbiAgICAgIHN0cm9uZ0xhYmVsPXt0cnVlfVxuICAgIC8+XG4gICk7XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGNBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGNBQUE7QUFmWixPQUFPRSxZQUFZLE1BQU0sb0JBQW9CO0FBQzdDLE9BQU9DLEtBQUssTUFBTSxzQkFBUztBQUFDO0FBQUEsU0FBQUMsR0FBQSxJQUFBQyxJQUFBO0FBRTVCLGVBQWUsU0FBU0Msa0JBQWtCQSxDQUFDO0VBQ3pDQztBQUdGLENBQUMsRUFBRTtFQUFBO0VBQUFQLGNBQUEsR0FBQVEsQ0FBQTtFQUFBUixjQUFBLEdBQUFTLENBQUE7RUFDRCxvQkFDRSwyQkFBQUosSUFBQSxDQUFDSCxZQUFZO0VBQUE7RUFBQTtJQUNYUSxTQUFTLEVBQUVQLEtBQUssQ0FBQ1EsWUFBYTtJQUM5QkMsZUFBZSxFQUFFLHdCQUFrQztJQUNuREMsUUFBUSxFQUFDLGNBQWM7SUFDdkJOLGVBQWUsRUFBRUEsZUFBZ0I7SUFDakNPLFdBQVcsRUFBRTtFQUFLLENBQ25CLENBQUM7QUFFTiIsImlnbm9yZUxpc3QiOltdfQ==

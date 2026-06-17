@@ -1,0 +1,330 @@
+11581cee68334869bd5442db920ac666
+/* istanbul ignore next */
+function cov_b4h7vvpog() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/hooks/Files/useSharePointToken.ts";
+  var hash = "da414a7fbe759daaa8a0601521fc463fc122d982";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/hooks/Files/useSharePointToken.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 20,
+          column: 19
+        },
+        end: {
+          line: 20,
+          column: 35
+        }
+      },
+      "1": {
+        start: {
+          line: 21,
+          column: 34
+        },
+        end: {
+          line: 21,
+          column: 55
+        }
+      },
+      "2": {
+        start: {
+          line: 23,
+          column: 28
+        },
+        end: {
+          line: 23,
+          column: 60
+        }
+      },
+      "3": {
+        start: {
+          line: 24,
+          column: 37
+        },
+        end: {
+          line: 24,
+          column: 78
+        }
+      },
+      "4": {
+        start: {
+          line: 25,
+          column: 42
+        },
+        end: {
+          line: 25,
+          column: 88
+        }
+      },
+      "5": {
+        start: {
+          line: 27,
+          column: 24
+        },
+        end: {
+          line: 27,
+          column: 51
+        }
+      },
+      "6": {
+        start: {
+          line: 29,
+          column: 4
+        },
+        end: {
+          line: 29,
+          column: 85
+        }
+      },
+      "7": {
+        start: {
+          line: 35,
+          column: 6
+        },
+        end: {
+          line: 38,
+          column: 4
+        }
+      },
+      "8": {
+        start: {
+          line: 40,
+          column: 2
+        },
+        end: {
+          line: 45,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "useSharePointToken",
+        decl: {
+          start: {
+            line: 16,
+            column: 24
+          },
+          end: {
+            line: 16,
+            column: 42
+          }
+        },
+        loc: {
+          start: {
+            line: 19,
+            column: 54
+          },
+          end: {
+            line: 46,
+            column: 1
+          }
+        },
+        line: 19
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 17,
+            column: 2
+          },
+          end: {
+            line: 17,
+            column: 16
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 17,
+            column: 12
+          },
+          end: {
+            line: 17,
+            column: 16
+          }
+        }],
+        line: 17
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 29,
+            column: 4
+          },
+          end: {
+            line: 29,
+            column: 85
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 29,
+            column: 25
+          },
+          end: {
+            line: 29,
+            column: 56
+          }
+        }, {
+          start: {
+            line: 29,
+            column: 59
+          },
+          end: {
+            line: 29,
+            column: 85
+          }
+        }],
+        line: 29
+      },
+      "2": {
+        loc: {
+          start: {
+            line: 37,
+            column: 13
+          },
+          end: {
+            line: 37,
+            column: 60
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 37,
+            column: 13
+          },
+          end: {
+            line: 37,
+            column: 20
+          }
+        }, {
+          start: {
+            line: 37,
+            column: 24
+          },
+          end: {
+            line: 37,
+            column: 37
+          }
+        }, {
+          start: {
+            line: 37,
+            column: 41
+          },
+          end: {
+            line: 37,
+            column: 60
+          }
+        }],
+        line: 37
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {
+      "0": [0],
+      "1": [0, 0],
+      "2": [0, 0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "da414a7fbe759daaa8a0601521fc463fc122d982"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_b4h7vvpog = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_b4h7vvpog();
+import { useAuthContext } from "../AuthContext";
+import { useGraphTokenQuery, useGetStartupConfig } from "../../data-provider";
+export default function useSharePointToken({
+  enabled =
+  /* istanbul ignore next */
+  (cov_b4h7vvpog().b[0][0]++, true),
+  purpose
+}) {
+  /* istanbul ignore next */
+  cov_b4h7vvpog().f[0]++;
+  const {
+    user
+  } =
+  /* istanbul ignore next */
+  (cov_b4h7vvpog().s[0]++, useAuthContext());
+  const {
+    data: startupConfig
+  } =
+  /* istanbul ignore next */
+  (cov_b4h7vvpog().s[1]++, useGetStartupConfig());
+  const sharePointBaseUrl =
+  /* istanbul ignore next */
+  (cov_b4h7vvpog().s[2]++, startupConfig?.sharePointBaseUrl);
+  const sharePointPickerGraphScope =
+  /* istanbul ignore next */
+  (cov_b4h7vvpog().s[3]++, startupConfig?.sharePointPickerGraphScope);
+  const sharePointPickerSharePointScope =
+  /* istanbul ignore next */
+  (cov_b4h7vvpog().s[4]++, startupConfig?.sharePointPickerSharePointScope);
+  const isEntraIdUser =
+  /* istanbul ignore next */
+  (cov_b4h7vvpog().s[5]++, user?.provider === 'openid');
+  const graphScopes =
+  /* istanbul ignore next */
+  (cov_b4h7vvpog().s[6]++, purpose === 'Pick' ?
+  /* istanbul ignore next */
+  (cov_b4h7vvpog().b[1][0]++, sharePointPickerSharePointScope) :
+  /* istanbul ignore next */
+  (cov_b4h7vvpog().b[1][1]++, sharePointPickerGraphScope));
+  const {
+    data: token,
+    isLoading,
+    error,
+    refetch
+  } =
+  /* istanbul ignore next */
+  (cov_b4h7vvpog().s[7]++, useGraphTokenQuery({
+    scopes: graphScopes,
+    enabled:
+    /* istanbul ignore next */
+    (cov_b4h7vvpog().b[2][0]++, enabled) &&
+    /* istanbul ignore next */
+    (cov_b4h7vvpog().b[2][1]++, isEntraIdUser) &&
+    /* istanbul ignore next */
+    (cov_b4h7vvpog().b[2][2]++, !!sharePointBaseUrl)
+  }));
+  /* istanbul ignore next */
+  cov_b4h7vvpog().s[8]++;
+  return {
+    token,
+    isLoading,
+    error,
+    refetch
+  };
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfYjRoN3Z2cG9nIiwiYWN0dWFsQ292ZXJhZ2UiLCJ1c2VBdXRoQ29udGV4dCIsInVzZUdyYXBoVG9rZW5RdWVyeSIsInVzZUdldFN0YXJ0dXBDb25maWciLCJ1c2VTaGFyZVBvaW50VG9rZW4iLCJlbmFibGVkIiwiYiIsInB1cnBvc2UiLCJmIiwidXNlciIsInMiLCJkYXRhIiwic3RhcnR1cENvbmZpZyIsInNoYXJlUG9pbnRCYXNlVXJsIiwic2hhcmVQb2ludFBpY2tlckdyYXBoU2NvcGUiLCJzaGFyZVBvaW50UGlja2VyU2hhcmVQb2ludFNjb3BlIiwiaXNFbnRyYUlkVXNlciIsInByb3ZpZGVyIiwiZ3JhcGhTY29wZXMiLCJ0b2tlbiIsImlzTG9hZGluZyIsImVycm9yIiwicmVmZXRjaCIsInNjb3BlcyJdLCJzb3VyY2VzIjpbInVzZVNoYXJlUG9pbnRUb2tlbi50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyB1c2VBdXRoQ29udGV4dCB9IGZyb20gJ34vaG9va3MvQXV0aENvbnRleHQnO1xuaW1wb3J0IHsgdXNlR3JhcGhUb2tlblF1ZXJ5LCB1c2VHZXRTdGFydHVwQ29uZmlnIH0gZnJvbSAnfi9kYXRhLXByb3ZpZGVyJztcblxuaW50ZXJmYWNlIFVzZVNoYXJlUG9pbnRUb2tlblByb3BzIHtcbiAgZW5hYmxlZD86IGJvb2xlYW47XG4gIHB1cnBvc2U6ICdQaWNrJyB8ICdEb3dubG9hZCc7XG59XG5cbmludGVyZmFjZSBVc2VTaGFyZVBvaW50VG9rZW5SZXR1cm4ge1xuICB0b2tlbjogYW55O1xuICBpc0xvYWRpbmc6IGJvb2xlYW47XG4gIGVycm9yOiBhbnk7XG4gIHJlZmV0Y2g6ICgpID0+IFByb21pc2U8YW55Pjtcbn1cblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gdXNlU2hhcmVQb2ludFRva2VuKHtcbiAgZW5hYmxlZCA9IHRydWUsXG4gIHB1cnBvc2UsXG59OiBVc2VTaGFyZVBvaW50VG9rZW5Qcm9wcyk6IFVzZVNoYXJlUG9pbnRUb2tlblJldHVybiB7XG4gIGNvbnN0IHsgdXNlciB9ID0gdXNlQXV0aENvbnRleHQoKTtcbiAgY29uc3QgeyBkYXRhOiBzdGFydHVwQ29uZmlnIH0gPSB1c2VHZXRTdGFydHVwQ29uZmlnKCk7XG5cbiAgY29uc3Qgc2hhcmVQb2ludEJhc2VVcmwgPSBzdGFydHVwQ29uZmlnPy5zaGFyZVBvaW50QmFzZVVybDtcbiAgY29uc3Qgc2hhcmVQb2ludFBpY2tlckdyYXBoU2NvcGUgPSBzdGFydHVwQ29uZmlnPy5zaGFyZVBvaW50UGlja2VyR3JhcGhTY29wZTtcbiAgY29uc3Qgc2hhcmVQb2ludFBpY2tlclNoYXJlUG9pbnRTY29wZSA9IHN0YXJ0dXBDb25maWc/LnNoYXJlUG9pbnRQaWNrZXJTaGFyZVBvaW50U2NvcGU7XG5cbiAgY29uc3QgaXNFbnRyYUlkVXNlciA9IHVzZXI/LnByb3ZpZGVyID09PSAnb3BlbmlkJztcbiAgY29uc3QgZ3JhcGhTY29wZXMgPVxuICAgIHB1cnBvc2UgPT09ICdQaWNrJyA/IHNoYXJlUG9pbnRQaWNrZXJTaGFyZVBvaW50U2NvcGUgOiBzaGFyZVBvaW50UGlja2VyR3JhcGhTY29wZTtcbiAgY29uc3Qge1xuICAgIGRhdGE6IHRva2VuLFxuICAgIGlzTG9hZGluZyxcbiAgICBlcnJvcixcbiAgICByZWZldGNoLFxuICB9ID0gdXNlR3JhcGhUb2tlblF1ZXJ5KHtcbiAgICBzY29wZXM6IGdyYXBoU2NvcGVzLFxuICAgIGVuYWJsZWQ6IGVuYWJsZWQgJiYgaXNFbnRyYUlkVXNlciAmJiAhIXNoYXJlUG9pbnRCYXNlVXJsLFxuICB9KTtcblxuICByZXR1cm4ge1xuICAgIHRva2VuLFxuICAgIGlzTG9hZGluZyxcbiAgICBlcnJvcixcbiAgICByZWZldGNoLFxuICB9O1xufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7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

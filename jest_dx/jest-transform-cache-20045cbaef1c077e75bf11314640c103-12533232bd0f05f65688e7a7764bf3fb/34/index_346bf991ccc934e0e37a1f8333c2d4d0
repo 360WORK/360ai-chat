@@ -1,0 +1,43 @@
+98dbb481aa90c02487a06269ae3c2e2a
+'use strict';
+
+var callBind = require('call-bind');
+var callBound = require('call-bound');
+var GetIntrinsic = require('get-intrinsic');
+var $ArrayBuffer = GetIntrinsic('%ArrayBuffer%', true);
+/** @type {undefined | ((receiver: ArrayBuffer) => number) | ((receiver: unknown) => never)} */
+var $byteLength = callBound('ArrayBuffer.prototype.byteLength', true);
+var $toString = callBound('Object.prototype.toString');
+
+// in node 0.10, ArrayBuffers have no prototype methods, but have an own slot-checking `slice` method
+var abSlice = !!$ArrayBuffer && !$byteLength && new $ArrayBuffer(0).slice;
+var $abSlice = !!abSlice && callBind(abSlice);
+
+/** @type {import('.')} */
+module.exports = $byteLength || $abSlice ? function isArrayBuffer(obj) {
+  if (!obj || typeof obj !== 'object') {
+    return false;
+  }
+  try {
+    if ($byteLength) {
+      // @ts-expect-error no idea why TS can't handle the overload
+      $byteLength(obj);
+    } else {
+      // @ts-expect-error TS chooses not to type-narrow inside a closure
+      $abSlice(obj, 0);
+    }
+    return true;
+  } catch (e) {
+    return false;
+  }
+} : $ArrayBuffer
+// in node 0.8, ArrayBuffers have no prototype or own methods, but also no Symbol.toStringTag
+? function isArrayBuffer(obj) {
+  return $toString(obj) === '[object ArrayBuffer]';
+}
+// @ts-expect-error
+: function isArrayBuffer(obj) {
+  // eslint-disable-line no-unused-vars
+  return false;
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjYWxsQmluZCIsInJlcXVpcmUiLCJjYWxsQm91bmQiLCJHZXRJbnRyaW5zaWMiLCIkQXJyYXlCdWZmZXIiLCIkYnl0ZUxlbmd0aCIsIiR0b1N0cmluZyIsImFiU2xpY2UiLCJzbGljZSIsIiRhYlNsaWNlIiwibW9kdWxlIiwiZXhwb3J0cyIsImlzQXJyYXlCdWZmZXIiLCJvYmoiLCJlIl0sInNvdXJjZXMiOlsiaW5kZXguanMiXSwic291cmNlc0NvbnRlbnQiOlsiJ3VzZSBzdHJpY3QnO1xuXG52YXIgY2FsbEJpbmQgPSByZXF1aXJlKCdjYWxsLWJpbmQnKTtcbnZhciBjYWxsQm91bmQgPSByZXF1aXJlKCdjYWxsLWJvdW5kJyk7XG52YXIgR2V0SW50cmluc2ljID0gcmVxdWlyZSgnZ2V0LWludHJpbnNpYycpO1xuXG52YXIgJEFycmF5QnVmZmVyID0gR2V0SW50cmluc2ljKCclQXJyYXlCdWZmZXIlJywgdHJ1ZSk7XG4vKiogQHR5cGUge3VuZGVmaW5lZCB8ICgocmVjZWl2ZXI6IEFycmF5QnVmZmVyKSA9PiBudW1iZXIpIHwgKChyZWNlaXZlcjogdW5rbm93bikgPT4gbmV2ZXIpfSAqL1xudmFyICRieXRlTGVuZ3RoID0gY2FsbEJvdW5kKCdBcnJheUJ1ZmZlci5wcm90b3R5cGUuYnl0ZUxlbmd0aCcsIHRydWUpO1xudmFyICR0b1N0cmluZyA9IGNhbGxCb3VuZCgnT2JqZWN0LnByb3RvdHlwZS50b1N0cmluZycpO1xuXG4vLyBpbiBub2RlIDAuMTAsIEFycmF5QnVmZmVycyBoYXZlIG5vIHByb3RvdHlwZSBtZXRob2RzLCBidXQgaGF2ZSBhbiBvd24gc2xvdC1jaGVja2luZyBgc2xpY2VgIG1ldGhvZFxudmFyIGFiU2xpY2UgPSAhISRBcnJheUJ1ZmZlciAmJiAhJGJ5dGVMZW5ndGggJiYgbmV3ICRBcnJheUJ1ZmZlcigwKS5zbGljZTtcbnZhciAkYWJTbGljZSA9ICEhYWJTbGljZSAmJiBjYWxsQmluZChhYlNsaWNlKTtcblxuLyoqIEB0eXBlIHtpbXBvcnQoJy4nKX0gKi9cbm1vZHVsZS5leHBvcnRzID0gJGJ5dGVMZW5ndGggfHwgJGFiU2xpY2Vcblx0PyBmdW5jdGlvbiBpc0FycmF5QnVmZmVyKG9iaikge1xuXHRcdGlmICghb2JqIHx8IHR5cGVvZiBvYmogIT09ICdvYmplY3QnKSB7XG5cdFx0XHRyZXR1cm4gZmFsc2U7XG5cdFx0fVxuXHRcdHRyeSB7XG5cdFx0XHRpZiAoJGJ5dGVMZW5ndGgpIHtcblx0XHRcdFx0Ly8gQHRzLWV4cGVjdC1lcnJvciBubyBpZGVhIHdoeSBUUyBjYW4ndCBoYW5kbGUgdGhlIG92ZXJsb2FkXG5cdFx0XHRcdCRieXRlTGVuZ3RoKG9iaik7XG5cdFx0XHR9IGVsc2Uge1xuXHRcdFx0XHQvLyBAdHMtZXhwZWN0LWVycm9yIFRTIGNob29zZXMgbm90IHRvIHR5cGUtbmFycm93IGluc2lkZSBhIGNsb3N1cmVcblx0XHRcdFx0JGFiU2xpY2Uob2JqLCAwKTtcblx0XHRcdH1cblx0XHRcdHJldHVybiB0cnVlO1xuXHRcdH0gY2F0Y2ggKGUpIHtcblx0XHRcdHJldHVybiBmYWxzZTtcblx0XHR9XG5cdH1cblx0OiAkQXJyYXlCdWZmZXJcblx0XHQvLyBpbiBub2RlIDAuOCwgQXJyYXlCdWZmZXJzIGhhdmUgbm8gcHJvdG90eXBlIG9yIG93biBtZXRob2RzLCBidXQgYWxzbyBubyBTeW1ib2wudG9TdHJpbmdUYWdcblx0XHQ/IGZ1bmN0aW9uIGlzQXJyYXlCdWZmZXIob2JqKSB7XG5cdFx0XHRyZXR1cm4gJHRvU3RyaW5nKG9iaikgPT09ICdbb2JqZWN0IEFycmF5QnVmZmVyXSc7XG5cdFx0fVxuXHRcdC8vIEB0cy1leHBlY3QtZXJyb3Jcblx0XHQ6IGZ1bmN0aW9uIGlzQXJyYXlCdWZmZXIob2JqKSB7IC8vIGVzbGludC1kaXNhYmxlLWxpbmUgbm8tdW51c2VkLXZhcnNcblx0XHRcdHJldHVybiBmYWxzZTtcblx0XHR9O1xuIl0sIm1hcHBpbmdzIjoiQUFBQSxZQUFZOztBQUVaLElBQUlBLFFBQVEsR0FBR0MsT0FBTyxDQUFDLFdBQVcsQ0FBQztBQUNuQyxJQUFJQyxTQUFTLEdBQUdELE9BQU8sQ0FBQyxZQUFZLENBQUM7QUFDckMsSUFBSUUsWUFBWSxHQUFHRixPQUFPLENBQUMsZUFBZSxDQUFDO0FBRTNDLElBQUlHLFlBQVksR0FBR0QsWUFBWSxDQUFDLGVBQWUsRUFBRSxJQUFJLENBQUM7QUFDdEQ7QUFDQSxJQUFJRSxXQUFXLEdBQUdILFNBQVMsQ0FBQyxrQ0FBa0MsRUFBRSxJQUFJLENBQUM7QUFDckUsSUFBSUksU0FBUyxHQUFHSixTQUFTLENBQUMsMkJBQTJCLENBQUM7O0FBRXREO0FBQ0EsSUFBSUssT0FBTyxHQUFHLENBQUMsQ0FBQ0gsWUFBWSxJQUFJLENBQUNDLFdBQVcsSUFBSSxJQUFJRCxZQUFZLENBQUMsQ0FBQyxDQUFDLENBQUNJLEtBQUs7QUFDekUsSUFBSUMsUUFBUSxHQUFHLENBQUMsQ0FBQ0YsT0FBTyxJQUFJUCxRQUFRLENBQUNPLE9BQU8sQ0FBQzs7QUFFN0M7QUFDQUcsTUFBTSxDQUFDQyxPQUFPLEdBQUdOLFdBQVcsSUFBSUksUUFBUSxHQUNyQyxTQUFTRyxhQUFhQSxDQUFDQyxHQUFHLEVBQUU7RUFDN0IsSUFBSSxDQUFDQSxHQUFHLElBQUksT0FBT0EsR0FBRyxLQUFLLFFBQVEsRUFBRTtJQUNwQyxPQUFPLEtBQUs7RUFDYjtFQUNBLElBQUk7SUFDSCxJQUFJUixXQUFXLEVBQUU7TUFDaEI7TUFDQUEsV0FBVyxDQUFDUSxHQUFHLENBQUM7SUFDakIsQ0FBQyxNQUFNO01BQ047TUFDQUosUUFBUSxDQUFDSSxHQUFHLEVBQUUsQ0FBQyxDQUFDO0lBQ2pCO0lBQ0EsT0FBTyxJQUFJO0VBQ1osQ0FBQyxDQUFDLE9BQU9DLENBQUMsRUFBRTtJQUNYLE9BQU8sS0FBSztFQUNiO0FBQ0QsQ0FBQyxHQUNDVjtBQUNEO0FBQUEsRUFDRSxTQUFTUSxhQUFhQSxDQUFDQyxHQUFHLEVBQUU7RUFDN0IsT0FBT1AsU0FBUyxDQUFDTyxHQUFHLENBQUMsS0FBSyxzQkFBc0I7QUFDakQ7QUFDQTtBQUFBLEVBQ0UsU0FBU0QsYUFBYUEsQ0FBQ0MsR0FBRyxFQUFFO0VBQUU7RUFDL0IsT0FBTyxLQUFLO0FBQ2IsQ0FBQyIsImlnbm9yZUxpc3QiOltdfQ==

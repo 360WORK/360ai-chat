@@ -1,0 +1,9 @@
+3e97d111dff3939843e02229f8d46bdd
+Object.defineProperty(window, 'ResizeObserver', {
+  writable: true,
+  value: jest.fn().mockImplementation(() => ({
+    disconnect: jest.fn(),
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+  }))
+});

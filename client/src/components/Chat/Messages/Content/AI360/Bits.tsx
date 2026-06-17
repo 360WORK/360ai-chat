@@ -53,12 +53,12 @@ export function CopyButton({ text, label }: { text: string; label?: string }) {
       setTimeout(() => setCopied(false), 1500);
     });
   };
-  const text_label = label ?? localize('com_ui_360_copy');
+  const textLabel = label ?? localize('com_ui_360_copy');
   return (
     <button
       type="button"
       onClick={handleCopy}
-      aria-label={copied ? localize('com_ui_360_copied') : text_label}
+      aria-label={copied ? localize('com_ui_360_copied') : textLabel}
       className={cn(
         'inline-flex items-center gap-1 rounded-md border border-border-medium px-2 py-1 text-xs',
         'text-text-secondary transition-colors hover:bg-surface-tertiary hover:text-text-primary',
@@ -70,7 +70,7 @@ export function CopyButton({ text, label }: { text: string; label?: string }) {
       ) : (
         <Copy className="size-3.5" aria-hidden="true" />
       )}
-      <span>{copied ? localize('com_ui_360_copied') : text_label}</span>
+      <span>{copied ? localize('com_ui_360_copied') : textLabel}</span>
     </button>
   );
 }
@@ -132,6 +132,7 @@ export function Avatar({ src, name }: { src?: string | null; name?: string | nul
 }
 
 export function SkillChips({ skills, max = 5 }: { skills?: string[]; max?: number }) {
+  const localize = useLocalize();
   const [expanded, setExpanded] = useState(false);
   if (!skills || skills.length === 0) {
     return null;
@@ -147,6 +148,7 @@ export function SkillChips({ skills, max = 5 }: { skills?: string[]; max?: numbe
         <button
           type="button"
           onClick={() => setExpanded(true)}
+          aria-label={localize('com_ui_360_more_skills', { 0: hidden })}
           className="rounded-full px-1.5 py-0.5 text-xs text-text-secondary hover:text-text-primary"
         >
           {`+${hidden}`}

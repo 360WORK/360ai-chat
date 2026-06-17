@@ -1,0 +1,23 @@
+65b95af71fb4067b27b3aed8df45f379
+"use strict";
+
+var coreJsData = require('./_coreJsData');
+
+/** Used to detect methods masquerading as native. */
+var maskSrcKey = function () {
+  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+  return uid ? 'Symbol(src)_1.' + uid : '';
+}();
+
+/**
+ * Checks if `func` has its source masked.
+ *
+ * @private
+ * @param {Function} func The function to check.
+ * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+ */
+function isMasked(func) {
+  return !!maskSrcKey && maskSrcKey in func;
+}
+module.exports = isMasked;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3JlSnNEYXRhIiwicmVxdWlyZSIsIm1hc2tTcmNLZXkiLCJ1aWQiLCJleGVjIiwia2V5cyIsIklFX1BST1RPIiwiaXNNYXNrZWQiLCJmdW5jIiwibW9kdWxlIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIl9pc01hc2tlZC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgY29yZUpzRGF0YSA9IHJlcXVpcmUoJy4vX2NvcmVKc0RhdGEnKTtcblxuLyoqIFVzZWQgdG8gZGV0ZWN0IG1ldGhvZHMgbWFzcXVlcmFkaW5nIGFzIG5hdGl2ZS4gKi9cbnZhciBtYXNrU3JjS2V5ID0gKGZ1bmN0aW9uKCkge1xuICB2YXIgdWlkID0gL1teLl0rJC8uZXhlYyhjb3JlSnNEYXRhICYmIGNvcmVKc0RhdGEua2V5cyAmJiBjb3JlSnNEYXRhLmtleXMuSUVfUFJPVE8gfHwgJycpO1xuICByZXR1cm4gdWlkID8gKCdTeW1ib2woc3JjKV8xLicgKyB1aWQpIDogJyc7XG59KCkpO1xuXG4vKipcbiAqIENoZWNrcyBpZiBgZnVuY2AgaGFzIGl0cyBzb3VyY2UgbWFza2VkLlxuICpcbiAqIEBwcml2YXRlXG4gKiBAcGFyYW0ge0Z1bmN0aW9ufSBmdW5jIFRoZSBmdW5jdGlvbiB0byBjaGVjay5cbiAqIEByZXR1cm5zIHtib29sZWFufSBSZXR1cm5zIGB0cnVlYCBpZiBgZnVuY2AgaXMgbWFza2VkLCBlbHNlIGBmYWxzZWAuXG4gKi9cbmZ1bmN0aW9uIGlzTWFza2VkKGZ1bmMpIHtcbiAgcmV0dXJuICEhbWFza1NyY0tleSAmJiAobWFza1NyY0tleSBpbiBmdW5jKTtcbn1cblxubW9kdWxlLmV4cG9ydHMgPSBpc01hc2tlZDtcbiJdLCJtYXBwaW5ncyI6Ijs7QUFBQSxJQUFJQSxVQUFVLEdBQUdDLE9BQU8sQ0FBQyxlQUFlLENBQUM7O0FBRXpDO0FBQ0EsSUFBSUMsVUFBVSxHQUFJLFlBQVc7RUFDM0IsSUFBSUMsR0FBRyxHQUFHLFFBQVEsQ0FBQ0MsSUFBSSxDQUFDSixVQUFVLElBQUlBLFVBQVUsQ0FBQ0ssSUFBSSxJQUFJTCxVQUFVLENBQUNLLElBQUksQ0FBQ0MsUUFBUSxJQUFJLEVBQUUsQ0FBQztFQUN4RixPQUFPSCxHQUFHLEdBQUksZ0JBQWdCLEdBQUdBLEdBQUcsR0FBSSxFQUFFO0FBQzVDLENBQUMsQ0FBQyxDQUFFOztBQUVKO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsU0FBU0ksUUFBUUEsQ0FBQ0MsSUFBSSxFQUFFO0VBQ3RCLE9BQU8sQ0FBQyxDQUFDTixVQUFVLElBQUtBLFVBQVUsSUFBSU0sSUFBSztBQUM3QztBQUVBQyxNQUFNLENBQUNDLE9BQU8sR0FBR0gsUUFBUSIsImlnbm9yZUxpc3QiOltdfQ==

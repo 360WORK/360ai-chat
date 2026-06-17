@@ -1,0 +1,202 @@
+837d4816b42f09b6fcbfa3d636da2da7
+/* istanbul ignore next */
+function cov_27ynvzf2pb() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Nav/SettingsTabs/Speech/TTS/VoiceDropdown.tsx";
+  var hash = "2ac76752882e36afe304246651d14d61dec969b6";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Nav/SettingsTabs/Speech/TTS/VoiceDropdown.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 6,
+          column: 35
+        },
+        end: {
+          line: 9,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 12,
+          column: 20
+        },
+        end: {
+          line: 12,
+          column: 59
+        }
+      },
+      "2": {
+        start: {
+          line: 13,
+          column: 33
+        },
+        end: {
+          line: 13,
+          column: 70
+        }
+      },
+      "3": {
+        start: {
+          line: 15,
+          column: 2
+        },
+        end: {
+          line: 17,
+          column: 3
+        }
+      },
+      "4": {
+        start: {
+          line: 16,
+          column: 4
+        },
+        end: {
+          line: 16,
+          column: 16
+        }
+      },
+      "5": {
+        start: {
+          line: 19,
+          column: 2
+        },
+        end: {
+          line: 19,
+          column: 36
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "VoiceDropdown",
+        decl: {
+          start: {
+            line: 11,
+            column: 24
+          },
+          end: {
+            line: 11,
+            column: 37
+          }
+        },
+        loc: {
+          start: {
+            line: 11,
+            column: 40
+          },
+          end: {
+            line: 20,
+            column: 1
+          }
+        },
+        line: 11
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 15,
+            column: 2
+          },
+          end: {
+            line: 17,
+            column: 3
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 15,
+            column: 2
+          },
+          end: {
+            line: 17,
+            column: 3
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 15
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {
+      "0": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "2ac76752882e36afe304246651d14d61dec969b6"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_27ynvzf2pb = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_27ynvzf2pb();
+import { useRecoilValue } from 'recoil';
+import { BrowserVoiceDropdown, ExternalVoiceDropdown } from "../../../../Audio/Voices";
+import { TTSEndpoints } from "../../../../../common";
+import store from "../../../../../store";
+/* istanbul ignore next */
+import { jsx as _jsx } from "react/jsx-runtime";
+const voiceDropdownComponentsMap =
+/* istanbul ignore next */
+(cov_27ynvzf2pb().s[0]++, {
+  [TTSEndpoints.browser]: BrowserVoiceDropdown,
+  [TTSEndpoints.external]: ExternalVoiceDropdown
+});
+export default function VoiceDropdown() {
+  /* istanbul ignore next */
+  cov_27ynvzf2pb().f[0]++;
+  const engineTTS =
+  /* istanbul ignore next */
+  (cov_27ynvzf2pb().s[1]++, useRecoilValue(store.engineTTS));
+  const VoiceDropdownComponent =
+  /* istanbul ignore next */
+  (cov_27ynvzf2pb().s[2]++, voiceDropdownComponentsMap[engineTTS]);
+  /* istanbul ignore next */
+  cov_27ynvzf2pb().s[3]++;
+  if (!VoiceDropdownComponent) {
+    /* istanbul ignore next */
+    cov_27ynvzf2pb().b[0][0]++;
+    cov_27ynvzf2pb().s[4]++;
+    return null;
+  } else
+  /* istanbul ignore next */
+  {
+    cov_27ynvzf2pb().b[0][1]++;
+  }
+  cov_27ynvzf2pb().s[5]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(VoiceDropdownComponent,
+  /* istanbul ignore next */
+  {});
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMjd5bnZ6ZjJwYiIsImFjdHVhbENvdmVyYWdlIiwidXNlUmVjb2lsVmFsdWUiLCJCcm93c2VyVm9pY2VEcm9wZG93biIsIkV4dGVybmFsVm9pY2VEcm9wZG93biIsIlRUU0VuZHBvaW50cyIsInN0b3JlIiwianN4IiwiX2pzeCIsInZvaWNlRHJvcGRvd25Db21wb25lbnRzTWFwIiwicyIsImJyb3dzZXIiLCJleHRlcm5hbCIsIlZvaWNlRHJvcGRvd24iLCJmIiwiZW5naW5lVFRTIiwiVm9pY2VEcm9wZG93bkNvbXBvbmVudCIsImIiXSwic291cmNlcyI6WyJWb2ljZURyb3Bkb3duLnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyB1c2VSZWNvaWxWYWx1ZSB9IGZyb20gJ3JlY29pbCc7XG5pbXBvcnQgeyBCcm93c2VyVm9pY2VEcm9wZG93biwgRXh0ZXJuYWxWb2ljZURyb3Bkb3duIH0gZnJvbSAnfi9jb21wb25lbnRzL0F1ZGlvL1ZvaWNlcyc7XG5pbXBvcnQgeyBUVFNFbmRwb2ludHMgfSBmcm9tICd+L2NvbW1vbic7XG5pbXBvcnQgc3RvcmUgZnJvbSAnfi9zdG9yZSc7XG5cbmNvbnN0IHZvaWNlRHJvcGRvd25Db21wb25lbnRzTWFwID0ge1xuICBbVFRTRW5kcG9pbnRzLmJyb3dzZXJdOiBCcm93c2VyVm9pY2VEcm9wZG93bixcbiAgW1RUU0VuZHBvaW50cy5leHRlcm5hbF06IEV4dGVybmFsVm9pY2VEcm9wZG93bixcbn07XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIFZvaWNlRHJvcGRvd24oKSB7XG4gIGNvbnN0IGVuZ2luZVRUUyA9IHVzZVJlY29pbFZhbHVlPHN0cmluZz4oc3RvcmUuZW5naW5lVFRTKTtcbiAgY29uc3QgVm9pY2VEcm9wZG93bkNvbXBvbmVudCA9IHZvaWNlRHJvcGRvd25Db21wb25lbnRzTWFwW2VuZ2luZVRUU107XG5cbiAgaWYgKCFWb2ljZURyb3Bkb3duQ29tcG9uZW50KSB7XG4gICAgcmV0dXJuIG51bGw7XG4gIH1cblxuICByZXR1cm4gPFZvaWNlRHJvcGRvd25Db21wb25lbnQgLz47XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7SUFlWTtJQUFBQSxjQUFBLFlBQUFBLENBQUE7TUFBQSxPQUFBQyxjQUFBO0lBQUE7RUFBQTtFQUFBLE9BQUFBLGNBQUE7QUFBQTtBQUFBRCxjQUFBO0FBZlosU0FBU0UsY0FBYyxRQUFRLFFBQVE7QUFDdkMsU0FBU0Msb0JBQW9CLEVBQUVDLHFCQUFxQixRQUFRLDBCQUEyQjtBQUN2RixTQUFTQyxZQUFZLFFBQVEsdUJBQVU7QUFDdkMsT0FBT0MsS0FBSyxNQUFNLHNCQUFTO0FBQUM7QUFBQSxTQUFBQyxHQUFBLElBQUFDLElBQUE7QUFFNUIsTUFBTUMsMEJBQTBCO0FBQUE7QUFBQSxDQUFBVCxjQUFBLEdBQUFVLENBQUEsT0FBRztFQUNqQyxDQUFDTCxZQUFZLENBQUNNLE9BQU8sR0FBR1Isb0JBQW9CO0VBQzVDLENBQUNFLFlBQVksQ0FBQ08sUUFBUSxHQUFHUjtBQUMzQixDQUFDO0FBRUQsZUFBZSxTQUFTUyxhQUFhQSxDQUFBLEVBQUc7RUFBQTtFQUFBYixjQUFBLEdBQUFjLENBQUE7RUFDdEMsTUFBTUMsU0FBUztFQUFBO0VBQUEsQ0FBQWYsY0FBQSxHQUFBVSxDQUFBLE9BQUdSLGNBQWMsQ0FBU0ksS0FBSyxDQUFDUyxTQUFTLENBQUM7RUFDekQsTUFBTUMsc0JBQXNCO0VBQUE7RUFBQSxDQUFBaEIsY0FBQSxHQUFBVSxDQUFBLE9BQUdELDBCQUEwQixDQUFDTSxTQUFTLENBQUM7RUFBQztFQUFBZixjQUFBLEdBQUFVLENBQUE7RUFFckUsSUFBSSxDQUFDTSxzQkFBc0IsRUFBRTtJQUFBO0lBQUFoQixjQUFBLEdBQUFpQixDQUFBO0lBQUFqQixjQUFBLEdBQUFVLENBQUE7SUFDM0IsT0FBTyxJQUFJO0VBQ2IsQ0FBQztFQUFBO0VBQUE7SUFBQVYsY0FBQSxHQUFBaUIsQ0FBQTtFQUFBO0VBQUFqQixjQUFBLEdBQUFVLENBQUE7RUFFRCxvQkFBTywyQkFBQUYsSUFBQSxDQUFDUSxzQkFBc0I7RUFBQTtFQUFBLEVBQUUsQ0FBQztBQUNuQyIsImlnbm9yZUxpc3QiOltdfQ==

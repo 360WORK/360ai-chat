@@ -1,0 +1,56 @@
+1ed97e2b88e399f0cc178646af2972c7
+/* istanbul ignore next */
+function cov_yz7av9tq() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/store/text.ts";
+  var hash = "0cbc82f8d11ad03e7efc6f7db3e3255f35312729";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/store/text.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 3,
+          column: 13
+        },
+        end: {
+          line: 6,
+          column: 2
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "0cbc82f8d11ad03e7efc6f7db3e3255f35312729"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_yz7av9tq = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_yz7av9tq();
+import { atom } from 'recoil';
+const text =
+/* istanbul ignore next */
+(cov_yz7av9tq().s[0]++, atom({
+  key: 'text',
+  default: ''
+}));
+export default {
+  text
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfeXo3YXY5dHEiLCJhY3R1YWxDb3ZlcmFnZSIsImF0b20iLCJ0ZXh0IiwicyIsImtleSIsImRlZmF1bHQiXSwic291cmNlcyI6WyJ0ZXh0LnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGF0b20gfSBmcm9tICdyZWNvaWwnO1xuXG5jb25zdCB0ZXh0ID0gYXRvbTxzdHJpbmc+KHtcbiAga2V5OiAndGV4dCcsXG4gIGRlZmF1bHQ6ICcnLFxufSk7XG5cbmV4cG9ydCBkZWZhdWx0IHsgdGV4dCB9O1xuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7SUFlWTtJQUFBQSxZQUFBLFlBQUFBLENBQUE7TUFBQSxPQUFBQyxjQUFBO0lBQUE7RUFBQTtFQUFBLE9BQUFBLGNBQUE7QUFBQTtBQUFBRCxZQUFBO0FBZlosU0FBU0UsSUFBSSxRQUFRLFFBQVE7QUFFN0IsTUFBTUMsSUFBSTtBQUFBO0FBQUEsQ0FBQUgsWUFBQSxHQUFBSSxDQUFBLE9BQUdGLElBQUksQ0FBUztFQUN4QkcsR0FBRyxFQUFFLE1BQU07RUFDWEMsT0FBTyxFQUFFO0FBQ1gsQ0FBQyxDQUFDO0FBRUYsZUFBZTtFQUFFSDtBQUFLLENBQUMiLCJpZ25vcmVMaXN0IjpbXX0=

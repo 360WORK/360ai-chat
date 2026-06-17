@@ -1,0 +1,24 @@
+c47990f249af8d141e0d8da34bcffd5b
+"use strict";
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  var type = typeof value;
+  length = length == null ? MAX_SAFE_INTEGER : length;
+  return !!length && (type == 'number' || type != 'symbol' && reIsUint.test(value)) && value > -1 && value % 1 == 0 && value < length;
+}
+module.exports = isIndex;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJNQVhfU0FGRV9JTlRFR0VSIiwicmVJc1VpbnQiLCJpc0luZGV4IiwidmFsdWUiLCJsZW5ndGgiLCJ0eXBlIiwidGVzdCIsIm1vZHVsZSIsImV4cG9ydHMiXSwic291cmNlcyI6WyJfaXNJbmRleC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKiogVXNlZCBhcyByZWZlcmVuY2VzIGZvciB2YXJpb3VzIGBOdW1iZXJgIGNvbnN0YW50cy4gKi9cbnZhciBNQVhfU0FGRV9JTlRFR0VSID0gOTAwNzE5OTI1NDc0MDk5MTtcblxuLyoqIFVzZWQgdG8gZGV0ZWN0IHVuc2lnbmVkIGludGVnZXIgdmFsdWVzLiAqL1xudmFyIHJlSXNVaW50ID0gL14oPzowfFsxLTldXFxkKikkLztcblxuLyoqXG4gKiBDaGVja3MgaWYgYHZhbHVlYCBpcyBhIHZhbGlkIGFycmF5LWxpa2UgaW5kZXguXG4gKlxuICogQHByaXZhdGVcbiAqIEBwYXJhbSB7Kn0gdmFsdWUgVGhlIHZhbHVlIHRvIGNoZWNrLlxuICogQHBhcmFtIHtudW1iZXJ9IFtsZW5ndGg9TUFYX1NBRkVfSU5URUdFUl0gVGhlIHVwcGVyIGJvdW5kcyBvZiBhIHZhbGlkIGluZGV4LlxuICogQHJldHVybnMge2Jvb2xlYW59IFJldHVybnMgYHRydWVgIGlmIGB2YWx1ZWAgaXMgYSB2YWxpZCBpbmRleCwgZWxzZSBgZmFsc2VgLlxuICovXG5mdW5jdGlvbiBpc0luZGV4KHZhbHVlLCBsZW5ndGgpIHtcbiAgdmFyIHR5cGUgPSB0eXBlb2YgdmFsdWU7XG4gIGxlbmd0aCA9IGxlbmd0aCA9PSBudWxsID8gTUFYX1NBRkVfSU5URUdFUiA6IGxlbmd0aDtcblxuICByZXR1cm4gISFsZW5ndGggJiZcbiAgICAodHlwZSA9PSAnbnVtYmVyJyB8fFxuICAgICAgKHR5cGUgIT0gJ3N5bWJvbCcgJiYgcmVJc1VpbnQudGVzdCh2YWx1ZSkpKSAmJlxuICAgICAgICAodmFsdWUgPiAtMSAmJiB2YWx1ZSAlIDEgPT0gMCAmJiB2YWx1ZSA8IGxlbmd0aCk7XG59XG5cbm1vZHVsZS5leHBvcnRzID0gaXNJbmRleDtcbiJdLCJtYXBwaW5ncyI6Ijs7QUFBQTtBQUNBLElBQUlBLGdCQUFnQixHQUFHLGdCQUFnQjs7QUFFdkM7QUFDQSxJQUFJQyxRQUFRLEdBQUcsa0JBQWtCOztBQUVqQztBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsU0FBU0MsT0FBT0EsQ0FBQ0MsS0FBSyxFQUFFQyxNQUFNLEVBQUU7RUFDOUIsSUFBSUMsSUFBSSxHQUFHLE9BQU9GLEtBQUs7RUFDdkJDLE1BQU0sR0FBR0EsTUFBTSxJQUFJLElBQUksR0FBR0osZ0JBQWdCLEdBQUdJLE1BQU07RUFFbkQsT0FBTyxDQUFDLENBQUNBLE1BQU0sS0FDWkMsSUFBSSxJQUFJLFFBQVEsSUFDZEEsSUFBSSxJQUFJLFFBQVEsSUFBSUosUUFBUSxDQUFDSyxJQUFJLENBQUNILEtBQUssQ0FBRSxDQUFDLElBQ3hDQSxLQUFLLEdBQUcsQ0FBQyxDQUFDLElBQUlBLEtBQUssR0FBRyxDQUFDLElBQUksQ0FBQyxJQUFJQSxLQUFLLEdBQUdDLE1BQU87QUFDeEQ7QUFFQUcsTUFBTSxDQUFDQyxPQUFPLEdBQUdOLE9BQU8iLCJpZ25vcmVMaXN0IjpbXX0=

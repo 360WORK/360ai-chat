@@ -1,0 +1,74 @@
+e0611a316b7b3d5c1a34f307fe889174
+/* istanbul ignore next */
+function cov_1ewc08n6xv() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/store/preset.ts";
+  var hash = "061917da97cacba97718522ffd84423054de21bc";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/store/preset.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 4,
+          column: 22
+        },
+        end: {
+          line: 7,
+          column: 2
+        }
+      },
+      "1": {
+        start: {
+          line: 9,
+          column: 27
+        },
+        end: {
+          line: 12,
+          column: 2
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "061917da97cacba97718522ffd84423054de21bc"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1ewc08n6xv = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1ewc08n6xv();
+import { atom } from 'recoil';
+const defaultPreset =
+/* istanbul ignore next */
+(cov_1ewc08n6xv().s[0]++, atom({
+  key: 'defaultPreset',
+  default: null
+}));
+const presetModalVisible =
+/* istanbul ignore next */
+(cov_1ewc08n6xv().s[1]++, atom({
+  key: 'presetModalVisible',
+  default: false
+}));
+export default {
+  defaultPreset,
+  presetModalVisible
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMWV3YzA4bjZ4diIsImFjdHVhbENvdmVyYWdlIiwiYXRvbSIsImRlZmF1bHRQcmVzZXQiLCJzIiwia2V5IiwiZGVmYXVsdCIsInByZXNldE1vZGFsVmlzaWJsZSJdLCJzb3VyY2VzIjpbInByZXNldC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBhdG9tIH0gZnJvbSAncmVjb2lsJztcbmltcG9ydCB7IFRQcmVzZXQgfSBmcm9tICdsaWJyZWNoYXQtZGF0YS1wcm92aWRlcic7XG5cbmNvbnN0IGRlZmF1bHRQcmVzZXQgPSBhdG9tPFRQcmVzZXQgfCBudWxsPih7XG4gIGtleTogJ2RlZmF1bHRQcmVzZXQnLFxuICBkZWZhdWx0OiBudWxsLFxufSk7XG5cbmNvbnN0IHByZXNldE1vZGFsVmlzaWJsZSA9IGF0b208Ym9vbGVhbj4oe1xuICBrZXk6ICdwcmVzZXRNb2RhbFZpc2libGUnLFxuICBkZWZhdWx0OiBmYWxzZSxcbn0pO1xuXG5leHBvcnQgZGVmYXVsdCB7XG4gIGRlZmF1bHRQcmVzZXQsXG4gIHByZXNldE1vZGFsVmlzaWJsZSxcbn07XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsY0FBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsY0FBQTtBQWZaLFNBQVNFLElBQUksUUFBUSxRQUFRO0FBRzdCLE1BQU1DLGFBQWE7QUFBQTtBQUFBLENBQUFILGNBQUEsR0FBQUksQ0FBQSxPQUFHRixJQUFJLENBQWlCO0VBQ3pDRyxHQUFHLEVBQUUsZUFBZTtFQUNwQkMsT0FBTyxFQUFFO0FBQ1gsQ0FBQyxDQUFDO0FBRUYsTUFBTUMsa0JBQWtCO0FBQUE7QUFBQSxDQUFBUCxjQUFBLEdBQUFJLENBQUEsT0FBR0YsSUFBSSxDQUFVO0VBQ3ZDRyxHQUFHLEVBQUUsb0JBQW9CO0VBQ3pCQyxPQUFPLEVBQUU7QUFDWCxDQUFDLENBQUM7QUFFRixlQUFlO0VBQ2JILGFBQWE7RUFDYkk7QUFDRixDQUFDIiwiaWdub3JlTGlzdCI6W119

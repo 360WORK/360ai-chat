@@ -1,0 +1,108 @@
+3b72bb1243224a1101fdd6150598963d
+/* istanbul ignore next */
+function cov_227ke5s55s() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/utils/share.ts";
+  var hash = "5e2c953308f388d6ccb4825308eda00bb35a3d88";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/utils/share.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 3,
+          column: 33
+        },
+        end: {
+          line: 6,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 4,
+          column: 18
+        },
+        end: {
+          line: 4,
+          column: 30
+        }
+      },
+      "2": {
+        start: {
+          line: 5,
+          column: 2
+        },
+        end: {
+          line: 5,
+          column: 83
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 3,
+            column: 33
+          },
+          end: {
+            line: 3,
+            column: 34
+          }
+        },
+        loc: {
+          start: {
+            line: 3,
+            column: 62
+          },
+          end: {
+            line: 6,
+            column: 1
+          }
+        },
+        line: 3
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "5e2c953308f388d6ccb4825308eda00bb35a3d88"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_227ke5s55s = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_227ke5s55s();
+import { apiBaseUrl } from 'librechat-data-provider';
+/* istanbul ignore next */
+cov_227ke5s55s().s[0]++;
+export const buildShareLinkUrl = shareId => {
+  /* istanbul ignore next */
+  cov_227ke5s55s().f[0]++;
+  const baseURL =
+  /* istanbul ignore next */
+  (cov_227ke5s55s().s[1]++, apiBaseUrl());
+  /* istanbul ignore next */
+  cov_227ke5s55s().s[2]++;
+  return new URL(`${baseURL}/share/${shareId}`, window.location.origin).toString();
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMjI3a2U1czU1cyIsImFjdHVhbENvdmVyYWdlIiwiYXBpQmFzZVVybCIsInMiLCJidWlsZFNoYXJlTGlua1VybCIsInNoYXJlSWQiLCJmIiwiYmFzZVVSTCIsIlVSTCIsIndpbmRvdyIsImxvY2F0aW9uIiwib3JpZ2luIiwidG9TdHJpbmciXSwic291cmNlcyI6WyJzaGFyZS50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBhcGlCYXNlVXJsIH0gZnJvbSAnbGlicmVjaGF0LWRhdGEtcHJvdmlkZXInO1xuXG5leHBvcnQgY29uc3QgYnVpbGRTaGFyZUxpbmtVcmwgPSAoc2hhcmVJZDogc3RyaW5nKTogc3RyaW5nID0+IHtcbiAgY29uc3QgYmFzZVVSTCA9IGFwaUJhc2VVcmwoKTtcbiAgcmV0dXJuIG5ldyBVUkwoYCR7YmFzZVVSTH0vc2hhcmUvJHtzaGFyZUlkfWAsIHdpbmRvdy5sb2NhdGlvbi5vcmlnaW4pLnRvU3RyaW5nKCk7XG59O1xuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsY0FBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsY0FBQTtBQWZaLFNBQVNFLFVBQVUsUUFBUSx5QkFBeUI7QUFBQztBQUFBRixjQUFBLEdBQUFHLENBQUE7QUFFckQsT0FBTyxNQUFNQyxpQkFBaUIsR0FBSUMsT0FBZSxJQUFhO0VBQUE7RUFBQUwsY0FBQSxHQUFBTSxDQUFBO0VBQzVELE1BQU1DLE9BQU87RUFBQTtFQUFBLENBQUFQLGNBQUEsR0FBQUcsQ0FBQSxPQUFHRCxVQUFVLENBQUMsQ0FBQztFQUFDO0VBQUFGLGNBQUEsR0FBQUcsQ0FBQTtFQUM3QixPQUFPLElBQUlLLEdBQUcsQ0FBQyxHQUFHRCxPQUFPLFVBQVVGLE9BQU8sRUFBRSxFQUFFSSxNQUFNLENBQUNDLFFBQVEsQ0FBQ0MsTUFBTSxDQUFDLENBQUNDLFFBQVEsQ0FBQyxDQUFDO0FBQ2xGLENBQUMiLCJpZ25vcmVMaXN0IjpbXX0=

@@ -1,0 +1,267 @@
+1e1a14738b044ab7794b7292e68d080b
+/* istanbul ignore next */
+function cov_2il4h5ijug() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Chat/Input/Files/FileFormChat.tsx";
+  var hash = "f34fd2247b0687113aab888f7db0070934edf259";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Chat/Input/Files/FileFormChat.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 20,
+          column: 24
+        },
+        end: {
+          line: 20,
+          column: 73
+        }
+      },
+      "1": {
+        start: {
+          line: 21,
+          column: 34
+        },
+        end: {
+          line: 21,
+          column: 68
+        }
+      },
+      "2": {
+        start: {
+          line: 22,
+          column: 26
+        },
+        end: {
+          line: 27,
+          column: 4
+        }
+      },
+      "3": {
+        start: {
+          line: 29,
+          column: 16
+        },
+        end: {
+          line: 29,
+          column: 39
+        }
+      },
+      "4": {
+        start: {
+          line: 31,
+          column: 2
+        },
+        end: {
+          line: 42,
+          column: 4
+        }
+      },
+      "5": {
+        start: {
+          line: 39,
+          column: 35
+        },
+        end: {
+          line: 39,
+          column: 99
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "FileFormChat",
+        decl: {
+          start: {
+            line: 9,
+            column: 9
+          },
+          end: {
+            line: 9,
+            column: 21
+          }
+        },
+        loc: {
+          start: {
+            line: 19,
+            column: 3
+          },
+          end: {
+            line: 43,
+            column: 1
+          }
+        },
+        line: 19
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 39,
+            column: 17
+          },
+          end: {
+            line: 39,
+            column: 18
+          }
+        },
+        loc: {
+          start: {
+            line: 39,
+            column: 35
+          },
+          end: {
+            line: 39,
+            column: 99
+          }
+        },
+        line: 39
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 21,
+            column: 34
+          },
+          end: {
+            line: 21,
+            column: 68
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 21,
+            column: 34
+          },
+          end: {
+            line: 21,
+            column: 46
+          }
+        }, {
+          start: {
+            line: 21,
+            column: 50
+          },
+          end: {
+            line: 21,
+            column: 68
+          }
+        }],
+        line: 21
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0
+    },
+    b: {
+      "0": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "f34fd2247b0687113aab888f7db0070934edf259"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_2il4h5ijug = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2il4h5ijug();
+import { memo } from 'react';
+import { useRecoilValue } from 'recoil';
+import { useFileHandlingNoChatContext } from "../../../../hooks";
+import FileRow from './FileRow';
+import store from "../../../../store";
+/* istanbul ignore next */
+import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
+function FileFormChat({
+  conversation,
+  files,
+  setFiles,
+  setFilesLoading
+}) {
+  /* istanbul ignore next */
+  cov_2il4h5ijug().f[0]++;
+  const chatDirection =
+  /* istanbul ignore next */
+  (cov_2il4h5ijug().s[0]++, useRecoilValue(store.chatDirection).toLowerCase());
+  const {
+    endpoint: _endpoint
+  } =
+  /* istanbul ignore next */
+  (cov_2il4h5ijug().s[1]++,
+  /* istanbul ignore next */
+  (cov_2il4h5ijug().b[0][0]++, conversation) ??
+  /* istanbul ignore next */
+  (cov_2il4h5ijug().b[0][1]++, {
+    endpoint: null
+  }));
+  const {
+    abortUpload
+  } =
+  /* istanbul ignore next */
+  (cov_2il4h5ijug().s[2]++, useFileHandlingNoChatContext(undefined, {
+    files,
+    setFiles,
+    setFilesLoading,
+    conversation
+  }));
+  const isRTL =
+  /* istanbul ignore next */
+  (cov_2il4h5ijug().s[3]++, chatDirection === 'rtl');
+  /* istanbul ignore next */
+  cov_2il4h5ijug().s[4]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(
+  /* istanbul ignore next */
+  _Fragment,
+  /* istanbul ignore next */
+  {
+    children: /*#__PURE__*/
+    /* istanbul ignore next */
+    _jsx(FileRow,
+    /* istanbul ignore next */
+    {
+      files: files,
+      setFiles: setFiles,
+      abortUpload: abortUpload,
+      setFilesLoading: setFilesLoading,
+      isRTL: isRTL,
+      Wrapper: ({
+        children
+      }) => {
+        /* istanbul ignore next */
+        cov_2il4h5ijug().f[1]++;
+        cov_2il4h5ijug().s[5]++;
+        return /*#__PURE__*/ /* istanbul ignore next */_jsx(
+        /* istanbul ignore next */
+        "div",
+        /* istanbul ignore next */
+        {
+          className: "mx-2 mt-2 flex flex-wrap gap-2",
+          children: children
+        });
+      }
+    })
+  });
+}
+export default /*#__PURE__*/memo(FileFormChat);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMmlsNGg1aWp1ZyIsImFjdHVhbENvdmVyYWdlIiwibWVtbyIsInVzZVJlY29pbFZhbHVlIiwidXNlRmlsZUhhbmRsaW5nTm9DaGF0Q29udGV4dCIsIkZpbGVSb3ciLCJzdG9yZSIsImpzeCIsIl9qc3giLCJGcmFnbWVudCIsIl9GcmFnbWVudCIsIkZpbGVGb3JtQ2hhdCIsImNvbnZlcnNhdGlvbiIsImZpbGVzIiwic2V0RmlsZXMiLCJzZXRGaWxlc0xvYWRpbmciLCJmIiwiY2hhdERpcmVjdGlvbiIsInMiLCJ0b0xvd2VyQ2FzZSIsImVuZHBvaW50IiwiX2VuZHBvaW50IiwiYiIsImFib3J0VXBsb2FkIiwidW5kZWZpbmVkIiwiaXNSVEwiLCJjaGlsZHJlbiIsIldyYXBwZXIiLCJjbGFzc05hbWUiXSwic291cmNlcyI6WyJGaWxlRm9ybUNoYXQudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IG1lbW8gfSBmcm9tICdyZWFjdCc7XG5pbXBvcnQgeyB1c2VSZWNvaWxWYWx1ZSB9IGZyb20gJ3JlY29pbCc7XG5pbXBvcnQgdHlwZSB7IFRDb252ZXJzYXRpb24gfSBmcm9tICdsaWJyZWNoYXQtZGF0YS1wcm92aWRlcic7XG5pbXBvcnQgdHlwZSB7IEV4dGVuZGVkRmlsZSwgRmlsZVNldHRlciB9IGZyb20gJ34vY29tbW9uJztcbmltcG9ydCB7IHVzZUZpbGVIYW5kbGluZ05vQ2hhdENvbnRleHQgfSBmcm9tICd+L2hvb2tzJztcbmltcG9ydCBGaWxlUm93IGZyb20gJy4vRmlsZVJvdyc7XG5pbXBvcnQgc3RvcmUgZnJvbSAnfi9zdG9yZSc7XG5cbmZ1bmN0aW9uIEZpbGVGb3JtQ2hhdCh7XG4gIGNvbnZlcnNhdGlvbixcbiAgZmlsZXMsXG4gIHNldEZpbGVzLFxuICBzZXRGaWxlc0xvYWRpbmcsXG59OiB7XG4gIGNvbnZlcnNhdGlvbjogVENvbnZlcnNhdGlvbiB8IG51bGw7XG4gIGZpbGVzOiBNYXA8c3RyaW5nLCBFeHRlbmRlZEZpbGU+O1xuICBzZXRGaWxlczogRmlsZVNldHRlcjtcbiAgc2V0RmlsZXNMb2FkaW5nOiBSZWFjdC5EaXNwYXRjaDxSZWFjdC5TZXRTdGF0ZUFjdGlvbjxib29sZWFuPj47XG59KSB7XG4gIGNvbnN0IGNoYXREaXJlY3Rpb24gPSB1c2VSZWNvaWxWYWx1ZShzdG9yZS5jaGF0RGlyZWN0aW9uKS50b0xvd2VyQ2FzZSgpO1xuICBjb25zdCB7IGVuZHBvaW50OiBfZW5kcG9pbnQgfSA9IGNvbnZlcnNhdGlvbiA/PyB7IGVuZHBvaW50OiBudWxsIH07XG4gIGNvbnN0IHsgYWJvcnRVcGxvYWQgfSA9IHVzZUZpbGVIYW5kbGluZ05vQ2hhdENvbnRleHQodW5kZWZpbmVkLCB7XG4gICAgZmlsZXMsXG4gICAgc2V0RmlsZXMsXG4gICAgc2V0RmlsZXNMb2FkaW5nLFxuICAgIGNvbnZlcnNhdGlvbixcbiAgfSk7XG5cbiAgY29uc3QgaXNSVEwgPSBjaGF0RGlyZWN0aW9uID09PSAncnRsJztcblxuICByZXR1cm4gKFxuICAgIDw+XG4gICAgICA8RmlsZVJvd1xuICAgICAgICBmaWxlcz17ZmlsZXN9XG4gICAgICAgIHNldEZpbGVzPXtzZXRGaWxlc31cbiAgICAgICAgYWJvcnRVcGxvYWQ9e2Fib3J0VXBsb2FkfVxuICAgICAgICBzZXRGaWxlc0xvYWRpbmc9e3NldEZpbGVzTG9hZGluZ31cbiAgICAgICAgaXNSVEw9e2lzUlRMfVxuICAgICAgICBXcmFwcGVyPXsoeyBjaGlsZHJlbiB9KSA9PiA8ZGl2IGNsYXNzTmFtZT1cIm14LTIgbXQtMiBmbGV4IGZsZXgtd3JhcCBnYXAtMlwiPntjaGlsZHJlbn08L2Rpdj59XG4gICAgICAvPlxuICAgIDwvPlxuICApO1xufVxuXG5leHBvcnQgZGVmYXVsdCBtZW1vKEZpbGVGb3JtQ2hhdCk7XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsY0FBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsY0FBQTtBQWZaLFNBQVNFLElBQUksUUFBUSxPQUFPO0FBQzVCLFNBQVNDLGNBQWMsUUFBUSxRQUFRO0FBR3ZDLFNBQVNDLDRCQUE0QixRQUFRLG1CQUFTO0FBQ3RELE9BQU9DLE9BQU8sTUFBTSxXQUFXO0FBQy9CLE9BQU9DLEtBQUssTUFBTSxtQkFBUztBQUFDO0FBQUEsU0FBQUMsR0FBQSxJQUFBQyxJQUFBLEVBQUFDLFFBQUEsSUFBQUMsU0FBQTtBQUU1QixTQUFTQyxZQUFZQSxDQUFDO0VBQ3BCQyxZQUFZO0VBQ1pDLEtBQUs7RUFDTEMsUUFBUTtFQUNSQztBQU1GLENBQUMsRUFBRTtFQUFBO0VBQUFmLGNBQUEsR0FBQWdCLENBQUE7RUFDRCxNQUFNQyxhQUFhO0VBQUE7RUFBQSxDQUFBakIsY0FBQSxHQUFBa0IsQ0FBQSxPQUFHZixjQUFjLENBQUNHLEtBQUssQ0FBQ1csYUFBYSxDQUFDLENBQUNFLFdBQVcsQ0FBQyxDQUFDO0VBQ3ZFLE1BQU07SUFBRUMsUUFBUSxFQUFFQztFQUFVLENBQUM7RUFBQTtFQUFBLENBQUFyQixjQUFBLEdBQUFrQixDQUFBO0VBQUc7RUFBQSxDQUFBbEIsY0FBQSxHQUFBc0IsQ0FBQSxVQUFBVixZQUFZO0VBQUE7RUFBQSxDQUFBWixjQUFBLEdBQUFzQixDQUFBLFVBQUk7SUFBRUYsUUFBUSxFQUFFO0VBQUssQ0FBQztFQUNsRSxNQUFNO0lBQUVHO0VBQVksQ0FBQztFQUFBO0VBQUEsQ0FBQXZCLGNBQUEsR0FBQWtCLENBQUEsT0FBR2QsNEJBQTRCLENBQUNvQixTQUFTLEVBQUU7SUFDOURYLEtBQUs7SUFDTEMsUUFBUTtJQUNSQyxlQUFlO0lBQ2ZIO0VBQ0YsQ0FBQyxDQUFDO0VBRUYsTUFBTWEsS0FBSztFQUFBO0VBQUEsQ0FBQXpCLGNBQUEsR0FBQWtCLENBQUEsT0FBR0QsYUFBYSxLQUFLLEtBQUs7RUFBQztFQUFBakIsY0FBQSxHQUFBa0IsQ0FBQTtFQUV0QyxvQkFDRSwyQkFBQVYsSUFBQTtFQUFBO0VBQUFFLFNBQUE7RUFBQTtFQUFBO0lBQUFnQixRQUFBO0lBQ0U7SUFBQWxCLElBQUEsQ0FBQ0gsT0FBTztJQUFBO0lBQUE7TUFDTlEsS0FBSyxFQUFFQSxLQUFNO01BQ2JDLFFBQVEsRUFBRUEsUUFBUztNQUNuQlMsV0FBVyxFQUFFQSxXQUFZO01BQ3pCUixlQUFlLEVBQUVBLGVBQWdCO01BQ2pDVSxLQUFLLEVBQUVBLEtBQU07TUFDYkUsT0FBTyxFQUFFQSxDQUFDO1FBQUVEO01BQVMsQ0FBQyxLQUFLO1FBQUE7UUFBQTFCLGNBQUEsR0FBQWdCLENBQUE7UUFBQWhCLGNBQUEsR0FBQWtCLENBQUE7UUFBQSwrQ0FBQVYsSUFBQTtRQUFBO1FBQUE7UUFBQTtRQUFBO1VBQUtvQixTQUFTLEVBQUMsZ0NBQWdDO1VBQUFGLFFBQUEsRUFBRUE7UUFBUSxDQUFNLENBQUM7TUFBRDtJQUFFLENBQzdGO0VBQUMsQ0FDRixDQUFDO0FBRVA7QUFFQSw0QkFBZXhCLElBQUksQ0FBQ1MsWUFBWSxDQUFDIiwiaWdub3JlTGlzdCI6W119

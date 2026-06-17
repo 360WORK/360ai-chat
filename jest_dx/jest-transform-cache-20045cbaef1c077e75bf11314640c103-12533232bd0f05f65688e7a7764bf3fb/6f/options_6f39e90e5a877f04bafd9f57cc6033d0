@@ -1,0 +1,76 @@
+b9b0d7673d9df9b46672934deef2407b
+/* istanbul ignore next */
+function cov_vpmz5l7wb() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Input/ModelSelect/options.ts";
+  var hash = "52324970a44eff27f3f5e1720f53e37b2f16d0f1";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Input/ModelSelect/options.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 9,
+          column: 65
+        },
+        end: {
+          line: 16,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 18,
+          column: 32
+        },
+        end: {
+          line: 20,
+          column: 1
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "52324970a44eff27f3f5e1720f53e37b2f16d0f1"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_vpmz5l7wb = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_vpmz5l7wb();
+import { EModelEndpoint } from 'librechat-data-provider';
+import OpenAI from './OpenAI';
+import Google from './Google';
+import Anthropic from './Anthropic';
+export const options =
+/* istanbul ignore next */
+(cov_vpmz5l7wb().s[0]++, {
+  [EModelEndpoint.openAI]: OpenAI,
+  [EModelEndpoint.custom]: OpenAI,
+  [EModelEndpoint.bedrock]: OpenAI,
+  [EModelEndpoint.azureOpenAI]: OpenAI,
+  [EModelEndpoint.google]: Google,
+  [EModelEndpoint.anthropic]: Anthropic
+});
+export const multiChatOptions =
+/* istanbul ignore next */
+(cov_vpmz5l7wb().s[1]++, {
+  ...options
+});
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfdnBtejVsN3diIiwiYWN0dWFsQ292ZXJhZ2UiLCJFTW9kZWxFbmRwb2ludCIsIk9wZW5BSSIsIkdvb2dsZSIsIkFudGhyb3BpYyIsIm9wdGlvbnMiLCJzIiwib3BlbkFJIiwiY3VzdG9tIiwiYmVkcm9jayIsImF6dXJlT3BlbkFJIiwiZ29vZ2xlIiwiYW50aHJvcGljIiwibXVsdGlDaGF0T3B0aW9ucyJdLCJzb3VyY2VzIjpbIm9wdGlvbnMudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgRU1vZGVsRW5kcG9pbnQgfSBmcm9tICdsaWJyZWNoYXQtZGF0YS1wcm92aWRlcic7XG5pbXBvcnQgdHlwZSB7IFRNb2RlbFNlbGVjdFByb3BzIH0gZnJvbSAnfi9jb21tb24nO1xuaW1wb3J0IHR5cGUgeyBGQyB9IGZyb20gJ3JlYWN0JztcblxuaW1wb3J0IE9wZW5BSSBmcm9tICcuL09wZW5BSSc7XG5pbXBvcnQgR29vZ2xlIGZyb20gJy4vR29vZ2xlJztcbmltcG9ydCBBbnRocm9waWMgZnJvbSAnLi9BbnRocm9waWMnO1xuXG5leHBvcnQgY29uc3Qgb3B0aW9uczogeyBba2V5OiBzdHJpbmddOiBGQzxUTW9kZWxTZWxlY3RQcm9wcz4gfSA9IHtcbiAgW0VNb2RlbEVuZHBvaW50Lm9wZW5BSV06IE9wZW5BSSxcbiAgW0VNb2RlbEVuZHBvaW50LmN1c3RvbV06IE9wZW5BSSxcbiAgW0VNb2RlbEVuZHBvaW50LmJlZHJvY2tdOiBPcGVuQUksXG4gIFtFTW9kZWxFbmRwb2ludC5henVyZU9wZW5BSV06IE9wZW5BSSxcbiAgW0VNb2RlbEVuZHBvaW50Lmdvb2dsZV06IEdvb2dsZSxcbiAgW0VNb2RlbEVuZHBvaW50LmFudGhyb3BpY106IEFudGhyb3BpYyxcbn07XG5cbmV4cG9ydCBjb25zdCBtdWx0aUNoYXRPcHRpb25zID0ge1xuICAuLi5vcHRpb25zLFxufTtcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7SUFlWTtJQUFBQSxhQUFBLFlBQUFBLENBQUE7TUFBQSxPQUFBQyxjQUFBO0lBQUE7RUFBQTtFQUFBLE9BQUFBLGNBQUE7QUFBQTtBQUFBRCxhQUFBO0FBZlosU0FBU0UsY0FBYyxRQUFRLHlCQUF5QjtBQUl4RCxPQUFPQyxNQUFNLE1BQU0sVUFBVTtBQUM3QixPQUFPQyxNQUFNLE1BQU0sVUFBVTtBQUM3QixPQUFPQyxTQUFTLE1BQU0sYUFBYTtBQUVuQyxPQUFPLE1BQU1DLE9BQWlEO0FBQUE7QUFBQSxDQUFBTixhQUFBLEdBQUFPLENBQUEsT0FBRztFQUMvRCxDQUFDTCxjQUFjLENBQUNNLE1BQU0sR0FBR0wsTUFBTTtFQUMvQixDQUFDRCxjQUFjLENBQUNPLE1BQU0sR0FBR04sTUFBTTtFQUMvQixDQUFDRCxjQUFjLENBQUNRLE9BQU8sR0FBR1AsTUFBTTtFQUNoQyxDQUFDRCxjQUFjLENBQUNTLFdBQVcsR0FBR1IsTUFBTTtFQUNwQyxDQUFDRCxjQUFjLENBQUNVLE1BQU0sR0FBR1IsTUFBTTtFQUMvQixDQUFDRixjQUFjLENBQUNXLFNBQVMsR0FBR1I7QUFDOUIsQ0FBQztBQUVELE9BQU8sTUFBTVMsZ0JBQWdCO0FBQUE7QUFBQSxDQUFBZCxhQUFBLEdBQUFPLENBQUEsT0FBRztFQUM5QixHQUFHRDtBQUNMLENBQUMiLCJpZ25vcmVMaXN0IjpbXX0=

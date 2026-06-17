@@ -1,0 +1,19 @@
+6ee480eb799a54160ffd080d79386115
+"use strict";
+
+var getMapData = require('./_getMapData');
+
+/**
+ * Gets the map value for `key`.
+ *
+ * @private
+ * @name get
+ * @memberOf MapCache
+ * @param {string} key The key of the value to get.
+ * @returns {*} Returns the entry value.
+ */
+function mapCacheGet(key) {
+  return getMapData(this, key).get(key);
+}
+module.exports = mapCacheGet;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJnZXRNYXBEYXRhIiwicmVxdWlyZSIsIm1hcENhY2hlR2V0Iiwia2V5IiwiZ2V0IiwibW9kdWxlIiwiZXhwb3J0cyJdLCJzb3VyY2VzIjpbIl9tYXBDYWNoZUdldC5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyJ2YXIgZ2V0TWFwRGF0YSA9IHJlcXVpcmUoJy4vX2dldE1hcERhdGEnKTtcblxuLyoqXG4gKiBHZXRzIHRoZSBtYXAgdmFsdWUgZm9yIGBrZXlgLlxuICpcbiAqIEBwcml2YXRlXG4gKiBAbmFtZSBnZXRcbiAqIEBtZW1iZXJPZiBNYXBDYWNoZVxuICogQHBhcmFtIHtzdHJpbmd9IGtleSBUaGUga2V5IG9mIHRoZSB2YWx1ZSB0byBnZXQuXG4gKiBAcmV0dXJucyB7Kn0gUmV0dXJucyB0aGUgZW50cnkgdmFsdWUuXG4gKi9cbmZ1bmN0aW9uIG1hcENhY2hlR2V0KGtleSkge1xuICByZXR1cm4gZ2V0TWFwRGF0YSh0aGlzLCBrZXkpLmdldChrZXkpO1xufVxuXG5tb2R1bGUuZXhwb3J0cyA9IG1hcENhY2hlR2V0O1xuIl0sIm1hcHBpbmdzIjoiOztBQUFBLElBQUlBLFVBQVUsR0FBR0MsT0FBTyxDQUFDLGVBQWUsQ0FBQzs7QUFFekM7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsU0FBU0MsV0FBV0EsQ0FBQ0MsR0FBRyxFQUFFO0VBQ3hCLE9BQU9ILFVBQVUsQ0FBQyxJQUFJLEVBQUVHLEdBQUcsQ0FBQyxDQUFDQyxHQUFHLENBQUNELEdBQUcsQ0FBQztBQUN2QztBQUVBRSxNQUFNLENBQUNDLE9BQU8sR0FBR0osV0FBVyIsImlnbm9yZUxpc3QiOltdfQ==

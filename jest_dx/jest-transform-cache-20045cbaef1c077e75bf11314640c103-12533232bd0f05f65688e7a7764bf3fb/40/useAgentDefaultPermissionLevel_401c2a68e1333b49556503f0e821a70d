@@ -1,0 +1,160 @@
+8a7fa616995c050d0ff084ef1ca97d69
+/* istanbul ignore next */
+function cov_1chcvqxvnb() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/hooks/Agents/useAgentDefaultPermissionLevel.ts";
+  var hash = "af77886f2602fd67a4e2109d1aae92e87e57cd31";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/hooks/Agents/useAgentDefaultPermissionLevel.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 7,
+          column: 39
+        },
+        end: {
+          line: 16,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 8,
+          column: 31
+        },
+        end: {
+          line: 11,
+          column: 4
+        }
+      },
+      "2": {
+        start: {
+          line: 15,
+          column: 2
+        },
+        end: {
+          line: 15,
+          column: 74
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 7,
+            column: 39
+          },
+          end: {
+            line: 7,
+            column: 40
+          }
+        },
+        loc: {
+          start: {
+            line: 7,
+            column: 45
+          },
+          end: {
+            line: 16,
+            column: 1
+          }
+        },
+        line: 7
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 15,
+            column: 9
+          },
+          end: {
+            line: 15,
+            column: 73
+          }
+        },
+        type: "cond-expr",
+        locations: [{
+          start: {
+            line: 15,
+            column: 32
+          },
+          end: {
+            line: 15,
+            column: 51
+          }
+        }, {
+          start: {
+            line: 15,
+            column: 54
+          },
+          end: {
+            line: 15,
+            column: 73
+          }
+        }],
+        line: 15
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {
+      "0": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "af77886f2602fd67a4e2109d1aae92e87e57cd31"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1chcvqxvnb = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1chcvqxvnb();
+import { Permissions, PermissionBits, PermissionTypes } from 'librechat-data-provider';
+import { useHasAccess } from "../Roles";
+
+/**
+ * Hook to determine the appropriate permission level for agent queries based on marketplace configuration
+ */
+/* istanbul ignore next */
+cov_1chcvqxvnb().s[0]++;
+const useAgentDefaultPermissionLevel = () => {
+  /* istanbul ignore next */
+  cov_1chcvqxvnb().f[0]++;
+  const hasMarketplaceAccess =
+  /* istanbul ignore next */
+  (cov_1chcvqxvnb().s[1]++, useHasAccess({
+    permissionType: PermissionTypes.MARKETPLACE,
+    permission: Permissions.USE
+  }));
+
+  // When marketplace is active: EDIT permissions (builder mode)
+  // When marketplace is not active: VIEW permissions (browse mode)
+  /* istanbul ignore next */
+  cov_1chcvqxvnb().s[2]++;
+  return hasMarketplaceAccess ?
+  /* istanbul ignore next */
+  (cov_1chcvqxvnb().b[0][0]++, PermissionBits.EDIT) :
+  /* istanbul ignore next */
+  (cov_1chcvqxvnb().b[0][1]++, PermissionBits.VIEW);
+};
+export default useAgentDefaultPermissionLevel;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMWNoY3ZxeHZuYiIsImFjdHVhbENvdmVyYWdlIiwiUGVybWlzc2lvbnMiLCJQZXJtaXNzaW9uQml0cyIsIlBlcm1pc3Npb25UeXBlcyIsInVzZUhhc0FjY2VzcyIsInMiLCJ1c2VBZ2VudERlZmF1bHRQZXJtaXNzaW9uTGV2ZWwiLCJmIiwiaGFzTWFya2V0cGxhY2VBY2Nlc3MiLCJwZXJtaXNzaW9uVHlwZSIsIk1BUktFVFBMQUNFIiwicGVybWlzc2lvbiIsIlVTRSIsImIiLCJFRElUIiwiVklFVyJdLCJzb3VyY2VzIjpbInVzZUFnZW50RGVmYXVsdFBlcm1pc3Npb25MZXZlbC50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBQZXJtaXNzaW9ucywgUGVybWlzc2lvbkJpdHMsIFBlcm1pc3Npb25UeXBlcyB9IGZyb20gJ2xpYnJlY2hhdC1kYXRhLXByb3ZpZGVyJztcbmltcG9ydCB7IHVzZUhhc0FjY2VzcyB9IGZyb20gJ34vaG9va3MvUm9sZXMnO1xuXG4vKipcbiAqIEhvb2sgdG8gZGV0ZXJtaW5lIHRoZSBhcHByb3ByaWF0ZSBwZXJtaXNzaW9uIGxldmVsIGZvciBhZ2VudCBxdWVyaWVzIGJhc2VkIG9uIG1hcmtldHBsYWNlIGNvbmZpZ3VyYXRpb25cbiAqL1xuY29uc3QgdXNlQWdlbnREZWZhdWx0UGVybWlzc2lvbkxldmVsID0gKCkgPT4ge1xuICBjb25zdCBoYXNNYXJrZXRwbGFjZUFjY2VzcyA9IHVzZUhhc0FjY2Vzcyh7XG4gICAgcGVybWlzc2lvblR5cGU6IFBlcm1pc3Npb25UeXBlcy5NQVJLRVRQTEFDRSxcbiAgICBwZXJtaXNzaW9uOiBQZXJtaXNzaW9ucy5VU0UsXG4gIH0pO1xuXG4gIC8vIFdoZW4gbWFya2V0cGxhY2UgaXMgYWN0aXZlOiBFRElUIHBlcm1pc3Npb25zIChidWlsZGVyIG1vZGUpXG4gIC8vIFdoZW4gbWFya2V0cGxhY2UgaXMgbm90IGFjdGl2ZTogVklFVyBwZXJtaXNzaW9ucyAoYnJvd3NlIG1vZGUpXG4gIHJldHVybiBoYXNNYXJrZXRwbGFjZUFjY2VzcyA/IFBlcm1pc3Npb25CaXRzLkVESVQgOiBQZXJtaXNzaW9uQml0cy5WSUVXO1xufTtcblxuZXhwb3J0IGRlZmF1bHQgdXNlQWdlbnREZWZhdWx0UGVybWlzc2lvbkxldmVsO1xuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsY0FBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsY0FBQTtBQWZaLFNBQVNFLFdBQVcsRUFBRUMsY0FBYyxFQUFFQyxlQUFlLFFBQVEseUJBQXlCO0FBQ3RGLFNBQVNDLFlBQVksUUFBUSxVQUFlOztBQUU1QztBQUNBO0FBQ0E7QUFGQTtBQUFBTCxjQUFBLEdBQUFNLENBQUE7QUFHQSxNQUFNQyw4QkFBOEIsR0FBR0EsQ0FBQSxLQUFNO0VBQUE7RUFBQVAsY0FBQSxHQUFBUSxDQUFBO0VBQzNDLE1BQU1DLG9CQUFvQjtFQUFBO0VBQUEsQ0FBQVQsY0FBQSxHQUFBTSxDQUFBLE9BQUdELFlBQVksQ0FBQztJQUN4Q0ssY0FBYyxFQUFFTixlQUFlLENBQUNPLFdBQVc7SUFDM0NDLFVBQVUsRUFBRVYsV0FBVyxDQUFDVztFQUMxQixDQUFDLENBQUM7O0VBRUY7RUFDQTtFQUFBO0VBQUFiLGNBQUEsR0FBQU0sQ0FBQTtFQUNBLE9BQU9HLG9CQUFvQjtFQUFBO0VBQUEsQ0FBQVQsY0FBQSxHQUFBYyxDQUFBLFVBQUdYLGNBQWMsQ0FBQ1ksSUFBSTtFQUFBO0VBQUEsQ0FBQWYsY0FBQSxHQUFBYyxDQUFBLFVBQUdYLGNBQWMsQ0FBQ2EsSUFBSTtBQUN6RSxDQUFDO0FBRUQsZUFBZVQsOEJBQThCIiwiaWdub3JlTGlzdCI6W119

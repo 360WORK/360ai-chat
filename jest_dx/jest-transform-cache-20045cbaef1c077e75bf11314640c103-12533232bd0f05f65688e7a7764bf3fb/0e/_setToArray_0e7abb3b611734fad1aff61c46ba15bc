@@ -1,0 +1,20 @@
+703667a547c0a8e8eb06223cd4721a42
+"use strict";
+
+/**
+ * Converts `set` to an array of its values.
+ *
+ * @private
+ * @param {Object} set The set to convert.
+ * @returns {Array} Returns the values.
+ */
+function setToArray(set) {
+  var index = -1,
+    result = Array(set.size);
+  set.forEach(function (value) {
+    result[++index] = value;
+  });
+  return result;
+}
+module.exports = setToArray;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJzZXRUb0FycmF5Iiwic2V0IiwiaW5kZXgiLCJyZXN1bHQiLCJBcnJheSIsInNpemUiLCJmb3JFYWNoIiwidmFsdWUiLCJtb2R1bGUiLCJleHBvcnRzIl0sInNvdXJjZXMiOlsiX3NldFRvQXJyYXkuanMiXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBDb252ZXJ0cyBgc2V0YCB0byBhbiBhcnJheSBvZiBpdHMgdmFsdWVzLlxuICpcbiAqIEBwcml2YXRlXG4gKiBAcGFyYW0ge09iamVjdH0gc2V0IFRoZSBzZXQgdG8gY29udmVydC5cbiAqIEByZXR1cm5zIHtBcnJheX0gUmV0dXJucyB0aGUgdmFsdWVzLlxuICovXG5mdW5jdGlvbiBzZXRUb0FycmF5KHNldCkge1xuICB2YXIgaW5kZXggPSAtMSxcbiAgICAgIHJlc3VsdCA9IEFycmF5KHNldC5zaXplKTtcblxuICBzZXQuZm9yRWFjaChmdW5jdGlvbih2YWx1ZSkge1xuICAgIHJlc3VsdFsrK2luZGV4XSA9IHZhbHVlO1xuICB9KTtcbiAgcmV0dXJuIHJlc3VsdDtcbn1cblxubW9kdWxlLmV4cG9ydHMgPSBzZXRUb0FycmF5O1xuIl0sIm1hcHBpbmdzIjoiOztBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsU0FBU0EsVUFBVUEsQ0FBQ0MsR0FBRyxFQUFFO0VBQ3ZCLElBQUlDLEtBQUssR0FBRyxDQUFDLENBQUM7SUFDVkMsTUFBTSxHQUFHQyxLQUFLLENBQUNILEdBQUcsQ0FBQ0ksSUFBSSxDQUFDO0VBRTVCSixHQUFHLENBQUNLLE9BQU8sQ0FBQyxVQUFTQyxLQUFLLEVBQUU7SUFDMUJKLE1BQU0sQ0FBQyxFQUFFRCxLQUFLLENBQUMsR0FBR0ssS0FBSztFQUN6QixDQUFDLENBQUM7RUFDRixPQUFPSixNQUFNO0FBQ2Y7QUFFQUssTUFBTSxDQUFDQyxPQUFPLEdBQUdULFVBQVUiLCJpZ25vcmVMaXN0IjpbXX0=

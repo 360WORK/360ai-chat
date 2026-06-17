@@ -1,0 +1,268 @@
+99c7ec22bdbc3cc76d6ae9f74ac34273
+/* istanbul ignore next */
+function cov_uytnr9a7u() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/SidePanel/Memories/MemoryList.tsx";
+  var hash = "9cf0f013715dc82a3d115cfcc7fb041c3a3a06bb";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/SidePanel/Memories/MemoryList.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 17,
+          column: 19
+        },
+        end: {
+          line: 17,
+          column: 32
+        }
+      },
+      "1": {
+        start: {
+          line: 19,
+          column: 2
+        },
+        end: {
+          line: 21,
+          column: 3
+        }
+      },
+      "2": {
+        start: {
+          line: 20,
+          column: 4
+        },
+        end: {
+          line: 20,
+          column: 56
+        }
+      },
+      "3": {
+        start: {
+          line: 23,
+          column: 2
+        },
+        end: {
+          line: 31,
+          column: 4
+        }
+      },
+      "4": {
+        start: {
+          line: 26,
+          column: 8
+        },
+        end: {
+          line: 28,
+          column: 14
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "MemoryList",
+        decl: {
+          start: {
+            line: 12,
+            column: 24
+          },
+          end: {
+            line: 12,
+            column: 34
+          }
+        },
+        loc: {
+          start: {
+            line: 16,
+            column: 20
+          },
+          end: {
+            line: 32,
+            column: 1
+          }
+        },
+        line: 16
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 25,
+            column: 20
+          },
+          end: {
+            line: 25,
+            column: 21
+          }
+        },
+        loc: {
+          start: {
+            line: 26,
+            column: 8
+          },
+          end: {
+            line: 28,
+            column: 14
+          }
+        },
+        line: 26
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 15,
+            column: 2
+          },
+          end: {
+            line: 15,
+            column: 20
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 15,
+            column: 15
+          },
+          end: {
+            line: 15,
+            column: 20
+          }
+        }],
+        line: 15
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 19,
+            column: 2
+          },
+          end: {
+            line: 21,
+            column: 3
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 19,
+            column: 2
+          },
+          end: {
+            line: 21,
+            column: 3
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 19
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0
+    },
+    b: {
+      "0": [0],
+      "1": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "9cf0f013715dc82a3d115cfcc7fb041c3a3a06bb"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_uytnr9a7u = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_uytnr9a7u();
+import MemoryEmptyState from './MemoryEmptyState';
+import MemoryCard from './MemoryCard';
+import { useLocalize } from "../../../hooks";
+/* istanbul ignore next */
+import { jsx as _jsx } from "react/jsx-runtime";
+export default function MemoryList({
+  memories,
+  hasUpdateAccess,
+  isFiltered =
+  /* istanbul ignore next */
+  (cov_uytnr9a7u().b[0][0]++, false)
+}) {
+  /* istanbul ignore next */
+  cov_uytnr9a7u().f[0]++;
+  const localize =
+  /* istanbul ignore next */
+  (cov_uytnr9a7u().s[0]++, useLocalize());
+  /* istanbul ignore next */
+  cov_uytnr9a7u().s[1]++;
+  if (memories.length === 0) {
+    /* istanbul ignore next */
+    cov_uytnr9a7u().b[1][0]++;
+    cov_uytnr9a7u().s[2]++;
+    return /*#__PURE__*/ /* istanbul ignore next */_jsx(MemoryEmptyState,
+    /* istanbul ignore next */
+    {
+      isFiltered: isFiltered
+    });
+  } else
+  /* istanbul ignore next */
+  {
+    cov_uytnr9a7u().b[1][1]++;
+  }
+  cov_uytnr9a7u().s[3]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(
+  /* istanbul ignore next */
+  "div",
+  /* istanbul ignore next */
+  {
+    className: "space-y-2",
+    role: "list",
+    /* istanbul ignore next */
+    "aria-label": localize('com_ui_memories'),
+    children: memories.map(memory => {
+      /* istanbul ignore next */
+      cov_uytnr9a7u().f[1]++;
+      cov_uytnr9a7u().s[4]++;
+      return /*#__PURE__*/ /* istanbul ignore next */_jsx(
+      /* istanbul ignore next */
+      "div",
+      /* istanbul ignore next */
+      {
+        role: "listitem",
+        children: /*#__PURE__*/
+        /* istanbul ignore next */
+        _jsx(MemoryCard,
+        /* istanbul ignore next */
+        {
+          memory: memory,
+          hasUpdateAccess: hasUpdateAccess
+        })
+      }, memory.key);
+    })
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfdXl0bnI5YTd1IiwiYWN0dWFsQ292ZXJhZ2UiLCJNZW1vcnlFbXB0eVN0YXRlIiwiTWVtb3J5Q2FyZCIsInVzZUxvY2FsaXplIiwianN4IiwiX2pzeCIsIk1lbW9yeUxpc3QiLCJtZW1vcmllcyIsImhhc1VwZGF0ZUFjY2VzcyIsImlzRmlsdGVyZWQiLCJiIiwiZiIsImxvY2FsaXplIiwicyIsImxlbmd0aCIsImNsYXNzTmFtZSIsInJvbGUiLCJjaGlsZHJlbiIsIm1hcCIsIm1lbW9yeSIsImtleSJdLCJzb3VyY2VzIjpbIk1lbW9yeUxpc3QudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB0eXBlIHsgVFVzZXJNZW1vcnkgfSBmcm9tICdsaWJyZWNoYXQtZGF0YS1wcm92aWRlcic7XG5pbXBvcnQgTWVtb3J5RW1wdHlTdGF0ZSBmcm9tICcuL01lbW9yeUVtcHR5U3RhdGUnO1xuaW1wb3J0IE1lbW9yeUNhcmQgZnJvbSAnLi9NZW1vcnlDYXJkJztcbmltcG9ydCB7IHVzZUxvY2FsaXplIH0gZnJvbSAnfi9ob29rcyc7XG5cbmludGVyZmFjZSBNZW1vcnlMaXN0UHJvcHMge1xuICBtZW1vcmllczogVFVzZXJNZW1vcnlbXTtcbiAgaGFzVXBkYXRlQWNjZXNzOiBib29sZWFuO1xuICBpc0ZpbHRlcmVkPzogYm9vbGVhbjtcbn1cblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gTWVtb3J5TGlzdCh7XG4gIG1lbW9yaWVzLFxuICBoYXNVcGRhdGVBY2Nlc3MsXG4gIGlzRmlsdGVyZWQgPSBmYWxzZSxcbn06IE1lbW9yeUxpc3RQcm9wcykge1xuICBjb25zdCBsb2NhbGl6ZSA9IHVzZUxvY2FsaXplKCk7XG5cbiAgaWYgKG1lbW9yaWVzLmxlbmd0aCA9PT0gMCkge1xuICAgIHJldHVybiA8TWVtb3J5RW1wdHlTdGF0ZSBpc0ZpbHRlcmVkPXtpc0ZpbHRlcmVkfSAvPjtcbiAgfVxuXG4gIHJldHVybiAoXG4gICAgPGRpdiBjbGFzc05hbWU9XCJzcGFjZS15LTJcIiByb2xlPVwibGlzdFwiIGFyaWEtbGFiZWw9e2xvY2FsaXplKCdjb21fdWlfbWVtb3JpZXMnKX0+XG4gICAgICB7bWVtb3JpZXMubWFwKChtZW1vcnkpID0+IChcbiAgICAgICAgPGRpdiBrZXk9e21lbW9yeS5rZXl9IHJvbGU9XCJsaXN0aXRlbVwiPlxuICAgICAgICAgIDxNZW1vcnlDYXJkIG1lbW9yeT17bWVtb3J5fSBoYXNVcGRhdGVBY2Nlc3M9e2hhc1VwZGF0ZUFjY2Vzc30gLz5cbiAgICAgICAgPC9kaXY+XG4gICAgICApKX1cbiAgICA8L2Rpdj5cbiAgKTtcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGFBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGFBQUE7QUFkWixPQUFPRSxnQkFBZ0IsTUFBTSxvQkFBb0I7QUFDakQsT0FBT0MsVUFBVSxNQUFNLGNBQWM7QUFDckMsU0FBU0MsV0FBVyxRQUFRLGdCQUFTO0FBQUM7QUFBQSxTQUFBQyxHQUFBLElBQUFDLElBQUE7QUFRdEMsZUFBZSxTQUFTQyxVQUFVQSxDQUFDO0VBQ2pDQyxRQUFRO0VBQ1JDLGVBQWU7RUFDZkMsVUFBVTtFQUFBO0VBQUEsQ0FBQVYsYUFBQSxHQUFBVyxDQUFBLFVBQUcsS0FBSztBQUNILENBQUMsRUFBRTtFQUFBO0VBQUFYLGFBQUEsR0FBQVksQ0FBQTtFQUNsQixNQUFNQyxRQUFRO0VBQUE7RUFBQSxDQUFBYixhQUFBLEdBQUFjLENBQUEsT0FBR1YsV0FBVyxDQUFDLENBQUM7RUFBQztFQUFBSixhQUFBLEdBQUFjLENBQUE7RUFFL0IsSUFBSU4sUUFBUSxDQUFDTyxNQUFNLEtBQUssQ0FBQyxFQUFFO0lBQUE7SUFBQWYsYUFBQSxHQUFBVyxDQUFBO0lBQUFYLGFBQUEsR0FBQWMsQ0FBQTtJQUN6QixvQkFBTywyQkFBQVIsSUFBQSxDQUFDSixnQkFBZ0I7SUFBQTtJQUFBO01BQUNRLFVBQVUsRUFBRUE7SUFBVyxDQUFFLENBQUM7RUFDckQsQ0FBQztFQUFBO0VBQUE7SUFBQVYsYUFBQSxHQUFBVyxDQUFBO0VBQUE7RUFBQVgsYUFBQSxHQUFBYyxDQUFBO0VBRUQsb0JBQ0UsMkJBQUFSLElBQUE7RUFBQTtFQUFBO0VBQUE7RUFBQTtJQUFLVSxTQUFTLEVBQUMsV0FBVztJQUFDQyxJQUFJLEVBQUMsTUFBTTtJQUFDO0lBQUEsY0FBWUosUUFBUSxDQUFDLGlCQUFpQixDQUFFO0lBQUFLLFFBQUEsRUFDNUVWLFFBQVEsQ0FBQ1csR0FBRyxDQUFFQyxNQUFNLElBQ25CO01BQUE7TUFBQXBCLGFBQUEsR0FBQVksQ0FBQTtNQUFBWixhQUFBLEdBQUFjLENBQUE7TUFBQSwrQ0FBQVIsSUFBQTtNQUFBO01BQUE7TUFBQTtNQUFBO1FBQXNCVyxJQUFJLEVBQUMsVUFBVTtRQUFBQyxRQUFBO1FBQ25DO1FBQUFaLElBQUEsQ0FBQ0gsVUFBVTtRQUFBO1FBQUE7VUFBQ2lCLE1BQU0sRUFBRUEsTUFBTztVQUFDWCxlQUFlLEVBQUVBO1FBQWdCLENBQUU7TUFBQyxHQUR4RFcsTUFBTSxDQUFDQyxHQUVaLENBQUM7SUFBRCxDQUNOO0VBQUMsQ0FDQyxDQUFDO0FBRVYiLCJpZ25vcmVMaXN0IjpbXX0=

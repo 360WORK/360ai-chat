@@ -1,0 +1,47 @@
+9815f974f389ed087e8316120aef8cfc
+/* istanbul ignore next */
+function cov_1dzqs9qj8s() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/hooks/Messages/index.ts";
+  var hash = "93c4ebefb3d2f9a61a30982d15e8806391e819a9";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/hooks/Messages/index.ts",
+    statementMap: {},
+    fnMap: {},
+    branchMap: {},
+    s: {},
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "93c4ebefb3d2f9a61a30982d15e8806391e819a9"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1dzqs9qj8s = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1dzqs9qj8s();
+export { default as useProgress } from './useProgress';
+export { MESSAGE_CONTENT_LAYOUT_CHANGE_EVENT, dispatchMessageContentLayoutChange, getRenderedContentMaxScrollTop, reconcileMessageContentLayout, scheduleMessageContentLayoutReconcile } from './messageLayout';
+export { EXPAND_TRANSITION } from './useExpandCollapse';
+export { default as useAttachments } from './useAttachments';
+export { default as useSubmitMessage } from './useSubmitMessage';
+export { default as useExpandCollapse } from './useExpandCollapse';
+export { default as useMessageActions } from './useMessageActions';
+export { useLatestMessage, useLatestMessageId } from './useLatestMessage';
+export { default as useMemoizedChatContext } from './useMemoizedChatContext';
+export { default as useMessageProcess } from './useMessageProcess';
+export { default as useMessageHelpers } from './useMessageHelpers';
+export { default as useCopyToClipboard } from './useCopyToClipboard';
+export { default as useContentMetadata } from './useContentMetadata';
+export { default as useMessageScrolling } from './useMessageScrolling';
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMWR6cXM5cWo4cyIsImFjdHVhbENvdmVyYWdlIiwiZGVmYXVsdCIsInVzZVByb2dyZXNzIiwiTUVTU0FHRV9DT05URU5UX0xBWU9VVF9DSEFOR0VfRVZFTlQiLCJkaXNwYXRjaE1lc3NhZ2VDb250ZW50TGF5b3V0Q2hhbmdlIiwiZ2V0UmVuZGVyZWRDb250ZW50TWF4U2Nyb2xsVG9wIiwicmVjb25jaWxlTWVzc2FnZUNvbnRlbnRMYXlvdXQiLCJzY2hlZHVsZU1lc3NhZ2VDb250ZW50TGF5b3V0UmVjb25jaWxlIiwiRVhQQU5EX1RSQU5TSVRJT04iLCJ1c2VBdHRhY2htZW50cyIsInVzZVN1Ym1pdE1lc3NhZ2UiLCJ1c2VFeHBhbmRDb2xsYXBzZSIsInVzZU1lc3NhZ2VBY3Rpb25zIiwidXNlTGF0ZXN0TWVzc2FnZSIsInVzZUxhdGVzdE1lc3NhZ2VJZCIsInVzZU1lbW9pemVkQ2hhdENvbnRleHQiLCJ1c2VNZXNzYWdlUHJvY2VzcyIsInVzZU1lc3NhZ2VIZWxwZXJzIiwidXNlQ29weVRvQ2xpcGJvYXJkIiwidXNlQ29udGVudE1ldGFkYXRhIiwidXNlTWVzc2FnZVNjcm9sbGluZyJdLCJzb3VyY2VzIjpbImluZGV4LnRzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCB7IGRlZmF1bHQgYXMgdXNlUHJvZ3Jlc3MgfSBmcm9tICcuL3VzZVByb2dyZXNzJztcbmV4cG9ydCB7XG4gIE1FU1NBR0VfQ09OVEVOVF9MQVlPVVRfQ0hBTkdFX0VWRU5ULFxuICBkaXNwYXRjaE1lc3NhZ2VDb250ZW50TGF5b3V0Q2hhbmdlLFxuICBnZXRSZW5kZXJlZENvbnRlbnRNYXhTY3JvbGxUb3AsXG4gIHJlY29uY2lsZU1lc3NhZ2VDb250ZW50TGF5b3V0LFxuICBzY2hlZHVsZU1lc3NhZ2VDb250ZW50TGF5b3V0UmVjb25jaWxlLFxufSBmcm9tICcuL21lc3NhZ2VMYXlvdXQnO1xuZXhwb3J0IHsgRVhQQU5EX1RSQU5TSVRJT04gfSBmcm9tICcuL3VzZUV4cGFuZENvbGxhcHNlJztcbmV4cG9ydCB7IGRlZmF1bHQgYXMgdXNlQXR0YWNobWVudHMgfSBmcm9tICcuL3VzZUF0dGFjaG1lbnRzJztcbmV4cG9ydCB7IGRlZmF1bHQgYXMgdXNlU3VibWl0TWVzc2FnZSB9IGZyb20gJy4vdXNlU3VibWl0TWVzc2FnZSc7XG5leHBvcnQgdHlwZSB7IENvbnRlbnRNZXRhZGF0YVJlc3VsdCB9IGZyb20gJy4vdXNlQ29udGVudE1ldGFkYXRhJztcbmV4cG9ydCB7IGRlZmF1bHQgYXMgdXNlRXhwYW5kQ29sbGFwc2UgfSBmcm9tICcuL3VzZUV4cGFuZENvbGxhcHNlJztcbmV4cG9ydCB7IGRlZmF1bHQgYXMgdXNlTWVzc2FnZUFjdGlvbnMgfSBmcm9tICcuL3VzZU1lc3NhZ2VBY3Rpb25zJztcbmV4cG9ydCB7IHVzZUxhdGVzdE1lc3NhZ2UsIHVzZUxhdGVzdE1lc3NhZ2VJZCB9IGZyb20gJy4vdXNlTGF0ZXN0TWVzc2FnZSc7XG5leHBvcnQgeyBkZWZhdWx0IGFzIHVzZU1lbW9pemVkQ2hhdENvbnRleHQgfSBmcm9tICcuL3VzZU1lbW9pemVkQ2hhdENvbnRleHQnO1xuZXhwb3J0IHsgZGVmYXVsdCBhcyB1c2VNZXNzYWdlUHJvY2VzcyB9IGZyb20gJy4vdXNlTWVzc2FnZVByb2Nlc3MnO1xuZXhwb3J0IHsgZGVmYXVsdCBhcyB1c2VNZXNzYWdlSGVscGVycyB9IGZyb20gJy4vdXNlTWVzc2FnZUhlbHBlcnMnO1xuZXhwb3J0IHsgZGVmYXVsdCBhcyB1c2VDb3B5VG9DbGlwYm9hcmQgfSBmcm9tICcuL3VzZUNvcHlUb0NsaXBib2FyZCc7XG5leHBvcnQgeyBkZWZhdWx0IGFzIHVzZUNvbnRlbnRNZXRhZGF0YSB9IGZyb20gJy4vdXNlQ29udGVudE1ldGFkYXRhJztcbmV4cG9ydCB7IGRlZmF1bHQgYXMgdXNlTWVzc2FnZVNjcm9sbGluZyB9IGZyb20gJy4vdXNlTWVzc2FnZVNjcm9sbGluZyc7XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsY0FBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsY0FBQTtBQWZaLFNBQVNFLE9BQU8sSUFBSUMsV0FBVyxRQUFRLGVBQWU7QUFDdEQsU0FDRUMsbUNBQW1DLEVBQ25DQyxrQ0FBa0MsRUFDbENDLDhCQUE4QixFQUM5QkMsNkJBQTZCLEVBQzdCQyxxQ0FBcUMsUUFDaEMsaUJBQWlCO0FBQ3hCLFNBQVNDLGlCQUFpQixRQUFRLHFCQUFxQjtBQUN2RCxTQUFTUCxPQUFPLElBQUlRLGNBQWMsUUFBUSxrQkFBa0I7QUFDNUQsU0FBU1IsT0FBTyxJQUFJUyxnQkFBZ0IsUUFBUSxvQkFBb0I7QUFFaEUsU0FBU1QsT0FBTyxJQUFJVSxpQkFBaUIsUUFBUSxxQkFBcUI7QUFDbEUsU0FBU1YsT0FBTyxJQUFJVyxpQkFBaUIsUUFBUSxxQkFBcUI7QUFDbEUsU0FBU0MsZ0JBQWdCLEVBQUVDLGtCQUFrQixRQUFRLG9CQUFvQjtBQUN6RSxTQUFTYixPQUFPLElBQUljLHNCQUFzQixRQUFRLDBCQUEwQjtBQUM1RSxTQUFTZCxPQUFPLElBQUllLGlCQUFpQixRQUFRLHFCQUFxQjtBQUNsRSxTQUFTZixPQUFPLElBQUlnQixpQkFBaUIsUUFBUSxxQkFBcUI7QUFDbEUsU0FBU2hCLE9BQU8sSUFBSWlCLGtCQUFrQixRQUFRLHNCQUFzQjtBQUNwRSxTQUFTakIsT0FBTyxJQUFJa0Isa0JBQWtCLFFBQVEsc0JBQXNCO0FBQ3BFLFNBQVNsQixPQUFPLElBQUltQixtQkFBbUIsUUFBUSx1QkFBdUIiLCJpZ25vcmVMaXN0IjpbXX0=

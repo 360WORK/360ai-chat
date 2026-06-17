@@ -1,0 +1,233 @@
+ef99587f8cec01da44a87cb2c146b63e
+/* istanbul ignore next */
+function cov_1i2pvvl2ys() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Chat/Menus/Bookmarks/BookmarkMenuItems.tsx";
+  var hash = "f067c2da3427f653ac714140b4b6e00bc9d75487";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Chat/Menus/Bookmarks/BookmarkMenuItems.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 13,
+          column: 5
+        },
+        end: {
+          line: 44,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 14,
+          column: 19
+        },
+        end: {
+          line: 14,
+          column: 32
+        }
+      },
+      "2": {
+        start: {
+          line: 15,
+          column: 26
+        },
+        end: {
+          line: 15,
+          column: 41
+        }
+      },
+      "3": {
+        start: {
+          line: 16,
+          column: 27
+        },
+        end: {
+          line: 16,
+          column: 47
+        }
+      },
+      "4": {
+        start: {
+          line: 16,
+          column: 33
+        },
+        end: {
+          line: 16,
+          column: 47
+        }
+      },
+      "5": {
+        start: {
+          line: 18,
+          column: 2
+        },
+        end: {
+          line: 43,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 13,
+            column: 5
+          },
+          end: {
+            line: 13,
+            column: 6
+          }
+        },
+        loc: {
+          start: {
+            line: 13,
+            column: 58
+          },
+          end: {
+            line: 44,
+            column: 1
+          }
+        },
+        line: 13
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 16,
+            column: 27
+          },
+          end: {
+            line: 16,
+            column: 28
+          }
+        },
+        loc: {
+          start: {
+            line: 16,
+            column: 33
+          },
+          end: {
+            line: 16,
+            column: 47
+          }
+        },
+        line: 16
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "f067c2da3427f653ac714140b4b6e00bc9d75487"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1i2pvvl2ys = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1i2pvvl2ys();
+import React, { useState } from 'react';
+import { BookmarkPlusIcon } from 'lucide-react';
+import { OGDialogTrigger } from '@librechat/client';
+import { BookmarkEditDialog, BookmarkItems, BookmarkItem } from "../../../Bookmarks";
+import { useLocalize } from "../../../../hooks";
+/* istanbul ignore next */
+import { jsx as _jsx } from "react/jsx-runtime";
+cov_1i2pvvl2ys().s[0]++;
+export const BookmarkMenuItems = ({
+  tags,
+  setTags,
+  handleSubmit,
+  conversationId
+}) => {
+  /* istanbul ignore next */
+  cov_1i2pvvl2ys().f[0]++;
+  const localize =
+  /* istanbul ignore next */
+  (cov_1i2pvvl2ys().s[1]++, useLocalize());
+  const [open, setOpen] =
+  /* istanbul ignore next */
+  (cov_1i2pvvl2ys().s[2]++, useState(false));
+  /* istanbul ignore next */
+  cov_1i2pvvl2ys().s[3]++;
+  const handleToggleOpen = () => {
+    /* istanbul ignore next */
+    cov_1i2pvvl2ys().f[1]++;
+    cov_1i2pvvl2ys().s[4]++;
+    return setOpen(!open);
+  };
+  /* istanbul ignore next */
+  cov_1i2pvvl2ys().s[5]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(BookmarkItems,
+  /* istanbul ignore next */
+  {
+    tags: tags,
+    handleSubmit: handleSubmit,
+    header: /*#__PURE__*/
+    /* istanbul ignore next */
+    _jsx(BookmarkEditDialog,
+    /* istanbul ignore next */
+    {
+      context: "BookmarkMenu - BookmarkEditDialog",
+      conversationId: conversationId,
+      tags: tags,
+      setTags: setTags,
+      open: open,
+      setOpen: setOpen,
+      children: /*#__PURE__*/
+      /* istanbul ignore next */
+      _jsx(OGDialogTrigger,
+      /* istanbul ignore next */
+      {
+        asChild:
+        /* istanbul ignore next */
+        true,
+        children: /*#__PURE__*/
+        /* istanbul ignore next */
+        _jsx(BookmarkItem,
+        /* istanbul ignore next */
+        {
+          tag: localize('com_ui_bookmarks_new'),
+          /* istanbul ignore next */
+          "data-testid": "bookmark-item-new",
+          handleSubmit: handleToggleOpen,
+          selected: false,
+          icon: /*#__PURE__*/
+          /* istanbul ignore next */
+          _jsx(BookmarkPlusIcon,
+          /* istanbul ignore next */
+          {
+            className: "size-4",
+            /* istanbul ignore next */
+            "aria-label": "Add Bookmark"
+          })
+        })
+      })
+    })
+  });
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMWkycHZ2bDJ5cyIsImFjdHVhbENvdmVyYWdlIiwiUmVhY3QiLCJ1c2VTdGF0ZSIsIkJvb2ttYXJrUGx1c0ljb24iLCJPR0RpYWxvZ1RyaWdnZXIiLCJCb29rbWFya0VkaXREaWFsb2ciLCJCb29rbWFya0l0ZW1zIiwiQm9va21hcmtJdGVtIiwidXNlTG9jYWxpemUiLCJqc3giLCJfanN4IiwicyIsIkJvb2ttYXJrTWVudUl0ZW1zIiwidGFncyIsInNldFRhZ3MiLCJoYW5kbGVTdWJtaXQiLCJjb252ZXJzYXRpb25JZCIsImYiLCJsb2NhbGl6ZSIsIm9wZW4iLCJzZXRPcGVuIiwiaGFuZGxlVG9nZ2xlT3BlbiIsImhlYWRlciIsImNvbnRleHQiLCJjaGlsZHJlbiIsImFzQ2hpbGQiLCJ0YWciLCJzZWxlY3RlZCIsImljb24iLCJjbGFzc05hbWUiXSwic291cmNlcyI6WyJCb29rbWFya01lbnVJdGVtcy50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlIH0gZnJvbSAncmVhY3QnO1xuaW1wb3J0IHsgQm9va21hcmtQbHVzSWNvbiB9IGZyb20gJ2x1Y2lkZS1yZWFjdCc7XG5pbXBvcnQgeyBPR0RpYWxvZ1RyaWdnZXIgfSBmcm9tICdAbGlicmVjaGF0L2NsaWVudCc7XG5pbXBvcnQgdHlwZSB7IEZDIH0gZnJvbSAncmVhY3QnO1xuaW1wb3J0IHsgQm9va21hcmtFZGl0RGlhbG9nLCBCb29rbWFya0l0ZW1zLCBCb29rbWFya0l0ZW0gfSBmcm9tICd+L2NvbXBvbmVudHMvQm9va21hcmtzJztcbmltcG9ydCB7IHVzZUxvY2FsaXplIH0gZnJvbSAnfi9ob29rcyc7XG5cbmV4cG9ydCBjb25zdCBCb29rbWFya01lbnVJdGVtczogRkM8e1xuICB0YWdzOiBzdHJpbmdbXTtcbiAgc2V0VGFnczogUmVhY3QuRGlzcGF0Y2g8UmVhY3QuU2V0U3RhdGVBY3Rpb248c3RyaW5nW10+PjtcbiAgaGFuZGxlU3VibWl0OiAodGFnPzogc3RyaW5nKSA9PiB2b2lkO1xuICBjb252ZXJzYXRpb25JZD86IHN0cmluZztcbn0+ID0gKHsgdGFncywgc2V0VGFncywgaGFuZGxlU3VibWl0LCBjb252ZXJzYXRpb25JZCB9KSA9PiB7XG4gIGNvbnN0IGxvY2FsaXplID0gdXNlTG9jYWxpemUoKTtcbiAgY29uc3QgW29wZW4sIHNldE9wZW5dID0gdXNlU3RhdGUoZmFsc2UpO1xuICBjb25zdCBoYW5kbGVUb2dnbGVPcGVuID0gKCkgPT4gc2V0T3Blbighb3Blbik7XG5cbiAgcmV0dXJuIChcbiAgICA8Qm9va21hcmtJdGVtc1xuICAgICAgdGFncz17dGFnc31cbiAgICAgIGhhbmRsZVN1Ym1pdD17aGFuZGxlU3VibWl0fVxuICAgICAgaGVhZGVyPXtcbiAgICAgICAgPEJvb2ttYXJrRWRpdERpYWxvZ1xuICAgICAgICAgIGNvbnRleHQ9XCJCb29rbWFya01lbnUgLSBCb29rbWFya0VkaXREaWFsb2dcIlxuICAgICAgICAgIGNvbnZlcnNhdGlvbklkPXtjb252ZXJzYXRpb25JZH1cbiAgICAgICAgICB0YWdzPXt0YWdzfVxuICAgICAgICAgIHNldFRhZ3M9e3NldFRhZ3N9XG4gICAgICAgICAgb3Blbj17b3Blbn1cbiAgICAgICAgICBzZXRPcGVuPXtzZXRPcGVufVxuICAgICAgICA+XG4gICAgICAgICAgPE9HRGlhbG9nVHJpZ2dlciBhc0NoaWxkPlxuICAgICAgICAgICAgPEJvb2ttYXJrSXRlbVxuICAgICAgICAgICAgICB0YWc9e2xvY2FsaXplKCdjb21fdWlfYm9va21hcmtzX25ldycpfVxuICAgICAgICAgICAgICBkYXRhLXRlc3RpZD1cImJvb2ttYXJrLWl0ZW0tbmV3XCJcbiAgICAgICAgICAgICAgaGFuZGxlU3VibWl0PXtoYW5kbGVUb2dnbGVPcGVufVxuICAgICAgICAgICAgICBzZWxlY3RlZD17ZmFsc2V9XG4gICAgICAgICAgICAgIGljb249ezxCb29rbWFya1BsdXNJY29uIGNsYXNzTmFtZT1cInNpemUtNFwiIGFyaWEtbGFiZWw9XCJBZGQgQm9va21hcmtcIiAvPn1cbiAgICAgICAgICAgIC8+XG4gICAgICAgICAgPC9PR0RpYWxvZ1RyaWdnZXI+XG4gICAgICAgIDwvQm9va21hcmtFZGl0RGlhbG9nPlxuICAgICAgfVxuICAgIC8+XG4gICk7XG59O1xuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGNBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGNBQUE7QUFmWixPQUFPRSxLQUFLLElBQUlDLFFBQVEsUUFBUSxPQUFPO0FBQ3ZDLFNBQVNDLGdCQUFnQixRQUFRLGNBQWM7QUFDL0MsU0FBU0MsZUFBZSxRQUFRLG1CQUFtQjtBQUVuRCxTQUFTQyxrQkFBa0IsRUFBRUMsYUFBYSxFQUFFQyxZQUFZLFFBQVEsb0JBQXdCO0FBQ3hGLFNBQVNDLFdBQVcsUUFBUSxtQkFBUztBQUFDO0FBQUEsU0FBQUMsR0FBQSxJQUFBQyxJQUFBO0FBQUFYLGNBQUEsR0FBQVksQ0FBQTtBQUV0QyxPQUFPLE1BQU1DLGlCQUtYLEdBQUdBLENBQUM7RUFBRUMsSUFBSTtFQUFFQyxPQUFPO0VBQUVDLFlBQVk7RUFBRUM7QUFBZSxDQUFDLEtBQUs7RUFBQTtFQUFBakIsY0FBQSxHQUFBa0IsQ0FBQTtFQUN4RCxNQUFNQyxRQUFRO0VBQUE7RUFBQSxDQUFBbkIsY0FBQSxHQUFBWSxDQUFBLE9BQUdILFdBQVcsQ0FBQyxDQUFDO0VBQzlCLE1BQU0sQ0FBQ1csSUFBSSxFQUFFQyxPQUFPLENBQUM7RUFBQTtFQUFBLENBQUFyQixjQUFBLEdBQUFZLENBQUEsT0FBR1QsUUFBUSxDQUFDLEtBQUssQ0FBQztFQUFDO0VBQUFILGNBQUEsR0FBQVksQ0FBQTtFQUN4QyxNQUFNVSxnQkFBZ0IsR0FBR0EsQ0FBQSxLQUFNO0lBQUE7SUFBQXRCLGNBQUEsR0FBQWtCLENBQUE7SUFBQWxCLGNBQUEsR0FBQVksQ0FBQTtJQUFBLE9BQUFTLE9BQU8sQ0FBQyxDQUFDRCxJQUFJLENBQUM7RUFBRCxDQUFDO0VBQUM7RUFBQXBCLGNBQUEsR0FBQVksQ0FBQTtFQUU5QyxvQkFDRSwyQkFBQUQsSUFBQSxDQUFDSixhQUFhO0VBQUE7RUFBQTtJQUNaTyxJQUFJLEVBQUVBLElBQUs7SUFDWEUsWUFBWSxFQUFFQSxZQUFhO0lBQzNCTyxNQUFNO0lBQ0o7SUFBQVosSUFBQSxDQUFDTCxrQkFBa0I7SUFBQTtJQUFBO01BQ2pCa0IsT0FBTyxFQUFDLG1DQUFtQztNQUMzQ1AsY0FBYyxFQUFFQSxjQUFlO01BQy9CSCxJQUFJLEVBQUVBLElBQUs7TUFDWEMsT0FBTyxFQUFFQSxPQUFRO01BQ2pCSyxJQUFJLEVBQUVBLElBQUs7TUFDWEMsT0FBTyxFQUFFQSxPQUFRO01BQUFJLFFBQUE7TUFFakI7TUFBQWQsSUFBQSxDQUFDTixlQUFlO01BQUE7TUFBQTtRQUFDcUIsT0FBTztRQUFBO1FBQUE7UUFBQUQsUUFBQTtRQUN0QjtRQUFBZCxJQUFBLENBQUNILFlBQVk7UUFBQTtRQUFBO1VBQ1htQixHQUFHLEVBQUVSLFFBQVEsQ0FBQyxzQkFBc0IsQ0FBRTtVQUN0QztVQUFBLGVBQVksbUJBQW1CO1VBQy9CSCxZQUFZLEVBQUVNLGdCQUFpQjtVQUMvQk0sUUFBUSxFQUFFLEtBQU07VUFDaEJDLElBQUk7VUFBRTtVQUFBbEIsSUFBQSxDQUFDUCxnQkFBZ0I7VUFBQTtVQUFBO1lBQUMwQixTQUFTLEVBQUMsUUFBUTtZQUFDO1lBQUEsY0FBVztVQUFjLENBQUU7UUFBRSxDQUN6RTtNQUFDLENBQ2E7SUFBQyxDQUNBO0VBQ3JCLENBQ0YsQ0FBQztBQUVOLENBQUMiLCJpZ25vcmVMaXN0IjpbXX0=

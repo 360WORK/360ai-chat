@@ -1,0 +1,23 @@
+8368619c0e07b38e391afadf7c60ce67
+'use strict';
+
+var origSymbol = typeof Symbol !== 'undefined' && Symbol;
+var hasSymbolSham = require('./shams');
+
+/** @type {import('.')} */
+module.exports = function hasNativeSymbols() {
+  if (typeof origSymbol !== 'function') {
+    return false;
+  }
+  if (typeof Symbol !== 'function') {
+    return false;
+  }
+  if (typeof origSymbol('foo') !== 'symbol') {
+    return false;
+  }
+  if (typeof Symbol('bar') !== 'symbol') {
+    return false;
+  }
+  return hasSymbolSham();
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJvcmlnU3ltYm9sIiwiU3ltYm9sIiwiaGFzU3ltYm9sU2hhbSIsInJlcXVpcmUiLCJtb2R1bGUiLCJleHBvcnRzIiwiaGFzTmF0aXZlU3ltYm9scyJdLCJzb3VyY2VzIjpbImluZGV4LmpzIl0sInNvdXJjZXNDb250ZW50IjpbIid1c2Ugc3RyaWN0JztcblxudmFyIG9yaWdTeW1ib2wgPSB0eXBlb2YgU3ltYm9sICE9PSAndW5kZWZpbmVkJyAmJiBTeW1ib2w7XG52YXIgaGFzU3ltYm9sU2hhbSA9IHJlcXVpcmUoJy4vc2hhbXMnKTtcblxuLyoqIEB0eXBlIHtpbXBvcnQoJy4nKX0gKi9cbm1vZHVsZS5leHBvcnRzID0gZnVuY3Rpb24gaGFzTmF0aXZlU3ltYm9scygpIHtcblx0aWYgKHR5cGVvZiBvcmlnU3ltYm9sICE9PSAnZnVuY3Rpb24nKSB7IHJldHVybiBmYWxzZTsgfVxuXHRpZiAodHlwZW9mIFN5bWJvbCAhPT0gJ2Z1bmN0aW9uJykgeyByZXR1cm4gZmFsc2U7IH1cblx0aWYgKHR5cGVvZiBvcmlnU3ltYm9sKCdmb28nKSAhPT0gJ3N5bWJvbCcpIHsgcmV0dXJuIGZhbHNlOyB9XG5cdGlmICh0eXBlb2YgU3ltYm9sKCdiYXInKSAhPT0gJ3N5bWJvbCcpIHsgcmV0dXJuIGZhbHNlOyB9XG5cblx0cmV0dXJuIGhhc1N5bWJvbFNoYW0oKTtcbn07XG4iXSwibWFwcGluZ3MiOiJBQUFBLFlBQVk7O0FBRVosSUFBSUEsVUFBVSxHQUFHLE9BQU9DLE1BQU0sS0FBSyxXQUFXLElBQUlBLE1BQU07QUFDeEQsSUFBSUMsYUFBYSxHQUFHQyxPQUFPLENBQUMsU0FBUyxDQUFDOztBQUV0QztBQUNBQyxNQUFNLENBQUNDLE9BQU8sR0FBRyxTQUFTQyxnQkFBZ0JBLENBQUEsRUFBRztFQUM1QyxJQUFJLE9BQU9OLFVBQVUsS0FBSyxVQUFVLEVBQUU7SUFBRSxPQUFPLEtBQUs7RUFBRTtFQUN0RCxJQUFJLE9BQU9DLE1BQU0sS0FBSyxVQUFVLEVBQUU7SUFBRSxPQUFPLEtBQUs7RUFBRTtFQUNsRCxJQUFJLE9BQU9ELFVBQVUsQ0FBQyxLQUFLLENBQUMsS0FBSyxRQUFRLEVBQUU7SUFBRSxPQUFPLEtBQUs7RUFBRTtFQUMzRCxJQUFJLE9BQU9DLE1BQU0sQ0FBQyxLQUFLLENBQUMsS0FBSyxRQUFRLEVBQUU7SUFBRSxPQUFPLEtBQUs7RUFBRTtFQUV2RCxPQUFPQyxhQUFhLENBQUMsQ0FBQztBQUN2QixDQUFDIiwiaWdub3JlTGlzdCI6W119

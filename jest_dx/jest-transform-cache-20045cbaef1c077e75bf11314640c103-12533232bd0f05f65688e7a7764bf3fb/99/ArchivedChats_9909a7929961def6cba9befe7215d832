@@ -1,0 +1,170 @@
+513ac0f9a2c66518b00fc128be9133f1
+/* istanbul ignore next */
+function cov_16aqxfkbub() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Nav/SettingsTabs/General/ArchivedChats.tsx";
+  var hash = "24d41621dde7bfc08428e4b36c71a97ec1d8cb7e";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Nav/SettingsTabs/General/ArchivedChats.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 7,
+          column: 19
+        },
+        end: {
+          line: 7,
+          column: 32
+        }
+      },
+      "1": {
+        start: {
+          line: 8,
+          column: 30
+        },
+        end: {
+          line: 8,
+          column: 45
+        }
+      },
+      "2": {
+        start: {
+          line: 10,
+          column: 2
+        },
+        end: {
+          line: 27,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "ArchivedChats",
+        decl: {
+          start: {
+            line: 6,
+            column: 24
+          },
+          end: {
+            line: 6,
+            column: 37
+          }
+        },
+        loc: {
+          start: {
+            line: 6,
+            column: 40
+          },
+          end: {
+            line: 28,
+            column: 1
+          }
+        },
+        line: 6
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "24d41621dde7bfc08428e4b36c71a97ec1d8cb7e"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_16aqxfkbub = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_16aqxfkbub();
+import { useState } from 'react';
+import { OGDialogTemplate, OGDialog, OGDialogTrigger, Button } from '@librechat/client';
+import ArchivedChatsTable from './ArchivedChatsTable';
+import { useLocalize } from "../../../../hooks";
+/* istanbul ignore next */
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+export default function ArchivedChats() {
+  /* istanbul ignore next */
+  cov_16aqxfkbub().f[0]++;
+  const localize =
+  /* istanbul ignore next */
+  (cov_16aqxfkbub().s[0]++, useLocalize());
+  const [isOpen, setIsOpen] =
+  /* istanbul ignore next */
+  (cov_16aqxfkbub().s[1]++, useState(false));
+  /* istanbul ignore next */
+  cov_16aqxfkbub().s[2]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsxs(
+  /* istanbul ignore next */
+  "div",
+  /* istanbul ignore next */
+  {
+    className: "flex items-center justify-between",
+    children: [/*#__PURE__*/
+    /* istanbul ignore next */
+    _jsx(
+    /* istanbul ignore next */
+    "div",
+    /* istanbul ignore next */
+    {
+      children: localize('com_nav_archived_chats')
+    }), /*#__PURE__*/
+    /* istanbul ignore next */
+    _jsxs(OGDialog,
+    /* istanbul ignore next */
+    {
+      open: isOpen,
+      onOpenChange: setIsOpen,
+      children: [/*#__PURE__*/
+      /* istanbul ignore next */
+      _jsx(OGDialogTrigger,
+      /* istanbul ignore next */
+      {
+        asChild:
+        /* istanbul ignore next */
+        true,
+        children: /*#__PURE__*/
+        /* istanbul ignore next */
+        _jsx(Button,
+        /* istanbul ignore next */
+        {
+          variant: "outline",
+          /* istanbul ignore next */
+          "aria-label": "Archived chats",
+          children: localize('com_ui_manage')
+        })
+      }), /*#__PURE__*/
+      /* istanbul ignore next */
+      _jsx(OGDialogTemplate,
+      /* istanbul ignore next */
+      {
+        title: localize('com_nav_archived_chats'),
+        className: "max-w-[1000px]",
+        showCancelButton: false,
+        main: /*#__PURE__*/
+        /* istanbul ignore next */
+        _jsx(ArchivedChatsTable,
+        /* istanbul ignore next */
+        {
+          onOpenChange: setIsOpen
+        })
+      })]
+    })]
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMTZhcXhma2J1YiIsImFjdHVhbENvdmVyYWdlIiwidXNlU3RhdGUiLCJPR0RpYWxvZ1RlbXBsYXRlIiwiT0dEaWFsb2ciLCJPR0RpYWxvZ1RyaWdnZXIiLCJCdXR0b24iLCJBcmNoaXZlZENoYXRzVGFibGUiLCJ1c2VMb2NhbGl6ZSIsImpzeCIsIl9qc3giLCJqc3hzIiwiX2pzeHMiLCJBcmNoaXZlZENoYXRzIiwiZiIsImxvY2FsaXplIiwicyIsImlzT3BlbiIsInNldElzT3BlbiIsImNsYXNzTmFtZSIsImNoaWxkcmVuIiwib3BlbiIsIm9uT3BlbkNoYW5nZSIsImFzQ2hpbGQiLCJ2YXJpYW50IiwidGl0bGUiLCJzaG93Q2FuY2VsQnV0dG9uIiwibWFpbiJdLCJzb3VyY2VzIjpbIkFyY2hpdmVkQ2hhdHMudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHVzZVN0YXRlIH0gZnJvbSAncmVhY3QnO1xuaW1wb3J0IHsgT0dEaWFsb2dUZW1wbGF0ZSwgT0dEaWFsb2csIE9HRGlhbG9nVHJpZ2dlciwgQnV0dG9uIH0gZnJvbSAnQGxpYnJlY2hhdC9jbGllbnQnO1xuaW1wb3J0IEFyY2hpdmVkQ2hhdHNUYWJsZSBmcm9tICcuL0FyY2hpdmVkQ2hhdHNUYWJsZSc7XG5pbXBvcnQgeyB1c2VMb2NhbGl6ZSB9IGZyb20gJ34vaG9va3MnO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBBcmNoaXZlZENoYXRzKCkge1xuICBjb25zdCBsb2NhbGl6ZSA9IHVzZUxvY2FsaXplKCk7XG4gIGNvbnN0IFtpc09wZW4sIHNldElzT3Blbl0gPSB1c2VTdGF0ZShmYWxzZSk7XG5cbiAgcmV0dXJuIChcbiAgICA8ZGl2IGNsYXNzTmFtZT1cImZsZXggaXRlbXMtY2VudGVyIGp1c3RpZnktYmV0d2VlblwiPlxuICAgICAgPGRpdj57bG9jYWxpemUoJ2NvbV9uYXZfYXJjaGl2ZWRfY2hhdHMnKX08L2Rpdj5cbiAgICAgIDxPR0RpYWxvZyBvcGVuPXtpc09wZW59IG9uT3BlbkNoYW5nZT17c2V0SXNPcGVufT5cbiAgICAgICAgPE9HRGlhbG9nVHJpZ2dlciBhc0NoaWxkPlxuICAgICAgICAgIDxCdXR0b24gdmFyaWFudD1cIm91dGxpbmVcIiBhcmlhLWxhYmVsPVwiQXJjaGl2ZWQgY2hhdHNcIj5cbiAgICAgICAgICAgIHtsb2NhbGl6ZSgnY29tX3VpX21hbmFnZScpfVxuICAgICAgICAgIDwvQnV0dG9uPlxuICAgICAgICA8L09HRGlhbG9nVHJpZ2dlcj5cbiAgICAgICAgPE9HRGlhbG9nVGVtcGxhdGVcbiAgICAgICAgICB0aXRsZT17bG9jYWxpemUoJ2NvbV9uYXZfYXJjaGl2ZWRfY2hhdHMnKX1cbiAgICAgICAgICBjbGFzc05hbWU9XCJtYXgtdy1bMTAwMHB4XVwiXG4gICAgICAgICAgc2hvd0NhbmNlbEJ1dHRvbj17ZmFsc2V9XG4gICAgICAgICAgbWFpbj17PEFyY2hpdmVkQ2hhdHNUYWJsZSBvbk9wZW5DaGFuZ2U9e3NldElzT3Blbn0gLz59XG4gICAgICAgIC8+XG4gICAgICA8L09HRGlhbG9nPlxuICAgIDwvZGl2PlxuICApO1xufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsY0FBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsY0FBQTtBQWZaLFNBQVNFLFFBQVEsUUFBUSxPQUFPO0FBQ2hDLFNBQVNDLGdCQUFnQixFQUFFQyxRQUFRLEVBQUVDLGVBQWUsRUFBRUMsTUFBTSxRQUFRLG1CQUFtQjtBQUN2RixPQUFPQyxrQkFBa0IsTUFBTSxzQkFBc0I7QUFDckQsU0FBU0MsV0FBVyxRQUFRLG1CQUFTO0FBQUM7QUFBQSxTQUFBQyxHQUFBLElBQUFDLElBQUEsRUFBQUMsSUFBQSxJQUFBQyxLQUFBO0FBRXRDLGVBQWUsU0FBU0MsYUFBYUEsQ0FBQSxFQUFHO0VBQUE7RUFBQWIsY0FBQSxHQUFBYyxDQUFBO0VBQ3RDLE1BQU1DLFFBQVE7RUFBQTtFQUFBLENBQUFmLGNBQUEsR0FBQWdCLENBQUEsT0FBR1IsV0FBVyxDQUFDLENBQUM7RUFDOUIsTUFBTSxDQUFDUyxNQUFNLEVBQUVDLFNBQVMsQ0FBQztFQUFBO0VBQUEsQ0FBQWxCLGNBQUEsR0FBQWdCLENBQUEsT0FBR2QsUUFBUSxDQUFDLEtBQUssQ0FBQztFQUFDO0VBQUFGLGNBQUEsR0FBQWdCLENBQUE7RUFFNUMsb0JBQ0UsMkJBQUFKLEtBQUE7RUFBQTtFQUFBO0VBQUE7RUFBQTtJQUFLTyxTQUFTLEVBQUMsbUNBQW1DO0lBQUFDLFFBQUE7SUFDaEQ7SUFBQVYsSUFBQTtJQUFBO0lBQUE7SUFBQTtJQUFBO01BQUFVLFFBQUEsRUFBTUwsUUFBUSxDQUFDLHdCQUF3QjtJQUFDLENBQU0sQ0FBQztJQUMvQztJQUFBSCxLQUFBLENBQUNSLFFBQVE7SUFBQTtJQUFBO01BQUNpQixJQUFJLEVBQUVKLE1BQU87TUFBQ0ssWUFBWSxFQUFFSixTQUFVO01BQUFFLFFBQUE7TUFDOUM7TUFBQVYsSUFBQSxDQUFDTCxlQUFlO01BQUE7TUFBQTtRQUFDa0IsT0FBTztRQUFBO1FBQUE7UUFBQUgsUUFBQTtRQUN0QjtRQUFBVixJQUFBLENBQUNKLE1BQU07UUFBQTtRQUFBO1VBQUNrQixPQUFPLEVBQUMsU0FBUztVQUFDO1VBQUEsY0FBVyxnQkFBZ0I7VUFBQUosUUFBQSxFQUNsREwsUUFBUSxDQUFDLGVBQWU7UUFBQyxDQUNwQjtNQUFDLENBQ00sQ0FBQztNQUNsQjtNQUFBTCxJQUFBLENBQUNQLGdCQUFnQjtNQUFBO01BQUE7UUFDZnNCLEtBQUssRUFBRVYsUUFBUSxDQUFDLHdCQUF3QixDQUFFO1FBQzFDSSxTQUFTLEVBQUMsZ0JBQWdCO1FBQzFCTyxnQkFBZ0IsRUFBRSxLQUFNO1FBQ3hCQyxJQUFJO1FBQUU7UUFBQWpCLElBQUEsQ0FBQ0gsa0JBQWtCO1FBQUE7UUFBQTtVQUFDZSxZQUFZLEVBQUVKO1FBQVUsQ0FBRTtNQUFFLENBQ3ZELENBQUM7SUFBQSxDQUNNLENBQUM7RUFBQSxDQUNSLENBQUM7QUFFViIsImlnbm9yZUxpc3QiOltdfQ==

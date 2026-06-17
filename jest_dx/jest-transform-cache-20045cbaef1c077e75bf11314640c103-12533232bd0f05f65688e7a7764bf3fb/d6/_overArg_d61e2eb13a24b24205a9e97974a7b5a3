@@ -1,0 +1,18 @@
+07c1ef2d9959e1503c91a3d5a0290b8b
+"use strict";
+
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function (arg) {
+    return func(transform(arg));
+  };
+}
+module.exports = overArg;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJvdmVyQXJnIiwiZnVuYyIsInRyYW5zZm9ybSIsImFyZyIsIm1vZHVsZSIsImV4cG9ydHMiXSwic291cmNlcyI6WyJfb3ZlckFyZy5qcyJdLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIENyZWF0ZXMgYSB1bmFyeSBmdW5jdGlvbiB0aGF0IGludm9rZXMgYGZ1bmNgIHdpdGggaXRzIGFyZ3VtZW50IHRyYW5zZm9ybWVkLlxuICpcbiAqIEBwcml2YXRlXG4gKiBAcGFyYW0ge0Z1bmN0aW9ufSBmdW5jIFRoZSBmdW5jdGlvbiB0byB3cmFwLlxuICogQHBhcmFtIHtGdW5jdGlvbn0gdHJhbnNmb3JtIFRoZSBhcmd1bWVudCB0cmFuc2Zvcm0uXG4gKiBAcmV0dXJucyB7RnVuY3Rpb259IFJldHVybnMgdGhlIG5ldyBmdW5jdGlvbi5cbiAqL1xuZnVuY3Rpb24gb3ZlckFyZyhmdW5jLCB0cmFuc2Zvcm0pIHtcbiAgcmV0dXJuIGZ1bmN0aW9uKGFyZykge1xuICAgIHJldHVybiBmdW5jKHRyYW5zZm9ybShhcmcpKTtcbiAgfTtcbn1cblxubW9kdWxlLmV4cG9ydHMgPSBvdmVyQXJnO1xuIl0sIm1hcHBpbmdzIjoiOztBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxTQUFTQSxPQUFPQSxDQUFDQyxJQUFJLEVBQUVDLFNBQVMsRUFBRTtFQUNoQyxPQUFPLFVBQVNDLEdBQUcsRUFBRTtJQUNuQixPQUFPRixJQUFJLENBQUNDLFNBQVMsQ0FBQ0MsR0FBRyxDQUFDLENBQUM7RUFDN0IsQ0FBQztBQUNIO0FBRUFDLE1BQU0sQ0FBQ0MsT0FBTyxHQUFHTCxPQUFPIiwiaWdub3JlTGlzdCI6W119

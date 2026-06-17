@@ -1,0 +1,255 @@
+f7e614ee08a9c3e6a27be081c0f40b92
+/* istanbul ignore next */
+function cov_2ayyj0nrho() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/data-provider/MCP/queries.ts";
+  var hash = "9c09c9dfa315e4f6b9b9a7715d9c49fb5bf53a76";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/data-provider/MCP/queries.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 34
+        },
+        end: {
+          line: 23,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 11,
+          column: 2
+        },
+        end: {
+          line: 22,
+          column: 4
+        }
+      },
+      "2": {
+        start: {
+          line: 13,
+          column: 10
+        },
+        end: {
+          line: 13,
+          column: 37
+        }
+      },
+      "3": {
+        start: {
+          line: 30,
+          column: 32
+        },
+        end: {
+          line: 44,
+          column: 1
+        }
+      },
+      "4": {
+        start: {
+          line: 33,
+          column: 2
+        },
+        end: {
+          line: 43,
+          column: 4
+        }
+      },
+      "5": {
+        start: {
+          line: 35,
+          column: 10
+        },
+        end: {
+          line: 35,
+          column: 35
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 8,
+            column: 34
+          },
+          end: {
+            line: 8,
+            column: 35
+          }
+        },
+        loc: {
+          start: {
+            line: 10,
+            column: 33
+          },
+          end: {
+            line: 23,
+            column: 1
+          }
+        },
+        line: 10
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 13,
+            column: 4
+          },
+          end: {
+            line: 13,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 13,
+            column: 10
+          },
+          end: {
+            line: 13,
+            column: 37
+          }
+        },
+        line: 13
+      },
+      "2": {
+        name: "(anonymous_2)",
+        decl: {
+          start: {
+            line: 30,
+            column: 32
+          },
+          end: {
+            line: 30,
+            column: 33
+          }
+        },
+        loc: {
+          start: {
+            line: 32,
+            column: 33
+          },
+          end: {
+            line: 44,
+            column: 1
+          }
+        },
+        line: 32
+      },
+      "3": {
+        name: "(anonymous_3)",
+        decl: {
+          start: {
+            line: 35,
+            column: 4
+          },
+          end: {
+            line: 35,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 35,
+            column: 10
+          },
+          end: {
+            line: 35,
+            column: 35
+          }
+        },
+        line: 35
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "9c09c9dfa315e4f6b9b9a7715d9c49fb5bf53a76"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_2ayyj0nrho = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2ayyj0nrho();
+import { useQuery } from '@tanstack/react-query';
+import { QueryKeys, dataService } from 'librechat-data-provider';
+/* istanbul ignore next */
+/**
+ * Hook for fetching all accessible MCP servers with permission metadata
+ */
+cov_2ayyj0nrho().s[0]++;
+export const useMCPServersQuery = config => {
+  /* istanbul ignore next */
+  cov_2ayyj0nrho().f[0]++;
+  cov_2ayyj0nrho().s[1]++;
+  return useQuery([QueryKeys.mcpServers], () => {
+    /* istanbul ignore next */
+    cov_2ayyj0nrho().f[1]++;
+    cov_2ayyj0nrho().s[2]++;
+    return dataService.getMCPServers();
+  }, {
+    staleTime: 30 * 1000,
+    // 30 seconds — short enough to pick up servers that finish initializing after first load
+    refetchOnWindowFocus: true,
+    refetchOnReconnect: false,
+    refetchOnMount: true,
+    retry: false,
+    ...config
+  });
+};
+
+/**
+ * Hook for fetching MCP-specific tools
+ * @param config - React Query configuration
+ * @returns MCP servers with their tools
+ */
+/* istanbul ignore next */
+cov_2ayyj0nrho().s[3]++;
+export const useMCPToolsQuery = config => {
+  /* istanbul ignore next */
+  cov_2ayyj0nrho().f[2]++;
+  cov_2ayyj0nrho().s[4]++;
+  return useQuery([QueryKeys.mcpTools], () => {
+    /* istanbul ignore next */
+    cov_2ayyj0nrho().f[3]++;
+    cov_2ayyj0nrho().s[5]++;
+    return dataService.getMCPTools();
+  }, {
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
+    staleTime: 5 * 60 * 1000,
+    // 5 minutes
+    ...config
+  });
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMmF5eWowbnJobyIsImFjdHVhbENvdmVyYWdlIiwidXNlUXVlcnkiLCJRdWVyeUtleXMiLCJkYXRhU2VydmljZSIsInMiLCJ1c2VNQ1BTZXJ2ZXJzUXVlcnkiLCJjb25maWciLCJmIiwibWNwU2VydmVycyIsImdldE1DUFNlcnZlcnMiLCJzdGFsZVRpbWUiLCJyZWZldGNoT25XaW5kb3dGb2N1cyIsInJlZmV0Y2hPblJlY29ubmVjdCIsInJlZmV0Y2hPbk1vdW50IiwicmV0cnkiLCJ1c2VNQ1BUb29sc1F1ZXJ5IiwibWNwVG9vbHMiLCJnZXRNQ1BUb29scyJdLCJzb3VyY2VzIjpbInF1ZXJpZXMudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgdXNlUXVlcnksIFVzZVF1ZXJ5T3B0aW9ucywgUXVlcnlPYnNlcnZlclJlc3VsdCB9IGZyb20gJ0B0YW5zdGFjay9yZWFjdC1xdWVyeSc7XG5pbXBvcnQgeyBRdWVyeUtleXMsIGRhdGFTZXJ2aWNlIH0gZnJvbSAnbGlicmVjaGF0LWRhdGEtcHJvdmlkZXInO1xuaW1wb3J0IHR5cGUgKiBhcyB0IGZyb20gJ2xpYnJlY2hhdC1kYXRhLXByb3ZpZGVyJztcblxuLyoqXG4gKiBIb29rIGZvciBmZXRjaGluZyBhbGwgYWNjZXNzaWJsZSBNQ1Agc2VydmVycyB3aXRoIHBlcm1pc3Npb24gbWV0YWRhdGFcbiAqL1xuZXhwb3J0IGNvbnN0IHVzZU1DUFNlcnZlcnNRdWVyeSA9IDxURGF0YSA9IHQuTUNQU2VydmVyc0xpc3RSZXNwb25zZT4oXG4gIGNvbmZpZz86IFVzZVF1ZXJ5T3B0aW9uczx0Lk1DUFNlcnZlcnNMaXN0UmVzcG9uc2UsIHVua25vd24sIFREYXRhPixcbik6IFF1ZXJ5T2JzZXJ2ZXJSZXN1bHQ8VERhdGE+ID0+IHtcbiAgcmV0dXJuIHVzZVF1ZXJ5PHQuTUNQU2VydmVyc0xpc3RSZXNwb25zZSwgdW5rbm93biwgVERhdGE+KFxuICAgIFtRdWVyeUtleXMubWNwU2VydmVyc10sXG4gICAgKCkgPT4gZGF0YVNlcnZpY2UuZ2V0TUNQU2VydmVycygpLFxuICAgIHtcbiAgICAgIHN0YWxlVGltZTogMzAgKiAxMDAwLCAvLyAzMCBzZWNvbmRzIOKAlCBzaG9ydCBlbm91Z2ggdG8gcGljayB1cCBzZXJ2ZXJzIHRoYXQgZmluaXNoIGluaXRpYWxpemluZyBhZnRlciBmaXJzdCBsb2FkXG4gICAgICByZWZldGNoT25XaW5kb3dGb2N1czogdHJ1ZSxcbiAgICAgIHJlZmV0Y2hPblJlY29ubmVjdDogZmFsc2UsXG4gICAgICByZWZldGNoT25Nb3VudDogdHJ1ZSxcbiAgICAgIHJldHJ5OiBmYWxzZSxcbiAgICAgIC4uLmNvbmZpZyxcbiAgICB9LFxuICApO1xufTtcblxuLyoqXG4gKiBIb29rIGZvciBmZXRjaGluZyBNQ1Atc3BlY2lmaWMgdG9vbHNcbiAqIEBwYXJhbSBjb25maWcgLSBSZWFjdCBRdWVyeSBjb25maWd1cmF0aW9uXG4gKiBAcmV0dXJucyBNQ1Agc2VydmVycyB3aXRoIHRoZWlyIHRvb2xzXG4gKi9cbmV4cG9ydCBjb25zdCB1c2VNQ1BUb29sc1F1ZXJ5ID0gPFREYXRhID0gdC5NQ1BTZXJ2ZXJzUmVzcG9uc2U+KFxuICBjb25maWc/OiBVc2VRdWVyeU9wdGlvbnM8dC5NQ1BTZXJ2ZXJzUmVzcG9uc2UsIHVua25vd24sIFREYXRhPixcbik6IFF1ZXJ5T2JzZXJ2ZXJSZXN1bHQ8VERhdGE+ID0+IHtcbiAgcmV0dXJuIHVzZVF1ZXJ5PHQuTUNQU2VydmVyc1Jlc3BvbnNlLCB1bmtub3duLCBURGF0YT4oXG4gICAgW1F1ZXJ5S2V5cy5tY3BUb29sc10sXG4gICAgKCkgPT4gZGF0YVNlcnZpY2UuZ2V0TUNQVG9vbHMoKSxcbiAgICB7XG4gICAgICByZWZldGNoT25XaW5kb3dGb2N1czogZmFsc2UsXG4gICAgICByZWZldGNoT25SZWNvbm5lY3Q6IGZhbHNlLFxuICAgICAgcmVmZXRjaE9uTW91bnQ6IGZhbHNlLFxuICAgICAgc3RhbGVUaW1lOiA1ICogNjAgKiAxMDAwLCAvLyA1IG1pbnV0ZXNcbiAgICAgIC4uLmNvbmZpZyxcbiAgICB9LFxuICApO1xufTtcbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGNBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGNBQUE7QUFmWixTQUFTRSxRQUFRLFFBQThDLHVCQUF1QjtBQUN0RixTQUFTQyxTQUFTLEVBQUVDLFdBQVcsUUFBUSx5QkFBeUI7QUFBQztBQUdqRTtBQUNBO0FBQ0E7QUFGQUosY0FBQSxHQUFBSyxDQUFBO0FBR0EsT0FBTyxNQUFNQyxrQkFBa0IsR0FDN0JDLE1BQWtFLElBQ25DO0VBQUE7RUFBQVAsY0FBQSxHQUFBUSxDQUFBO0VBQUFSLGNBQUEsR0FBQUssQ0FBQTtFQUMvQixPQUFPSCxRQUFRLENBQ2IsQ0FBQ0MsU0FBUyxDQUFDTSxVQUFVLENBQUMsRUFDdEIsTUFBTTtJQUFBO0lBQUFULGNBQUEsR0FBQVEsQ0FBQTtJQUFBUixjQUFBLEdBQUFLLENBQUE7SUFBQSxPQUFBRCxXQUFXLENBQUNNLGFBQWEsQ0FBQyxDQUFDO0VBQUQsQ0FBQyxFQUNqQztJQUNFQyxTQUFTLEVBQUUsRUFBRSxHQUFHLElBQUk7SUFBRTtJQUN0QkMsb0JBQW9CLEVBQUUsSUFBSTtJQUMxQkMsa0JBQWtCLEVBQUUsS0FBSztJQUN6QkMsY0FBYyxFQUFFLElBQUk7SUFDcEJDLEtBQUssRUFBRSxLQUFLO0lBQ1osR0FBR1I7RUFDTCxDQUNGLENBQUM7QUFDSCxDQUFDOztBQUVEO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFKQTtBQUFBUCxjQUFBLEdBQUFLLENBQUE7QUFLQSxPQUFPLE1BQU1XLGdCQUFnQixHQUMzQlQsTUFBOEQsSUFDL0I7RUFBQTtFQUFBUCxjQUFBLEdBQUFRLENBQUE7RUFBQVIsY0FBQSxHQUFBSyxDQUFBO0VBQy9CLE9BQU9ILFFBQVEsQ0FDYixDQUFDQyxTQUFTLENBQUNjLFFBQVEsQ0FBQyxFQUNwQixNQUFNO0lBQUE7SUFBQWpCLGNBQUEsR0FBQVEsQ0FBQTtJQUFBUixjQUFBLEdBQUFLLENBQUE7SUFBQSxPQUFBRCxXQUFXLENBQUNjLFdBQVcsQ0FBQyxDQUFDO0VBQUQsQ0FBQyxFQUMvQjtJQUNFTixvQkFBb0IsRUFBRSxLQUFLO0lBQzNCQyxrQkFBa0IsRUFBRSxLQUFLO0lBQ3pCQyxjQUFjLEVBQUUsS0FBSztJQUNyQkgsU0FBUyxFQUFFLENBQUMsR0FBRyxFQUFFLEdBQUcsSUFBSTtJQUFFO0lBQzFCLEdBQUdKO0VBQ0wsQ0FDRixDQUFDO0FBQ0gsQ0FBQyIsImlnbm9yZUxpc3QiOltdfQ==

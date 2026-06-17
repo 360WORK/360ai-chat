@@ -1,0 +1,107 @@
+49fc605d582e0bbb063eaa9907c0f3c2
+/* istanbul ignore next */
+function cov_2fhxduq42v() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/Providers/AssistantsMapContext.tsx";
+  var hash = "d6a065bf223d2c6b00fac48da4420b834237c89b";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/Providers/AssistantsMapContext.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 5,
+          column: 36
+        },
+        end: {
+          line: 7,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 8,
+          column: 39
+        },
+        end: {
+          line: 8,
+          column: 77
+        }
+      },
+      "2": {
+        start: {
+          line: 8,
+          column: 45
+        },
+        end: {
+          line: 8,
+          column: 77
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 8,
+            column: 39
+          },
+          end: {
+            line: 8,
+            column: 40
+          }
+        },
+        loc: {
+          start: {
+            line: 8,
+            column: 45
+          },
+          end: {
+            line: 8,
+            column: 77
+          }
+        },
+        line: 8
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "d6a065bf223d2c6b00fac48da4420b834237c89b"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_2fhxduq42v = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2fhxduq42v();
+import { createContext, useContext } from 'react';
+export const AssistantsMapContext =
+/* istanbul ignore next */
+(cov_2fhxduq42v().s[0]++, /*#__PURE__*/createContext({}));
+/* istanbul ignore next */
+cov_2fhxduq42v().s[1]++;
+export const useAssistantsMapContext = () => {
+  /* istanbul ignore next */
+  cov_2fhxduq42v().f[0]++;
+  cov_2fhxduq42v().s[2]++;
+  return useContext(AssistantsMapContext);
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMmZoeGR1cTQydiIsImFjdHVhbENvdmVyYWdlIiwiY3JlYXRlQ29udGV4dCIsInVzZUNvbnRleHQiLCJBc3Npc3RhbnRzTWFwQ29udGV4dCIsInMiLCJ1c2VBc3Npc3RhbnRzTWFwQ29udGV4dCIsImYiXSwic291cmNlcyI6WyJBc3Npc3RhbnRzTWFwQ29udGV4dC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgY3JlYXRlQ29udGV4dCwgdXNlQ29udGV4dCB9IGZyb20gJ3JlYWN0JztcbmltcG9ydCB7IHVzZUFzc2lzdGFudHNNYXAgfSBmcm9tICd+L2hvb2tzL0Fzc2lzdGFudHMnO1xudHlwZSBBc3Npc3RhbnRzTWFwQ29udGV4dFR5cGUgPSBSZXR1cm5UeXBlPHR5cGVvZiB1c2VBc3Npc3RhbnRzTWFwPjtcblxuZXhwb3J0IGNvbnN0IEFzc2lzdGFudHNNYXBDb250ZXh0ID0gY3JlYXRlQ29udGV4dDxBc3Npc3RhbnRzTWFwQ29udGV4dFR5cGU+KFxuICB7fSBhcyBBc3Npc3RhbnRzTWFwQ29udGV4dFR5cGUsXG4pO1xuZXhwb3J0IGNvbnN0IHVzZUFzc2lzdGFudHNNYXBDb250ZXh0ID0gKCkgPT4gdXNlQ29udGV4dChBc3Npc3RhbnRzTWFwQ29udGV4dCk7XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7SUFlWTtJQUFBQSxjQUFBLFlBQUFBLENBQUE7TUFBQSxPQUFBQyxjQUFBO0lBQUE7RUFBQTtFQUFBLE9BQUFBLGNBQUE7QUFBQTtBQUFBRCxjQUFBO0FBZlosU0FBU0UsYUFBYSxFQUFFQyxVQUFVLFFBQVEsT0FBTztBQUlqRCxPQUFPLE1BQU1DLG9CQUFvQjtBQUFBO0FBQUEsQ0FBQUosY0FBQSxHQUFBSyxDQUFBLG9CQUFHSCxhQUFhLENBQy9DLENBQUMsQ0FDSCxDQUFDO0FBQUM7QUFBQUYsY0FBQSxHQUFBSyxDQUFBO0FBQ0YsT0FBTyxNQUFNQyx1QkFBdUIsR0FBR0EsQ0FBQSxLQUFNO0VBQUE7RUFBQU4sY0FBQSxHQUFBTyxDQUFBO0VBQUFQLGNBQUEsR0FBQUssQ0FBQTtFQUFBLE9BQUFGLFVBQVUsQ0FBQ0Msb0JBQW9CLENBQUM7QUFBRCxDQUFDIiwiaWdub3JlTGlzdCI6W119

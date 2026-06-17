@@ -1,0 +1,329 @@
+f2d46a901bf0faab651ff9599c84be3f
+/* istanbul ignore next */
+function cov_1v3eo9t9tg() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Chat/Menus/OpenSidebar.tsx";
+  var hash = "e667a0000adc1d4aa3de2ba5cf2cfd1a0e69b820";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Chat/Menus/OpenSidebar.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 32
+        },
+        end: {
+          line: 8,
+          column: 54
+        }
+      },
+      "1": {
+        start: {
+          line: 9,
+          column: 31
+        },
+        end: {
+          line: 9,
+          column: 52
+        }
+      },
+      "2": {
+        start: {
+          line: 12,
+          column: 19
+        },
+        end: {
+          line: 12,
+          column: 32
+        }
+      },
+      "3": {
+        start: {
+          line: 13,
+          column: 29
+        },
+        end: {
+          line: 13,
+          column: 69
+        }
+      },
+      "4": {
+        start: {
+          line: 15,
+          column: 22
+        },
+        end: {
+          line: 22,
+          column: 3
+        }
+      },
+      "5": {
+        start: {
+          line: 16,
+          column: 4
+        },
+        end: {
+          line: 18,
+          column: 7
+        }
+      },
+      "6": {
+        start: {
+          line: 17,
+          column: 6
+        },
+        end: {
+          line: 17,
+          column: 31
+        }
+      },
+      "7": {
+        start: {
+          line: 19,
+          column: 4
+        },
+        end: {
+          line: 21,
+          column: 12
+        }
+      },
+      "8": {
+        start: {
+          line: 20,
+          column: 6
+        },
+        end: {
+          line: 20,
+          column: 57
+        }
+      },
+      "9": {
+        start: {
+          line: 24,
+          column: 2
+        },
+        end: {
+          line: 46,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "OpenSidebar",
+        decl: {
+          start: {
+            line: 11,
+            column: 24
+          },
+          end: {
+            line: 11,
+            column: 35
+          }
+        },
+        loc: {
+          start: {
+            line: 11,
+            column: 75
+          },
+          end: {
+            line: 47,
+            column: 1
+          }
+        },
+        line: 11
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 15,
+            column: 22
+          },
+          end: {
+            line: 15,
+            column: 23
+          }
+        },
+        loc: {
+          start: {
+            line: 15,
+            column: 28
+          },
+          end: {
+            line: 22,
+            column: 3
+          }
+        },
+        line: 15
+      },
+      "2": {
+        name: "(anonymous_2)",
+        decl: {
+          start: {
+            line: 16,
+            column: 20
+          },
+          end: {
+            line: 16,
+            column: 21
+          }
+        },
+        loc: {
+          start: {
+            line: 16,
+            column: 26
+          },
+          end: {
+            line: 18,
+            column: 5
+          }
+        },
+        line: 16
+      },
+      "3": {
+        name: "(anonymous_3)",
+        decl: {
+          start: {
+            line: 19,
+            column: 15
+          },
+          end: {
+            line: 19,
+            column: 16
+          }
+        },
+        loc: {
+          start: {
+            line: 19,
+            column: 21
+          },
+          end: {
+            line: 21,
+            column: 5
+          }
+        },
+        line: 19
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "e667a0000adc1d4aa3de2ba5cf2cfd1a0e69b820"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1v3eo9t9tg = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1v3eo9t9tg();
+import { startTransition } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { TooltipAnchor, Button, Sidebar } from '@librechat/client';
+import { useLocalize } from "../../../hooks";
+import { cn } from "../../../utils";
+import store from "../../../store";
+/* istanbul ignore next */
+import { jsx as _jsx } from "react/jsx-runtime";
+export const CLOSE_SIDEBAR_ID =
+/* istanbul ignore next */
+(cov_1v3eo9t9tg().s[0]++, 'close-sidebar-button');
+export const OPEN_SIDEBAR_ID =
+/* istanbul ignore next */
+(cov_1v3eo9t9tg().s[1]++, 'open-sidebar-button');
+export default function OpenSidebar({
+  className
+}) {
+  /* istanbul ignore next */
+  cov_1v3eo9t9tg().f[0]++;
+  const localize =
+  /* istanbul ignore next */
+  (cov_1v3eo9t9tg().s[2]++, useLocalize());
+  const setSidebarExpanded =
+  /* istanbul ignore next */
+  (cov_1v3eo9t9tg().s[3]++, useSetRecoilState(store.sidebarExpanded));
+  /* istanbul ignore next */
+  cov_1v3eo9t9tg().s[4]++;
+  const handleClick = () => {
+    /* istanbul ignore next */
+    cov_1v3eo9t9tg().f[1]++;
+    cov_1v3eo9t9tg().s[5]++;
+    startTransition(() => {
+      /* istanbul ignore next */
+      cov_1v3eo9t9tg().f[2]++;
+      cov_1v3eo9t9tg().s[6]++;
+      setSidebarExpanded(true);
+    });
+    /* istanbul ignore next */
+    cov_1v3eo9t9tg().s[7]++;
+    setTimeout(() => {
+      /* istanbul ignore next */
+      cov_1v3eo9t9tg().f[3]++;
+      cov_1v3eo9t9tg().s[8]++;
+      document.getElementById(CLOSE_SIDEBAR_ID)?.focus();
+    }, 250);
+  };
+  /* istanbul ignore next */
+  cov_1v3eo9t9tg().s[9]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(TooltipAnchor,
+  /* istanbul ignore next */
+  {
+    description: localize('com_nav_open_sidebar'),
+    render: /*#__PURE__*/
+    /* istanbul ignore next */
+    _jsx(Button,
+    /* istanbul ignore next */
+    {
+      id: OPEN_SIDEBAR_ID,
+      size: "icon",
+      variant: "outline",
+      /* istanbul ignore next */
+      "data-testid": "open-sidebar-button",
+      /* istanbul ignore next */
+      "aria-label": localize('com_nav_open_sidebar'),
+      /* istanbul ignore next */
+      "aria-expanded": false,
+      /* istanbul ignore next */
+      "aria-controls": "chat-history-nav",
+      className: cn('rounded-xl bg-presentation duration-0 hover:bg-surface-active-alt', className),
+      onClick: handleClick,
+      children: /*#__PURE__*/
+      /* istanbul ignore next */
+      _jsx(Sidebar,
+      /* istanbul ignore next */
+      {
+        className: "icon-md",
+        /* istanbul ignore next */
+        "aria-hidden": "true"
+      })
+    })
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMXYzZW85dDl0ZyIsImFjdHVhbENvdmVyYWdlIiwic3RhcnRUcmFuc2l0aW9uIiwidXNlU2V0UmVjb2lsU3RhdGUiLCJUb29sdGlwQW5jaG9yIiwiQnV0dG9uIiwiU2lkZWJhciIsInVzZUxvY2FsaXplIiwiY24iLCJzdG9yZSIsImpzeCIsIl9qc3giLCJDTE9TRV9TSURFQkFSX0lEIiwicyIsIk9QRU5fU0lERUJBUl9JRCIsIk9wZW5TaWRlYmFyIiwiY2xhc3NOYW1lIiwiZiIsImxvY2FsaXplIiwic2V0U2lkZWJhckV4cGFuZGVkIiwic2lkZWJhckV4cGFuZGVkIiwiaGFuZGxlQ2xpY2siLCJzZXRUaW1lb3V0IiwiZG9jdW1lbnQiLCJnZXRFbGVtZW50QnlJZCIsImZvY3VzIiwiZGVzY3JpcHRpb24iLCJyZW5kZXIiLCJpZCIsInNpemUiLCJ2YXJpYW50Iiwib25DbGljayIsImNoaWxkcmVuIl0sInNvdXJjZXMiOlsiT3BlblNpZGViYXIudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHN0YXJ0VHJhbnNpdGlvbiB9IGZyb20gJ3JlYWN0JztcbmltcG9ydCB7IHVzZVNldFJlY29pbFN0YXRlIH0gZnJvbSAncmVjb2lsJztcbmltcG9ydCB7IFRvb2x0aXBBbmNob3IsIEJ1dHRvbiwgU2lkZWJhciB9IGZyb20gJ0BsaWJyZWNoYXQvY2xpZW50JztcbmltcG9ydCB7IHVzZUxvY2FsaXplIH0gZnJvbSAnfi9ob29rcyc7XG5pbXBvcnQgeyBjbiB9IGZyb20gJ34vdXRpbHMnO1xuaW1wb3J0IHN0b3JlIGZyb20gJ34vc3RvcmUnO1xuXG5leHBvcnQgY29uc3QgQ0xPU0VfU0lERUJBUl9JRCA9ICdjbG9zZS1zaWRlYmFyLWJ1dHRvbic7XG5leHBvcnQgY29uc3QgT1BFTl9TSURFQkFSX0lEID0gJ29wZW4tc2lkZWJhci1idXR0b24nO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBPcGVuU2lkZWJhcih7IGNsYXNzTmFtZSB9OiB7IGNsYXNzTmFtZT86IHN0cmluZyB9KSB7XG4gIGNvbnN0IGxvY2FsaXplID0gdXNlTG9jYWxpemUoKTtcbiAgY29uc3Qgc2V0U2lkZWJhckV4cGFuZGVkID0gdXNlU2V0UmVjb2lsU3RhdGUoc3RvcmUuc2lkZWJhckV4cGFuZGVkKTtcblxuICBjb25zdCBoYW5kbGVDbGljayA9ICgpID0+IHtcbiAgICBzdGFydFRyYW5zaXRpb24oKCkgPT4ge1xuICAgICAgc2V0U2lkZWJhckV4cGFuZGVkKHRydWUpO1xuICAgIH0pO1xuICAgIHNldFRpbWVvdXQoKCkgPT4ge1xuICAgICAgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoQ0xPU0VfU0lERUJBUl9JRCk/LmZvY3VzKCk7XG4gICAgfSwgMjUwKTtcbiAgfTtcblxuICByZXR1cm4gKFxuICAgIDxUb29sdGlwQW5jaG9yXG4gICAgICBkZXNjcmlwdGlvbj17bG9jYWxpemUoJ2NvbV9uYXZfb3Blbl9zaWRlYmFyJyl9XG4gICAgICByZW5kZXI9e1xuICAgICAgICA8QnV0dG9uXG4gICAgICAgICAgaWQ9e09QRU5fU0lERUJBUl9JRH1cbiAgICAgICAgICBzaXplPVwiaWNvblwiXG4gICAgICAgICAgdmFyaWFudD1cIm91dGxpbmVcIlxuICAgICAgICAgIGRhdGEtdGVzdGlkPVwib3Blbi1zaWRlYmFyLWJ1dHRvblwiXG4gICAgICAgICAgYXJpYS1sYWJlbD17bG9jYWxpemUoJ2NvbV9uYXZfb3Blbl9zaWRlYmFyJyl9XG4gICAgICAgICAgYXJpYS1leHBhbmRlZD17ZmFsc2V9XG4gICAgICAgICAgYXJpYS1jb250cm9scz1cImNoYXQtaGlzdG9yeS1uYXZcIlxuICAgICAgICAgIGNsYXNzTmFtZT17Y24oXG4gICAgICAgICAgICAncm91bmRlZC14bCBiZy1wcmVzZW50YXRpb24gZHVyYXRpb24tMCBob3ZlcjpiZy1zdXJmYWNlLWFjdGl2ZS1hbHQnLFxuICAgICAgICAgICAgY2xhc3NOYW1lLFxuICAgICAgICAgICl9XG4gICAgICAgICAgb25DbGljaz17aGFuZGxlQ2xpY2t9XG4gICAgICAgID5cbiAgICAgICAgICA8U2lkZWJhciBjbGFzc05hbWU9XCJpY29uLW1kXCIgYXJpYS1oaWRkZW49XCJ0cnVlXCIgLz5cbiAgICAgICAgPC9CdXR0b24+XG4gICAgICB9XG4gICAgLz5cbiAgKTtcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsY0FBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsY0FBQTtBQWZaLFNBQVNFLGVBQWUsUUFBUSxPQUFPO0FBQ3ZDLFNBQVNDLGlCQUFpQixRQUFRLFFBQVE7QUFDMUMsU0FBU0MsYUFBYSxFQUFFQyxNQUFNLEVBQUVDLE9BQU8sUUFBUSxtQkFBbUI7QUFDbEUsU0FBU0MsV0FBVyxRQUFRLGdCQUFTO0FBQ3JDLFNBQVNDLEVBQUUsUUFBUSxnQkFBUztBQUM1QixPQUFPQyxLQUFLLE1BQU0sZ0JBQVM7QUFBQztBQUFBLFNBQUFDLEdBQUEsSUFBQUMsSUFBQTtBQUU1QixPQUFPLE1BQU1DLGdCQUFnQjtBQUFBO0FBQUEsQ0FBQVosY0FBQSxHQUFBYSxDQUFBLE9BQUcsc0JBQXNCO0FBQ3RELE9BQU8sTUFBTUMsZUFBZTtBQUFBO0FBQUEsQ0FBQWQsY0FBQSxHQUFBYSxDQUFBLE9BQUcscUJBQXFCO0FBRXBELGVBQWUsU0FBU0UsV0FBV0EsQ0FBQztFQUFFQztBQUFrQyxDQUFDLEVBQUU7RUFBQTtFQUFBaEIsY0FBQSxHQUFBaUIsQ0FBQTtFQUN6RSxNQUFNQyxRQUFRO0VBQUE7RUFBQSxDQUFBbEIsY0FBQSxHQUFBYSxDQUFBLE9BQUdOLFdBQVcsQ0FBQyxDQUFDO0VBQzlCLE1BQU1ZLGtCQUFrQjtFQUFBO0VBQUEsQ0FBQW5CLGNBQUEsR0FBQWEsQ0FBQSxPQUFHVixpQkFBaUIsQ0FBQ00sS0FBSyxDQUFDVyxlQUFlLENBQUM7RUFBQztFQUFBcEIsY0FBQSxHQUFBYSxDQUFBO0VBRXBFLE1BQU1RLFdBQVcsR0FBR0EsQ0FBQSxLQUFNO0lBQUE7SUFBQXJCLGNBQUEsR0FBQWlCLENBQUE7SUFBQWpCLGNBQUEsR0FBQWEsQ0FBQTtJQUN4QlgsZUFBZSxDQUFDLE1BQU07TUFBQTtNQUFBRixjQUFBLEdBQUFpQixDQUFBO01BQUFqQixjQUFBLEdBQUFhLENBQUE7TUFDcEJNLGtCQUFrQixDQUFDLElBQUksQ0FBQztJQUMxQixDQUFDLENBQUM7SUFBQztJQUFBbkIsY0FBQSxHQUFBYSxDQUFBO0lBQ0hTLFVBQVUsQ0FBQyxNQUFNO01BQUE7TUFBQXRCLGNBQUEsR0FBQWlCLENBQUE7TUFBQWpCLGNBQUEsR0FBQWEsQ0FBQTtNQUNmVSxRQUFRLENBQUNDLGNBQWMsQ0FBQ1osZ0JBQWdCLENBQUMsRUFBRWEsS0FBSyxDQUFDLENBQUM7SUFDcEQsQ0FBQyxFQUFFLEdBQUcsQ0FBQztFQUNULENBQUM7RUFBQztFQUFBekIsY0FBQSxHQUFBYSxDQUFBO0VBRUYsb0JBQ0UsMkJBQUFGLElBQUEsQ0FBQ1AsYUFBYTtFQUFBO0VBQUE7SUFDWnNCLFdBQVcsRUFBRVIsUUFBUSxDQUFDLHNCQUFzQixDQUFFO0lBQzlDUyxNQUFNO0lBQ0o7SUFBQWhCLElBQUEsQ0FBQ04sTUFBTTtJQUFBO0lBQUE7TUFDTHVCLEVBQUUsRUFBRWQsZUFBZ0I7TUFDcEJlLElBQUksRUFBQyxNQUFNO01BQ1hDLE9BQU8sRUFBQyxTQUFTO01BQ2pCO01BQUEsZUFBWSxxQkFBcUI7TUFDakM7TUFBQSxjQUFZWixRQUFRLENBQUMsc0JBQXNCLENBQUU7TUFDN0M7TUFBQSxpQkFBZSxLQUFNO01BQ3JCO01BQUEsaUJBQWMsa0JBQWtCO01BQ2hDRixTQUFTLEVBQUVSLEVBQUUsQ0FDWCxtRUFBbUUsRUFDbkVRLFNBQ0YsQ0FBRTtNQUNGZSxPQUFPLEVBQUVWLFdBQVk7TUFBQVcsUUFBQTtNQUVyQjtNQUFBckIsSUFBQSxDQUFDTCxPQUFPO01BQUE7TUFBQTtRQUFDVSxTQUFTLEVBQUMsU0FBUztRQUFDO1FBQUEsZUFBWTtNQUFNLENBQUU7SUFBQyxDQUM1QztFQUNULENBQ0YsQ0FBQztBQUVOIiwiaWdub3JlTGlzdCI6W119

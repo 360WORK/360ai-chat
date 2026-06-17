@@ -1,0 +1,116 @@
+8d632d47f90e6d570fb041ff28718743
+/* istanbul ignore next */
+function cov_6wxey6rb0() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/hooks/usePersonalizationAccess.ts";
+  var hash = "be8718fee50faaa9f988d5007b7f283eb60678f5";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/hooks/usePersonalizationAccess.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 5,
+          column: 26
+        },
+        end: {
+          line: 8,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 10,
+          column: 39
+        },
+        end: {
+          line: 10,
+          column: 54
+        }
+      },
+      "2": {
+        start: {
+          line: 12,
+          column: 2
+        },
+        end: {
+          line: 15,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "usePersonalizationAccess",
+        decl: {
+          start: {
+            line: 4,
+            column: 24
+          },
+          end: {
+            line: 4,
+            column: 48
+          }
+        },
+        loc: {
+          start: {
+            line: 4,
+            column: 51
+          },
+          end: {
+            line: 16,
+            column: 1
+          }
+        },
+        line: 4
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "be8718fee50faaa9f988d5007b7f283eb60678f5"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_6wxey6rb0 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_6wxey6rb0();
+import { PermissionTypes, Permissions } from 'librechat-data-provider';
+import useHasAccess from './Roles/useHasAccess';
+export default function usePersonalizationAccess() {
+  /* istanbul ignore next */
+  cov_6wxey6rb0().f[0]++;
+  const hasMemoryOptOut =
+  /* istanbul ignore next */
+  (cov_6wxey6rb0().s[0]++, useHasAccess({
+    permissionType: PermissionTypes.MEMORIES,
+    permission: Permissions.OPT_OUT
+  }));
+  const hasAnyPersonalizationFeature =
+  /* istanbul ignore next */
+  (cov_6wxey6rb0().s[1]++, hasMemoryOptOut);
+  /* istanbul ignore next */
+  cov_6wxey6rb0().s[2]++;
+  return {
+    hasMemoryOptOut,
+    hasAnyPersonalizationFeature
+  };
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfNnd4ZXk2cmIwIiwiYWN0dWFsQ292ZXJhZ2UiLCJQZXJtaXNzaW9uVHlwZXMiLCJQZXJtaXNzaW9ucyIsInVzZUhhc0FjY2VzcyIsInVzZVBlcnNvbmFsaXphdGlvbkFjY2VzcyIsImYiLCJoYXNNZW1vcnlPcHRPdXQiLCJzIiwicGVybWlzc2lvblR5cGUiLCJNRU1PUklFUyIsInBlcm1pc3Npb24iLCJPUFRfT1VUIiwiaGFzQW55UGVyc29uYWxpemF0aW9uRmVhdHVyZSJdLCJzb3VyY2VzIjpbInVzZVBlcnNvbmFsaXphdGlvbkFjY2Vzcy50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBQZXJtaXNzaW9uVHlwZXMsIFBlcm1pc3Npb25zIH0gZnJvbSAnbGlicmVjaGF0LWRhdGEtcHJvdmlkZXInO1xuaW1wb3J0IHVzZUhhc0FjY2VzcyBmcm9tICcuL1JvbGVzL3VzZUhhc0FjY2Vzcyc7XG5cbmV4cG9ydCBkZWZhdWx0IGZ1bmN0aW9uIHVzZVBlcnNvbmFsaXphdGlvbkFjY2VzcygpIHtcbiAgY29uc3QgaGFzTWVtb3J5T3B0T3V0ID0gdXNlSGFzQWNjZXNzKHtcbiAgICBwZXJtaXNzaW9uVHlwZTogUGVybWlzc2lvblR5cGVzLk1FTU9SSUVTLFxuICAgIHBlcm1pc3Npb246IFBlcm1pc3Npb25zLk9QVF9PVVQsXG4gIH0pO1xuXG4gIGNvbnN0IGhhc0FueVBlcnNvbmFsaXphdGlvbkZlYXR1cmUgPSBoYXNNZW1vcnlPcHRPdXQ7XG5cbiAgcmV0dXJuIHtcbiAgICBoYXNNZW1vcnlPcHRPdXQsXG4gICAgaGFzQW55UGVyc29uYWxpemF0aW9uRmVhdHVyZSxcbiAgfTtcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGFBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGFBQUE7QUFmWixTQUFTRSxlQUFlLEVBQUVDLFdBQVcsUUFBUSx5QkFBeUI7QUFDdEUsT0FBT0MsWUFBWSxNQUFNLHNCQUFzQjtBQUUvQyxlQUFlLFNBQVNDLHdCQUF3QkEsQ0FBQSxFQUFHO0VBQUE7RUFBQUwsYUFBQSxHQUFBTSxDQUFBO0VBQ2pELE1BQU1DLGVBQWU7RUFBQTtFQUFBLENBQUFQLGFBQUEsR0FBQVEsQ0FBQSxPQUFHSixZQUFZLENBQUM7SUFDbkNLLGNBQWMsRUFBRVAsZUFBZSxDQUFDUSxRQUFRO0lBQ3hDQyxVQUFVLEVBQUVSLFdBQVcsQ0FBQ1M7RUFDMUIsQ0FBQyxDQUFDO0VBRUYsTUFBTUMsNEJBQTRCO0VBQUE7RUFBQSxDQUFBYixhQUFBLEdBQUFRLENBQUEsT0FBR0QsZUFBZTtFQUFDO0VBQUFQLGFBQUEsR0FBQVEsQ0FBQTtFQUVyRCxPQUFPO0lBQ0xELGVBQWU7SUFDZk07RUFDRixDQUFDO0FBQ0giLCJpZ25vcmVMaXN0IjpbXX0=

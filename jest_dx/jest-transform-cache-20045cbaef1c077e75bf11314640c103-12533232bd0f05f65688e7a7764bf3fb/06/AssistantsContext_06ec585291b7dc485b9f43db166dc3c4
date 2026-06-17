@@ -1,0 +1,248 @@
+68085aa4d2128851d4f4422047e40001
+/* istanbul ignore next */
+function cov_1bldhqmoej() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/Providers/AssistantsContext.tsx";
+  var hash = "f9e86bf9529b1ff5d9b8ea65c47cf4db9fb75410";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/Providers/AssistantsContext.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 9,
+          column: 33
+        },
+        end: {
+          line: 9,
+          column: 98
+        }
+      },
+      "1": {
+        start: {
+          line: 12,
+          column: 18
+        },
+        end: {
+          line: 12,
+          column: 47
+        }
+      },
+      "2": {
+        start: {
+          line: 14,
+          column: 2
+        },
+        end: {
+          line: 16,
+          column: 3
+        }
+      },
+      "3": {
+        start: {
+          line: 15,
+          column: 4
+        },
+        end: {
+          line: 15,
+          column: 86
+        }
+      },
+      "4": {
+        start: {
+          line: 18,
+          column: 2
+        },
+        end: {
+          line: 18,
+          column: 17
+        }
+      },
+      "5": {
+        start: {
+          line: 22,
+          column: 18
+        },
+        end: {
+          line: 24,
+          column: 4
+        }
+      },
+      "6": {
+        start: {
+          line: 26,
+          column: 2
+        },
+        end: {
+          line: 26,
+          column: 62
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "useAssistantsContext",
+        decl: {
+          start: {
+            line: 11,
+            column: 16
+          },
+          end: {
+            line: 11,
+            column: 36
+          }
+        },
+        loc: {
+          start: {
+            line: 11,
+            column: 39
+          },
+          end: {
+            line: 19,
+            column: 1
+          }
+        },
+        line: 11
+      },
+      "1": {
+        name: "AssistantsProvider",
+        decl: {
+          start: {
+            line: 21,
+            column: 24
+          },
+          end: {
+            line: 21,
+            column: 42
+          }
+        },
+        loc: {
+          start: {
+            line: 21,
+            column: 57
+          },
+          end: {
+            line: 27,
+            column: 1
+          }
+        },
+        line: 21
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 14,
+            column: 2
+          },
+          end: {
+            line: 16,
+            column: 3
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 14,
+            column: 2
+          },
+          end: {
+            line: 16,
+            column: 3
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 14
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0
+    },
+    b: {
+      "0": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "f9e86bf9529b1ff5d9b8ea65c47cf4db9fb75410"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_1bldhqmoej = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_1bldhqmoej();
+import { useForm, FormProvider } from 'react-hook-form';
+import { createContext, useContext } from 'react';
+import { defaultAssistantFormValues } from 'librechat-data-provider';
+/* istanbul ignore next */
+import { jsx as _jsx } from "react/jsx-runtime";
+export const AssistantsContext =
+/* istanbul ignore next */
+(cov_1bldhqmoej().s[0]++, /*#__PURE__*/createContext({}));
+export function useAssistantsContext() {
+  /* istanbul ignore next */
+  cov_1bldhqmoej().f[0]++;
+  const context =
+  /* istanbul ignore next */
+  (cov_1bldhqmoej().s[1]++, useContext(AssistantsContext));
+  /* istanbul ignore next */
+  cov_1bldhqmoej().s[2]++;
+  if (context === undefined) {
+    /* istanbul ignore next */
+    cov_1bldhqmoej().b[0][0]++;
+    cov_1bldhqmoej().s[3]++;
+    throw new Error('useAssistantsContext must be used within an AssistantsProvider');
+  } else
+  /* istanbul ignore next */
+  {
+    cov_1bldhqmoej().b[0][1]++;
+  }
+  cov_1bldhqmoej().s[4]++;
+  return context;
+}
+export default function AssistantsProvider({
+  children
+}) {
+  /* istanbul ignore next */
+  cov_1bldhqmoej().f[1]++;
+  const methods =
+  /* istanbul ignore next */
+  (cov_1bldhqmoej().s[5]++, useForm({
+    defaultValues: defaultAssistantFormValues
+  }));
+  /* istanbul ignore next */
+  cov_1bldhqmoej().s[6]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(FormProvider,
+  /* istanbul ignore next */
+  {
+    ...methods,
+    children: children
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMWJsZGhxbW9laiIsImFjdHVhbENvdmVyYWdlIiwidXNlRm9ybSIsIkZvcm1Qcm92aWRlciIsImNyZWF0ZUNvbnRleHQiLCJ1c2VDb250ZXh0IiwiZGVmYXVsdEFzc2lzdGFudEZvcm1WYWx1ZXMiLCJqc3giLCJfanN4IiwiQXNzaXN0YW50c0NvbnRleHQiLCJzIiwidXNlQXNzaXN0YW50c0NvbnRleHQiLCJmIiwiY29udGV4dCIsInVuZGVmaW5lZCIsImIiLCJFcnJvciIsIkFzc2lzdGFudHNQcm92aWRlciIsImNoaWxkcmVuIiwibWV0aG9kcyIsImRlZmF1bHRWYWx1ZXMiXSwic291cmNlcyI6WyJBc3Npc3RhbnRzQ29udGV4dC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgdXNlRm9ybSwgRm9ybVByb3ZpZGVyIH0gZnJvbSAncmVhY3QtaG9vay1mb3JtJztcbmltcG9ydCB7IGNyZWF0ZUNvbnRleHQsIHVzZUNvbnRleHQgfSBmcm9tICdyZWFjdCc7XG5pbXBvcnQgeyBkZWZhdWx0QXNzaXN0YW50Rm9ybVZhbHVlcyB9IGZyb20gJ2xpYnJlY2hhdC1kYXRhLXByb3ZpZGVyJztcbmltcG9ydCB0eXBlIHsgVXNlRm9ybVJldHVybiB9IGZyb20gJ3JlYWN0LWhvb2stZm9ybSc7XG5pbXBvcnQgdHlwZSB7IEFzc2lzdGFudEZvcm0gfSBmcm9tICd+L2NvbW1vbic7XG5cbnR5cGUgQXNzaXN0YW50c0NvbnRleHRUeXBlID0gVXNlRm9ybVJldHVybjxBc3Npc3RhbnRGb3JtPjtcblxuZXhwb3J0IGNvbnN0IEFzc2lzdGFudHNDb250ZXh0ID0gY3JlYXRlQ29udGV4dDxBc3Npc3RhbnRzQ29udGV4dFR5cGU+KHt9IGFzIEFzc2lzdGFudHNDb250ZXh0VHlwZSk7XG5cbmV4cG9ydCBmdW5jdGlvbiB1c2VBc3Npc3RhbnRzQ29udGV4dCgpIHtcbiAgY29uc3QgY29udGV4dCA9IHVzZUNvbnRleHQoQXNzaXN0YW50c0NvbnRleHQpO1xuXG4gIGlmIChjb250ZXh0ID09PSB1bmRlZmluZWQpIHtcbiAgICB0aHJvdyBuZXcgRXJyb3IoJ3VzZUFzc2lzdGFudHNDb250ZXh0IG11c3QgYmUgdXNlZCB3aXRoaW4gYW4gQXNzaXN0YW50c1Byb3ZpZGVyJyk7XG4gIH1cblxuICByZXR1cm4gY29udGV4dDtcbn1cblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gQXNzaXN0YW50c1Byb3ZpZGVyKHsgY2hpbGRyZW4gfSkge1xuICBjb25zdCBtZXRob2RzID0gdXNlRm9ybTxBc3Npc3RhbnRGb3JtPih7XG4gICAgZGVmYXVsdFZhbHVlczogZGVmYXVsdEFzc2lzdGFudEZvcm1WYWx1ZXMsXG4gIH0pO1xuXG4gIHJldHVybiA8Rm9ybVByb3ZpZGVyIHsuLi5tZXRob2RzfT57Y2hpbGRyZW59PC9Gb3JtUHJvdmlkZXI+O1xufVxuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsY0FBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsY0FBQTtBQWZaLFNBQVNFLE9BQU8sRUFBRUMsWUFBWSxRQUFRLGlCQUFpQjtBQUN2RCxTQUFTQyxhQUFhLEVBQUVDLFVBQVUsUUFBUSxPQUFPO0FBQ2pELFNBQVNDLDBCQUEwQixRQUFRLHlCQUF5QjtBQUFDO0FBQUEsU0FBQUMsR0FBQSxJQUFBQyxJQUFBO0FBTXJFLE9BQU8sTUFBTUMsaUJBQWlCO0FBQUE7QUFBQSxDQUFBVCxjQUFBLEdBQUFVLENBQUEsb0JBQUdOLGFBQWEsQ0FBd0IsQ0FBQyxDQUEwQixDQUFDO0FBRWxHLE9BQU8sU0FBU08sb0JBQW9CQSxDQUFBLEVBQUc7RUFBQTtFQUFBWCxjQUFBLEdBQUFZLENBQUE7RUFDckMsTUFBTUMsT0FBTztFQUFBO0VBQUEsQ0FBQWIsY0FBQSxHQUFBVSxDQUFBLE9BQUdMLFVBQVUsQ0FBQ0ksaUJBQWlCLENBQUM7RUFBQztFQUFBVCxjQUFBLEdBQUFVLENBQUE7RUFFOUMsSUFBSUcsT0FBTyxLQUFLQyxTQUFTLEVBQUU7SUFBQTtJQUFBZCxjQUFBLEdBQUFlLENBQUE7SUFBQWYsY0FBQSxHQUFBVSxDQUFBO0lBQ3pCLE1BQU0sSUFBSU0sS0FBSyxDQUFDLGdFQUFnRSxDQUFDO0VBQ25GLENBQUM7RUFBQTtFQUFBO0lBQUFoQixjQUFBLEdBQUFlLENBQUE7RUFBQTtFQUFBZixjQUFBLEdBQUFVLENBQUE7RUFFRCxPQUFPRyxPQUFPO0FBQ2hCO0FBRUEsZUFBZSxTQUFTSSxrQkFBa0JBLENBQUM7RUFBRUM7QUFBUyxDQUFDLEVBQUU7RUFBQTtFQUFBbEIsY0FBQSxHQUFBWSxDQUFBO0VBQ3ZELE1BQU1PLE9BQU87RUFBQTtFQUFBLENBQUFuQixjQUFBLEdBQUFVLENBQUEsT0FBR1IsT0FBTyxDQUFnQjtJQUNyQ2tCLGFBQWEsRUFBRWQ7RUFDakIsQ0FBQyxDQUFDO0VBQUM7RUFBQU4sY0FBQSxHQUFBVSxDQUFBO0VBRUgsb0JBQU8sMkJBQUFGLElBQUEsQ0FBQ0wsWUFBWTtFQUFBO0VBQUE7SUFBQSxHQUFLZ0IsT0FBTztJQUFBRCxRQUFBLEVBQUdBO0VBQVEsQ0FBZSxDQUFDO0FBQzdEIiwiaWdub3JlTGlzdCI6W119

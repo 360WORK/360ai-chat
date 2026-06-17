@@ -50,6 +50,18 @@ export default function ConvoIcon({
   const iconKey = getIconKey({ endpoint, endpointsConfig, endpointIconURL });
   const Icon = icons[iconKey] ?? null;
 
+  if (context === 'landing') {
+    return (
+      <div className={containerClassName}>
+        <img
+          src="assets/360-mark.png"
+          alt="360AI"
+          className={`object-contain dark:invert ${className}`}
+        />
+      </div>
+    );
+  }
+
   return (
     <>
       {isImageURL(iconURL) ? (

@@ -1,0 +1,347 @@
+101877ab8fc1cb7d9ff58f3810352016
+/* istanbul ignore next */
+function cov_ua4ht7r49() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/hooks/Input/useMultipleKeys.ts";
+  var hash = "16c3e03a9bf4638a4e40e5d34fcacc6f4db1481d";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/hooks/Input/useMultipleKeys.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 5,
+          column: 4
+        },
+        end: {
+          line: 10,
+          column: 5
+        }
+      },
+      "1": {
+        start: {
+          line: 6,
+          column: 21
+        },
+        end: {
+          line: 6,
+          column: 40
+        }
+      },
+      "2": {
+        start: {
+          line: 7,
+          column: 6
+        },
+        end: {
+          line: 7,
+          column: 26
+        }
+      },
+      "3": {
+        start: {
+          line: 9,
+          column: 6
+        },
+        end: {
+          line: 9,
+          column: 16
+        }
+      },
+      "4": {
+        start: {
+          line: 14,
+          column: 17
+        },
+        end: {
+          line: 14,
+          column: 19
+        }
+      },
+      "5": {
+        start: {
+          line: 15,
+          column: 4
+        },
+        end: {
+          line: 17,
+          column: 5
+        }
+      },
+      "6": {
+        start: {
+          line: 16,
+          column: 6
+        },
+        end: {
+          line: 16,
+          column: 35
+        }
+      },
+      "7": {
+        start: {
+          line: 18,
+          column: 4
+        },
+        end: {
+          line: 18,
+          column: 25
+        }
+      },
+      "8": {
+        start: {
+          line: 20,
+          column: 4
+        },
+        end: {
+          line: 20,
+          column: 39
+        }
+      },
+      "9": {
+        start: {
+          line: 23,
+          column: 2
+        },
+        end: {
+          line: 23,
+          column: 38
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "useMultipleKeys",
+        decl: {
+          start: {
+            line: 3,
+            column: 24
+          },
+          end: {
+            line: 3,
+            column: 39
+          }
+        },
+        loc: {
+          start: {
+            line: 3,
+            column: 98
+          },
+          end: {
+            line: 24,
+            column: 1
+          }
+        },
+        line: 3
+      },
+      "1": {
+        name: "getMultiKey",
+        decl: {
+          start: {
+            line: 4,
+            column: 11
+          },
+          end: {
+            line: 4,
+            column: 22
+          }
+        },
+        loc: {
+          start: {
+            line: 4,
+            column: 54
+          },
+          end: {
+            line: 11,
+            column: 3
+          }
+        },
+        line: 4
+      },
+      "2": {
+        name: "setMultiKey",
+        decl: {
+          start: {
+            line: 13,
+            column: 11
+          },
+          end: {
+            line: 13,
+            column: 22
+          }
+        },
+        loc: {
+          start: {
+            line: 13,
+            column: 88
+          },
+          end: {
+            line: 21,
+            column: 3
+          }
+        },
+        line: 13
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 5,
+            column: 4
+          },
+          end: {
+            line: 10,
+            column: 5
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 5,
+            column: 4
+          },
+          end: {
+            line: 10,
+            column: 5
+          }
+        }, {
+          start: {
+            line: 8,
+            column: 11
+          },
+          end: {
+            line: 10,
+            column: 5
+          }
+        }],
+        line: 5
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 15,
+            column: 4
+          },
+          end: {
+            line: 17,
+            column: 5
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 15,
+            column: 4
+          },
+          end: {
+            line: 17,
+            column: 5
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 15
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    b: {
+      "0": [0, 0],
+      "1": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "16c3e03a9bf4638a4e40e5d34fcacc6f4db1481d"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_ua4ht7r49 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_ua4ht7r49();
+import { isJson } from "../../utils/json";
+export default function useMultipleKeys(setUserKey) {
+  /* istanbul ignore next */
+  cov_ua4ht7r49().f[0]++;
+  function getMultiKey(name, userKey) {
+    /* istanbul ignore next */
+    cov_ua4ht7r49().f[1]++;
+    cov_ua4ht7r49().s[0]++;
+    if (isJson(userKey)) {
+      /* istanbul ignore next */
+      cov_ua4ht7r49().b[0][0]++;
+      const newKey =
+      /* istanbul ignore next */
+      (cov_ua4ht7r49().s[1]++, JSON.parse(userKey));
+      /* istanbul ignore next */
+      cov_ua4ht7r49().s[2]++;
+      return newKey[name];
+    } else {
+      /* istanbul ignore next */
+      cov_ua4ht7r49().b[0][1]++;
+      cov_ua4ht7r49().s[3]++;
+      return '';
+    }
+  }
+  function setMultiKey(name, value, userKey) {
+    /* istanbul ignore next */
+    cov_ua4ht7r49().f[2]++;
+    let newKey =
+    /* istanbul ignore next */
+    (cov_ua4ht7r49().s[4]++, {});
+    /* istanbul ignore next */
+    cov_ua4ht7r49().s[5]++;
+    if (isJson(userKey)) {
+      /* istanbul ignore next */
+      cov_ua4ht7r49().b[1][0]++;
+      cov_ua4ht7r49().s[6]++;
+      newKey = JSON.parse(userKey);
+    } else
+    /* istanbul ignore next */
+    {
+      cov_ua4ht7r49().b[1][1]++;
+    }
+    cov_ua4ht7r49().s[7]++;
+    newKey[name] = value;
+    /* istanbul ignore next */
+    cov_ua4ht7r49().s[8]++;
+    setUserKey(JSON.stringify(newKey));
+  }
+  /* istanbul ignore next */
+  cov_ua4ht7r49().s[9]++;
+  return {
+    getMultiKey,
+    setMultiKey
+  };
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfdWE0aHQ3cjQ5IiwiYWN0dWFsQ292ZXJhZ2UiLCJpc0pzb24iLCJ1c2VNdWx0aXBsZUtleXMiLCJzZXRVc2VyS2V5IiwiZiIsImdldE11bHRpS2V5IiwibmFtZSIsInVzZXJLZXkiLCJzIiwiYiIsIm5ld0tleSIsIkpTT04iLCJwYXJzZSIsInNldE11bHRpS2V5IiwidmFsdWUiLCJzdHJpbmdpZnkiXSwic291cmNlcyI6WyJ1c2VNdWx0aXBsZUtleXMudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgaXNKc29uIH0gZnJvbSAnfi91dGlscy9qc29uJztcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gdXNlTXVsdGlwbGVLZXlzKHNldFVzZXJLZXk6IFJlYWN0LkRpc3BhdGNoPFJlYWN0LlNldFN0YXRlQWN0aW9uPHN0cmluZz4+KSB7XG4gIGZ1bmN0aW9uIGdldE11bHRpS2V5KG5hbWU6IHN0cmluZywgdXNlcktleTogc3RyaW5nKSB7XG4gICAgaWYgKGlzSnNvbih1c2VyS2V5KSkge1xuICAgICAgY29uc3QgbmV3S2V5ID0gSlNPTi5wYXJzZSh1c2VyS2V5KTtcbiAgICAgIHJldHVybiBuZXdLZXlbbmFtZV07XG4gICAgfSBlbHNlIHtcbiAgICAgIHJldHVybiAnJztcbiAgICB9XG4gIH1cblxuICBmdW5jdGlvbiBzZXRNdWx0aUtleShuYW1lOiBzdHJpbmcsIHZhbHVlOiBudW1iZXIgfCBzdHJpbmcgfCBib29sZWFuLCB1c2VyS2V5OiBzdHJpbmcpIHtcbiAgICBsZXQgbmV3S2V5ID0ge307XG4gICAgaWYgKGlzSnNvbih1c2VyS2V5KSkge1xuICAgICAgbmV3S2V5ID0gSlNPTi5wYXJzZSh1c2VyS2V5KTtcbiAgICB9XG4gICAgbmV3S2V5W25hbWVdID0gdmFsdWU7XG5cbiAgICBzZXRVc2VyS2V5KEpTT04uc3RyaW5naWZ5KG5ld0tleSkpO1xuICB9XG5cbiAgcmV0dXJuIHsgZ2V0TXVsdGlLZXksIHNldE11bHRpS2V5IH07XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGFBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGFBQUE7QUFmWixTQUFTRSxNQUFNLFFBQVEsa0JBQWM7QUFFckMsZUFBZSxTQUFTQyxlQUFlQSxDQUFDQyxVQUF3RCxFQUFFO0VBQUE7RUFBQUosYUFBQSxHQUFBSyxDQUFBO0VBQ2hHLFNBQVNDLFdBQVdBLENBQUNDLElBQVksRUFBRUMsT0FBZSxFQUFFO0lBQUE7SUFBQVIsYUFBQSxHQUFBSyxDQUFBO0lBQUFMLGFBQUEsR0FBQVMsQ0FBQTtJQUNsRCxJQUFJUCxNQUFNLENBQUNNLE9BQU8sQ0FBQyxFQUFFO01BQUE7TUFBQVIsYUFBQSxHQUFBVSxDQUFBO01BQ25CLE1BQU1DLE1BQU07TUFBQTtNQUFBLENBQUFYLGFBQUEsR0FBQVMsQ0FBQSxPQUFHRyxJQUFJLENBQUNDLEtBQUssQ0FBQ0wsT0FBTyxDQUFDO01BQUM7TUFBQVIsYUFBQSxHQUFBUyxDQUFBO01BQ25DLE9BQU9FLE1BQU0sQ0FBQ0osSUFBSSxDQUFDO0lBQ3JCLENBQUMsTUFBTTtNQUFBO01BQUFQLGFBQUEsR0FBQVUsQ0FBQTtNQUFBVixhQUFBLEdBQUFTLENBQUE7TUFDTCxPQUFPLEVBQUU7SUFDWDtFQUNGO0VBRUEsU0FBU0ssV0FBV0EsQ0FBQ1AsSUFBWSxFQUFFUSxLQUFnQyxFQUFFUCxPQUFlLEVBQUU7SUFBQTtJQUFBUixhQUFBLEdBQUFLLENBQUE7SUFDcEYsSUFBSU0sTUFBTTtJQUFBO0lBQUEsQ0FBQVgsYUFBQSxHQUFBUyxDQUFBLE9BQUcsQ0FBQyxDQUFDO0lBQUM7SUFBQVQsYUFBQSxHQUFBUyxDQUFBO0lBQ2hCLElBQUlQLE1BQU0sQ0FBQ00sT0FBTyxDQUFDLEVBQUU7TUFBQTtNQUFBUixhQUFBLEdBQUFVLENBQUE7TUFBQVYsYUFBQSxHQUFBUyxDQUFBO01BQ25CRSxNQUFNLEdBQUdDLElBQUksQ0FBQ0MsS0FBSyxDQUFDTCxPQUFPLENBQUM7SUFDOUIsQ0FBQztJQUFBO0lBQUE7TUFBQVIsYUFBQSxHQUFBVSxDQUFBO0lBQUE7SUFBQVYsYUFBQSxHQUFBUyxDQUFBO0lBQ0RFLE1BQU0sQ0FBQ0osSUFBSSxDQUFDLEdBQUdRLEtBQUs7SUFBQztJQUFBZixhQUFBLEdBQUFTLENBQUE7SUFFckJMLFVBQVUsQ0FBQ1EsSUFBSSxDQUFDSSxTQUFTLENBQUNMLE1BQU0sQ0FBQyxDQUFDO0VBQ3BDO0VBQUM7RUFBQVgsYUFBQSxHQUFBUyxDQUFBO0VBRUQsT0FBTztJQUFFSCxXQUFXO0lBQUVRO0VBQVksQ0FBQztBQUNyQyIsImlnbm9yZUxpc3QiOltdfQ==

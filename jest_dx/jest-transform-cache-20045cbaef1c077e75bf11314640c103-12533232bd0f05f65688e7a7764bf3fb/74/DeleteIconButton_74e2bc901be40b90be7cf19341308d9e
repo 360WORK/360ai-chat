@@ -1,0 +1,104 @@
+5baa09f114a19ac07e6442464c156a89
+/* istanbul ignore next */
+function cov_j0c0oxk02() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/components/Files/DeleteIconButton.tsx";
+  var hash = "c10e2e9b95fc2d86bb6068af013c7e7907f13879";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/components/Files/DeleteIconButton.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 9,
+          column: 2
+        },
+        end: {
+          line: 15,
+          column: 4
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "DeleteIconButton",
+        decl: {
+          start: {
+            line: 8,
+            column: 24
+          },
+          end: {
+            line: 8,
+            column: 40
+          }
+        },
+        loc: {
+          start: {
+            line: 8,
+            column: 77
+          },
+          end: {
+            line: 16,
+            column: 1
+          }
+        },
+        line: 8
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "c10e2e9b95fc2d86bb6068af013c7e7907f13879"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_j0c0oxk02 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_j0c0oxk02();
+import React from 'react';
+import { Button, TrashIcon } from '@librechat/client';
+/* istanbul ignore next */
+import { jsx as _jsx } from "react/jsx-runtime";
+export default function DeleteIconButton({
+  onClick
+}) {
+  /* istanbul ignore next */
+  cov_j0c0oxk02().f[0]++;
+  cov_j0c0oxk02().s[0]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(
+  /* istanbul ignore next */
+  "div",
+  /* istanbul ignore next */
+  {
+    className: "w-fit",
+    children: /*#__PURE__*/
+    /* istanbul ignore next */
+    _jsx(Button,
+    /* istanbul ignore next */
+    {
+      className: "bg-red-400 p-3",
+      onClick: onClick,
+      children: /*#__PURE__*/
+      /* istanbul ignore next */
+      _jsx(TrashIcon,
+      /* istanbul ignore next */
+      {})
+    })
+  });
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfajBjMG94azAyIiwiYWN0dWFsQ292ZXJhZ2UiLCJSZWFjdCIsIkJ1dHRvbiIsIlRyYXNoSWNvbiIsImpzeCIsIl9qc3giLCJEZWxldGVJY29uQnV0dG9uIiwib25DbGljayIsImYiLCJzIiwiY2xhc3NOYW1lIiwiY2hpbGRyZW4iXSwic291cmNlcyI6WyJEZWxldGVJY29uQnV0dG9uLnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xuaW1wb3J0IHsgQnV0dG9uLCBUcmFzaEljb24gfSBmcm9tICdAbGlicmVjaGF0L2NsaWVudCc7XG5cbnR5cGUgRGVsZXRlSWNvbkJ1dHRvblByb3BzID0ge1xuICBvbkNsaWNrOiAoKSA9PiB2b2lkO1xufTtcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gRGVsZXRlSWNvbkJ1dHRvbih7IG9uQ2xpY2sgfTogRGVsZXRlSWNvbkJ1dHRvblByb3BzKSB7XG4gIHJldHVybiAoXG4gICAgPGRpdiBjbGFzc05hbWU9XCJ3LWZpdFwiPlxuICAgICAgPEJ1dHRvbiBjbGFzc05hbWU9XCJiZy1yZWQtNDAwIHAtM1wiIG9uQ2xpY2s9e29uQ2xpY2t9PlxuICAgICAgICA8VHJhc2hJY29uIC8+XG4gICAgICA8L0J1dHRvbj5cbiAgICA8L2Rpdj5cbiAgKTtcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsYUFBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsYUFBQTtBQWZaLE9BQU9FLEtBQUssTUFBTSxPQUFPO0FBQ3pCLFNBQVNDLE1BQU0sRUFBRUMsU0FBUyxRQUFRLG1CQUFtQjtBQUFDO0FBQUEsU0FBQUMsR0FBQSxJQUFBQyxJQUFBO0FBTXRELGVBQWUsU0FBU0MsZ0JBQWdCQSxDQUFDO0VBQUVDO0FBQStCLENBQUMsRUFBRTtFQUFBO0VBQUFSLGFBQUEsR0FBQVMsQ0FBQTtFQUFBVCxhQUFBLEdBQUFVLENBQUE7RUFDM0Usb0JBQ0UsMkJBQUFKLElBQUE7RUFBQTtFQUFBO0VBQUE7RUFBQTtJQUFLSyxTQUFTLEVBQUMsT0FBTztJQUFBQyxRQUFBO0lBQ3BCO0lBQUFOLElBQUEsQ0FBQ0gsTUFBTTtJQUFBO0lBQUE7TUFBQ1EsU0FBUyxFQUFDLGdCQUFnQjtNQUFDSCxPQUFPLEVBQUVBLE9BQVE7TUFBQUksUUFBQTtNQUNsRDtNQUFBTixJQUFBLENBQUNGLFNBQVM7TUFBQTtNQUFBLEVBQUU7SUFBQyxDQUNQO0VBQUMsQ0FDTixDQUFDO0FBRVYiLCJpZ25vcmVMaXN0IjpbXX0=

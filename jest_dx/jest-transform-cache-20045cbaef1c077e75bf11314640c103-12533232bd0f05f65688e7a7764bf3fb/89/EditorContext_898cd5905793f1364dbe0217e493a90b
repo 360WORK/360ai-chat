@@ -1,0 +1,629 @@
+e37a231a05e044a7cd4e94b8b4be0492
+/* istanbul ignore next */
+function cov_41crp4e() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/Providers/EditorContext.tsx";
+  var hash = "8c88fba030052d65559db60112092c1b2c357f6a";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/Providers/EditorContext.tsx",
+    statementMap: {
+      "0": {
+        start: {
+          line: 21,
+          column: 24
+        },
+        end: {
+          line: 21,
+          column: 81
+        }
+      },
+      "1": {
+        start: {
+          line: 22,
+          column: 20
+        },
+        end: {
+          line: 22,
+          column: 73
+        }
+      },
+      "2": {
+        start: {
+          line: 31,
+          column: 38
+        },
+        end: {
+          line: 31,
+          column: 53
+        }
+      },
+      "3": {
+        start: {
+          line: 32,
+          column: 40
+        },
+        end: {
+          line: 32,
+          column: 70
+        }
+      },
+      "4": {
+        start: {
+          line: 34,
+          column: 24
+        },
+        end: {
+          line: 34,
+          column: 84
+        }
+      },
+      "5": {
+        start: {
+          line: 34,
+          column: 39
+        },
+        end: {
+          line: 34,
+          column: 68
+        }
+      },
+      "6": {
+        start: {
+          line: 35,
+          column: 20
+        },
+        end: {
+          line: 35,
+          column: 83
+        }
+      },
+      "7": {
+        start: {
+          line: 35,
+          column: 35
+        },
+        end: {
+          line: 35,
+          column: 66
+        }
+      },
+      "8": {
+        start: {
+          line: 37,
+          column: 2
+        },
+        end: {
+          line: 41,
+          column: 4
+        }
+      },
+      "9": {
+        start: {
+          line: 49,
+          column: 18
+        },
+        end: {
+          line: 49,
+          column: 45
+        }
+      },
+      "10": {
+        start: {
+          line: 50,
+          column: 2
+        },
+        end: {
+          line: 52,
+          column: 3
+        }
+      },
+      "11": {
+        start: {
+          line: 51,
+          column: 4
+        },
+        end: {
+          line: 51,
+          column: 78
+        }
+      },
+      "12": {
+        start: {
+          line: 53,
+          column: 2
+        },
+        end: {
+          line: 53,
+          column: 17
+        }
+      },
+      "13": {
+        start: {
+          line: 61,
+          column: 18
+        },
+        end: {
+          line: 61,
+          column: 41
+        }
+      },
+      "14": {
+        start: {
+          line: 62,
+          column: 2
+        },
+        end: {
+          line: 64,
+          column: 3
+        }
+      },
+      "15": {
+        start: {
+          line: 63,
+          column: 4
+        },
+        end: {
+          line: 63,
+          column: 74
+        }
+      },
+      "16": {
+        start: {
+          line: 65,
+          column: 2
+        },
+        end: {
+          line: 65,
+          column: 17
+        }
+      },
+      "17": {
+        start: {
+          line: 73,
+          column: 19
+        },
+        end: {
+          line: 73,
+          column: 37
+        }
+      },
+      "18": {
+        start: {
+          line: 74,
+          column: 15
+        },
+        end: {
+          line: 74,
+          column: 29
+        }
+      },
+      "19": {
+        start: {
+          line: 75,
+          column: 2
+        },
+        end: {
+          line: 75,
+          column: 34
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "EditorProvider",
+        decl: {
+          start: {
+            line: 30,
+            column: 16
+          },
+          end: {
+            line: 30,
+            column: 30
+          }
+        },
+        loc: {
+          start: {
+            line: 30,
+            column: 76
+          },
+          end: {
+            line: 42,
+            column: 1
+          }
+        },
+        line: 30
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 34,
+            column: 32
+          },
+          end: {
+            line: 34,
+            column: 33
+          }
+        },
+        loc: {
+          start: {
+            line: 34,
+            column: 39
+          },
+          end: {
+            line: 34,
+            column: 68
+          }
+        },
+        line: 34
+      },
+      "2": {
+        name: "(anonymous_2)",
+        decl: {
+          start: {
+            line: 35,
+            column: 28
+          },
+          end: {
+            line: 35,
+            column: 29
+          }
+        },
+        loc: {
+          start: {
+            line: 35,
+            column: 35
+          },
+          end: {
+            line: 35,
+            column: 66
+          }
+        },
+        line: 35
+      },
+      "3": {
+        name: "useMutationState",
+        decl: {
+          start: {
+            line: 48,
+            column: 16
+          },
+          end: {
+            line: 48,
+            column: 32
+          }
+        },
+        loc: {
+          start: {
+            line: 48,
+            column: 35
+          },
+          end: {
+            line: 54,
+            column: 1
+          }
+        },
+        line: 48
+      },
+      "4": {
+        name: "useCodeState",
+        decl: {
+          start: {
+            line: 60,
+            column: 16
+          },
+          end: {
+            line: 60,
+            column: 28
+          }
+        },
+        loc: {
+          start: {
+            line: 60,
+            column: 31
+          },
+          end: {
+            line: 66,
+            column: 1
+          }
+        },
+        line: 60
+      },
+      "5": {
+        name: "useEditorContext",
+        decl: {
+          start: {
+            line: 72,
+            column: 16
+          },
+          end: {
+            line: 72,
+            column: 32
+          }
+        },
+        loc: {
+          start: {
+            line: 72,
+            column: 35
+          },
+          end: {
+            line: 76,
+            column: 1
+          }
+        },
+        line: 72
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 50,
+            column: 2
+          },
+          end: {
+            line: 52,
+            column: 3
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 50,
+            column: 2
+          },
+          end: {
+            line: 52,
+            column: 3
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 50
+      },
+      "1": {
+        loc: {
+          start: {
+            line: 62,
+            column: 2
+          },
+          end: {
+            line: 64,
+            column: 3
+          }
+        },
+        type: "if",
+        locations: [{
+          start: {
+            line: 62,
+            column: 2
+          },
+          end: {
+            line: 64,
+            column: 3
+          }
+        }, {
+          start: {
+            line: undefined,
+            column: undefined
+          },
+          end: {
+            line: undefined,
+            column: undefined
+          }
+        }],
+        line: 62
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "15": 0,
+      "16": 0,
+      "17": 0,
+      "18": 0,
+      "19": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0
+    },
+    b: {
+      "0": [0, 0],
+      "1": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "8c88fba030052d65559db60112092c1b2c357f6a"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_41crp4e = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_41crp4e();
+import React, { createContext, useContext, useState, useMemo } from 'react';
+
+/**
+ * Mutation state context - for components that need to know about save/edit status
+ * Separated from code state to prevent unnecessary re-renders
+ */
+
+/**
+ * Code state context - for components that need the current code content
+ * Changes frequently (on every keystroke), so only subscribe if needed
+ */
+/* istanbul ignore next */
+import { jsx as _jsx } from "react/jsx-runtime";
+const MutationContext =
+/* istanbul ignore next */
+(cov_41crp4e().s[0]++, /*#__PURE__*/createContext(undefined));
+const CodeContext =
+/* istanbul ignore next */
+(cov_41crp4e().s[1]++, /*#__PURE__*/createContext(undefined));
+
+/**
+ * Provides editor state management for artifact code editing
+ * Split into two contexts to prevent unnecessary re-renders:
+ * - MutationContext: for save/edit status (changes rarely)
+ * - CodeContext: for code content (changes on every keystroke)
+ */
+export function EditorProvider({
+  children
+}) {
+  /* istanbul ignore next */
+  cov_41crp4e().f[0]++;
+  const [isMutating, setIsMutating] =
+  /* istanbul ignore next */
+  (cov_41crp4e().s[2]++, useState(false));
+  const [currentCode, setCurrentCode] =
+  /* istanbul ignore next */
+  (cov_41crp4e().s[3]++, useState());
+  const mutationValue =
+  /* istanbul ignore next */
+  (cov_41crp4e().s[4]++, useMemo(() => {
+    /* istanbul ignore next */
+    cov_41crp4e().f[1]++;
+    cov_41crp4e().s[5]++;
+    return {
+      isMutating,
+      setIsMutating
+    };
+  }, [isMutating]));
+  const codeValue =
+  /* istanbul ignore next */
+  (cov_41crp4e().s[6]++, useMemo(() => {
+    /* istanbul ignore next */
+    cov_41crp4e().f[2]++;
+    cov_41crp4e().s[7]++;
+    return {
+      currentCode,
+      setCurrentCode
+    };
+  }, [currentCode]));
+  /* istanbul ignore next */
+  cov_41crp4e().s[8]++;
+  return /*#__PURE__*/ /* istanbul ignore next */_jsx(
+  /* istanbul ignore next */
+  MutationContext.Provider,
+  /* istanbul ignore next */
+  {
+    value: mutationValue,
+    children: /*#__PURE__*/
+    /* istanbul ignore next */
+    _jsx(
+    /* istanbul ignore next */
+    CodeContext.Provider,
+    /* istanbul ignore next */
+    {
+      value: codeValue,
+      children: children
+    })
+  });
+}
+
+/**
+ * Hook to access mutation state only
+ * Use this when you only need to know about save/edit status
+ */
+export function useMutationState() {
+  /* istanbul ignore next */
+  cov_41crp4e().f[3]++;
+  const context =
+  /* istanbul ignore next */
+  (cov_41crp4e().s[9]++, useContext(MutationContext));
+  /* istanbul ignore next */
+  cov_41crp4e().s[10]++;
+  if (context === undefined) {
+    /* istanbul ignore next */
+    cov_41crp4e().b[0][0]++;
+    cov_41crp4e().s[11]++;
+    throw new Error('useMutationState must be used within an EditorProvider');
+  } else
+  /* istanbul ignore next */
+  {
+    cov_41crp4e().b[0][1]++;
+  }
+  cov_41crp4e().s[12]++;
+  return context;
+}
+
+/**
+ * Hook to access code state only
+ * Use this when you need the current code content
+ */
+export function useCodeState() {
+  /* istanbul ignore next */
+  cov_41crp4e().f[4]++;
+  const context =
+  /* istanbul ignore next */
+  (cov_41crp4e().s[13]++, useContext(CodeContext));
+  /* istanbul ignore next */
+  cov_41crp4e().s[14]++;
+  if (context === undefined) {
+    /* istanbul ignore next */
+    cov_41crp4e().b[1][0]++;
+    cov_41crp4e().s[15]++;
+    throw new Error('useCodeState must be used within an EditorProvider');
+  } else
+  /* istanbul ignore next */
+  {
+    cov_41crp4e().b[1][1]++;
+  }
+  cov_41crp4e().s[16]++;
+  return context;
+}
+
+/**
+ * @deprecated Use useMutationState() and/or useCodeState() instead
+ * This hook causes components to re-render on every keystroke
+ */
+export function useEditorContext() {
+  /* istanbul ignore next */
+  cov_41crp4e().f[5]++;
+  const mutation =
+  /* istanbul ignore next */
+  (cov_41crp4e().s[17]++, useMutationState());
+  const code =
+  /* istanbul ignore next */
+  (cov_41crp4e().s[18]++, useCodeState());
+  /* istanbul ignore next */
+  cov_41crp4e().s[19]++;
+  return {
+    ...mutation,
+    ...code
+  };
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfNDFjcnA0ZSIsImFjdHVhbENvdmVyYWdlIiwiUmVhY3QiLCJjcmVhdGVDb250ZXh0IiwidXNlQ29udGV4dCIsInVzZVN0YXRlIiwidXNlTWVtbyIsImpzeCIsIl9qc3giLCJNdXRhdGlvbkNvbnRleHQiLCJzIiwidW5kZWZpbmVkIiwiQ29kZUNvbnRleHQiLCJFZGl0b3JQcm92aWRlciIsImNoaWxkcmVuIiwiZiIsImlzTXV0YXRpbmciLCJzZXRJc011dGF0aW5nIiwiY3VycmVudENvZGUiLCJzZXRDdXJyZW50Q29kZSIsIm11dGF0aW9uVmFsdWUiLCJjb2RlVmFsdWUiLCJQcm92aWRlciIsInZhbHVlIiwidXNlTXV0YXRpb25TdGF0ZSIsImNvbnRleHQiLCJiIiwiRXJyb3IiLCJ1c2VDb2RlU3RhdGUiLCJ1c2VFZGl0b3JDb250ZXh0IiwibXV0YXRpb24iLCJjb2RlIl0sInNvdXJjZXMiOlsiRWRpdG9yQ29udGV4dC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IFJlYWN0LCB7IGNyZWF0ZUNvbnRleHQsIHVzZUNvbnRleHQsIHVzZVN0YXRlLCB1c2VNZW1vIH0gZnJvbSAncmVhY3QnO1xuXG4vKipcbiAqIE11dGF0aW9uIHN0YXRlIGNvbnRleHQgLSBmb3IgY29tcG9uZW50cyB0aGF0IG5lZWQgdG8ga25vdyBhYm91dCBzYXZlL2VkaXQgc3RhdHVzXG4gKiBTZXBhcmF0ZWQgZnJvbSBjb2RlIHN0YXRlIHRvIHByZXZlbnQgdW5uZWNlc3NhcnkgcmUtcmVuZGVyc1xuICovXG5pbnRlcmZhY2UgTXV0YXRpb25Db250ZXh0VHlwZSB7XG4gIGlzTXV0YXRpbmc6IGJvb2xlYW47XG4gIHNldElzTXV0YXRpbmc6IFJlYWN0LkRpc3BhdGNoPFJlYWN0LlNldFN0YXRlQWN0aW9uPGJvb2xlYW4+Pjtcbn1cblxuLyoqXG4gKiBDb2RlIHN0YXRlIGNvbnRleHQgLSBmb3IgY29tcG9uZW50cyB0aGF0IG5lZWQgdGhlIGN1cnJlbnQgY29kZSBjb250ZW50XG4gKiBDaGFuZ2VzIGZyZXF1ZW50bHkgKG9uIGV2ZXJ5IGtleXN0cm9rZSksIHNvIG9ubHkgc3Vic2NyaWJlIGlmIG5lZWRlZFxuICovXG5pbnRlcmZhY2UgQ29kZUNvbnRleHRUeXBlIHtcbiAgY3VycmVudENvZGU/OiBzdHJpbmc7XG4gIHNldEN1cnJlbnRDb2RlOiBSZWFjdC5EaXNwYXRjaDxSZWFjdC5TZXRTdGF0ZUFjdGlvbjxzdHJpbmcgfCB1bmRlZmluZWQ+Pjtcbn1cblxuY29uc3QgTXV0YXRpb25Db250ZXh0ID0gY3JlYXRlQ29udGV4dDxNdXRhdGlvbkNvbnRleHRUeXBlIHwgdW5kZWZpbmVkPih1bmRlZmluZWQpO1xuY29uc3QgQ29kZUNvbnRleHQgPSBjcmVhdGVDb250ZXh0PENvZGVDb250ZXh0VHlwZSB8IHVuZGVmaW5lZD4odW5kZWZpbmVkKTtcblxuLyoqXG4gKiBQcm92aWRlcyBlZGl0b3Igc3RhdGUgbWFuYWdlbWVudCBmb3IgYXJ0aWZhY3QgY29kZSBlZGl0aW5nXG4gKiBTcGxpdCBpbnRvIHR3byBjb250ZXh0cyB0byBwcmV2ZW50IHVubmVjZXNzYXJ5IHJlLXJlbmRlcnM6XG4gKiAtIE11dGF0aW9uQ29udGV4dDogZm9yIHNhdmUvZWRpdCBzdGF0dXMgKGNoYW5nZXMgcmFyZWx5KVxuICogLSBDb2RlQ29udGV4dDogZm9yIGNvZGUgY29udGVudCAoY2hhbmdlcyBvbiBldmVyeSBrZXlzdHJva2UpXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiBFZGl0b3JQcm92aWRlcih7IGNoaWxkcmVuIH06IHsgY2hpbGRyZW46IFJlYWN0LlJlYWN0Tm9kZSB9KSB7XG4gIGNvbnN0IFtpc011dGF0aW5nLCBzZXRJc011dGF0aW5nXSA9IHVzZVN0YXRlKGZhbHNlKTtcbiAgY29uc3QgW2N1cnJlbnRDb2RlLCBzZXRDdXJyZW50Q29kZV0gPSB1c2VTdGF0ZTxzdHJpbmcgfCB1bmRlZmluZWQ+KCk7XG5cbiAgY29uc3QgbXV0YXRpb25WYWx1ZSA9IHVzZU1lbW8oKCkgPT4gKHsgaXNNdXRhdGluZywgc2V0SXNNdXRhdGluZyB9KSwgW2lzTXV0YXRpbmddKTtcbiAgY29uc3QgY29kZVZhbHVlID0gdXNlTWVtbygoKSA9PiAoeyBjdXJyZW50Q29kZSwgc2V0Q3VycmVudENvZGUgfSksIFtjdXJyZW50Q29kZV0pO1xuXG4gIHJldHVybiAoXG4gICAgPE11dGF0aW9uQ29udGV4dC5Qcm92aWRlciB2YWx1ZT17bXV0YXRpb25WYWx1ZX0+XG4gICAgICA8Q29kZUNvbnRleHQuUHJvdmlkZXIgdmFsdWU9e2NvZGVWYWx1ZX0+e2NoaWxkcmVufTwvQ29kZUNvbnRleHQuUHJvdmlkZXI+XG4gICAgPC9NdXRhdGlvbkNvbnRleHQuUHJvdmlkZXI+XG4gICk7XG59XG5cbi8qKlxuICogSG9vayB0byBhY2Nlc3MgbXV0YXRpb24gc3RhdGUgb25seVxuICogVXNlIHRoaXMgd2hlbiB5b3Ugb25seSBuZWVkIHRvIGtub3cgYWJvdXQgc2F2ZS9lZGl0IHN0YXR1c1xuICovXG5leHBvcnQgZnVuY3Rpb24gdXNlTXV0YXRpb25TdGF0ZSgpIHtcbiAgY29uc3QgY29udGV4dCA9IHVzZUNvbnRleHQoTXV0YXRpb25Db250ZXh0KTtcbiAgaWYgKGNvbnRleHQgPT09IHVuZGVmaW5lZCkge1xuICAgIHRocm93IG5ldyBFcnJvcigndXNlTXV0YXRpb25TdGF0ZSBtdXN0IGJlIHVzZWQgd2l0aGluIGFuIEVkaXRvclByb3ZpZGVyJyk7XG4gIH1cbiAgcmV0dXJuIGNvbnRleHQ7XG59XG5cbi8qKlxuICogSG9vayB0byBhY2Nlc3MgY29kZSBzdGF0ZSBvbmx5XG4gKiBVc2UgdGhpcyB3aGVuIHlvdSBuZWVkIHRoZSBjdXJyZW50IGNvZGUgY29udGVudFxuICovXG5leHBvcnQgZnVuY3Rpb24gdXNlQ29kZVN0YXRlKCkge1xuICBjb25zdCBjb250ZXh0ID0gdXNlQ29udGV4dChDb2RlQ29udGV4dCk7XG4gIGlmIChjb250ZXh0ID09PSB1bmRlZmluZWQpIHtcbiAgICB0aHJvdyBuZXcgRXJyb3IoJ3VzZUNvZGVTdGF0ZSBtdXN0IGJlIHVzZWQgd2l0aGluIGFuIEVkaXRvclByb3ZpZGVyJyk7XG4gIH1cbiAgcmV0dXJuIGNvbnRleHQ7XG59XG5cbi8qKlxuICogQGRlcHJlY2F0ZWQgVXNlIHVzZU11dGF0aW9uU3RhdGUoKSBhbmQvb3IgdXNlQ29kZVN0YXRlKCkgaW5zdGVhZFxuICogVGhpcyBob29rIGNhdXNlcyBjb21wb25lbnRzIHRvIHJlLXJlbmRlciBvbiBldmVyeSBrZXlzdHJva2VcbiAqL1xuZXhwb3J0IGZ1bmN0aW9uIHVzZUVkaXRvckNvbnRleHQoKSB7XG4gIGNvbnN0IG11dGF0aW9uID0gdXNlTXV0YXRpb25TdGF0ZSgpO1xuICBjb25zdCBjb2RlID0gdXNlQ29kZVN0YXRlKCk7XG4gIHJldHVybiB7IC4uLm11dGF0aW9uLCAuLi5jb2RlIH07XG59XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsV0FBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxP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

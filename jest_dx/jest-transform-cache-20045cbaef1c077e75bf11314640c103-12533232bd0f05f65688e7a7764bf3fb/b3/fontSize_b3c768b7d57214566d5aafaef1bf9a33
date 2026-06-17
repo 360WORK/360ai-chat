@@ -1,0 +1,131 @@
+079f742d4bd4c19dddef3f1deb8fb349
+/* istanbul ignore next */
+function cov_2rc5l9b707() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/store/fontSize.ts";
+  var hash = "2e2e22a9217b7781e8d0daa0d82e63526cab91f5";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/store/fontSize.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 4,
+          column: 26
+        },
+        end: {
+          line: 4,
+          column: 37
+        }
+      },
+      "1": {
+        start: {
+          line: 9,
+          column: 28
+        },
+        end: {
+          line: 13,
+          column: 1
+        }
+      },
+      "2": {
+        start: {
+          line: 19,
+          column: 34
+        },
+        end: {
+          line: 21,
+          column: 1
+        }
+      },
+      "3": {
+        start: {
+          line: 20,
+          column: 2
+        },
+        end: {
+          line: 20,
+          column: 70
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 19,
+            column: 34
+          },
+          end: {
+            line: 19,
+            column: 35
+          }
+        },
+        loc: {
+          start: {
+            line: 19,
+            column: 46
+          },
+          end: {
+            line: 21,
+            column: 1
+          }
+        },
+        line: 19
+      }
+    },
+    branchMap: {},
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "2e2e22a9217b7781e8d0daa0d82e63526cab91f5"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_2rc5l9b707 = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2rc5l9b707();
+import { applyFontSize } from '@librechat/client';
+import { createStorageAtomWithEffect, initializeFromStorage } from './jotai-utils';
+const DEFAULT_FONT_SIZE =
+/* istanbul ignore next */
+(cov_2rc5l9b707().s[0]++, 'text-base');
+
+/**
+ * This atom stores the user's font size preference
+ */
+export const fontSizeAtom =
+/* istanbul ignore next */
+(cov_2rc5l9b707().s[1]++, createStorageAtomWithEffect('fontSize', DEFAULT_FONT_SIZE, applyFontSize));
+
+/**
+ * Initialize font size on app load
+ * This function applies the saved font size from localStorage to the DOM
+ */
+/* istanbul ignore next */
+cov_2rc5l9b707().s[2]++;
+export const initializeFontSize = () => {
+  /* istanbul ignore next */
+  cov_2rc5l9b707().f[0]++;
+  cov_2rc5l9b707().s[3]++;
+  initializeFromStorage('fontSize', DEFAULT_FONT_SIZE, applyFontSize);
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMnJjNWw5YjcwNyIsImFjdHVhbENvdmVyYWdlIiwiYXBwbHlGb250U2l6ZSIsImNyZWF0ZVN0b3JhZ2VBdG9tV2l0aEVmZmVjdCIsImluaXRpYWxpemVGcm9tU3RvcmFnZSIsIkRFRkFVTFRfRk9OVF9TSVpFIiwicyIsImZvbnRTaXplQXRvbSIsImluaXRpYWxpemVGb250U2l6ZSIsImYiXSwic291cmNlcyI6WyJmb250U2l6ZS50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBhcHBseUZvbnRTaXplIH0gZnJvbSAnQGxpYnJlY2hhdC9jbGllbnQnO1xuaW1wb3J0IHsgY3JlYXRlU3RvcmFnZUF0b21XaXRoRWZmZWN0LCBpbml0aWFsaXplRnJvbVN0b3JhZ2UgfSBmcm9tICcuL2pvdGFpLXV0aWxzJztcblxuY29uc3QgREVGQVVMVF9GT05UX1NJWkUgPSAndGV4dC1iYXNlJztcblxuLyoqXG4gKiBUaGlzIGF0b20gc3RvcmVzIHRoZSB1c2VyJ3MgZm9udCBzaXplIHByZWZlcmVuY2VcbiAqL1xuZXhwb3J0IGNvbnN0IGZvbnRTaXplQXRvbSA9IGNyZWF0ZVN0b3JhZ2VBdG9tV2l0aEVmZmVjdDxzdHJpbmc+KFxuICAnZm9udFNpemUnLFxuICBERUZBVUxUX0ZPTlRfU0laRSxcbiAgYXBwbHlGb250U2l6ZSxcbik7XG5cbi8qKlxuICogSW5pdGlhbGl6ZSBmb250IHNpemUgb24gYXBwIGxvYWRcbiAqIFRoaXMgZnVuY3Rpb24gYXBwbGllcyB0aGUgc2F2ZWQgZm9udCBzaXplIGZyb20gbG9jYWxTdG9yYWdlIHRvIHRoZSBET01cbiAqL1xuZXhwb3J0IGNvbnN0IGluaXRpYWxpemVGb250U2l6ZSA9ICgpOiB2b2lkID0+IHtcbiAgaW5pdGlhbGl6ZUZyb21TdG9yYWdlKCdmb250U2l6ZScsIERFRkFVTFRfRk9OVF9TSVpFLCBhcHBseUZvbnRTaXplKTtcbn07XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGNBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGNBQUE7QUFmWixTQUFTRSxhQUFhLFFBQVEsbUJBQW1CO0FBQ2pELFNBQVNDLDJCQUEyQixFQUFFQyxxQkFBcUIsUUFBUSxlQUFlO0FBRWxGLE1BQU1DLGlCQUFpQjtBQUFBO0FBQUEsQ0FBQUwsY0FBQSxHQUFBTSxDQUFBLE9BQUcsV0FBVzs7QUFFckM7QUFDQTtBQUNBO0FBQ0EsT0FBTyxNQUFNQyxZQUFZO0FBQUE7QUFBQSxDQUFBUCxjQUFBLEdBQUFNLENBQUEsT0FBR0gsMkJBQTJCLENBQ3JELFVBQVUsRUFDVkUsaUJBQWlCLEVBQ2pCSCxhQUNGLENBQUM7O0FBRUQ7QUFDQTtBQUNBO0FBQ0E7QUFIQTtBQUFBRixjQUFBLEdBQUFNLENBQUE7QUFJQSxPQUFPLE1BQU1FLGtCQUFrQixHQUFHQSxDQUFBLEtBQVk7RUFBQTtFQUFBUixjQUFBLEdBQUFTLENBQUE7RUFBQVQsY0FBQSxHQUFBTSxDQUFBO0VBQzVDRixxQkFBcUIsQ0FBQyxVQUFVLEVBQUVDLGlCQUFpQixFQUFFSCxhQUFhLENBQUM7QUFDckUsQ0FBQyIsImlnbm9yZUxpc3QiOltdfQ==

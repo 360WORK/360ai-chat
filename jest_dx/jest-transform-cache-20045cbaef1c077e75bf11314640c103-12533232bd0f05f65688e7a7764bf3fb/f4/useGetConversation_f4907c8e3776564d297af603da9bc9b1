@@ -1,0 +1,194 @@
+e35ba1b5ba09a53cd14dc94ad18623ea
+/* istanbul ignore next */
+function cov_3ce7w5a5q() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/hooks/Conversations/useGetConversation.ts";
+  var hash = "2c29cb77397700263b1b8bb33dfbfa3a78cdf577";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/hooks/Conversations/useGetConversation.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 6,
+          column: 2
+        },
+        end: {
+          line: 13,
+          column: 4
+        }
+      },
+      "1": {
+        start: {
+          line: 8,
+          column: 6
+        },
+        end: {
+          line: 11,
+          column: 45
+        }
+      },
+      "2": {
+        start: {
+          line: 9,
+          column: 8
+        },
+        end: {
+          line: 11,
+          column: 45
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "useGetConversation",
+        decl: {
+          start: {
+            line: 5,
+            column: 24
+          },
+          end: {
+            line: 5,
+            column: 42
+          }
+        },
+        loc: {
+          start: {
+            line: 5,
+            column: 71
+          },
+          end: {
+            line: 14,
+            column: 1
+          }
+        },
+        line: 5
+      },
+      "1": {
+        name: "(anonymous_1)",
+        decl: {
+          start: {
+            line: 7,
+            column: 4
+          },
+          end: {
+            line: 7,
+            column: 5
+          }
+        },
+        loc: {
+          start: {
+            line: 8,
+            column: 6
+          },
+          end: {
+            line: 11,
+            column: 45
+          }
+        },
+        line: 8
+      },
+      "2": {
+        name: "(anonymous_2)",
+        decl: {
+          start: {
+            line: 8,
+            column: 6
+          },
+          end: {
+            line: 8,
+            column: 7
+          }
+        },
+        loc: {
+          start: {
+            line: 9,
+            column: 8
+          },
+          end: {
+            line: 11,
+            column: 45
+          }
+        },
+        line: 9
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 5,
+            column: 43
+          },
+          end: {
+            line: 5,
+            column: 69
+          }
+        },
+        type: "default-arg",
+        locations: [{
+          start: {
+            line: 5,
+            column: 68
+          },
+          end: {
+            line: 5,
+            column: 69
+          }
+        }],
+        line: 5
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    f: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    b: {
+      "0": [0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "2c29cb77397700263b1b8bb33dfbfa3a78cdf577"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_3ce7w5a5q = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_3ce7w5a5q();
+import { useRecoilCallback } from 'recoil';
+import store from "../../store";
+export default function useGetConversation(index =
+/* istanbul ignore next */
+(cov_3ce7w5a5q().b[0][0]++, 0)) {
+  /* istanbul ignore next */
+  cov_3ce7w5a5q().f[0]++;
+  cov_3ce7w5a5q().s[0]++;
+  return useRecoilCallback(({
+    snapshot
+  }) => {
+    /* istanbul ignore next */
+    cov_3ce7w5a5q().f[1]++;
+    cov_3ce7w5a5q().s[1]++;
+    return () => {
+      /* istanbul ignore next */
+      cov_3ce7w5a5q().f[2]++;
+      cov_3ce7w5a5q().s[2]++;
+      return snapshot.getLoadable(store.conversationByKeySelector(index)).getValue();
+    };
+  }, [index]);
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfM2NlN3c1YTVxIiwiYWN0dWFsQ292ZXJhZ2UiLCJ1c2VSZWNvaWxDYWxsYmFjayIsInN0b3JlIiwidXNlR2V0Q29udmVyc2F0aW9uIiwiaW5kZXgiLCJiIiwiZiIsInMiLCJzbmFwc2hvdCIsImdldExvYWRhYmxlIiwiY29udmVyc2F0aW9uQnlLZXlTZWxlY3RvciIsImdldFZhbHVlIl0sInNvdXJjZXMiOlsidXNlR2V0Q29udmVyc2F0aW9uLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IHVzZVJlY29pbENhbGxiYWNrIH0gZnJvbSAncmVjb2lsJztcbmltcG9ydCB0eXBlIHsgVENvbnZlcnNhdGlvbiB9IGZyb20gJ2xpYnJlY2hhdC1kYXRhLXByb3ZpZGVyJztcbmltcG9ydCBzdG9yZSBmcm9tICd+L3N0b3JlJztcblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gdXNlR2V0Q29udmVyc2F0aW9uKGluZGV4OiBzdHJpbmcgfCBudW1iZXIgPSAwKSB7XG4gIHJldHVybiB1c2VSZWNvaWxDYWxsYmFjayhcbiAgICAoeyBzbmFwc2hvdCB9KSA9PlxuICAgICAgKCkgPT5cbiAgICAgICAgc25hcHNob3RcbiAgICAgICAgICAuZ2V0TG9hZGFibGUoc3RvcmUuY29udmVyc2F0aW9uQnlLZXlTZWxlY3RvcihpbmRleCkpXG4gICAgICAgICAgLmdldFZhbHVlKCkgYXMgVENvbnZlcnNhdGlvbiB8IG51bGwsXG4gICAgW2luZGV4XSxcbiAgKTtcbn1cbiJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsYUFBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsYUFBQTtBQWZaLFNBQVNFLGlCQUFpQixRQUFRLFFBQVE7QUFFMUMsT0FBT0MsS0FBSyxNQUFNLGFBQVM7QUFFM0IsZUFBZSxTQUFTQyxrQkFBa0JBLENBQUNDLEtBQXNCO0FBQUE7QUFBQSxDQUFBTCxhQUFBLEdBQUFNLENBQUEsVUFBRyxDQUFDLEdBQUU7RUFBQTtFQUFBTixhQUFBLEdBQUFPLENBQUE7RUFBQVAsYUFBQSxHQUFBUSxDQUFBO0VBQ3JFLE9BQU9OLGlCQUFpQixDQUN0QixDQUFDO0lBQUVPO0VBQVMsQ0FBQyxLQUNYO0lBQUE7SUFBQVQsYUFBQSxHQUFBTyxDQUFBO0lBQUFQLGFBQUEsR0FBQVEsQ0FBQTtJQUFBLGFBQ0U7TUFBQTtNQUFBUixhQUFBLEdBQUFPLENBQUE7TUFBQVAsYUFBQSxHQUFBUSxDQUFBO01BQUEsT0FBQUMsUUFBUSxDQUNMQyxXQUFXLENBQUNQLEtBQUssQ0FBQ1EseUJBQXlCLENBQUNOLEtBQUssQ0FBQyxDQUFDLENBQ25ETyxRQUFRLENBQUMsQ0FBQztJQUF1QixDQUFDO0VBQUQsQ0FBQyxFQUN6QyxDQUFDUCxLQUFLLENBQ1IsQ0FBQztBQUNIIiwiaWdub3JlTGlzdCI6W119

@@ -1,0 +1,68 @@
+7ba0e8d602e470c1cba9f9e5e7758920
+/* istanbul ignore next */
+function cov_2p3q4spons() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/store/subagents.ts";
+  var hash = "07646b38fdaa5f9d5bdaa93535d8ccd6b0e5a747";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/store/subagents.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 44,
+          column: 44
+        },
+        end: {
+          line: 47,
+          column: 2
+        }
+      }
+    },
+    fnMap: {},
+    branchMap: {},
+    s: {
+      "0": 0
+    },
+    f: {},
+    b: {},
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "07646b38fdaa5f9d5bdaa93535d8ccd6b0e5a747"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_2p3q4spons = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_2p3q4spons();
+import { atomFamily } from 'recoil';
+
+/**
+ * Progress bucket captured per subagent tool call. Populated as
+ * `ON_SUBAGENT_UPDATE` SSE events stream in from the backend. Keyed by the
+ * parent's `tool_call_id` so the `SubagentCall` renderer can look the bucket
+ * up from the tool call it's rendering.
+ *
+ * Both the dialog content and the ticker are aggregated *incrementally*
+ * into the atom as each envelope arrives — the atom never keeps the raw
+ * event array. A long-running subagent can emit thousands of deltas
+ * without the state growing past what its structural output (N text
+ * runs + M tool calls + a bounded tail preview) needs.
+ */
+
+/** Progress state keyed by parent tool_call_id. */
+export const subagentProgressByToolCallId =
+/* istanbul ignore next */
+(cov_2p3q4spons().s[0]++, atomFamily({
+  key: 'subagentProgressByToolCallId',
+  default: null
+}));
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfMnAzcTRzcG9ucyIsImFjdHVhbENvdmVyYWdlIiwiYXRvbUZhbWlseSIsInN1YmFnZW50UHJvZ3Jlc3NCeVRvb2xDYWxsSWQiLCJzIiwia2V5IiwiZGVmYXVsdCJdLCJzb3VyY2VzIjpbInN1YmFnZW50cy50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBhdG9tRmFtaWx5IH0gZnJvbSAncmVjb2lsJztcbmltcG9ydCB0eXBlIHsgU3ViYWdlbnRVcGRhdGVQaGFzZSB9IGZyb20gJ2xpYnJlY2hhdC1kYXRhLXByb3ZpZGVyJztcbmltcG9ydCB0eXBlIHtcbiAgU3ViYWdlbnRBZ2dyZWdhdG9yU3RhdGUsXG4gIFN1YmFnZW50Q29udGVudFBhcnQsXG4gIFN1YmFnZW50VGlja2VyU3RhdGUsXG59IGZyb20gJ34vdXRpbHMvc3ViYWdlbnRDb250ZW50JztcblxuLyoqXG4gKiBQcm9ncmVzcyBidWNrZXQgY2FwdHVyZWQgcGVyIHN1YmFnZW50IHRvb2wgY2FsbC4gUG9wdWxhdGVkIGFzXG4gKiBgT05fU1VCQUdFTlRfVVBEQVRFYCBTU0UgZXZlbnRzIHN0cmVhbSBpbiBmcm9tIHRoZSBiYWNrZW5kLiBLZXllZCBieSB0aGVcbiAqIHBhcmVudCdzIGB0b29sX2NhbGxfaWRgIHNvIHRoZSBgU3ViYWdlbnRDYWxsYCByZW5kZXJlciBjYW4gbG9vayB0aGUgYnVja2V0XG4gKiB1cCBmcm9tIHRoZSB0b29sIGNhbGwgaXQncyByZW5kZXJpbmcuXG4gKlxuICogQm90aCB0aGUgZGlhbG9nIGNvbnRlbnQgYW5kIHRoZSB0aWNrZXIgYXJlIGFnZ3JlZ2F0ZWQgKmluY3JlbWVudGFsbHkqXG4gKiBpbnRvIHRoZSBhdG9tIGFzIGVhY2ggZW52ZWxvcGUgYXJyaXZlcyDigJQgdGhlIGF0b20gbmV2ZXIga2VlcHMgdGhlIHJhd1xuICogZXZlbnQgYXJyYXkuIEEgbG9uZy1ydW5uaW5nIHN1YmFnZW50IGNhbiBlbWl0IHRob3VzYW5kcyBvZiBkZWx0YXNcbiAqIHdpdGhvdXQgdGhlIHN0YXRlIGdyb3dpbmcgcGFzdCB3aGF0IGl0cyBzdHJ1Y3R1cmFsIG91dHB1dCAoTiB0ZXh0XG4gKiBydW5zICsgTSB0b29sIGNhbGxzICsgYSBib3VuZGVkIHRhaWwgcHJldmlldykgbmVlZHMuXG4gKi9cbmV4cG9ydCBpbnRlcmZhY2UgU3ViYWdlbnRQcm9ncmVzcyB7XG4gIC8qKiBDaGlsZCBydW4gaWQgZnJvbSB0aGUgU0RLIOKAlCB1bmlxdWUgcGVyIHNwYXduOyBvbmUgdG9vbF9jYWxsIG1heSBvbmx5IGhhdmUgb25lLiAqL1xuICBzdWJhZ2VudFJ1bklkOiBzdHJpbmc7XG4gIC8qKiBgdHlwZWAgaWRlbnRpZmllciBmcm9tIHRoZSBTdWJhZ2VudENvbmZpZyAoZS5nLiAnc2VsZicsICdyZXNlYXJjaGVyJykuICovXG4gIHN1YmFnZW50VHlwZTogc3RyaW5nO1xuICAvKiogQ2hpbGQgYWdlbnQgaWQgKGZvciBhdmF0YXIgLyBuYW1lIGxvb2t1cCBpbiB0aGUgdGlja2VyIGhlYWRlcikuICovXG4gIHN1YmFnZW50QWdlbnRJZD86IHN0cmluZztcbiAgLyoqXG4gICAqIEZ1bGx5IGFnZ3JlZ2F0ZWQgY2hpbGQgY29udGVudCBwYXJ0cy4gQm91bmRlZCBieSBzdHJ1Y3R1cmUgKHRleHRcbiAgICogcnVucyArIHJlYXNvbmluZyBydW5zICsgdG9vbCBjYWxscyksIG5vdCBieSBkZWx0YSB2b2x1bWUuXG4gICAqL1xuICBjb250ZW50UGFydHM6IFN1YmFnZW50Q29udGVudFBhcnRbXTtcbiAgLyoqIEN1cnNvciBjYXJyaWVkIGFjcm9zcyBgZm9sZFN1YmFnZW50RXZlbnRgIGNhbGxzLiAqL1xuICBhZ2dyZWdhdG9yU3RhdGU6IFN1YmFnZW50QWdncmVnYXRvclN0YXRlO1xuICAvKiogVGlja2VyIGxpbmVzICsgbGl2ZS1jdXJzb3Igc3RhdGUsIGJ1aWx0IGluY3JlbWVudGFsbHkuICovXG4gIHRpY2tlclN0YXRlOiBTdWJhZ2VudFRpY2tlclN0YXRlO1xuICAvKiogQ3VycmVudCBsaWZlY3ljbGUgcGhhc2Ug4oCUIGRyaXZlcyB0aGUgaGVhZGVyIFwicnVubmluZ1wiIC8gXCJkb25lXCIgc3RhdGUuICovXG4gIHN0YXR1czogU3ViYWdlbnRVcGRhdGVQaGFzZTtcbiAgLyoqIENvbnZlbmllbmNlOiBsYXN0IGV2ZW50J3MgYGxhYmVsYCBmb3IgcXVpY2sgdGlja2VyIGRpc3BsYXkuICovXG4gIGxhdGVzdExhYmVsPzogc3RyaW5nO1xufVxuXG4vKiogUHJvZ3Jlc3Mgc3RhdGUga2V5ZWQgYnkgcGFyZW50IHRvb2xfY2FsbF9pZC4gKi9cbmV4cG9ydCBjb25zdCBzdWJhZ2VudFByb2dyZXNzQnlUb29sQ2FsbElkID0gYXRvbUZhbWlseTxTdWJhZ2VudFByb2dyZXNzIHwgbnVsbCwgc3RyaW5nPih7XG4gIGtleTogJ3N1YmFnZW50UHJvZ3Jlc3NCeVRvb2xDYWxsSWQnLFxuICBkZWZhdWx0OiBudWxsLFxufSk7XG4iXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztJQWVZO0lBQUFBLGNBQUEsWUFBQUEsQ0FBQTtNQUFBLE9BQUFDLGNBQUE7SUFBQTtFQUFBO0VBQUEsT0FBQUEsY0FBQTtBQUFBO0FBQUFELGNBQUE7QUFmWixTQUFTRSxVQUFVLFFBQVEsUUFBUTs7QUFRbkM7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOztBQXVCQTtBQUNBLE9BQU8sTUFBTUMsNEJBQTRCO0FBQUE7QUFBQSxDQUFBSCxjQUFBLEdBQUFJLENBQUEsT0FBR0YsVUFBVSxDQUFrQztFQUN0RkcsR0FBRyxFQUFFLDhCQUE4QjtFQUNuQ0MsT0FBTyxFQUFFO0FBQ1gsQ0FBQyxDQUFDIiwiaWdub3JlTGlzdCI6W119

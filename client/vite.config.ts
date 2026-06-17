@@ -1,7 +1,7 @@
 import react from '@vitejs/plugin-react';
 import fs from 'fs';
 import path from 'path';
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import { createRequire } from 'module';
 import { VitePWA } from 'vite-plugin-pwa';
 import { compression } from 'vite-plugin-compression2';
@@ -35,6 +35,9 @@ const backendURL = process.env.HOST
   ? `http://${process.env.HOST}:${backendPort}`
   : `http://localhost:${backendPort}`;
 const buildSourceMap = process.env.NODE_ENV === 'development';
+const rootEnv = loadEnv(process.env.NODE_ENV || 'development', path.resolve(__dirname, '..'), [
+  'VITE_',
+]);
 const QUERY_DEVTOOLS_CHUNK_MODULES = [
   '@tanstack/react-query-devtools',
   '@tanstack/match-sorter-utils',
@@ -46,8 +49,7 @@ const QUERY_DEVTOOLS_CHUNK_MODULES = [
 export default defineConfig(({ command }) => ({
   base: '',
   server: {
-    allowedHosts:
-      (process.env.VITE_ALLOWED_HOSTS && process.env.VITE_ALLOWED_HOSTS.split(',')) || [],
+    allowedHosts: (rootEnv.VITE_ALLOWED_HOSTS && rootEnv.VITE_ALLOWED_HOSTS.split(',')) || [],
     host: process.env.HOST || 'localhost',
     port: (process.env.PORT && Number(process.env.PORT)) || 3090,
     strictPort: false,

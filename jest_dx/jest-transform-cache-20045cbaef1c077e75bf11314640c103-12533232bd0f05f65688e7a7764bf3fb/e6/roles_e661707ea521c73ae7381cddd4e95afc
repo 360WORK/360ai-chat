@@ -1,0 +1,234 @@
+e7f0d083fe2d1398c33263347e7b7e37
+/* istanbul ignore next */
+function cov_reww4fa9s() {
+  var path = "/Users/eth0/Herd/chat.360ai/client/src/utils/roles.ts";
+  var hash = "1e55704fa79e5ee5517d4e208fe8350c53a85087";
+  var global = new Function("return this")();
+  var gcv = "__coverage__";
+  var coverageData = {
+    path: "/Users/eth0/Herd/chat.360ai/client/src/utils/roles.ts",
+    statementMap: {
+      "0": {
+        start: {
+          line: 8,
+          column: 34
+        },
+        end: {
+          line: 85,
+          column: 1
+        }
+      },
+      "1": {
+        start: {
+          line: 92,
+          column: 39
+        },
+        end: {
+          line: 99,
+          column: 1
+        }
+      },
+      "2": {
+        start: {
+          line: 98,
+          column: 2
+        },
+        end: {
+          line: 98,
+          column: 97
+        }
+      }
+    },
+    fnMap: {
+      "0": {
+        name: "(anonymous_0)",
+        decl: {
+          start: {
+            line: 92,
+            column: 39
+          },
+          end: {
+            line: 92,
+            column: 40
+          }
+        },
+        loc: {
+          start: {
+            line: 97,
+            column: 5
+          },
+          end: {
+            line: 99,
+            column: 1
+          }
+        },
+        line: 97
+      }
+    },
+    branchMap: {
+      "0": {
+        loc: {
+          start: {
+            line: 98,
+            column: 9
+          },
+          end: {
+            line: 98,
+            column: 96
+          }
+        },
+        type: "binary-expr",
+        locations: [{
+          start: {
+            line: 98,
+            column: 9
+          },
+          end: {
+            line: 98,
+            column: 35
+          }
+        }, {
+          start: {
+            line: 98,
+            column: 39
+          },
+          end: {
+            line: 98,
+            column: 96
+          }
+        }],
+        line: 98
+      }
+    },
+    s: {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    },
+    f: {
+      "0": 0
+    },
+    b: {
+      "0": [0, 0]
+    },
+    _coverageSchema: "1a1c01bbd47fc00a2c39e90264f33305004495a9",
+    hash: "1e55704fa79e5ee5517d4e208fe8350c53a85087"
+  };
+  var coverage = global[gcv] || (global[gcv] = {});
+  if (!coverage[path] || coverage[path].hash !== hash) {
+    coverage[path] = coverageData;
+  }
+  var actualCoverage = coverage[path];
+  {
+    // @ts-ignore
+    cov_reww4fa9s = function () {
+      return actualCoverage;
+    };
+  }
+  return actualCoverage;
+}
+cov_reww4fa9s();
+/**
+ * Centralized mapping for role localizations
+ * Maps role IDs to their localization keys
+ */
+export const ROLE_LOCALIZATIONS =
+/* istanbul ignore next */
+(cov_reww4fa9s().s[0]++, {
+  agent_viewer: {
+    name: 'com_ui_role_viewer',
+    description: 'com_ui_role_viewer_desc'
+  },
+  agent_editor: {
+    name: 'com_ui_role_editor',
+    description: 'com_ui_role_editor_desc'
+  },
+  agent_manager: {
+    name: 'com_ui_role_manager',
+    description: 'com_ui_role_manager_desc'
+  },
+  agent_owner: {
+    name: 'com_ui_role_owner',
+    description: 'com_ui_role_owner_desc'
+  },
+  // PromptGroup roles
+  promptGroup_viewer: {
+    name: 'com_ui_role_viewer',
+    description: 'com_ui_role_viewer_desc'
+  },
+  promptGroup_editor: {
+    name: 'com_ui_role_editor',
+    description: 'com_ui_role_editor_desc'
+  },
+  promptGroup_owner: {
+    name: 'com_ui_role_owner',
+    description: 'com_ui_role_owner_desc'
+  },
+  // MCPServer roles
+  mcpServer_viewer: {
+    name: 'com_ui_mcp_server_role_viewer',
+    description: 'com_ui_mcp_server_role_viewer_desc'
+  },
+  mcpServer_editor: {
+    name: 'com_ui_mcp_server_role_editor',
+    description: 'com_ui_mcp_server_role_editor_desc'
+  },
+  mcpServer_owner: {
+    name: 'com_ui_mcp_server_role_owner',
+    description: 'com_ui_mcp_server_role_owner_desc'
+  },
+  remoteAgent_viewer: {
+    name: 'com_ui_remote_agent_role_viewer',
+    description: 'com_ui_remote_agent_role_viewer_desc'
+  },
+  remoteAgent_editor: {
+    name: 'com_ui_remote_agent_role_editor',
+    description: 'com_ui_remote_agent_role_editor_desc'
+  },
+  remoteAgent_owner: {
+    name: 'com_ui_remote_agent_role_owner',
+    description: 'com_ui_remote_agent_role_owner_desc'
+  },
+  // Skill roles — reuse the generic role names; descriptions are skill-specific.
+  skill_viewer: {
+    name: 'com_ui_role_viewer',
+    description: 'com_ui_skill_role_viewer_desc'
+  },
+  skill_editor: {
+    name: 'com_ui_role_editor',
+    description: 'com_ui_skill_role_editor_desc'
+  },
+  skill_owner: {
+    name: 'com_ui_role_owner',
+    description: 'com_ui_skill_role_owner_desc'
+  },
+  // Shared link roles
+  sharedLink_viewer: {
+    name: 'com_ui_role_viewer',
+    description: 'com_ui_role_viewer_desc'
+  },
+  sharedLink_owner: {
+    name: 'com_ui_role_owner',
+    description: 'com_ui_role_owner_desc'
+  }
+});
+
+/**
+ * Get localization keys for a given role ID
+ * @param roleId - The role ID to get localization keys for
+ * @returns Object with name and description localization keys, or unknown keys if not found
+ */
+/* istanbul ignore next */
+cov_reww4fa9s().s[1]++;
+export const getRoleLocalizationKeys = roleId => {
+  /* istanbul ignore next */
+  cov_reww4fa9s().f[0]++;
+  cov_reww4fa9s().s[2]++;
+  return /* istanbul ignore next */(cov_reww4fa9s().b[0][0]++, ROLE_LOCALIZATIONS[roleId]) ||
+  /* istanbul ignore next */
+  (cov_reww4fa9s().b[0][1]++, {
+    name: 'com_ui_unknown',
+    description: 'com_ui_unknown'
+  });
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJjb3ZfcmV3dzRmYTlzIiwiYWN0dWFsQ292ZXJhZ2UiLCJST0xFX0xPQ0FMSVpBVElPTlMiLCJzIiwiYWdlbnRfdmlld2VyIiwibmFtZSIsImRlc2NyaXB0aW9uIiwiYWdlbnRfZWRpdG9yIiwiYWdlbnRfbWFuYWdlciIsImFnZW50X293bmVyIiwicHJvbXB0R3JvdXBfdmlld2VyIiwicHJvbXB0R3JvdXBfZWRpdG9yIiwicHJvbXB0R3JvdXBfb3duZXIiLCJtY3BTZXJ2ZXJfdmlld2VyIiwibWNwU2VydmVyX2VkaXRvciIsIm1jcFNlcnZlcl9vd25lciIsInJlbW90ZUFnZW50X3ZpZXdlciIsInJlbW90ZUFnZW50X2VkaXRvciIsInJlbW90ZUFnZW50X293bmVyIiwic2tpbGxfdmlld2VyIiwic2tpbGxfZWRpdG9yIiwic2tpbGxfb3duZXIiLCJzaGFyZWRMaW5rX3ZpZXdlciIsInNoYXJlZExpbmtfb3duZXIiLCJnZXRSb2xlTG9jYWxpemF0aW9uS2V5cyIsInJvbGVJZCIsImYiLCJiIl0sInNvdXJjZXMiOlsicm9sZXMudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHR5cGUgeyBBY2Nlc3NSb2xlSWRzIH0gZnJvbSAnbGlicmVjaGF0LWRhdGEtcHJvdmlkZXInO1xuaW1wb3J0IHR5cGUgeyBUcmFuc2xhdGlvbktleXMgfSBmcm9tICd+L2hvb2tzL3VzZUxvY2FsaXplJztcblxuLyoqXG4gKiBDZW50cmFsaXplZCBtYXBwaW5nIGZvciByb2xlIGxvY2FsaXphdGlvbnNcbiAqIE1hcHMgcm9sZSBJRHMgdG8gdGhlaXIgbG9jYWxpemF0aW9uIGtleXNcbiAqL1xuZXhwb3J0IGNvbnN0IFJPTEVfTE9DQUxJWkFUSU9OUyA9IHtcbiAgYWdlbnRfdmlld2VyOiB7XG4gICAgbmFtZTogJ2NvbV91aV9yb2xlX3ZpZXdlcicgYXMgY29uc3QsXG4gICAgZGVzY3JpcHRpb246ICdjb21fdWlfcm9sZV92aWV3ZXJfZGVzYycgYXMgY29uc3QsXG4gIH0gYXMgY29uc3QsXG4gIGFnZW50X2VkaXRvcjoge1xuICAgIG5hbWU6ICdjb21fdWlfcm9sZV9lZGl0b3InIGFzIGNvbnN0LFxuICAgIGRlc2NyaXB0aW9uOiAnY29tX3VpX3JvbGVfZWRpdG9yX2Rlc2MnIGFzIGNvbnN0LFxuICB9IGFzIGNvbnN0LFxuICBhZ2VudF9tYW5hZ2VyOiB7XG4gICAgbmFtZTogJ2NvbV91aV9yb2xlX21hbmFnZXInIGFzIGNvbnN0LFxuICAgIGRlc2NyaXB0aW9uOiAnY29tX3VpX3JvbGVfbWFuYWdlcl9kZXNjJyBhcyBjb25zdCxcbiAgfSBhcyBjb25zdCxcbiAgYWdlbnRfb3duZXI6IHtcbiAgICBuYW1lOiAnY29tX3VpX3JvbGVfb3duZXInIGFzIGNvbnN0LFxuICAgIGRlc2NyaXB0aW9uOiAnY29tX3VpX3JvbGVfb3duZXJfZGVzYycgYXMgY29uc3QsXG4gIH0gYXMgY29uc3QsXG4gIC8vIFByb21wdEdyb3VwIHJvbGVzXG4gIHByb21wdEdyb3VwX3ZpZXdlcjoge1xuICAgIG5hbWU6ICdjb21fdWlfcm9sZV92aWV3ZXInIGFzIGNvbnN0LFxuICAgIGRlc2NyaXB0aW9uOiAnY29tX3VpX3JvbGVfdmlld2VyX2Rlc2MnIGFzIGNvbnN0LFxuICB9IGFzIGNvbnN0LFxuICBwcm9tcHRHcm91cF9lZGl0b3I6IHtcbiAgICBuYW1lOiAnY29tX3VpX3JvbGVfZWRpdG9yJyBhcyBjb25zdCxcbiAgICBkZXNjcmlwdGlvbjogJ2NvbV91aV9yb2xlX2VkaXRvcl9kZXNjJyBhcyBjb25zdCxcbiAgfSBhcyBjb25zdCxcbiAgcHJvbXB0R3JvdXBfb3duZXI6IHtcbiAgICBuYW1lOiAnY29tX3VpX3JvbGVfb3duZXInIGFzIGNvbnN0LFxuICAgIGRlc2NyaXB0aW9uOiAnY29tX3VpX3JvbGVfb3duZXJfZGVzYycgYXMgY29uc3QsXG4gIH0gYXMgY29uc3QsXG4gIC8vIE1DUFNlcnZlciByb2xlc1xuICBtY3BTZXJ2ZXJfdmlld2VyOiB7XG4gICAgbmFtZTogJ2NvbV91aV9tY3Bfc2VydmVyX3JvbGVfdmlld2VyJyBhcyBjb25zdCxcbiAgICBkZXNjcmlwdGlvbjogJ2NvbV91aV9tY3Bfc2VydmVyX3JvbGVfdmlld2VyX2Rlc2MnIGFzIGNvbnN0LFxuICB9IGFzIGNvbnN0LFxuICBtY3BTZXJ2ZXJfZWRpdG9yOiB7XG4gICAgbmFtZTogJ2NvbV91aV9tY3Bfc2VydmVyX3JvbGVfZWRpdG9yJyBhcyBjb25zdCxcbiAgICBkZXNjcmlwdGlvbjogJ2NvbV91aV9tY3Bfc2VydmVyX3JvbGVfZWRpdG9yX2Rlc2MnIGFzIGNvbnN0LFxuICB9IGFzIGNvbnN0LFxuICBtY3BTZXJ2ZXJfb3duZXI6IHtcbiAgICBuYW1lOiAnY29tX3VpX21jcF9zZXJ2ZXJfcm9sZV9vd25lcicgYXMgY29uc3QsXG4gICAgZGVzY3JpcHRpb246ICdjb21fdWlfbWNwX3NlcnZlcl9yb2xlX293bmVyX2Rlc2MnIGFzIGNvbnN0LFxuICB9IGFzIGNvbnN0LFxuICByZW1vdGVBZ2VudF92aWV3ZXI6IHtcbiAgICBuYW1lOiAnY29tX3VpX3JlbW90ZV9hZ2VudF9yb2xlX3ZpZXdlcicgYXMgY29uc3QsXG4gICAgZGVzY3JpcHRpb246ICdjb21fdWlfcmVtb3RlX2FnZW50X3JvbGVfdmlld2VyX2Rlc2MnIGFzIGNvbnN0LFxuICB9IGFzIGNvbnN0LFxuICByZW1vdGVBZ2VudF9lZGl0b3I6IHtcbiAgICBuYW1lOiAnY29tX3VpX3JlbW90ZV9hZ2VudF9yb2xlX2VkaXRvcicgYXMgY29uc3QsXG4gICAgZGVzY3JpcHRpb246ICdjb21fdWlfcmVtb3RlX2FnZW50X3JvbGVfZWRpdG9yX2Rlc2MnIGFzIGNvbnN0LFxuICB9IGFzIGNvbnN0LFxuICByZW1vdGVBZ2VudF9vd25lcjoge1xuICAgIG5hbWU6ICdjb21fdWlfcmVtb3RlX2FnZW50X3JvbGVfb3duZXInIGFzIGNvbnN0LFxuICAgIGRlc2NyaXB0aW9uOiAnY29tX3VpX3JlbW90ZV9hZ2VudF9yb2xlX293bmVyX2Rlc2MnIGFzIGNvbnN0LFxuICB9IGFzIGNvbnN0LFxuICAvLyBTa2lsbCByb2xlcyDigJQgcmV1c2UgdGhlIGdlbmVyaWMgcm9sZSBuYW1lczsgZGVzY3JpcHRpb25zIGFyZSBza2lsbC1zcGVjaWZpYy5cbiAgc2tpbGxfdmlld2VyOiB7XG4gICAgbmFtZTogJ2NvbV91aV9yb2xlX3ZpZXdlcicgYXMgY29uc3QsXG4gICAgZGVzY3JpcHRpb246ICdjb21fdWlfc2tpbGxfcm9sZV92aWV3ZXJfZGVzYycgYXMgY29uc3QsXG4gIH0gYXMgY29uc3QsXG4gIHNraWxsX2VkaXRvcjoge1xuICAgIG5hbWU6ICdjb21fdWlfcm9sZV9lZGl0b3InIGFzIGNvbnN0LFxuICAgIGRlc2NyaXB0aW9uOiAnY29tX3VpX3NraWxsX3JvbGVfZWRpdG9yX2Rlc2MnIGFzIGNvbnN0LFxuICB9IGFzIGNvbnN0LFxuICBza2lsbF9vd25lcjoge1xuICAgIG5hbWU6ICdjb21fdWlfcm9sZV9vd25lcicgYXMgY29uc3QsXG4gICAgZGVzY3JpcHRpb246ICdjb21fdWlfc2tpbGxfcm9sZV9vd25lcl9kZXNjJyBhcyBjb25zdCxcbiAgfSBhcyBjb25zdCxcbiAgLy8gU2hhcmVkIGxpbmsgcm9sZXNcbiAgc2hhcmVkTGlua192aWV3ZXI6IHtcbiAgICBuYW1lOiAnY29tX3VpX3JvbGVfdmlld2VyJyBhcyBjb25zdCxcbiAgICBkZXNjcmlwdGlvbjogJ2NvbV91aV9yb2xlX3ZpZXdlcl9kZXNjJyBhcyBjb25zdCxcbiAgfSBhcyBjb25zdCxcbiAgc2hhcmVkTGlua19vd25lcjoge1xuICAgIG5hbWU6ICdjb21fdWlfcm9sZV9vd25lcicgYXMgY29uc3QsXG4gICAgZGVzY3JpcHRpb246ICdjb21fdWlfcm9sZV9vd25lcl9kZXNjJyBhcyBjb25zdCxcbiAgfSBhcyBjb25zdCxcbn07XG5cbi8qKlxuICogR2V0IGxvY2FsaXphdGlvbiBrZXlzIGZvciBhIGdpdmVuIHJvbGUgSURcbiAqIEBwYXJhbSByb2xlSWQgLSBUaGUgcm9sZSBJRCB0byBnZXQgbG9jYWxpemF0aW9uIGtleXMgZm9yXG4gKiBAcmV0dXJucyBPYmplY3Qgd2l0aCBuYW1lIGFuZCBkZXNjcmlwdGlvbiBsb2NhbGl6YXRpb24ga2V5cywgb3IgdW5rbm93biBrZXlzIGlmIG5vdCBmb3VuZFxuICovXG5leHBvcnQgY29uc3QgZ2V0Um9sZUxvY2FsaXphdGlvbktleXMgPSAoXG4gIHJvbGVJZDogQWNjZXNzUm9sZUlkcyxcbik6IHtcbiAgbmFtZTogVHJhbnNsYXRpb25LZXlzO1xuICBkZXNjcmlwdGlvbjogVHJhbnNsYXRpb25LZXlzO1xufSA9PiB7XG4gIHJldHVybiBST0xFX0xPQ0FMSVpBVElPTlNbcm9sZUlkXSB8fCB7IG5hbWU6ICdjb21fdWlfdW5rbm93bicsIGRlc2NyaXB0aW9uOiAnY29tX3VpX3Vua25vd24nIH07XG59O1xuIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0lBZVk7SUFBQUEsYUFBQSxZQUFBQSxDQUFBO01BQUEsT0FBQUMsY0FBQTtJQUFBO0VBQUE7RUFBQSxPQUFBQSxjQUFBO0FBQUE7QUFBQUQsYUFBQTtBQVpaO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsT0FBTyxNQUFNRSxrQkFBa0I7QUFBQTtBQUFBLENBQUFGLGFBQUEsR0FBQUcsQ0FBQSxPQUFHO0VBQ2hDQyxZQUFZLEVBQUU7SUFDWkMsSUFBSSxFQUFFLG9CQUE2QjtJQUNuQ0MsV0FBVyxFQUFFO0VBQ2YsQ0FBVTtFQUNWQyxZQUFZLEVBQUU7SUFDWkYsSUFBSSxFQUFFLG9CQUE2QjtJQUNuQ0MsV0FBVyxFQUFFO0VBQ2YsQ0FBVTtFQUNWRSxhQUFhLEVBQUU7SUFDYkgsSUFBSSxFQUFFLHFCQUE4QjtJQUNwQ0MsV0FBVyxFQUFFO0VBQ2YsQ0FBVTtFQUNWRyxXQUFXLEVBQUU7SUFDWEosSUFBSSxFQUFFLG1CQUE0QjtJQUNsQ0MsV0FBVyxFQUFFO0VBQ2YsQ0FBVTtFQUNWO0VBQ0FJLGtCQUFrQixFQUFFO0lBQ2xCTCxJQUFJLEVBQUUsb0JBQTZCO0lBQ25DQyxXQUFXLEVBQUU7RUFDZixDQUFVO0VBQ1ZLLGtCQUFrQixFQUFFO0lBQ2xCTixJQUFJLEVBQUUsb0JBQTZCO0lBQ25DQyxXQUFXLEVBQUU7RUFDZixDQUFVO0VBQ1ZNLGlCQUFpQixFQUFFO0lBQ2pCUCxJQUFJLEVBQUUsbUJBQTRCO0lBQ2xDQyxXQUFXLEVBQUU7RUFDZixDQUFVO0VBQ1Y7RUFDQU8sZ0JBQWdCLEVBQUU7SUFDaEJSLElBQUksRUFBRSwrQkFBd0M7SUFDOUNDLFdBQVcsRUFBRTtFQUNmLENBQVU7RUFDVlEsZ0JBQWdCLEVBQUU7SUFDaEJULElBQUksRUFBRSwrQkFBd0M7SUFDOUNDLFdBQVcsRUFBRTtFQUNmLENBQVU7RUFDVlMsZUFBZSxFQUFFO0lBQ2ZWLElBQUksRUFBRSw4QkFBdUM7SUFDN0NDLFdBQVcsRUFBRTtFQUNmLENBQVU7RUFDVlUsa0JBQWtCLEVBQUU7SUFDbEJYLElBQUksRUFBRSxpQ0FBMEM7SUFDaERDLFdBQVcsRUFBRTtFQUNmLENBQVU7RUFDVlcsa0JBQWtCLEVBQUU7SUFDbEJaLElBQUksRUFBRSxpQ0FBMEM7SUFDaERDLFdBQVcsRUFBRTtFQUNmLENBQVU7RUFDVlksaUJBQWlCLEVBQUU7SUFDakJiLElBQUksRUFBRSxnQ0FBeUM7SUFDL0NDLFdBQVcsRUFBRTtFQUNmLENBQVU7RUFDVjtFQUNBYSxZQUFZLEVBQUU7SUFDWmQsSUFBSSxFQUFFLG9CQUE2QjtJQUNuQ0MsV0FBVyxFQUFFO0VBQ2YsQ0FBVTtFQUNWYyxZQUFZLEVBQUU7SUFDWmYsSUFBSSxFQUFFLG9CQUE2QjtJQUNuQ0MsV0FBVyxFQUFFO0VBQ2YsQ0FBVTtFQUNWZSxXQUFXLEVBQUU7SUFDWGhCLElBQUksRUFBRSxtQkFBNEI7SUFDbENDLFdBQVcsRUFBRTtFQUNmLENBQVU7RUFDVjtFQUNBZ0IsaUJBQWlCLEVBQUU7SUFDakJqQixJQUFJLEVBQUUsb0JBQTZCO0lBQ25DQyxXQUFXLEVBQUU7RUFDZixDQUFVO0VBQ1ZpQixnQkFBZ0IsRUFBRTtJQUNoQmxCLElBQUksRUFBRSxtQkFBNEI7SUFDbENDLFdBQVcsRUFBRTtFQUNmO0FBQ0YsQ0FBQzs7QUFFRDtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBSkE7QUFBQU4sYUFBQSxHQUFBRyxDQUFBO0FBS0EsT0FBTyxNQUFNcUIsdUJBQXVCLEdBQ2xDQyxNQUFxQixJQUlsQjtFQUFBO0VBQUF6QixhQUFBLEdBQUEwQixDQUFBO0VBQUExQixhQUFBLEdBQUFHLENBQUE7RUFDSCxPQUFPLDJCQUFBSCxhQUFBLEdBQUEyQixDQUFBLFVBQUF6QixrQkFBa0IsQ0FBQ3VCLE1BQU0sQ0FBQztFQUFBO0VBQUEsQ0FBQXpCLGFBQUEsR0FBQTJCLENBQUEsVUFBSTtJQUFFdEIsSUFBSSxFQUFFLGdCQUFnQjtJQUFFQyxXQUFXLEVBQUU7RUFBaUIsQ0FBQztBQUNoRyxDQUFDIiwiaWdub3JlTGlzdCI6W119

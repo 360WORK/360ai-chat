@@ -1,0 +1,30 @@
+d4e729ec161066afc286ca087725ef4d
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = createCanvasEvent;
+/**
+ * This function returns a CanvasRenderingContext2DEvent. Whenever an operation would modify the canvas
+ * context, this function should be used to generate an "event" that represents that sort of modification.
+ * This will be used to mock for snapshots.
+ *
+ * @example
+ * interface CanvasRenderingContext2DEvent {
+ *   type: string;
+ *   transform: [number, number, number, number, number, number]; // the resulting current transform
+ *   props: {
+ *     // if the event is a property was set, `event.props.value` would be set
+ *     [propName: string]: any;
+ *   };
+ * }
+ */
+function createCanvasEvent(type, transform, props) {
+  return {
+    type,
+    transform,
+    props
+  };
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJuYW1lcyI6WyJPYmplY3QiLCJkZWZpbmVQcm9wZXJ0eSIsImV4cG9ydHMiLCJ2YWx1ZSIsImRlZmF1bHQiLCJjcmVhdGVDYW52YXNFdmVudCIsInR5cGUiLCJ0cmFuc2Zvcm0iLCJwcm9wcyJdLCJzb3VyY2VzIjpbImNyZWF0ZUNhbnZhc0V2ZW50LmpzIl0sInNvdXJjZXNDb250ZW50IjpbIlwidXNlIHN0cmljdFwiO1xuXG5PYmplY3QuZGVmaW5lUHJvcGVydHkoZXhwb3J0cywgXCJfX2VzTW9kdWxlXCIsIHtcbiAgdmFsdWU6IHRydWVcbn0pO1xuZXhwb3J0cy5kZWZhdWx0ID0gY3JlYXRlQ2FudmFzRXZlbnQ7XG4vKipcbiAqIFRoaXMgZnVuY3Rpb24gcmV0dXJucyBhIENhbnZhc1JlbmRlcmluZ0NvbnRleHQyREV2ZW50LiBXaGVuZXZlciBhbiBvcGVyYXRpb24gd291bGQgbW9kaWZ5IHRoZSBjYW52YXNcbiAqIGNvbnRleHQsIHRoaXMgZnVuY3Rpb24gc2hvdWxkIGJlIHVzZWQgdG8gZ2VuZXJhdGUgYW4gXCJldmVudFwiIHRoYXQgcmVwcmVzZW50cyB0aGF0IHNvcnQgb2YgbW9kaWZpY2F0aW9uLlxuICogVGhpcyB3aWxsIGJlIHVzZWQgdG8gbW9jayBmb3Igc25hcHNob3RzLlxuICpcbiAqIEBleGFtcGxlXG4gKiBpbnRlcmZhY2UgQ2FudmFzUmVuZGVyaW5nQ29udGV4dDJERXZlbnQge1xuICogICB0eXBlOiBzdHJpbmc7XG4gKiAgIHRyYW5zZm9ybTogW251bWJlciwgbnVtYmVyLCBudW1iZXIsIG51bWJlciwgbnVtYmVyLCBudW1iZXJdOyAvLyB0aGUgcmVzdWx0aW5nIGN1cnJlbnQgdHJhbnNmb3JtXG4gKiAgIHByb3BzOiB7XG4gKiAgICAgLy8gaWYgdGhlIGV2ZW50IGlzIGEgcHJvcGVydHkgd2FzIHNldCwgYGV2ZW50LnByb3BzLnZhbHVlYCB3b3VsZCBiZSBzZXRcbiAqICAgICBbcHJvcE5hbWU6IHN0cmluZ106IGFueTtcbiAqICAgfTtcbiAqIH1cbiAqL1xuZnVuY3Rpb24gY3JlYXRlQ2FudmFzRXZlbnQodHlwZSwgdHJhbnNmb3JtLCBwcm9wcykge1xuICByZXR1cm4ge1xuICAgIHR5cGUsXG4gICAgdHJhbnNmb3JtLFxuICAgIHByb3BzXG4gIH07XG59Il0sIm1hcHBpbmdzIjoiQUFBQSxZQUFZOztBQUVaQSxNQUFNLENBQUNDLGNBQWMsQ0FBQ0MsT0FBTyxFQUFFLFlBQVksRUFBRTtFQUMzQ0MsS0FBSyxFQUFFO0FBQ1QsQ0FBQyxDQUFDO0FBQ0ZELE9BQU8sQ0FBQ0UsT0FBTyxHQUFHQyxpQkFBaUI7QUFDbkM7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0EsU0FBU0EsaUJBQWlCQSxDQUFDQyxJQUFJLEVBQUVDLFNBQVMsRUFBRUMsS0FBSyxFQUFFO0VBQ2pELE9BQU87SUFDTEYsSUFBSTtJQUNKQyxTQUFTO0lBQ1RDO0VBQ0YsQ0FBQztBQUNIIiwiaWdub3JlTGlzdCI6W119
