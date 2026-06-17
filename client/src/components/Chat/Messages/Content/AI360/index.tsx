@@ -1,7 +1,7 @@
 import { Sparkles } from 'lucide-react';
 import type { Parsed360Result } from './types';
 import ResultList from './ResultList';
-import { LinkButton } from './Bits';
+import { LinkButton, Pill } from './Bits';
 import CompanyCard from './cards/CompanyCard';
 import TalentCard from './cards/TalentCard';
 import JobCard from './cards/JobCard';
@@ -29,6 +29,7 @@ export default function AI360ToolResult({ result }: { result: Parsed360Result })
     const header = (
       <span className="flex flex-wrap items-center gap-2">
         {localize('com_ui_360_talents_count', { 0: result.count })}
+        {result.pool && <Pill>{result.pool}</Pill>}
         {result.talentFinderUrl && (
           <LinkButton
             href={result.talentFinderUrl}

@@ -75,12 +75,12 @@ function parseJob(data: unknown): Parsed360Result | null {
     return null;
   }
   const job = data as unknown as JobDetail;
-  if (Array.isArray(job.pipeline)) {
-    job.pipeline = (job.pipeline as PipelineStage[])
-      .slice()
-      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-  }
-  return { kind: 'job', job };
+  const pipeline = Array.isArray(job.pipeline)
+    ? (job.pipeline as PipelineStage[])
+        .slice()
+        .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+    : job.pipeline;
+  return { kind: 'job', job: { ...job, pipeline } };
 }
 
 export function parse360Output(

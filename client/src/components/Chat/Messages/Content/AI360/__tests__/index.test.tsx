@@ -25,6 +25,7 @@ describe('AI360ToolResult dispatcher', () => {
     );
     render(<AI360ToolResult result={result!} />);
     expect(screen.getByText('Jane')).toBeInTheDocument();
+    expect(screen.getByText('global')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /talent finder/i })).toHaveAttribute(
       'href',
       'https://360ai.test/tf',
