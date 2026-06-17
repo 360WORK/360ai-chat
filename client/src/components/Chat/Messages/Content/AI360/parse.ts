@@ -39,7 +39,7 @@ function parseCompanies(data: unknown): Parsed360Result | null {
   return { kind: 'companies', companies, count: toCount(data.count, companies.length) };
 }
 
-function parseTalents(toolName: string, data: unknown): Parsed360Result | null {
+function parseTalents(data: unknown): Parsed360Result | null {
   if (Array.isArray(data)) {
     const talents = data as Talent[];
     return { kind: 'talents', talents, count: talents.length };
@@ -58,15 +58,16 @@ function parseTalents(toolName: string, data: unknown): Parsed360Result | null {
 }
 
 function parseJobs(toolName: string, data: unknown): Parsed360Result | null {
+  const variant = toolName === 'list_jobs' ? 'list' : 'search';
   if (Array.isArray(data)) {
     const jobs = data as Job[];
-    return { kind: 'jobs', jobs, count: jobs.length, variant: 'list' };
+    return { kind: 'jobs', jobs, count: jobs.length, variant };
   }
   if (!isRecord(data) || !Array.isArray(data.jobs)) {
     return null;
   }
   const jobs = data.jobs as Job[];
-  return { kind: 'jobs', jobs, count: toCount(data.count, jobs.length), variant: 'search' };
+  return { kind: 'jobs', jobs, count: toCount(data.count, jobs.length), variant };
 }
 
 function parseJob(data: unknown): Parsed360Result | null {
@@ -98,7 +99,7 @@ export function parse360Output(
       return parseCompanies(data);
     case 'search_talents':
     case 'search_candidates':
-      return parseTalents(toolName, data);
+      return parseTalents(data);
     case 'search_jobs':
     case 'list_jobs':
       return parseJobs(toolName, data);
