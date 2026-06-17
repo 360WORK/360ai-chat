@@ -40,6 +40,24 @@ describe('AI360ToolResult dispatcher', () => {
     expect(screen.getByText('Staff Eng')).toBeInTheDocument();
   });
 
+  it('renders job cards from a parsed jobs result', () => {
+    const result = parse360Output(
+      'search_jobs',
+      JSON.stringify({
+        count: 2,
+        jobs: [
+          { id: 'j1', title: 'Engineer', company_name: 'Acme', workplace_type: 'remote' },
+          { id: 'j2', title: 'Designer', company_name: 'Beta' },
+        ],
+      }),
+    );
+    expect(result).not.toBeNull();
+    render(<AI360ToolResult result={result!} />);
+    expect(screen.getByText('Engineer')).toBeInTheDocument();
+    expect(screen.getByText('Designer')).toBeInTheDocument();
+    expect(screen.getByText(/2 jobs/)).toBeInTheDocument();
+  });
+
   it('re-exports is360Tool', () => {
     expect(is360Tool('search_jobs')).toBe(true);
   });
