@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import type { JobDetail } from '../types';
 import { useLocalize } from '~/hooks';
 import { Pill, ExpandableText } from '../Bits';
@@ -17,7 +16,7 @@ function MetaItem({ label, value }: { label: string; value?: string | null }) {
 
 export default function JobDetailCard({ job }: { job: JobDetail }) {
   const localize = useLocalize();
-  const meta: ReactNode = (
+  const meta = (
     <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
       <MetaItem label={localize('com_ui_360_department')} value={job.department} />
       <MetaItem label={localize('com_ui_360_employment_type')} value={job.employment_type} />
@@ -41,7 +40,7 @@ export default function JobDetailCard({ job }: { job: JobDetail }) {
             {localize('com_ui_360_pipeline')}
           </p>
           <div className="flex flex-wrap gap-2">
-            {job.pipeline.map((stage) => (
+            {job.pipeline.slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).map((stage) => (
               <div
                 key={`${stage.order}-${stage.name}`}
                 className="flex flex-col items-center rounded-md border border-border-light bg-surface-secondary px-3 py-1.5"
