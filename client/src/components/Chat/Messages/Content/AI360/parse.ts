@@ -1,6 +1,7 @@
 import type {
   Company,
   Contact,
+  OutreachPreview,
   Talent,
   Job,
   JobDetail,
@@ -101,6 +102,20 @@ function parseContact(data: unknown): Parsed360Result | null {
   return { kind: 'contact', contact };
 }
 
+function parseOutreach(data: unknown): Parsed360Result | null {
+  if (!isRecord(data)) return null;
+  const status = data.status === 'sent' ? 'sent' : data.status === 'preview' ? 'preview' : null;
+  if (status === null) return null;
+  const outreach: OutreachPreview = {
+    status,
+    channel: typeof data.channel === 'string' ? data.channel : undefined,
+    recipient: typeof data.recipient === 'string' ? data.recipient : undefined,
+    subject: typeof data.subject === 'string' ? data.subject : undefined,
+    body: typeof data.body === 'string' ? data.body : undefined,
+  };
+  return { kind: 'outreach', outreach };
+}
+
 function parseJob(data: unknown): Parsed360Result | null {
   if (!isRecord(data) || typeof data.title !== 'string') {
     return null;
@@ -138,6 +153,8 @@ export function parse360Output(
       return parseJob(data);
     case 'enrich_contact':
       return parseContact(data);
+    case 'send_outreach':
+      return parseOutreach(data);
     default:
       return null;
   }

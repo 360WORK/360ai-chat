@@ -68,6 +68,14 @@ export interface Contact {
   confidence?: string | number | null;
 }
 
+export interface OutreachPreview {
+  status: 'preview' | 'sent';
+  channel?: string | null;
+  recipient?: string | null;
+  subject?: string | null;
+  body?: string | null;
+}
+
 export type Parsed360Result =
   | { kind: 'companies'; companies: Company[]; count: number }
   | {
@@ -79,4 +87,5 @@ export type Parsed360Result =
     }
   | { kind: 'jobs'; jobs: Job[]; count: number; variant: 'search' | 'list' }
   | { kind: 'job'; job: JobDetail }
-  | { kind: 'contact'; contact: Contact };
+  | { kind: 'contact'; contact: Contact }
+  | { kind: 'outreach'; outreach: OutreachPreview };

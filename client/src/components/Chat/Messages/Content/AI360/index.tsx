@@ -2,6 +2,7 @@ import type { Parsed360Result } from './types';
 import ResultList from './ResultList';
 import CompanyCard from './cards/CompanyCard';
 import ContactCard from './cards/ContactCard';
+import OutreachPreviewCard from './cards/OutreachPreviewCard';
 import TalentCard from './cards/TalentCard';
 import JobCard from './cards/JobCard';
 import JobDetailCard from './cards/JobDetail';
@@ -59,6 +60,10 @@ const RENDERERS: Record<Parsed360Result['kind'], (result: Parsed360Result, local
   contact: (r) => {
     const { contact } = r as Extract<Parsed360Result, { kind: 'contact' }>;
     return <ContactCard contact={contact} />;
+  },
+  outreach: (r) => {
+    const { outreach } = r as Extract<Parsed360Result, { kind: 'outreach' }>;
+    return <OutreachPreviewCard outreach={outreach} />;
   },
 };
 
