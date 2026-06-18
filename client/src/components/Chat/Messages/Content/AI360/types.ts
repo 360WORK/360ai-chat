@@ -56,6 +56,18 @@ export interface JobDetail extends Job {
   pipeline?: PipelineStage[];
 }
 
+export interface Contact {
+  full_name?: string | null;
+  headline?: string | null;
+  work_emails?: string[];
+  personal_emails?: string[];
+  phones?: string[];
+  linkedin_url?: string | null;
+  twitter_url?: string | null;
+  github_url?: string | null;
+  confidence?: string | number | null;
+}
+
 export type Parsed360Result =
   | { kind: 'companies'; companies: Company[]; count: number }
   | {
@@ -66,4 +78,5 @@ export type Parsed360Result =
       talentFinderUrl?: string | null;
     }
   | { kind: 'jobs'; jobs: Job[]; count: number; variant: 'search' | 'list' }
-  | { kind: 'job'; job: JobDetail };
+  | { kind: 'job'; job: JobDetail }
+  | { kind: 'contact'; contact: Contact };

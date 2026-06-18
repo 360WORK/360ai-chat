@@ -1,5 +1,6 @@
 import type {
   Company,
+  Contact,
   Talent,
   Job,
   JobDetail,
@@ -70,6 +71,36 @@ function parseJobs(toolName: string, data: unknown): Parsed360Result | null {
   return { kind: 'jobs', jobs, count: toCount(data.count, jobs.length), variant };
 }
 
+function asStringArray(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const out = value.filter((v): v is string => typeof v === 'string');
+  return out.length ? out : undefined;
+}
+
+function parseContact(data: unknown): Parsed360Result | null {
+  if (!isRecord(data)) return null;
+  const contact: Contact = {
+    full_name:
+      typeof data.full_name === 'string'
+        ? data.full_name
+        : typeof data.name === 'string'
+          ? data.name
+          : undefined,
+    headline: typeof data.headline === 'string' ? data.headline : undefined,
+    work_emails: asStringArray(data.work_emails),
+    personal_emails: asStringArray(data.personal_emails),
+    phones: asStringArray(data.phones),
+    linkedin_url: typeof data.linkedin_url === 'string' ? data.linkedin_url : undefined,
+    twitter_url: typeof data.twitter_url === 'string' ? data.twitter_url : undefined,
+    github_url: typeof data.github_url === 'string' ? data.github_url : undefined,
+    confidence:
+      typeof data.confidence === 'string' || typeof data.confidence === 'number'
+        ? data.confidence
+        : undefined,
+  };
+  return { kind: 'contact', contact };
+}
+
 function parseJob(data: unknown): Parsed360Result | null {
   if (!isRecord(data) || typeof data.title !== 'string') {
     return null;
@@ -105,6 +136,8 @@ export function parse360Output(
       return parseJobs(toolName, data);
     case 'get_job':
       return parseJob(data);
+    case 'enrich_contact':
+      return parseContact(data);
     default:
       return null;
   }

@@ -1,6 +1,7 @@
 import type { Parsed360Result } from './types';
 import ResultList from './ResultList';
 import CompanyCard from './cards/CompanyCard';
+import ContactCard from './cards/ContactCard';
 import TalentCard from './cards/TalentCard';
 import JobCard from './cards/JobCard';
 import JobDetailCard from './cards/JobDetail';
@@ -54,6 +55,10 @@ const RENDERERS: Record<Parsed360Result['kind'], (result: Parsed360Result, local
   job: (r) => {
     const { job } = r as Extract<Parsed360Result, { kind: 'job' }>;
     return <JobDetailCard job={job} />;
+  },
+  contact: (r) => {
+    const { contact } = r as Extract<Parsed360Result, { kind: 'contact' }>;
+    return <ContactCard contact={contact} />;
   },
 };
 

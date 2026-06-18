@@ -5,6 +5,7 @@ export const AI360_TOOLS = {
   search_jobs: 'jobs',
   list_jobs: 'jobs',
   get_job: 'job',
+  enrich_contact: 'contact',
 } as const;
 
 export type AI360ToolName = keyof typeof AI360_TOOLS;
