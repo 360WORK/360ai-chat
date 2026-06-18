@@ -206,7 +206,24 @@ const refreshController = async (req, res) => {
         has_refresh_token: Boolean(tokenset.refresh_token),
         expires_in: tokenset.expires_in,
       });
-      const claims = tokenset.claims();
+      let claims = tokenset.claims();
+      if (!claims?.sub) {
+        const accessClaims = tokenset.access_token ? jwt.decode(tokenset.access_token) : null;
+        claims = claims || accessClaims || {};
+        if (!claims.sub && accessClaims?.sub) {
+          claims.sub = accessClaims.sub;
+        }
+        if (!claims.email && accessClaims?.email) {
+          claims.email = accessClaims.email;
+        }
+        if (!claims.oid && accessClaims?.oid) {
+          claims.oid = accessClaims.oid;
+        }
+      }
+      if (!claims.sub) {
+        logger.warn('[refreshController] No sub in claims after access_token fallback; redirecting to /login');
+        return res.status(401).redirect('/login');
+      }
       const openidIssuer = getOpenIdIssuer(claims, openIdConfig);
       const { user, error, migration } = await findOpenIDUser({
         findUser,

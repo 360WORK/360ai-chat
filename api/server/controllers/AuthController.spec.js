@@ -739,6 +739,40 @@ describe('refreshController – OpenID path', () => {
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.send).toHaveBeenCalledWith('Refresh token not provided');
   });
+
+  it('resolves sub from access_token when id_token is absent (no-id_token refresh grant)', async () => {
+    const accessPayload = { sub: baseClaims.sub, email: baseClaims.email, oid: baseClaims.oid };
+    const accessToken = jwt.sign(accessPayload, 'any-secret');
+    mockTokenset.claims.mockReturnValue(undefined);
+    mockTokenset.access_token = accessToken;
+    mockTokenset.id_token = undefined;
+
+    await refreshController(req, res);
+
+    expect(setOpenIDAuthTokens).toHaveBeenCalledWith(
+      mockTokenset,
+      req,
+      res,
+      expect.objectContaining({ userId: 'user-db-id' }),
+    );
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.send).toHaveBeenCalledWith(
+      expect.objectContaining({ token: 'new-app-token' }),
+    );
+  });
+
+  it('returns 401 redirect when access_token also lacks sub after id_token-less grant', async () => {
+    const accessToken = jwt.sign({ email: 'user@example.com' }, 'any-secret');
+    mockTokenset.claims.mockReturnValue(undefined);
+    mockTokenset.access_token = accessToken;
+    mockTokenset.id_token = undefined;
+
+    await refreshController(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.redirect).toHaveBeenCalledWith('/login');
+    expect(setOpenIDAuthTokens).not.toHaveBeenCalled();
+  });
 });
 
 describe('refreshController – LibreChat path', () => {
