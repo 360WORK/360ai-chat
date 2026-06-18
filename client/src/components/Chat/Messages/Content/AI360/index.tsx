@@ -1,7 +1,5 @@
-import { Sparkles } from 'lucide-react';
 import type { Parsed360Result } from './types';
 import ResultList from './ResultList';
-import { LinkButton, Pill } from './Bits';
 import CompanyCard from './cards/CompanyCard';
 import TalentCard from './cards/TalentCard';
 import JobCard from './cards/JobCard';
@@ -18,6 +16,8 @@ export default function AI360ToolResult({ result }: { result: Parsed360Result })
     return (
       <ResultList
         items={result.companies}
+        columns={2}
+        noun={localize('com_ui_360_noun_companies')}
         header={localize('com_ui_360_companies_count', { 0: result.count })}
         getKey={(c, i) => String(c.id ?? i)}
         renderItem={(company) => <CompanyCard company={company} />}
@@ -26,23 +26,12 @@ export default function AI360ToolResult({ result }: { result: Parsed360Result })
   }
 
   if (result.kind === 'talents') {
-    const header = (
-      <span className="flex flex-wrap items-center gap-2">
-        {localize('com_ui_360_talents_count', { 0: result.count })}
-        {result.pool && <Pill>{result.pool}</Pill>}
-        {result.talentFinderUrl && (
-          <LinkButton
-            href={result.talentFinderUrl}
-            label={localize('com_ui_360_talent_finder')}
-            icon={<Sparkles />}
-          />
-        )}
-      </span>
-    );
     return (
       <ResultList
         items={result.talents}
-        header={header}
+        columns={1}
+        noun={localize('com_ui_360_noun_talents')}
+        header={localize('com_ui_360_talents_count', { 0: result.count })}
         getKey={(t, i) => String(t.id ?? i)}
         renderItem={(talent) => <TalentCard talent={talent} />}
       />
@@ -53,6 +42,8 @@ export default function AI360ToolResult({ result }: { result: Parsed360Result })
     return (
       <ResultList
         items={result.jobs}
+        columns={2}
+        noun={localize('com_ui_360_noun_jobs')}
         header={localize('com_ui_360_jobs_count', { 0: result.count })}
         getKey={(j, i) => String(j.id ?? i)}
         renderItem={(job) => <JobCard job={job} variant={result.variant} />}

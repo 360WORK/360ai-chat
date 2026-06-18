@@ -13,7 +13,7 @@ describe('AI360ToolResult dispatcher', () => {
     expect(screen.getByText(/1 companies/)).toBeInTheDocument();
   });
 
-  it('renders the talent finder link in the talents header', () => {
+  it('renders talents with a plain count header (no pool pill or talent-finder button)', () => {
     const result = parse360Output(
       'search_talents',
       JSON.stringify({
@@ -25,11 +25,9 @@ describe('AI360ToolResult dispatcher', () => {
     );
     render(<AI360ToolResult result={result!} />);
     expect(screen.getByText('Jane')).toBeInTheDocument();
-    expect(screen.getByText('global')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /talent finder/i })).toHaveAttribute(
-      'href',
-      'https://360ai.test/tf',
-    );
+    expect(screen.getByText(/1 talents/)).toBeInTheDocument();
+    expect(screen.queryByText('global')).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /talent finder/i })).not.toBeInTheDocument();
   });
 
   it('renders a single job detail without a list shell', () => {

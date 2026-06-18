@@ -1,8 +1,8 @@
 import { render, screen } from 'test/layout-test-utils';
 import TalentCard from '../cards/TalentCard';
 
-describe('TalentCard', () => {
-  it('renders name, title, company, location, years, skills', () => {
+describe('TalentCard (compact row)', () => {
+  it('renders name, the meta line, and an open-to-work badge; links to the profile', () => {
     render(
       <TalentCard
         talent={{
@@ -10,8 +10,6 @@ describe('TalentCard', () => {
           title: 'Product Manager',
           current_company: 'Acme',
           location: 'Berlin',
-          years_experience: 8,
-          skills: ['SQL', 'Figma'],
           open_to_work: true,
           profile_url: 'https://360ai.test/talent/1',
           linkedin_url: 'https://linkedin.com/in/jane',
@@ -19,25 +17,20 @@ describe('TalentCard', () => {
       />,
     );
     expect(screen.getByText('Jane Doe')).toBeInTheDocument();
-    expect(screen.getByText(/Product Manager/)).toBeInTheDocument();
-    expect(screen.getByText('Berlin')).toBeInTheDocument();
-    expect(screen.getByText('8 yrs')).toBeInTheDocument();
-    expect(screen.getByText('SQL')).toBeInTheDocument();
+    expect(screen.getByText('Product Manager · Acme · Berlin')).toBeInTheDocument();
     expect(screen.getByText('Open to work')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'View profile' })).toHaveAttribute(
-      'href',
-      'https://360ai.test/talent/1',
-    );
+    expect(screen.getByRole('link')).toHaveAttribute('href', 'https://360ai.test/talent/1');
   });
 
-  it('hides open-to-work badge and profile link when absent', () => {
+  it('falls back to the LinkedIn URL for the row link when no profile_url', () => {
+    render(<TalentCard talent={{ name: 'Sam', linkedin_url: 'https://linkedin.com/in/sam' }} />);
+    expect(screen.getByRole('link')).toHaveAttribute('href', 'https://linkedin.com/in/sam');
+  });
+
+  it('renders a non-link row and no badge when profile/open_to_work absent', () => {
     render(<TalentCard talent={{ name: 'John Roe' }} />);
+    expect(screen.getByText('John Roe')).toBeInTheDocument();
     expect(screen.queryByText('Open to work')).not.toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: 'View profile' })).not.toBeInTheDocument();
-  });
-
-  it('renders candidate summary when present', () => {
-    render(<TalentCard talent={{ name: 'Sam', summary: 'Backend engineer' }} />);
-    expect(screen.getByText('Backend engineer')).toBeInTheDocument();
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 });

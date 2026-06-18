@@ -8,7 +8,6 @@ import { useLocalize, useExpandCollapse } from '~/hooks';
 import UIResourceCarousel from './UIResourceCarousel';
 import { handleUIAction, cn } from '~/utils';
 import { OutputRenderer } from './ToolOutput';
-import AI360ToolResult, { parse360Output, is360Tool } from './AI360';
 
 function isSimpleObject(obj: unknown): obj is Record<string, string | number | boolean | null> {
   if (typeof obj !== 'object' || obj === null || Array.isArray(obj)) {
@@ -97,12 +96,10 @@ export default function ToolCallInfo({
   input,
   output,
   attachments,
-  toolName = '',
 }: {
   input: string;
   output?: string | null;
   attachments?: TAttachment[];
-  toolName?: string;
 }) {
   const localize = useLocalize();
   const { ask } = useOptionalMessagesOperations();
@@ -124,13 +121,6 @@ export default function ToolCallInfo({
     return input.trim().length > 0;
   }, [input]);
 
-  const parsed360 = useMemo(() => {
-    if (!output || !is360Tool(toolName)) {
-      return null;
-    }
-    return parse360Output(toolName, output);
-  }, [output, toolName]);
-
   const uiResources: UIResource[] =
     attachments
       ?.filter((attachment) => attachment.type === Tools.ui_resources)
@@ -140,7 +130,7 @@ export default function ToolCallInfo({
 
   return (
     <div className="w-full px-3 py-3.5">
-      {parsed360 ? <AI360ToolResult result={parsed360} /> : output && <OutputRenderer text={output} />}
+      {output && <OutputRenderer text={output} />}
       {output && hasParams && <div className="my-2 border-t border-border-light" />}
       {hasParams && (
         <>

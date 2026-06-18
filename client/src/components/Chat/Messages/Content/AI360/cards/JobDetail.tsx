@@ -27,9 +27,9 @@ export default function JobDetailCard({ job }: { job: JobDetail }) {
     </div>
   );
   return (
-    <div className="flex flex-col gap-3 rounded-lg border border-border-medium bg-surface-primary p-4">
+    <div className="flex flex-col gap-3 rounded-2xl border border-ai360-card-border bg-ai360-card p-4 shadow-sm">
       <div className="flex items-center gap-2">
-        <h3 className="text-base font-semibold text-text-primary">{job.title}</h3>
+        <h3 className="text-base font-semibold capitalize text-text-primary">{job.title}</h3>
         {job.status && <Pill>{job.status}</Pill>}
       </div>
       {meta}
@@ -43,9 +43,9 @@ export default function JobDetailCard({ job }: { job: JobDetail }) {
             {job.pipeline.slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0)).map((stage) => (
               <div
                 key={`${stage.order}-${stage.name}`}
-                className="flex flex-col items-center rounded-md border border-border-light bg-surface-secondary px-3 py-1.5"
+                className="flex flex-col items-center rounded-lg border border-ai360-card-border bg-surface-secondary px-3 py-1.5"
               >
-                <span className="text-sm font-semibold text-text-primary">
+                <span className="text-sm font-semibold text-ai360-accent">
                   {stage.candidates_count}
                 </span>
                 <span className="text-[11px] text-text-secondary">{stage.name}</span>

@@ -11,27 +11,34 @@ const base = {
   description: 'We build things.',
 };
 
-describe('CompanyCard', () => {
-  it('renders name, industry, location, employee range', () => {
+describe('CompanyCard (compact card)', () => {
+  it('renders name, the meta line, and the employee-range pill', () => {
     render(<CompanyCard company={base} />);
     expect(screen.getByText('Acme')).toBeInTheDocument();
-    expect(screen.getByText('Software')).toBeInTheDocument();
-    expect(screen.getByText('Berlin, Germany')).toBeInTheDocument();
+    expect(screen.getByText('Software · Berlin, Germany')).toBeInTheDocument();
     expect(screen.getByText('1001-5000')).toBeInTheDocument();
   });
 
-  it('renders Website and LinkedIn links', () => {
+  it('links the row to the website', () => {
     render(<CompanyCard company={base} />);
-    expect(screen.getByRole('link', { name: 'Website' })).toHaveAttribute('href', 'https://acme.com');
-    expect(screen.getByRole('link', { name: 'LinkedIn' })).toHaveAttribute(
+    expect(screen.getByRole('link')).toHaveAttribute('href', 'https://acme.com');
+  });
+
+  it('falls back to the LinkedIn URL when no website', () => {
+    render(
+      <CompanyCard
+        company={{ name: 'LinkedInOnly', linkedin_url: 'https://www.linkedin.com/company/x' }}
+      />,
+    );
+    expect(screen.getByRole('link')).toHaveAttribute(
       'href',
-      'https://www.linkedin.com/company/acme',
+      'https://www.linkedin.com/company/x',
     );
   });
 
-  it('hides links when URLs are missing', () => {
+  it('renders a non-link row when no URLs are present', () => {
     render(<CompanyCard company={{ name: 'NoLinks' }} />);
-    expect(screen.queryByRole('link', { name: 'Website' })).not.toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: 'LinkedIn' })).not.toBeInTheDocument();
+    expect(screen.getByText('NoLinks')).toBeInTheDocument();
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 });

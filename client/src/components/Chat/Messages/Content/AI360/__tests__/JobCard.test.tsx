@@ -1,8 +1,8 @@
 import { render, screen } from 'test/layout-test-utils';
 import JobCard from '../cards/JobCard';
 
-describe('JobCard search variant', () => {
-  it('renders title, company, workplace type, openings and posting link', () => {
+describe('JobCard search variant (compact)', () => {
+  it('renders title, company meta, workplace-type pill and links to the posting', () => {
     render(
       <JobCard
         variant="search"
@@ -10,25 +10,21 @@ describe('JobCard search variant', () => {
           id: 'j1',
           title: 'Engineer',
           company_name: 'Acme',
+          location: 'London',
           workplace_type: 'remote',
-          openings: 3,
           posting_url: 'https://jobs.acme.com/1',
-          description: 'Build cool things.',
         }}
       />,
     );
     expect(screen.getByText('Engineer')).toBeInTheDocument();
-    expect(screen.getByText('Acme')).toBeInTheDocument();
+    expect(screen.getByText('Acme · London')).toBeInTheDocument();
     expect(screen.getByText('remote')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'View posting' })).toHaveAttribute(
-      'href',
-      'https://jobs.acme.com/1',
-    );
+    expect(screen.getByRole('link')).toHaveAttribute('href', 'https://jobs.acme.com/1');
   });
 });
 
-describe('JobCard list variant', () => {
-  it('renders status pill and applications count', () => {
+describe('JobCard list variant (compact)', () => {
+  it('renders status pill and applications meta, with no link', () => {
     render(
       <JobCard
         variant="list"
@@ -38,5 +34,6 @@ describe('JobCard list variant', () => {
     expect(screen.getByText('Designer')).toBeInTheDocument();
     expect(screen.getByText('open')).toBeInTheDocument();
     expect(screen.getByText('12 applications')).toBeInTheDocument();
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 });
