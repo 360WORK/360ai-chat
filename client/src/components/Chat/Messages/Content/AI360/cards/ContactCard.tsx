@@ -71,12 +71,12 @@ export default function ContactCard({ contact }: { contact: Contact }) {
             />
             <LinkButton
               href={contact.twitter_url}
-              label="Twitter"
+              label={localize('com_ui_360_twitter')}
               icon={<Twitter />}
             />
             <LinkButton
               href={contact.github_url}
-              label="GitHub"
+              label={localize('com_ui_360_github')}
               icon={<Github />}
             />
           </div>
