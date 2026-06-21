@@ -6,11 +6,11 @@ import AI360ToolResult from '../index';
 const withCoords = { kind: 'talents' as const, count: 1, talents: [{ id: '1', name: 'Jane', latitude: 40.7, longitude: -74 }] };
 const noCoords = { kind: 'talents' as const, count: 1, talents: [{ id: '2', name: 'Bob' }] };
 
-test('list is shown by default; map toggle reveals the map', () => {
+test('list is shown by default; map toggle reveals the map', async () => {
   render(<AI360ToolResult result={withCoords} />);
   expect(screen.queryByTestId('talent-map')).toBeNull();          // list first
   fireEvent.click(screen.getByRole('button', { name: /com_ui_360_map_view/i }));
-  expect(screen.getByTestId('talent-map')).toBeInTheDocument();   // map after toggle
+  expect(await screen.findByTestId('talent-map')).toBeInTheDocument();   // map after toggle
 });
 
 test('no map toggle when results have no coordinates', () => {

@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import type { Parsed360Result } from './types';
 import ResultList from './ResultList';
 import CompanyCard from './cards/CompanyCard';
 import ContactCard from './cards/ContactCard';
 import OutreachPreviewCard from './cards/OutreachPreviewCard';
 import TalentCard from './cards/TalentCard';
-import TalentMap from './cards/TalentMap';
 import JobCard from './cards/JobCard';
 import JobDetailCard from './cards/JobDetail';
 import { useLocalize } from '~/hooks';
 import { cn } from '~/utils';
+
+const TalentMap = lazy(() => import('./cards/TalentMap'));
 
 export { is360Tool } from './tools';
 export { parse360Output } from './parse';
@@ -47,7 +48,9 @@ function TalentsResult({ result }: { result: Extract<Parsed360Result, { kind: 't
       ) : null}
 
       {view === 'map' && hasCoords ? (
-        <TalentMap talents={result.talents} />
+        <Suspense fallback={<div className="h-64 animate-pulse rounded-md bg-surface-secondary" />}>
+          <TalentMap talents={result.talents} />
+        </Suspense>
       ) : (
         <ResultList
           items={result.talents}

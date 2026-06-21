@@ -31,6 +31,7 @@ module.exports = {
     '^~/(.*)$': '<rootDir>/src/$1',
     '^librechat-data-provider/react-query$':
       '<rootDir>/../node_modules/librechat-data-provider/src/react-query',
+    '^maplibre-gl$': '<rootDir>/test/mocks/maplibre-gl.js',
   },
   maxWorkers: '50%',
   restoreMocks: true,
