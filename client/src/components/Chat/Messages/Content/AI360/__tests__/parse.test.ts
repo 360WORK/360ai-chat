@@ -144,4 +144,15 @@ describe('parse360Output', () => {
     expect(parse360Output('search_companies', null)).toBeNull();
     expect(parse360Output('whoami', JSON.stringify({ user: {} }))).toBeNull();
   });
+
+  it('parseTalents carries latitude/longitude through', () => {
+    const out = parse360Output('search_talents', JSON.stringify({
+      count: 1,
+      talents: [{ id: '1', name: 'Jane', latitude: 40.7128, longitude: -74.006 }],
+    }));
+    expect(out).not.toBeNull();
+    const t = (out as Extract<typeof out, { kind: 'talents' }>).talents[0];
+    expect(t.latitude).toBe(40.7128);
+    expect(t.longitude).toBe(-74.006);
+  });
 });

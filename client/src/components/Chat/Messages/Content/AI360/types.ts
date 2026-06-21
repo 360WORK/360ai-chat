@@ -23,6 +23,8 @@ export interface Talent {
   skills?: string[];
   profile_url?: string | null;
   summary?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
 }
 
 export interface Job {
