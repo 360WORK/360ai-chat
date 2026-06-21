@@ -1,3 +1,4 @@
+jest.mock('../cards/TalentMap', () => ({ __esModule: true, default: () => <div data-testid="talent-map" /> }));
 import { render } from '@testing-library/react';
 import AI360ToolResult from '../index';
 import type { Parsed360Result } from '../types';

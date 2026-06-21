@@ -1,17 +1,66 @@
+import { useState } from 'react';
 import type { Parsed360Result } from './types';
 import ResultList from './ResultList';
 import CompanyCard from './cards/CompanyCard';
 import ContactCard from './cards/ContactCard';
 import OutreachPreviewCard from './cards/OutreachPreviewCard';
 import TalentCard from './cards/TalentCard';
+import TalentMap from './cards/TalentMap';
 import JobCard from './cards/JobCard';
 import JobDetailCard from './cards/JobDetail';
 import { useLocalize } from '~/hooks';
+import { cn } from '~/utils';
 
 export { is360Tool } from './tools';
 export { parse360Output } from './parse';
 
 type Localize = ReturnType<typeof useLocalize>;
+
+function TalentsResult({ result }: { result: Extract<Parsed360Result, { kind: 'talents' }> }) {
+  const localize = useLocalize();
+  const [view, setView] = useState<'list' | 'map'>('list');
+  const hasCoords = result.talents.some(
+    (t) => typeof t.latitude === 'number' && typeof t.longitude === 'number',
+  );
+
+  return (
+    <div className="space-y-2">
+      {hasCoords ? (
+        <div className="flex gap-1">
+          <button
+            type="button"
+            onClick={() => setView('list')}
+            aria-pressed={view === 'list'}
+            className={cn('rounded-md px-2.5 py-1 text-xs', view === 'list' ? 'bg-ai360-action-bg text-ai360-action' : 'text-text-secondary')}
+          >
+            {localize('com_ui_360_list_view')}
+          </button>
+          <button
+            type="button"
+            onClick={() => setView('map')}
+            aria-pressed={view === 'map'}
+            className={cn('rounded-md px-2.5 py-1 text-xs', view === 'map' ? 'bg-ai360-action-bg text-ai360-action' : 'text-text-secondary')}
+          >
+            {localize('com_ui_360_map_view')}
+          </button>
+        </div>
+      ) : null}
+
+      {view === 'map' && hasCoords ? (
+        <TalentMap talents={result.talents} />
+      ) : (
+        <ResultList
+          items={result.talents}
+          columns={1}
+          noun={localize('com_ui_360_noun_talents')}
+          header={localize('com_ui_360_talents_count', { 0: result.count })}
+          getKey={(t, i) => String(t.id ?? i)}
+          renderItem={(talent) => <TalentCard talent={talent} />}
+        />
+      )}
+    </div>
+  );
+}
 
 const RENDERERS: Record<Parsed360Result['kind'], (result: Parsed360Result, localize: Localize) => JSX.Element> = {
   companies: (r, localize) => {
@@ -27,19 +76,7 @@ const RENDERERS: Record<Parsed360Result['kind'], (result: Parsed360Result, local
       />
     );
   },
-  talents: (r, localize) => {
-    const { talents, count } = r as Extract<Parsed360Result, { kind: 'talents' }>;
-    return (
-      <ResultList
-        items={talents}
-        columns={1}
-        noun={localize('com_ui_360_noun_talents')}
-        header={localize('com_ui_360_talents_count', { 0: count })}
-        getKey={(t, i) => String(t.id ?? i)}
-        renderItem={(talent) => <TalentCard talent={talent} />}
-      />
-    );
-  },
+  talents: (r) => <TalentsResult result={r as Extract<Parsed360Result, { kind: 'talents' }>} />,
   jobs: (r, localize) => {
     const { jobs, count, variant } = r as Extract<Parsed360Result, { kind: 'jobs' }>;
     return (
