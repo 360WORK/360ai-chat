@@ -30,6 +30,19 @@ describe('onboardingContextPart', () => {
     expect(onboardingContextPart(undefined)).toBeNull();
   });
 
+  it('returns null for an empty object (legacy doc materialized by an old schema default)', () => {
+    // An empty `{}` is truthy and would slip past a bare `!oidcClaims` guard;
+    // the shape guard must reject it because `isOwner` is not a boolean.
+    expect(onboardingContextPart({})).toBeNull();
+  });
+
+  it('returns null for a partial object missing a boolean isOwner', () => {
+    // Partial object with no boolean `isOwner` is ambiguous and must
+    // short-circuit rather than route into the interview.
+    expect(onboardingContextPart({ role: 'member' })).toBeNull();
+    expect(onboardingContextPart({ isOwner: 'yes' })).toBeNull();
+  });
+
   it('returns null when onboarding is complete', () => {
     expect(
       onboardingContextPart({

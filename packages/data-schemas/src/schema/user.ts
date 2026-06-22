@@ -136,7 +136,16 @@ const userSchema: Schema<IUser> = new Schema<IUser>(
       },
       default: {},
     },
-    /** 360AI onboarding claims mirrored from the OIDC provider on login. */
+    /**
+     * 360AI onboarding claims mirrored from the OIDC provider on login.
+     *
+     * No `default` is set on purpose: an absent field must stay `undefined`
+     * (not `{}`) so the `onboardingContextPart` guard in
+     * `api/server/controllers/agents/onboarding.js` can distinguish users
+     * without OIDC claims (local users, legacy docs) from users whose claims
+     * were actually populated. The mapper `extractOnboardingClaims` returns
+     * `undefined` for absent claims; this schema must match that contract.
+     */
     oidcClaims: {
       type: {
         _id: false,
@@ -147,7 +156,6 @@ const userSchema: Schema<IUser> = new Schema<IUser>(
         companyOnboarded: { type: Boolean, default: false },
         personalOnboarded: { type: Boolean, default: false },
       },
-      default: {},
     },
     favorites: {
       type: [

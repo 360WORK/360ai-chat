@@ -18,7 +18,14 @@ const { getOnboardingInjection } = require('@librechat/api');
  *   complete (or claims are absent) and behavior should be unchanged.
  */
 function onboardingContextPart(oidcClaims) {
-  if (!oidcClaims) {
+  // A present-but-shapeless `oidcClaims` (e.g. `{}` materialized by an older
+  // schema default, or a partial object from legacy docs / future schema
+  // drift) must be treated as null. We only require a boolean `isOwner` to
+  // proceed: if `isOwner` is present, `getOnboardingInjection` can read the
+  // remaining fields with `undefined`-safe fallbacks, and routing an unknown
+  // state into the personal interview is the safe default. A partial object
+  // without a boolean `isOwner` is ambiguous and must short-circuit.
+  if (!oidcClaims || typeof oidcClaims.isOwner !== 'boolean') {
     return null;
   }
   return getOnboardingInjection(oidcClaims);
