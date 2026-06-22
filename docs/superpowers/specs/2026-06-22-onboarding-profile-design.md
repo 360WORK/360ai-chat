@@ -34,8 +34,10 @@ personal profile; the company profile is inherited from the owner's answers.
 
 ### Parent app — `/Users/eth0/Herd/360ai`
 
-1. **Company profile** — JSON column `onboarding_profile` on `clients`, plus the existing
-   `onboarding_completed` boolean to gate completion.
+1. **Company profile** — JSON column `onboarding_profile` on `clients`. Company-onboarding
+   completion is derived from this column being non-empty. NOTE: the existing
+   `clients.onboarding_completed` boolean belongs to a **different** (360AI product) flow and
+   must NOT be read or written by the chat onboarding feature.
 2. **Personal profile** — new lightweight table `client_user_onboarding`:
    `id`, `user_id`, `client_id`, `profile` (JSON), `completed_at` (nullable),
    `tailored_prompts` (JSON, nullable — cached starter prompts), timestamps. Unique on
