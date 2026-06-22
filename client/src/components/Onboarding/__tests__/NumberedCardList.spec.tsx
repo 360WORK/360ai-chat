@@ -24,4 +24,9 @@ describe('NumberedCardList', () => {
     const { container } = render(<NumberedCardList items={[]} />);
     expect(container).toBeEmptyDOMElement();
   });
+  it('respects startIndex offset', () => {
+    render(<NumberedCardList items={items} startIndex={5} />);
+    expect(screen.getByText('05')).toBeInTheDocument();
+    expect(screen.getByText('06')).toBeInTheDocument();
+  });
 });

@@ -11,12 +11,12 @@ export type NumberedCardListProps = {
 const rowClass = 'flex w-full items-center gap-4 px-5 py-4 text-left';
 const indexClass = 'w-6 shrink-0 text-xs tabular-nums text-text-secondary';
 const labelClass = 'text-balance text-base text-text-primary';
+const pad = (n: number) => String(n).padStart(2, '0');
 
 function NumberedCardList({ items, onSelect, startIndex = 1, ariaLabel }: NumberedCardListProps) {
   if (!items.length) {
     return null;
   }
-  const pad = (n: number) => String(n).padStart(2, '0');
   return (
     <ul
       aria-label={ariaLabel}
