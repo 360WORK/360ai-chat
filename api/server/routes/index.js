@@ -11,6 +11,7 @@ const adminUsers = require('./admin/users');
 const endpoints = require('./endpoints');
 const staticRoute = require('./static');
 const messages = require('./messages');
+const onboarding = require('./onboarding');
 const memories = require('./memories');
 const presets = require('./presets');
 const projects = require('./projects');
@@ -69,6 +70,7 @@ module.exports = {
   balance,
   messages,
   memories,
+  onboarding,
   endpoints,
   assistants,
   categories,

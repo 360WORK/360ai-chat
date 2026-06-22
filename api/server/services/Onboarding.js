@@ -88,4 +88,37 @@ async function callOnboardingTool(user, toolName, toolArguments = {}) {
   return parseToolResult(result);
 }
 
-module.exports = { parseToolResult, callOnboardingTool };
+/**
+ * Calls `get_onboarding` on the 360ai MCP server and returns the status with a derived `role`.
+ *
+ * @param {import('@librechat/data-schemas').IUser} user
+ * @returns {Promise<object>} Nested snake_case onboarding status + `role` ('owner'|'member')
+ */
+async function getOnboardingStatus(user) {
+  const status = await callOnboardingTool(user, 'get_onboarding', {});
+  return { ...status, role: status.is_owner ? 'owner' : 'member' };
+}
+
+/**
+ * Maps the nested snake_case `get_onboarding` result to flat camelCase `TOnboardingClaims`
+ * and persists it on the user document via `updateUser`.
+ *
+ * @param {import('@librechat/data-schemas').IUser} user
+ * @param {object} status - Result of `getOnboardingStatus`
+ * @returns {Promise<object>} The persisted camelCase claims
+ */
+async function refreshUserClaims(user, status) {
+  const { updateUser } = require('~/models');
+  const oidcClaims = {
+    isOwner: !!status.is_owner,
+    role: status.is_owner ? 'owner' : 'member',
+    clientId: status.client?.id != null ? String(status.client.id) : null,
+    clientName: status.client?.name ?? null,
+    companyOnboarded: !!status.company?.completed,
+    personalOnboarded: !!status.personal?.completed,
+  };
+  await updateUser(user.id, { oidcClaims });
+  return oidcClaims;
+}
+
+module.exports = { parseToolResult, callOnboardingTool, getOnboardingStatus, refreshUserClaims };
