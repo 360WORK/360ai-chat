@@ -210,6 +210,22 @@ export type TBackupCode = {
   usedAt: Date | null;
 };
 
+/**
+ * 360AI onboarding claims projected from the parent Laravel OIDC provider.
+ * Mirrors `App\Support\Oidc\OidcClaims::forUser` (snake_case → camelCase).
+ * Persisted on the LibreChat user as `oidcClaims` so the chat side can render
+ * the soft-gate UI (Plan 3) and the onboarding agent (Task 3) can read status
+ * without an extra round-trip to the parent app.
+ */
+export type TOnboardingClaims = {
+  isOwner: boolean;
+  role: string;
+  clientId: string;
+  clientName: string;
+  companyOnboarded: boolean;
+  personalOnboarded: boolean;
+};
+
 export type TUser = {
   id: string;
   username: string;
@@ -225,6 +241,8 @@ export type TUser = {
   personalization?: {
     memories?: boolean;
   };
+  /** 360AI onboarding claims mirrored from the OIDC provider. */
+  oidcClaims?: TOnboardingClaims;
   createdAt: string;
   updatedAt: string;
 };
