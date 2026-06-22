@@ -66,3 +66,22 @@ it('falls back to generic starters while loading', () => {
   render(<OnboardingStarters />);
   expect(screen.getByText('generic-starters')).toBeInTheDocument();
 });
+
+it('shows company-scope nudge and sends company setup message when owner', () => {
+  mockUseStatus.mockReturnValue({
+    data: {
+      onboarding: {
+        is_owner: true,
+        company: { completed: false },
+        personal: { completed: false },
+        tailored_prompts: [],
+      },
+    },
+    isLoading: false,
+    isError: false,
+  });
+  render(<OnboardingStarters />);
+  expect(screen.getByText('com_onboarding_nudge_title')).toBeInTheDocument();
+  fireEvent.click(screen.getByText('com_onboarding_start'));
+  expect(mockSubmit).toHaveBeenCalledWith({ text: expect.stringMatching(/set up my company profile/i) });
+});
