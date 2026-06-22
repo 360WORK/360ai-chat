@@ -19,4 +19,8 @@ describe('parseToolResult', () => {
       parseToolResult({ isError: true, content: [{ type: 'text', text: 'No workspace selected.' }] }),
     ).toThrow('No workspace selected.');
   });
+
+  it('throws on an empty content array', () => {
+    expect(() => parseToolResult({ content: [] })).toThrow('Empty MCP tool result.');
+  });
 });

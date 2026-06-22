@@ -30,6 +30,9 @@ function parseToolResult(result) {
   }
 
   const text = result.content[0]?.text;
+  if (text == null) {
+    throw new Error('Empty MCP tool result.');
+  }
   return JSON.parse(text);
 }
 
@@ -73,10 +76,13 @@ async function callOnboardingTool(user, toolName, toolArguments = {}) {
       updateToken,
       deleteTokens,
     },
+    // 360ai uses Bearer auth (no OBO); options/oboTrustChecker mirror MCP.js's call shape
+    options: {},
     oauthStart: undefined,
     oauthEnd: undefined,
     graphTokenResolver: undefined,
     oboTokenResolver: undefined,
+    oboTrustChecker: undefined,
   });
 
   return parseToolResult(result);
