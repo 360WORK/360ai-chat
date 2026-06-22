@@ -232,6 +232,30 @@ export type TUserFavorite = {
   skillId?: string;
 };
 
+/* Onboarding */
+export type TOnboardingStatusResponse = {
+  onboarding: {
+    is_owner: boolean;
+    role: 'owner' | 'member';
+    client: { id: string | number; name: string } | null;
+    company: { completed: boolean; profile: Record<string, unknown> | null };
+    personal: { completed: boolean; profile: Record<string, unknown> | null };
+    tailored_prompts: string[];
+  };
+};
+
+export type TUpdateOnboardingProfileParams = {
+  scope: string;
+  profile: Record<string, unknown>;
+  tailored_prompts?: string[];
+};
+
+export type TUpdateOnboardingProfileResponse = {
+  status: string;
+  scope: string;
+  completed: boolean;
+};
+
 /* SharePoint Graph API Token */
 export type GraphTokenParams = {
   scopes: string;

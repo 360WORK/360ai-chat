@@ -286,6 +286,10 @@ export const agents = ({ path = '', options }: { path?: string; options?: object
 
 export const activeJobs = () => `${BASE_URL}/api/agents/chat/active`;
 
+/* Onboarding */
+export const onboardingStatus = () => `${BASE_URL}/api/onboarding/status`;
+export const onboardingProfile = () => `${BASE_URL}/api/onboarding/profile`;
+
 export const mcp = {
   tools: `${BASE_URL}/api/mcp/tools`,
   servers: `${BASE_URL}/api/mcp/servers`,

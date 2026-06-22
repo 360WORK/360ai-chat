@@ -1261,6 +1261,17 @@ export function verifyTwoFactorTemp(
   return request.post(endpoints.verifyTwoFactorTemp(), payload);
 }
 
+/* Onboarding */
+export const getOnboardingStatus = (): Promise<q.TOnboardingStatusResponse> => {
+  return request.get(endpoints.onboardingStatus());
+};
+
+export const updateOnboardingProfile = (
+  payload: q.TUpdateOnboardingProfileParams,
+): Promise<q.TUpdateOnboardingProfileResponse> => {
+  return request.put(endpoints.onboardingProfile(), payload);
+};
+
 /* Memories */
 export const getMemories = (): Promise<q.MemoriesResponse> => {
   return request.get(endpoints.memories());
