@@ -2432,6 +2432,10 @@ export enum SettingsTabValues {
    */
   ACCOUNT = 'account',
   /**
+   * Tab for Workspace Profile (360AI onboarding)
+   */
+  WORKSPACE_PROFILE = 'workspace_profile',
+  /**
    * Chat input commands
    */
   COMMANDS = 'commands',

@@ -22,6 +22,7 @@ import {
   Balance,
   Account,
   About,
+  WorkspaceProfile,
 } from './SettingsTabs';
 import usePersonalizationAccess from '~/hooks/usePersonalizationAccess';
 import { useLocalize, TranslationKeys } from '~/hooks';
@@ -53,6 +54,7 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
       SettingsTabValues.DATA,
       ...(startupConfig?.balance?.enabled ? [SettingsTabValues.BALANCE] : []),
       SettingsTabValues.ACCOUNT,
+      SettingsTabValues.WORKSPACE_PROFILE,
       ...(aboutEnabled ? [SettingsTabValues.ABOUT] : []),
     ];
     const currentIndex = tabs.indexOf(activeTab);
@@ -129,6 +131,11 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
       value: SettingsTabValues.ACCOUNT,
       icon: <UserIcon />,
       label: 'com_nav_setting_account',
+    },
+    {
+      value: SettingsTabValues.WORKSPACE_PROFILE,
+      icon: <PersonalizationIcon />,
+      label: 'com_onboarding_tab_label' as TranslationKeys,
     },
     ...(aboutEnabled
       ? [
@@ -268,6 +275,9 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
                     )}
                     <Tabs.Content value={SettingsTabValues.ACCOUNT} tabIndex={-1}>
                       <Account />
+                    </Tabs.Content>
+                    <Tabs.Content value={SettingsTabValues.WORKSPACE_PROFILE} tabIndex={-1}>
+                      <WorkspaceProfile />
                     </Tabs.Content>
                     {aboutEnabled && (
                       <Tabs.Content value={SettingsTabValues.ABOUT} tabIndex={-1}>
