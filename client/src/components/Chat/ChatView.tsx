@@ -15,6 +15,8 @@ import {
 } from '~/hooks';
 import { ChatContext, AddedChatContext, ChatFormProvider, useFileMapContext } from '~/Providers';
 import OnboardingStarters from '~/components/Onboarding/OnboardingStarters';
+import OnboardingHero from '~/components/Onboarding/OnboardingHero';
+import useOnboardingGate from '~/components/Onboarding/useOnboardingGate';
 import { useGetMessagesByConvoId } from '~/data-provider';
 import ProjectLandingChip from './ProjectLandingChip';
 import MessagesView from './Messages/MessagesView';
@@ -95,6 +97,8 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
       ? localize('com_ui_new_chat_in_project', { name: project.name })
       : undefined;
 
+  const { gateActive, isCompanyScope } = useOnboardingGate();
+
   return (
     <ChatFormProvider {...methods}>
       <ChatContext.Provider value={chatHelpers}>
@@ -103,28 +107,37 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
             <div className="relative flex h-full w-full flex-col">
               <Header />
               <>
-                <div
-                  className={cn(
-                    'flex flex-col',
-                    isLandingPage
-                      ? 'flex-1 items-center justify-end sm:justify-center'
-                      : 'h-full overflow-y-auto',
-                  )}
-                >
-                  {content}
+                {isLandingPage && gateActive ? (
+                  <div className={cn('flex flex-col', 'flex-1 items-center justify-center')}>
+                    <OnboardingHero isCompanyScope={isCompanyScope} />
+                    <div className="sr-only" aria-hidden="true">
+                      <ChatForm index={index} placeholder={chatFormPlaceholder} />
+                    </div>
+                  </div>
+                ) : (
                   <div
                     className={cn(
-                      'w-full',
-                      isLandingPage && 'max-w-3xl transition-all duration-200 xl:max-w-4xl',
+                      'flex flex-col',
+                      isLandingPage
+                        ? 'flex-1 items-center justify-end sm:justify-center'
+                        : 'h-full overflow-y-auto',
                     )}
                   >
-                    {isProjectLandingPage && project && <ProjectLandingChip project={project} />}
-                    {isLandingPage && <OnboardingStarters />}
-                    <ChatForm index={index} placeholder={chatFormPlaceholder} />
-                    {!isLandingPage && <Footer />}
+                    {content}
+                    <div
+                      className={cn(
+                        'w-full',
+                        isLandingPage && 'max-w-3xl transition-all duration-200 xl:max-w-4xl',
+                      )}
+                    >
+                      {isProjectLandingPage && project && <ProjectLandingChip project={project} />}
+                      {isLandingPage && <OnboardingStarters />}
+                      <ChatForm index={index} placeholder={chatFormPlaceholder} />
+                      {!isLandingPage && <Footer />}
+                    </div>
                   </div>
-                </div>
-                {isLandingPage && <Footer />}
+                )}
+                {isLandingPage && !gateActive && <Footer />}
               </>
             </div>
           </Presentation>
