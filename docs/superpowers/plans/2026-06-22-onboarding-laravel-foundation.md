@@ -24,6 +24,8 @@
   - Personal: `desk, role, seniority_focus, geographies, workflow, copilot_goals`
 - After editing OIDC claims/clients run `php artisan optimize:clear` (note in the relevant task; not a test step).
 - Test command (Pest 2): `./vendor/bin/pest --filter='<name>'` run from `/Users/eth0/Herd/360ai`.
+- **Test assertions must NOT depend on JSON pretty-print spacing.** The MCP `TestResponse::assertSee` matches raw serialized content, whose colon spacing is not guaranteed (the existing `WhoAmIToolTest` is currently red for exactly this reason). Assert on distinctive value substrings (e.g. `assertSee('Acme')`, `assertSee('saved')`) and/or on database state via `expect(...)` — never on `'"key": value'` fragments.
+- Implementation is on the existing branch `feature/360ai-chat-auth` (which has unrelated uncommitted WIP). Every commit stages **explicit file paths** exactly as written in each task — never `git add -A`/`git add .` — so the pre-existing WIP is never swept into an onboarding commit.
 
 ---
 
@@ -581,9 +583,9 @@ test('get_onboarding returns the profile scaffold for the current workspace', fu
     $response = GetOnboardingTestServer::actingAs($owner->fresh())->tool(GetOnboarding::class);
 
     $response->assertOk();
-    $response->assertSee('"is_owner": true');
     $response->assertSee('Acme');
     $response->assertSee('AI startups');
+    expect((new OnboardingProfile())->getFor($owner->fresh(), $client->fresh())['is_owner'])->toBeTrue();
 });
 
 test('get_onboarding fails for unauthenticated request', function () {
@@ -722,7 +724,7 @@ test('owner can save the company profile', function () {
     ]);
 
     $response->assertOk();
-    $response->assertSee('"status": "saved"');
+    $response->assertSee('saved');
     expect($client->fresh()->onboarding_completed)->toBeTrue();
     expect($client->fresh()->onboarding_profile)->toBe(['industry' => 'SaaS', 'recruits_for' => ['Engineering']]);
 });
