@@ -1,18 +1,39 @@
 jest.mock('~/hooks', () => ({ useLocalize: () => (k: string) => k }));
+
+// Variables prefixed with "mock" are allowed inside jest.mock() factories.
+const mockMapEaseTo = jest.fn();
+const mockMapOn = jest.fn();
+const mockMapOff = jest.fn();
+
+const mockFakeMap = {
+  getBounds: () => ({
+    getWest: () => -180,
+    getSouth: () => -85,
+    getEast: () => 180,
+    getNorth: () => 85,
+  }),
+  getZoom: () => 2,
+  easeTo: mockMapEaseTo,
+  on: mockMapOn,
+  off: mockMapOff,
+  fitBounds: jest.fn(),
+};
+
 jest.mock('../map/Map', () => ({
   __esModule: true,
   Map: ({ children }: { children?: React.ReactNode }) => <div data-testid="map">{children}</div>,
-  useMap: () => ({ map: null, isLoaded: false }),
-  MapMarker: ({ longitude, latitude, children }: any) => (
+  useMap: () => ({ map: mockFakeMap, isLoaded: true }),
+  MapMarker: ({ longitude, latitude, children }: { longitude: number; latitude: number; children?: React.ReactNode }) => (
     <div data-testid="marker" data-lng={longitude} data-lat={latitude}>{children}</div>
   ),
-  MarkerContent: ({ children }: any) => <div data-testid="marker-content">{children}</div>,
-  MarkerTooltip: ({ children }: any) => <div data-testid="marker-tooltip">{children}</div>,
-  MarkerPopup: ({ children }: any) => <div data-testid="marker-popup">{children}</div>,
+  MarkerContent: ({ children }: { children?: React.ReactNode }) => <div data-testid="marker-content">{children}</div>,
+  MarkerTooltip: ({ children }: { children?: React.ReactNode }) => <div data-testid="marker-tooltip">{children}</div>,
+  MarkerPopup: ({ children }: { children?: React.ReactNode }) => <div data-testid="marker-popup">{children}</div>,
 }));
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import TalentMap from '../cards/TalentMap';
 
 const talentWithCoords = {
@@ -27,6 +48,12 @@ const talentWithCoords = {
   latitude: 40.7128,
   longitude: -74.006,
 };
+
+beforeEach(() => {
+  mockMapEaseTo.mockClear();
+  mockMapOn.mockClear();
+  mockMapOff.mockClear();
+});
 
 test('renders one marker per talent that has coordinates', () => {
   render(<TalentMap talents={[
@@ -77,4 +104,53 @@ test('renders single-talent map without crashing (no length < 2 guard)', () => {
   render(<TalentMap talents={[talentWithCoords]} />);
   expect(screen.getByTestId('map')).toBeInTheDocument();
   expect(screen.getByTestId('marker')).toBeInTheDocument();
+});
+
+// --- Clustering tests ---
+
+// Two talents at nearly the same spot → cluster at zoom 2 (world view).
+const nyc1 = { id: 'a', name: 'Alice', avatar: null, latitude: 40.7128, longitude: -74.006 };
+const nyc2 = { id: 'b', name: 'Bob', avatar: null, latitude: 40.7129, longitude: -74.0061 };
+// One talent far away in London.
+const london = { id: 'c', name: 'Charlie', avatar: null, latitude: 51.5074, longitude: -0.1278 };
+
+test('two nearby talents collapse into a single cluster marker at low zoom', () => {
+  render(<TalentMap talents={[nyc1, nyc2]} />);
+  const markers = screen.getAllByTestId('marker');
+  // At zoom 2 with radius 60 these two ~10m-apart points must cluster.
+  expect(markers).toHaveLength(1);
+  const btn = screen.getByRole('button', { name: /cluster of 2 talents/i });
+  expect(btn).toBeInTheDocument();
+  expect(btn.textContent).toMatch(/\+2/);
+});
+
+test('cluster +N badge reflects total hidden talents', () => {
+  render(<TalentMap talents={[nyc1, nyc2]} />);
+  const btn = screen.getByRole('button', { name: /cluster of 2 talents/i });
+  expect(btn.textContent).toContain('+2');
+});
+
+test('two talents in different cities are NOT clustered at zoom 2', () => {
+  render(<TalentMap talents={[nyc1, london]} />);
+  const markers = screen.getAllByTestId('marker');
+  // At zoom 2 NYC and London (5500 km apart) remain as separate pins.
+  expect(markers).toHaveLength(2);
+  expect(screen.queryByRole('button', { name: /cluster/i })).toBeNull();
+});
+
+test('clicking a cluster calls map.easeTo with an expansion zoom', async () => {
+  render(<TalentMap talents={[nyc1, nyc2]} />);
+  const btn = screen.getByRole('button', { name: /cluster of 2 talents/i });
+  await userEvent.click(btn);
+  expect(mockMapEaseTo).toHaveBeenCalledTimes(1);
+  const call = mockMapEaseTo.mock.calls[0][0] as { center: [number, number]; zoom: number };
+  expect(typeof call.zoom).toBe('number');
+  expect(call.zoom).toBeGreaterThan(2);
+});
+
+test('map moveend listener is registered and cleaned up', () => {
+  const { unmount } = render(<TalentMap talents={[nyc1]} />);
+  expect(mockMapOn.mock.calls.some(([ev]: [string]) => ev === 'moveend')).toBe(true);
+  unmount();
+  expect(mockMapOff.mock.calls.some(([ev]: [string]) => ev === 'moveend')).toBe(true);
 });
