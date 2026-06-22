@@ -12,6 +12,39 @@ function hasCoords(t: Talent): t is Located {
   return typeof t.latitude === 'number' && typeof t.longitude === 'number';
 }
 
+const DECOLLIDE_RADIUS = 0.015;
+
+/** Fan co-located candidates into a small ring so supercluster can separate them on zoom-in. */
+export function deCollide(talents: Located[]): Located[] {
+  const groups: Record<string, Located[]> = {};
+  for (const t of talents) {
+    const key = `${t.latitude.toFixed(3)},${t.longitude.toFixed(3)}`;
+    if (groups[key]) {
+      groups[key].push(t);
+    } else {
+      groups[key] = [t];
+    }
+  }
+
+  const result: Located[] = [];
+  for (const group of Object.values(groups)) {
+    if (group.length === 1) {
+      result.push(group[0]);
+      continue;
+    }
+    const n = group.length;
+    for (let k = 0; k < n; k++) {
+      const angle = (2 * Math.PI * k) / n;
+      result.push({
+        ...group[k],
+        latitude: group[k].latitude + DECOLLIDE_RADIUS * Math.sin(angle),
+        longitude: group[k].longitude + DECOLLIDE_RADIUS * Math.cos(angle),
+      });
+    }
+  }
+  return result;
+}
+
 function TalentHoverCard({
   talent,
   localize,
@@ -91,7 +124,7 @@ type PointFeature = GeoJSON.Feature<GeoJSON.Point, { cluster: false; talent: Loc
 type ClusterItem = ClusterFeature | PointFeature;
 
 function buildSupercluster(located: Located[]): Supercluster<{ talent: Located }> {
-  const sc = new Supercluster<{ talent: Located }>({ radius: 60, maxZoom: 16 });
+  const sc = new Supercluster<{ talent: Located }>({ radius: 60, maxZoom: 14 });
   const points: TalentPoint[] = located.map((t) => ({
     type: 'Feature',
     geometry: { type: 'Point', coordinates: [t.longitude, t.latitude] },
@@ -151,8 +184,8 @@ function ClusterLayer({
 
           const handleClick = () => {
             if (!map) return;
-            const expansionZoom = sc.getClusterExpansionZoom(clusterId);
-            map.easeTo({ center: [lng, lat], zoom: expansionZoom });
+            const z = Math.min(sc.getClusterExpansionZoom(clusterId) ?? 12, 13);
+            map.easeTo({ center: [lng, lat], zoom: z });
           };
 
           return (
@@ -200,7 +233,7 @@ function ClusterLayer({
 
 export default function TalentMap({ talents }: { talents: Talent[] }) {
   const localize = useLocalize();
-  const located = useMemo(() => talents.filter(hasCoords), [talents]);
+  const located = useMemo(() => deCollide(talents.filter(hasCoords)), [talents]);
 
   const center = useMemo<[number, number]>(() => {
     if (!located.length) return [0, 20];

@@ -34,7 +34,7 @@ jest.mock('../map/Map', () => ({
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import TalentMap from '../cards/TalentMap';
+import TalentMap, { deCollide } from '../cards/TalentMap';
 
 const talentWithCoords = {
   id: '1',
@@ -153,4 +153,46 @@ test('map moveend listener is registered and cleaned up', () => {
   expect(mockMapOn.mock.calls.some(([ev]: [string]) => ev === 'moveend')).toBe(true);
   unmount();
   expect(mockMapOff.mock.calls.some(([ev]: [string]) => ev === 'moveend')).toBe(true);
+});
+
+// --- deCollide unit tests ---
+
+const baseLocated = (id: string, lat: number, lng: number) => ({
+  id,
+  name: `Talent ${id}`,
+  latitude: lat,
+  longitude: lng,
+});
+
+test('deCollide: co-located talents get distinct coords (count preserved, no two identical)', () => {
+  const input = [
+    baseLocated('a', 40.7128, -74.006),
+    baseLocated('b', 40.7128, -74.006),
+    baseLocated('c', 40.7128, -74.006),
+  ];
+  const result = deCollide(input);
+  expect(result).toHaveLength(3);
+  const coords = result.map((t) => `${t.latitude},${t.longitude}`);
+  const unique = new Set(coords);
+  expect(unique.size).toBe(3);
+});
+
+test('deCollide: singleton coords are unchanged', () => {
+  const input = [baseLocated('x', 51.5074, -0.1278)];
+  const result = deCollide(input);
+  expect(result).toHaveLength(1);
+  expect(result[0].latitude).toBe(51.5074);
+  expect(result[0].longitude).toBe(-0.1278);
+});
+
+test('cluster-click zoom is capped at 13 even when getClusterExpansionZoom returns a high value', async () => {
+  // nyc1 and nyc2 are at the same rounded coord key — they collapse into a cluster.
+  // Mock getClusterExpansionZoom is not directly injectable, but clicking the cluster
+  // button must call easeTo with zoom <= 13 regardless of supercluster's internal answer.
+  render(<TalentMap talents={[nyc1, nyc2]} />);
+  const btn = screen.getByRole('button', { name: /cluster of 2 talents/i });
+  await userEvent.click(btn);
+  expect(mockMapEaseTo).toHaveBeenCalledTimes(1);
+  const call = mockMapEaseTo.mock.calls[0][0] as { center: [number, number]; zoom: number };
+  expect(call.zoom).toBeLessThanOrEqual(13);
 });
