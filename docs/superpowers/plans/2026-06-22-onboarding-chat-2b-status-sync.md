@@ -15,6 +15,7 @@
 - New backend logic is **TypeScript in `packages/api`**; `/api` routes are thin JS wrappers. Never use `any`. Reuse `TOnboardingClaims` from `packages/data-provider`; extend it rather than redefining.
 - The MCP call MUST be authenticated as the current user. Do NOT invent `callTool` arguments — **mirror the existing `callMCPTool` invocation in `api/server/services/MCP.js`** (managers via `getMCPManager(userId)`, `getFlowStateManager(getLogStores(CacheKeys.FLOWS))`, server config via `getMCPServersRegistry().getServerConfig('360ai', userId, {})`, `tokenMethods` from `~/models`, and the user's OpenID token resolved through `packages/api/src/utils/oidc.ts` — `extractOpenIDTokenInfo` / `processOpenIDPlaceholders`). The server name is `360ai`.
 - The MCP tool returns a Response whose content is JSON text — parse it to an object. `get_onboarding` returns exactly Plan 1's `getFor` shape: `{ is_owner, client: {id,name}, company: {completed, profile}, personal: {completed, profile}, tailored_prompts: string[] }`. `save_onboarding_profile` takes `{ scope: 'company'|'personal', profile_json: string, tailored_prompts_json?: string }` and returns `{ status:'saved', scope, completed:true }`.
+- **Two distinct shapes — do NOT conflate them.** (a) The raw `get_onboarding` result is **nested snake_case** (`is_owner`, `client.id`, `company.completed`, `personal.completed`, `tailored_prompts`) — this is what the `/api/onboarding/status` response carries verbatim. (b) `TOnboardingClaims` (already shipped in 2a, stored on `user.oidcClaims`) is **flat camelCase**: `{ isOwner, role, clientId: string|null, clientName: string|null, companyOnboarded, personalOnboarded }`. `extractOnboardingClaims` maps *flat userinfo* → camelCase and is NOT reusable on the nested `get_onboarding` result; `refreshUserClaims` must map the nested result to camelCase by hand.
 - Routes use `requireJwtAuth` (and `configMiddleware` where memory/config is needed), registered in `api/server/routes/index.js`. Follow the shape of `api/server/routes/memories.js`.
 - Tests: per workspace (`cd packages/api && npx jest …`, `cd api && npx jest …`). Mock ONLY the external MCP boundary (the `mcpManager.callTool` result and the Laravel response); exercise real parsing/route logic.
 - If, while implementing Task 1, the `callTool` token wiring proves not replicable from a bare route after genuinely mirroring `MCP.js` (e.g. the access token is only available inside the agent request config, not derivable from `req.user`), STOP and report BLOCKED with specifics — the documented fallback is to add plain OIDC-guarded REST endpoints `GET/PUT /api/onboarding` on the Laravel app and have these chat routes `fetch` them with a Bearer token from `extractOpenIDTokenInfo(req.user)`. Do not silently switch architectures without surfacing it.
@@ -88,7 +89,7 @@ git commit -m "feat(onboarding): callOnboardingTool MCP helper + result parser"
 - Test: `api/server/routes/__tests__/onboarding.spec.js`
 
 **Interfaces:**
-- Consumes: `callOnboardingTool` (Task 1), `extractOnboardingClaims` + `TOnboardingClaims` (2a), user-update model method from `~/models` (find the existing `updateUser`).
+- Consumes: `callOnboardingTool` (Task 1), `TOnboardingClaims` (2a, camelCase), user-update model method from `~/models` (find the existing `updateUser`). Note: `refreshUserClaims` maps the nested snake_case `get_onboarding` result to camelCase by hand — it does NOT reuse `extractOnboardingClaims` (which expects flat userinfo).
 - Produces:
   - `getOnboardingStatus(user)` → `{ is_owner, role, client, company, personal, tailored_prompts }` (the `get_onboarding` result, with `role` derived as `is_owner ? 'owner' : 'member'`).
   - `refreshUserClaims(user, status)` → updates `user.oidcClaims` (`company_onboarded = status.company.completed`, `personal_onboarded = status.personal.completed`, plus `is_owner`/`role`/`client_*`) via `updateUser`, defeating login-time staleness.
@@ -102,7 +103,7 @@ git commit -m "feat(onboarding): callOnboardingTool MCP helper + result parser"
 // Hit GET /api/onboarding/status as an authenticated user; assert body.onboarding.company.completed
 // and body.onboarding.tailored_prompts are returned; assert updateUser was called with refreshed oidcClaims flags.
 ```
-Write the concrete test mirroring an existing route spec's auth/setup. Assert: 200; `body.onboarding.tailored_prompts` equals the mocked value; `updateUser` spy called with `oidcClaims.company_onboarded` matching the mock.
+Write the concrete test mirroring an existing route spec's auth/setup. Assert: 200; `body.onboarding.tailored_prompts` equals the mocked value; `updateUser` spy called with `oidcClaims.companyOnboarded` (camelCase) matching the mock's `company.completed`.
 
 - [ ] **Step 2: Run it, verify it fails**
 
@@ -119,13 +120,14 @@ async function getOnboardingStatus(user) {
 
 async function refreshUserClaims(user, status) {
   const { updateUser } = require('~/models');
+  // Map the NESTED snake_case get_onboarding result → flat camelCase TOnboardingClaims.
   const oidcClaims = {
-    is_owner: !!status.is_owner,
+    isOwner: !!status.is_owner,
     role: status.is_owner ? 'owner' : 'member',
-    client_id: status.client?.id != null ? String(status.client.id) : null,
-    client_name: status.client?.name ?? null,
-    company_onboarded: !!status.company?.completed,
-    personal_onboarded: !!status.personal?.completed,
+    clientId: status.client?.id != null ? String(status.client.id) : null,
+    clientName: status.client?.name ?? null,
+    companyOnboarded: !!status.company?.completed,
+    personalOnboarded: !!status.personal?.completed,
   };
   await updateUser(user.id, { oidcClaims });
   return oidcClaims;
