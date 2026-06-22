@@ -107,15 +107,15 @@ describe('Onboarding Routes', () => {
   });
 
   describe('PUT /profile', () => {
-    it('calls save_onboarding_profile with scope and profile_json and returns {saved:true}', async () => {
-      mockCallTool.mockResolvedValue({ saved: true });
+    it('calls save_onboarding_profile with scope and profile_json and returns the saved tool result', async () => {
+      mockCallTool.mockResolvedValue({ status: 'saved', scope: 'personal', completed: true });
 
       const response = await request(app)
         .put('/api/onboarding/profile')
         .send({ scope: 'personal', profile: { desk: 'AI' } });
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual({ saved: true });
+      expect(response.body).toEqual({ status: 'saved', scope: 'personal', completed: true });
 
       expect(mockCallTool).toHaveBeenCalledTimes(1);
       const callArg = mockCallTool.mock.calls[0][0];
@@ -126,13 +126,14 @@ describe('Onboarding Routes', () => {
     });
 
     it('includes tailored_prompts_json when tailored_prompts is provided', async () => {
-      mockCallTool.mockResolvedValue({ saved: true });
+      mockCallTool.mockResolvedValue({ status: 'saved', scope: 'company', completed: true });
 
       const response = await request(app)
         .put('/api/onboarding/profile')
         .send({ scope: 'company', profile: { industry: 'SaaS' }, tailored_prompts: ['a', 'b'] });
 
       expect(response.status).toBe(200);
+      expect(response.body).toEqual({ status: 'saved', scope: 'company', completed: true });
 
       const callArg = mockCallTool.mock.calls[0][0];
       expect(callArg.toolName).toBe('save_onboarding_profile');
