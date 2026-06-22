@@ -126,6 +126,12 @@ describe('WorkspaceProfile', () => {
     expect(screen.getByText('com_onboarding_loading')).toBeInTheDocument();
   });
 
+  it('shows error state when query fails', () => {
+    mockUseStatus.mockReturnValue({ data: undefined, isLoading: false, isError: true });
+    render(<WorkspaceProfile />);
+    expect(screen.getByText('com_onboarding_error')).toBeInTheDocument();
+  });
+
   it('shows empty state when both profiles are null', () => {
     mockUseStatus.mockReturnValue({
       data: {

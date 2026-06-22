@@ -156,7 +156,7 @@ function FieldRow({ fieldKey, locKey, form, onChange }: FieldRowProps) {
 
 function WorkspaceProfile() {
   const localize = useLocalize();
-  const { data, isLoading } = useOnboardingStatusQuery();
+  const { data, isLoading, isError } = useOnboardingStatusQuery();
   const { mutate, isLoading: isSaving } = useUpdateOnboardingProfileMutation();
 
   const onboarding = data?.onboarding;
@@ -167,8 +167,8 @@ function WorkspaceProfile() {
 
   useEffect(() => {
     if (onboarding) {
-      setCompanyForm(profileToForm(onboarding.company.profile));
-      setPersonalForm(profileToForm(onboarding.personal.profile));
+      setCompanyForm(profileToForm(onboarding.company?.profile ?? null));
+      setPersonalForm(profileToForm(onboarding.personal?.profile ?? null));
     }
   }, [onboarding]);
 
@@ -180,8 +180,16 @@ function WorkspaceProfile() {
     );
   }
 
-  const companyEmpty = !onboarding?.company.profile;
-  const personalEmpty = !onboarding?.personal.profile;
+  if (isError) {
+    return (
+      <div className="flex flex-col gap-3 p-1 text-sm text-text-primary">
+        <p className="text-text-secondary">{localize('com_onboarding_error')}</p>
+      </div>
+    );
+  }
+
+  const companyEmpty = !onboarding?.company?.profile;
+  const personalEmpty = !onboarding?.personal?.profile;
   if (companyEmpty && personalEmpty) {
     return (
       <div className="flex flex-col gap-3 p-1 text-sm text-text-primary">
