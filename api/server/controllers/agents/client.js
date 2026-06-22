@@ -71,6 +71,7 @@ const {
   removeNullishValues,
   DEFAULT_MEMORY_MAX_INPUT_TOKENS,
 } = require('librechat-data-provider');
+const { onboardingContextPart } = require('./onboarding');
 const { filterFilesByAgentAccess } = require('~/server/services/Files/permissions');
 const { encodeAndFormat } = require('~/server/services/Files/images/encode');
 const { createContextHandlers } = require('~/app/clients/prompts');
@@ -516,6 +517,12 @@ class AgentClient extends BaseClient {
         const agentRunContextParts = [sharedRunContext];
         if (memoryContext && (agentId === this.options.agent.id || memoryAgentEnabled)) {
           agentRunContextParts.push(memoryContext);
+        }
+        if (agentId === this.options.agent.id) {
+          const onboardingPart = onboardingContextPart(this.options.req?.user?.oidcClaims);
+          if (onboardingPart) {
+            agentRunContextParts.push(onboardingPart);
+          }
         }
         const scopedContext = agentScopedContext.get(agentId);
         if (scopedContext) {
