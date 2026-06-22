@@ -105,4 +105,61 @@ describe('Onboarding Routes', () => {
       expect(response.body).toEqual({ error: 'Failed to load onboarding status.' });
     });
   });
+
+  describe('PUT /profile', () => {
+    it('calls save_onboarding_profile with scope and profile_json and returns {saved:true}', async () => {
+      mockCallTool.mockResolvedValue({ saved: true });
+
+      const response = await request(app)
+        .put('/api/onboarding/profile')
+        .send({ scope: 'personal', profile: { desk: 'AI' } });
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({ saved: true });
+
+      expect(mockCallTool).toHaveBeenCalledTimes(1);
+      const callArg = mockCallTool.mock.calls[0][0];
+      expect(callArg.toolName).toBe('save_onboarding_profile');
+      expect(callArg.toolArguments.scope).toBe('personal');
+      expect(callArg.toolArguments.profile_json).toBe('{"desk":"AI"}');
+      expect(callArg.toolArguments.tailored_prompts_json).toBeUndefined();
+    });
+
+    it('includes tailored_prompts_json when tailored_prompts is provided', async () => {
+      mockCallTool.mockResolvedValue({ saved: true });
+
+      const response = await request(app)
+        .put('/api/onboarding/profile')
+        .send({ scope: 'company', profile: { industry: 'SaaS' }, tailored_prompts: ['a', 'b'] });
+
+      expect(response.status).toBe(200);
+
+      const callArg = mockCallTool.mock.calls[0][0];
+      expect(callArg.toolName).toBe('save_onboarding_profile');
+      expect(callArg.toolArguments.scope).toBe('company');
+      expect(callArg.toolArguments.profile_json).toBe('{"industry":"SaaS"}');
+      expect(callArg.toolArguments.tailored_prompts_json).toBe('["a","b"]');
+    });
+
+    it('returns 400 when scope is invalid', async () => {
+      const response = await request(app)
+        .put('/api/onboarding/profile')
+        .send({ scope: 'bogus', profile: {} });
+
+      expect(response.status).toBe(400);
+      expect(response.body).toEqual({ error: 'Invalid scope.' });
+      expect(mockCallTool).not.toHaveBeenCalled();
+    });
+
+    it('returns 502 when the MCP tool throws', async () => {
+      mockCallTool.mockRejectedValue(new Error('upstream failure'));
+
+      const response = await request(app)
+        .put('/api/onboarding/profile')
+        .send({ scope: 'personal', profile: { desk: 'AI' } });
+
+      expect(response.status).toBe(502);
+      expect(response.body).toEqual({ error: 'Failed to save onboarding profile.' });
+    });
+  });
 });

@@ -121,4 +121,19 @@ async function refreshUserClaims(user, status) {
   return oidcClaims;
 }
 
-module.exports = { parseToolResult, callOnboardingTool, getOnboardingStatus, refreshUserClaims };
+/**
+ * Calls `save_onboarding_profile` on the 360ai MCP server to persist the given profile.
+ *
+ * @param {import('@librechat/data-schemas').IUser} user
+ * @param {{ scope: string, profile: object, tailoredPrompts?: unknown }} opts
+ * @returns {Promise<object>} Raw tool result
+ */
+async function saveOnboardingProfile(user, { scope, profile, tailoredPrompts }) {
+  const args = { scope, profile_json: JSON.stringify(profile) };
+  if (tailoredPrompts !== undefined) {
+    args.tailored_prompts_json = JSON.stringify(tailoredPrompts);
+  }
+  return callOnboardingTool(user, 'save_onboarding_profile', args);
+}
+
+module.exports = { parseToolResult, callOnboardingTool, getOnboardingStatus, refreshUserClaims, saveOnboardingProfile };
