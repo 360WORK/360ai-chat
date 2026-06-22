@@ -2,6 +2,7 @@ jest.mock('~/hooks', () => ({ useLocalize: () => (k: string) => k }));
 jest.mock('../map/Map', () => ({
   __esModule: true,
   Map: ({ children }: { children?: React.ReactNode }) => <div data-testid="map">{children}</div>,
+  useMap: () => ({ map: null, isLoaded: false }),
   MapMarker: ({ longitude, latitude, children }: any) => (
     <div data-testid="marker" data-lng={longitude} data-lat={latitude}>{children}</div>
   ),
