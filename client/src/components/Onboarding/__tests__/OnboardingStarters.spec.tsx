@@ -67,6 +67,16 @@ it('falls back to generic starters while loading', () => {
   expect(screen.getByText('generic-starters')).toBeInTheDocument();
 });
 
+it('falls back to generic starters when onboarding is present but missing company/personal shape', () => {
+  mockUseStatus.mockReturnValue({
+    data: { onboarding: { is_owner: false } },
+    isLoading: false,
+    isError: false,
+  });
+  render(<OnboardingStarters />);
+  expect(screen.getByText('generic-starters')).toBeInTheDocument();
+});
+
 it('shows company-scope nudge and sends company setup message when owner', () => {
   mockUseStatus.mockReturnValue({
     data: {

@@ -25,6 +25,10 @@ function parseToolResult(result) {
     throw new Error(text);
   }
 
+  if (result && result.structuredContent !== undefined && result.structuredContent !== null && !Array.isArray(result.structuredContent)) {
+    return result.structuredContent;
+  }
+
   if (!result || !Array.isArray(result.content)) {
     return result;
   }
@@ -95,8 +99,16 @@ async function callOnboardingTool(user, toolName, toolArguments = {}) {
  * @returns {Promise<object>} Nested snake_case onboarding status + `role` ('owner'|'member')
  */
 async function getOnboardingStatus(user) {
-  const status = await callOnboardingTool(user, 'get_onboarding', {});
-  return { ...status, role: status.is_owner ? 'owner' : 'member' };
+  const raw = await callOnboardingTool(user, 'get_onboarding', {});
+  const isOwner = !!(raw && raw.is_owner);
+  return {
+    is_owner: isOwner,
+    role: isOwner ? 'owner' : 'member',
+    client: raw && raw.client ? raw.client : null,
+    company: raw && raw.company ? raw.company : { completed: false, profile: null },
+    personal: raw && raw.personal ? raw.personal : { completed: false, profile: null },
+    tailored_prompts: Array.isArray(raw && raw.tailored_prompts) ? raw.tailored_prompts : [],
+  };
 }
 
 /**

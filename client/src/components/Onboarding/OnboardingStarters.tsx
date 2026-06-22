@@ -14,20 +14,21 @@ function OnboardingStarters() {
   const send = useCallback((text: string) => submitMessage({ text }), [submitMessage]);
 
   const onboarding = data?.onboarding;
+  const hasShape = !!onboarding && !!onboarding.company && !!onboarding.personal;
 
   const incomplete = useMemo(() => {
-    if (!onboarding) {
+    if (!hasShape) {
       return false;
     }
-    return (onboarding.is_owner && !onboarding.company.completed) || !onboarding.personal.completed;
-  }, [onboarding]);
+    return (onboarding!.is_owner && !onboarding!.company.completed) || !onboarding!.personal.completed;
+  }, [hasShape, onboarding]);
 
-  if (isLoading || isError || !onboarding) {
+  if (isLoading || isError || !hasShape) {
     return <ConversationStarters />;
   }
 
   if (incomplete) {
-    const isCompanyScope = onboarding.is_owner && !onboarding.company.completed;
+    const isCompanyScope = onboarding!.is_owner && !onboarding!.company.completed;
     const description = isCompanyScope
       ? localize('com_onboarding_nudge_company')
       : localize('com_onboarding_nudge_personal');
@@ -50,7 +51,7 @@ function OnboardingStarters() {
     );
   }
 
-  const prompts = onboarding.tailored_prompts ?? [];
+  const prompts = onboarding!.tailored_prompts ?? [];
   if (!prompts.length) {
     return <ConversationStarters />;
   }
