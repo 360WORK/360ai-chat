@@ -4,9 +4,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { QueryKeys, dataService } from 'librechat-data-provider';
 import type { ReactNode } from 'react';
 import type { TOnboardingStatusResponse } from 'librechat-data-provider';
-import { useOnboardingStatusQuery } from '../queries';
+import { useOnboardingStatusQuery, useUpdateOnboardingProfileMutation } from '../queries';
 
 const mockGetOnboardingStatus = jest.fn();
+const mockUpdateOnboardingProfile = jest.fn();
 
 jest.mock('librechat-data-provider', () => {
   const actual = jest.requireActual('librechat-data-provider');
@@ -15,6 +16,7 @@ jest.mock('librechat-data-provider', () => {
     dataService: {
       ...actual.dataService,
       getOnboardingStatus: (...args: unknown[]) => mockGetOnboardingStatus(...args),
+      updateOnboardingProfile: (...args: unknown[]) => mockUpdateOnboardingProfile(...args),
     },
   };
 });
@@ -38,6 +40,7 @@ function createWrapper(queryClient: QueryClient) {
 
 beforeEach(() => {
   mockGetOnboardingStatus.mockReset();
+  mockUpdateOnboardingProfile.mockReset();
 });
 
 describe('useOnboardingStatusQuery', () => {
@@ -96,6 +99,35 @@ describe('useOnboardingStatusQuery', () => {
 
     expect(result.current.fetchStatus).toBe('idle');
     expect(mockGetOnboardingStatus).not.toHaveBeenCalled();
+
+    unmount();
+  });
+});
+
+describe('useUpdateOnboardingProfileMutation', () => {
+  it('invalidates QueryKeys.onboardingStatus on success', async () => {
+    mockUpdateOnboardingProfile.mockResolvedValueOnce({
+      status: 'saved',
+      scope: 'personal',
+      completed: true,
+    });
+
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false }, mutations: { retry: false } },
+    });
+    const invalidateSpy = jest.spyOn(queryClient, 'invalidateQueries');
+
+    const { result, unmount } = renderHook(() => useUpdateOnboardingProfileMutation(), {
+      wrapper: createWrapper(queryClient),
+    });
+
+    act(() => {
+      result.current.mutate({ scope: 'personal', profile: { desk: 'AI' } });
+    });
+
+    await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+    expect(invalidateSpy).toHaveBeenCalledWith([QueryKeys.onboardingStatus]);
 
     unmount();
   });
