@@ -139,10 +139,11 @@ const userSchema: Schema<IUser> = new Schema<IUser>(
     /** 360AI onboarding claims mirrored from the OIDC provider on login. */
     oidcClaims: {
       type: {
+        _id: false,
         isOwner: { type: Boolean, default: false },
-        role: { type: String, default: '' },
-        clientId: { type: String, default: '' },
-        clientName: { type: String, default: '' },
+        role: { type: String, default: 'member', enum: ['owner', 'member'] },
+        clientId: { type: String, default: null },
+        clientName: { type: String, default: null },
         companyOnboarded: { type: Boolean, default: false },
         personalOnboarded: { type: Boolean, default: false },
       },

@@ -219,9 +219,9 @@ export type TBackupCode = {
  */
 export type TOnboardingClaims = {
   isOwner: boolean;
-  role: string;
-  clientId: string;
-  clientName: string;
+  role: 'owner' | 'member';
+  clientId: string | null;
+  clientName: string | null;
   companyOnboarded: boolean;
   personalOnboarded: boolean;
 };

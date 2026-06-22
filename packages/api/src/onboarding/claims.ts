@@ -18,14 +18,18 @@ type OidcUserinfo = Record<string, unknown> & {
 const toBool = (value: unknown): boolean =>
   value === true || value === 1 || value === '1' || value === 'true';
 
-/** Coerce to a trimmed string, normalizing null/undefined to ''. */
-const toStr = (value: unknown): string => {
+/** Coerce to a trimmed string, preserving null/undefined as null. */
+const toNullableStr = (value: unknown): string | null => {
   if (value === null || value === undefined) {
-    return '';
+    return null;
   }
   const str = typeof value === 'string' ? value : String(value);
-  return str.trim();
+  const trimmed = str.trim();
+  return trimmed === '' ? null : trimmed;
 };
+
+/** Coerce a role claim to the persisted union. Anything not 'owner' becomes 'member'. */
+const toRole = (value: unknown): 'owner' | 'member' => (value === 'owner' ? 'owner' : 'member');
 
 /**
  * Extract the 360AI onboarding claims from an OIDC userinfo object and return
@@ -46,9 +50,9 @@ export const extractOnboardingClaims = (
 
   return {
     isOwner: toBool(userinfo.is_owner),
-    role: toStr(userinfo.role),
-    clientId: toStr(userinfo.client_id),
-    clientName: toStr(userinfo.client_name),
+    role: toRole(userinfo.role),
+    clientId: toNullableStr(userinfo.client_id),
+    clientName: toNullableStr(userinfo.client_name),
     companyOnboarded: toBool(userinfo.company_onboarded),
     personalOnboarded: toBool(userinfo.personal_onboarded),
   };

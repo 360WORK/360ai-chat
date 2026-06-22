@@ -54,17 +54,32 @@ describe('extractOnboardingClaims', () => {
   it('normalizes missing optional fields to safe defaults', () => {
     expect(extractOnboardingClaims({ sub: 'x' })).toEqual({
       isOwner: false,
-      role: '',
-      clientId: '',
-      clientName: '',
+      role: 'member',
+      clientId: null,
+      clientName: null,
       companyOnboarded: false,
       personalOnboarded: false,
     });
   });
 
-  it('treats empty/null client_id as absent', () => {
-    expect(extractOnboardingClaims({ client_id: '' })?.clientId).toBe('');
-    expect(extractOnboardingClaims({ client_id: null })?.clientId).toBe('');
+  it('preserves null for absent client_id/client_name (not empty string)', () => {
+    expect(extractOnboardingClaims({})?.clientId).toBeNull();
+    expect(extractOnboardingClaims({})?.clientName).toBeNull();
+    expect(extractOnboardingClaims({ client_id: null })?.clientId).toBeNull();
+    expect(extractOnboardingClaims({ client_name: null })?.clientName).toBeNull();
+    // Empty/whitespace strings are also normalized to null.
+    expect(extractOnboardingClaims({ client_id: '' })?.clientId).toBeNull();
+    expect(extractOnboardingClaims({ client_id: '   ' })?.clientId).toBeNull();
+  });
+
+  it('coerces unexpected role values to "member"', () => {
+    expect(extractOnboardingClaims({ role: 'superadmin' })?.role).toBe('member');
+    expect(extractOnboardingClaims({ role: 'admin' })?.role).toBe('member');
+    expect(extractOnboardingClaims({ role: '' })?.role).toBe('member');
+    expect(extractOnboardingClaims({ role: null })?.role).toBe('member');
+    expect(extractOnboardingClaims({})?.role).toBe('member');
+    // 'owner' is preserved exactly.
+    expect(extractOnboardingClaims({ role: 'owner' })?.role).toBe('owner');
   });
 
   it('returns a fresh object each call (no shared references)', () => {
