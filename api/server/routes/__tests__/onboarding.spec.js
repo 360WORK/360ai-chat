@@ -3,39 +3,33 @@
 const express = require('express');
 const request = require('supertest');
 
-const mockGetOnboardingStatus = jest.fn();
 const mockUpdateUser = jest.fn();
+const mockCallTool = jest.fn();
+const mockGetServerConfig = jest.fn();
 
 jest.mock('~/models', () => ({
   updateUser: (...args) => mockUpdateUser(...args),
+  findToken: jest.fn(),
+  createToken: jest.fn(),
+  updateToken: jest.fn(),
+  deleteTokens: jest.fn(),
 }));
 
-jest.mock('../../services/Onboarding', () => {
-  const { updateUser } = require('~/models');
-  return {
-    getOnboardingStatus: (...args) => mockGetOnboardingStatus(...args),
-    refreshUserClaims: jest.fn(async (user, status) => {
-      const oidcClaims = {
-        isOwner: !!status.is_owner,
-        role: status.is_owner ? 'owner' : 'member',
-        clientId: status.client?.id != null ? String(status.client.id) : null,
-        clientName: status.client?.name ?? null,
-        companyOnboarded: !!status.company?.completed,
-        personalOnboarded: !!status.personal?.completed,
-      };
-      await updateUser(user.id, { oidcClaims });
-      return oidcClaims;
-    }),
-  };
-});
+jest.mock('~/config', () => ({
+  getMCPManager: jest.fn(() => ({ callTool: mockCallTool })),
+  getMCPServersRegistry: jest.fn(() => ({ getServerConfig: mockGetServerConfig })),
+  getFlowStateManager: jest.fn(() => ({})),
+}));
 
-jest.mock('~/server/middleware/requireJwtAuth', () => (req, _res, next) => next());
+jest.mock('~/cache', () => ({
+  getLogStores: jest.fn(() => ({})),
+}));
 
 jest.mock('~/server/middleware', () => ({
   requireJwtAuth: (_req, _res, next) => next(),
 }));
 
-const MOCK_STATUS = {
+const MOCK_MCP_PAYLOAD = {
   is_owner: true,
   client: { id: 42, name: 'Acme Corp' },
   company: { completed: true, profile: { name: 'Acme Corp' } },
@@ -62,32 +56,32 @@ describe('Onboarding Routes', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    mockGetServerConfig.mockResolvedValue({});
+    mockUpdateUser.mockResolvedValue({});
   });
 
   describe('GET /status', () => {
     it('returns 200 with the onboarding status payload', async () => {
-      mockGetOnboardingStatus.mockResolvedValue(MOCK_STATUS);
-      mockUpdateUser.mockResolvedValue({});
+      mockCallTool.mockResolvedValue(MOCK_MCP_PAYLOAD);
 
       const response = await request(app).get('/api/onboarding/status');
 
       expect(response.status).toBe(200);
-      expect(response.body).toEqual({ onboarding: MOCK_STATUS });
+      const expected = { ...MOCK_MCP_PAYLOAD, role: 'owner' };
+      expect(response.body).toEqual({ onboarding: expected });
     });
 
     it('returns tailored_prompts verbatim from the MCP result', async () => {
-      mockGetOnboardingStatus.mockResolvedValue(MOCK_STATUS);
-      mockUpdateUser.mockResolvedValue({});
+      mockCallTool.mockResolvedValue(MOCK_MCP_PAYLOAD);
 
       const response = await request(app).get('/api/onboarding/status');
 
       expect(response.status).toBe(200);
-      expect(response.body.onboarding.tailored_prompts).toEqual(MOCK_STATUS.tailored_prompts);
+      expect(response.body.onboarding.tailored_prompts).toEqual(MOCK_MCP_PAYLOAD.tailored_prompts);
     });
 
     it('calls updateUser with camelCase oidcClaims including companyOnboarded', async () => {
-      mockGetOnboardingStatus.mockResolvedValue(MOCK_STATUS);
-      mockUpdateUser.mockResolvedValue({});
+      mockCallTool.mockResolvedValue(MOCK_MCP_PAYLOAD);
 
       await request(app).get('/api/onboarding/status');
 
@@ -103,7 +97,7 @@ describe('Onboarding Routes', () => {
     });
 
     it('returns 502 when getOnboardingStatus throws', async () => {
-      mockGetOnboardingStatus.mockRejectedValue(new Error('OpenID token expired'));
+      mockCallTool.mockRejectedValue(new Error('OpenID token expired'));
 
       const response = await request(app).get('/api/onboarding/status');
 
