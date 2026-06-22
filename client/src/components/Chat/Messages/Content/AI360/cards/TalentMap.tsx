@@ -11,27 +11,48 @@ function hasCoords(t: Talent): t is Located {
   return typeof t.latitude === 'number' && typeof t.longitude === 'number';
 }
 
-function TalentHoverCard({ talent, localize }: { talent: Located; localize: (k: string) => string }) {
+function TalentHoverCard({
+  talent,
+  localize,
+  withProfileLink,
+}: {
+  talent: Located;
+  localize: (k: string) => string;
+  withProfileLink?: boolean;
+}) {
   const meta = [talent.title, talent.current_company].filter(Boolean).join(' · ');
+  const profileUrl = talent.profile_url || talent.linkedin_url || undefined;
   return (
-    <div className="flex items-start gap-2 p-3 w-60 bg-neutral-900 rounded-xl shadow-xl">
-      <div className="shrink-0">
-        <Avatar src={talent.avatar} name={talent.name} />
+    <div className="flex flex-col p-3 w-60 bg-neutral-900 rounded-xl shadow-xl">
+      <div className="flex items-start gap-2">
+        <div className="shrink-0">
+          <Avatar src={talent.avatar} name={talent.name} />
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-sm font-semibold text-white capitalize">{talent.name}</p>
+          {meta ? <p className="truncate text-xs text-gray-300 mt-0.5">{meta}</p> : null}
+          {talent.location ? (
+            <p className="truncate text-xs text-gray-400 mt-0.5">{talent.location}</p>
+          ) : null}
+          {talent.open_to_work === true ? (
+            <div className="mt-1.5">
+              <span className="inline-flex items-center rounded-full border border-emerald-500/40 px-2.5 py-0.5 text-xs text-emerald-400">
+                {localize('com_ui_360_open_to_work')}
+              </span>
+            </div>
+          ) : null}
+        </div>
       </div>
-      <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-semibold text-white capitalize">{talent.name}</p>
-        {meta ? <p className="truncate text-xs text-gray-300 mt-0.5">{meta}</p> : null}
-        {talent.location ? (
-          <p className="truncate text-xs text-gray-400 mt-0.5">{talent.location}</p>
-        ) : null}
-        {talent.open_to_work === true ? (
-          <div className="mt-1.5">
-            <span className="inline-flex items-center rounded-full border border-emerald-500/40 px-2.5 py-0.5 text-xs text-emerald-400">
-              {localize('com_ui_360_open_to_work')}
-            </span>
-          </div>
-        ) : null}
-      </div>
+      {withProfileLink && profileUrl ? (
+        <a
+          href={profileUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-2.5 text-xs text-gray-300 underline underline-offset-2 hover:text-white"
+        >
+          {localize('com_ui_360_view_profile')}
+        </a>
+      ) : null}
     </div>
   );
 }
@@ -91,23 +112,7 @@ export default function TalentMap({ talents }: { talents: Talent[] }) {
               <TalentHoverCard talent={t} localize={localize} />
             </MarkerTooltip>
             <MarkerPopup className="w-auto p-0 bg-transparent border-0 shadow-none" closeButton offset={14}>
-              <div className="space-y-0">
-                <TalentHoverCard talent={t} localize={localize} />
-                {(t.linkedin_url || t.profile_url) ? (
-                  <div className="px-3 pb-3 -mt-1 bg-neutral-900 rounded-b-xl">
-                    <div className="border-t border-white/10 pt-2">
-                      <a
-                        href={t.profile_url || t.linkedin_url || undefined}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs text-gray-300 underline underline-offset-2 hover:text-white"
-                      >
-                        {localize('com_ui_360_view_profile')}
-                      </a>
-                    </div>
-                  </div>
-                ) : null}
-              </div>
+              <TalentHoverCard talent={t} localize={localize} withProfileLink />
             </MarkerPopup>
           </MapMarker>
         ))}
