@@ -1359,3 +1359,8 @@ export interface ActiveJobsResponse {
 export const getActiveJobs = (): Promise<ActiveJobsResponse> => {
   return request.get(endpoints.activeJobs());
 };
+
+/* Acumen */
+export const getAcumenWorkspaces = (): Promise<q.TAcumenWorkspacesResponse> => {
+  return request.get(endpoints.acumenWorkspaces());
+};

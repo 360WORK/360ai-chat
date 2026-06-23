@@ -256,6 +256,18 @@ export type TUpdateOnboardingProfileResponse = {
   completed: boolean;
 };
 
+/* Acumen */
+export interface TAcumenWorkspace {
+  useCaseId: string;
+  label: string;
+  kickoff: string;
+}
+
+export interface TAcumenWorkspacesResponse {
+  businessType: string | null;
+  workspaces: TAcumenWorkspace[];
+}
+
 /* SharePoint Graph API Token */
 export type GraphTokenParams = {
   scopes: string;

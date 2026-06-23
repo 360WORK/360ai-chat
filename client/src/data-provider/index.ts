@@ -7,6 +7,8 @@ export * from './Files';
 export * from './Memories';
 /* Onboarding */
 export * from './Onboarding';
+/* Acumen */
+export * from './Acumen';
 export * from './Messages';
 export * from './Misc';
 export * from './Projects';
