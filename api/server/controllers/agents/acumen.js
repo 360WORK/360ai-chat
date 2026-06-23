@@ -62,4 +62,4 @@ async function acumenContextPart(user, brief) {
   }
 }
 
-module.exports = { acumenContextPart };
+module.exports = { acumenContextPart, resolveProfile };

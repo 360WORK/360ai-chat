@@ -6,3 +6,5 @@ export { composeSystemPrompt } from './composer';
 export { lintNoRestating } from './lint';
 export { normalizeBusinessType, buildUserContextSummary } from './profile';
 export type { CompanyProfileData, PersonalProfileData } from './profile';
+export { workspacesMetaFor } from './workspaces';
+export type { WorkspaceMeta } from './workspaces';
