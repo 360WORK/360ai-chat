@@ -3,31 +3,28 @@ import { useLocalize } from '~/hooks';
 import {
   useSignalsQuery,
   useCreateSignal,
+  useUpdateSignal,
   useRunSignalNow,
   useDeleteSignal,
 } from '~/data-provider/Signals/queries';
-import type { TSignal, TSignalTool } from 'librechat-data-provider';
+import type { TSignal } from 'librechat-data-provider';
+import CadencePicker, { describeCron } from './CadencePicker';
 
-const CRON_PRESETS: Array<{ label: string; value: string }> = [
-  { label: 'Every Monday 8am', value: '0 8 * * MON' },
-  { label: 'Every day 8am', value: '0 8 * * *' },
-  { label: 'Every hour', value: '0 * * * *' },
-  { label: 'Every 15 min', value: '*/15 * * * *' },
-];
+/**
+ * Default tool_plan for a created/edited signal. Tool selection is automatic —
+ * users never pick tools. This default runs the broadest available read tool so
+ * the summariser has platform data to work with. (Web search + richer
+ * auto-detection are a separate engine capability — see the spec's blockers.)
+ */
+const DEFAULT_TOOL_PLAN = [{ tool: 'list_jobs' as const }];
 
-const TOOL_OPTIONS: Array<{ value: TSignalTool; label: string }> = [
-  { value: 'list_jobs', label: 'List jobs' },
-  { value: 'get_job', label: 'Get job' },
-  { value: 'pipeline_stages', label: 'Pipeline stages' },
-];
+type Draft = {
+  name: string;
+  prompt: string;
+  cadence: string;
+};
 
-const emptyDraft = () => ({
-  name: '',
-  type: 'briefing' as 'briefing' | 'custom',
-  cadence: '0 8 * * MON',
-  prompt: '',
-  tools: ['list_jobs'] as TSignalTool[],
-});
+const emptyDraft = (): Draft => ({ name: '', prompt: '', cadence: '0 8 * * 1' });
 
 /** Format an ISO timestamp for display, or show a placeholder. */
 function fmt(iso: string | null, localize: (k: 'com_signals_never') => string): string {
@@ -40,50 +37,89 @@ function fmt(iso: string | null, localize: (k: 'com_signals_never') => string): 
 
 export default function SignalsManager() {
   const localize = useLocalize();
+  const loc = localize as unknown as (k: string) => string;
   const { data, isLoading } = useSignalsQuery();
   const createSignal = useCreateSignal();
+  const updateSignal = useUpdateSignal();
   const runSignalNow = useRunSignalNow();
   const deleteSignal = useDeleteSignal();
 
-  const [draft, setDraft] = useState(emptyDraft);
-  const [showForm, setShowForm] = useState(false);
+  // null = closed (create) ; string = editing that signal id.
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [showCreate, setShowCreate] = useState(false);
+  const [draft, setDraft] = useState<Draft>(emptyDraft);
   const [error, setError] = useState<string | null>(null);
 
   const signals: TSignal[] = useMemo(() => data?.signals ?? [], [data]);
+  const editing = editingId ? (signals.find((s) => s.id === editingId) ?? null) : null;
 
-  const toggleTool = (tool: TSignalTool) => {
-    setDraft((d) => ({
-      ...d,
-      tools: d.tools.includes(tool) ? d.tools.filter((t) => t !== tool) : [...d.tools, tool],
-    }));
+  const openCreate = () => {
+    setEditingId(null);
+    setDraft(emptyDraft());
+    setError(null);
+    setShowCreate(true);
   };
 
-  const handleCreate = async (e: React.FormEvent) => {
+  const openEdit = (s: TSignal) => {
+    setDraft({
+      name: s.name,
+      prompt: s.promptTemplate ?? '',
+      cadence: s.cadenceCron ?? '0 8 * * 1',
+    });
+    setError(null);
+    setShowCreate(false);
+    setEditingId(s.id);
+  };
+
+  const closeForm = () => {
+    setShowCreate(false);
+    setEditingId(null);
+    setError(null);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    if (draft.tools.length === 0) {
-      setError(localize('com_signals_error_tools'));
+    const payload = {
+      name: draft.name.trim(),
+      prompt: draft.prompt.trim(),
+      cadence: draft.cadence.trim(),
+    };
+    if (payload.name === '' || payload.prompt === '') {
+      setError(localize('com_signals_error_required'));
       return;
     }
     try {
-      await createSignal.mutateAsync({
-        name: draft.name.trim(),
-        type: draft.type,
-        trigger_config: { cadence_cron: draft.cadence.trim(), timezone: 'UTC' },
-        action_config: {
-          agent_key: 'recruiting',
-          prompt_template: draft.prompt.trim(),
-          tool_plan: draft.tools.map((tool) => ({ tool })),
-        },
-        delivery_channels: ['chat_feed', 'inapp'],
-      });
-      setDraft(emptyDraft());
-      setShowForm(false);
+      if (editing) {
+        await updateSignal.mutateAsync({
+          id: editing.id,
+          input: {
+            name: payload.name,
+            action_config: { prompt_template: payload.prompt },
+            trigger_config: { cadence_cron: payload.cadence, timezone: 'UTC' },
+          },
+        });
+      } else {
+        await createSignal.mutateAsync({
+          name: payload.name,
+          type: 'briefing',
+          trigger_config: { cadence_cron: payload.cadence, timezone: 'UTC' },
+          action_config: {
+            agent_key: 'recruiting',
+            prompt_template: payload.prompt,
+            tool_plan: DEFAULT_TOOL_PLAN,
+          },
+          delivery_channels: ['chat_feed', 'inapp'],
+        });
+      }
+      closeForm();
     } catch (err) {
       setError(
         err && typeof err === 'object' && 'message' in err && typeof err.message === 'string'
           ? err.message
-          : localize('com_signals_error_create'),
+          : editing
+            ? localize('com_signals_error_update')
+            : localize('com_signals_error_create'),
       );
     }
   };
@@ -92,7 +128,7 @@ export default function SignalsManager() {
     try {
       await runSignalNow.mutateAsync(id);
     } catch {
-      /* surfaced by query invalidation / silent */
+      /* silent */
     }
   };
 
@@ -107,6 +143,10 @@ export default function SignalsManager() {
     }
   };
 
+  const formOpen = showCreate || editing !== null;
+  const submitting = createSignal.isLoading || updateSignal.isLoading;
+  const formTitle = editing ? localize('com_signals_edit_title') : localize('com_signals_new');
+
   return (
     <div className="flex h-full w-full flex-col bg-presentation">
       <div className="flex-1 overflow-y-auto">
@@ -115,13 +155,15 @@ export default function SignalsManager() {
             <h1 className="text-xl font-semibold text-text-primary">
               {localize('com_signals_title')}
             </h1>
-            <button
-              type="button"
-              onClick={() => setShowForm((v) => !v)}
-              className="inline-flex items-center gap-1.5 rounded-full border border-transparent bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90"
-            >
-              {showForm ? localize('com_signals_cancel') : localize('com_signals_new')}
-            </button>
+            {!formOpen ? (
+              <button
+                type="button"
+                onClick={openCreate}
+                className="inline-flex items-center gap-1.5 rounded-full border border-transparent bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90"
+              >
+                {localize('com_signals_new')}
+              </button>
+            ) : null}
           </div>
           <p className="mt-1 text-sm text-text-secondary">{localize('com_signals_subtitle')}</p>
 
@@ -131,11 +173,22 @@ export default function SignalsManager() {
             </p>
           ) : null}
 
-          {showForm ? (
+          {formOpen ? (
             <form
-              onSubmit={handleCreate}
+              onSubmit={handleSubmit}
               className="mt-4 space-y-4 rounded-xl border border-border-light bg-surface-primary p-4"
             >
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-semibold text-text-primary">{formTitle}</p>
+                <button
+                  type="button"
+                  onClick={closeForm}
+                  className="text-xs font-medium text-text-secondary hover:text-text-primary"
+                >
+                  {localize('com_signals_cancel')}
+                </button>
+              </div>
+
               <div>
                 <label className="text-sm font-medium text-text-primary">
                   {localize('com_signals_field_name')}
@@ -147,35 +200,6 @@ export default function SignalsManager() {
                   onChange={(e) => setDraft((d) => ({ ...d, name: e.target.value }))}
                   className="mt-1 w-full rounded-lg border border-border-light bg-surface-secondary px-3 py-2 text-sm text-text-primary"
                   placeholder={localize('com_signals_field_name_ph')}
-                />
-              </div>
-
-              <div>
-                <label className="text-sm font-medium text-text-primary">
-                  {localize('com_signals_field_cadence')}
-                </label>
-                <div className="mt-1 flex flex-wrap gap-2">
-                  {CRON_PRESETS.map((p) => (
-                    <button
-                      key={p.value}
-                      type="button"
-                      onClick={() => setDraft((d) => ({ ...d, cadence: p.value }))}
-                      className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium transition ${
-                        draft.cadence === p.value
-                          ? 'border-transparent bg-primary text-primary-foreground'
-                          : 'border-border-light bg-surface-secondary text-text-secondary hover:border-border-medium'
-                      }`}
-                    >
-                      {p.label}
-                    </button>
-                  ))}
-                </div>
-                <input
-                  required
-                  value={draft.cadence}
-                  onChange={(e) => setDraft((d) => ({ ...d, cadence: e.target.value }))}
-                  className="mt-2 w-full rounded-lg border border-border-light bg-surface-secondary px-3 py-2 font-mono text-xs text-text-primary"
-                  placeholder="0 8 * * MON"
                 />
               </div>
 
@@ -196,44 +220,23 @@ export default function SignalsManager() {
 
               <div>
                 <label className="text-sm font-medium text-text-primary">
-                  {localize('com_signals_field_tools')}
+                  {localize('com_signals_field_cadence')}
                 </label>
-                <div className="mt-1 flex flex-wrap gap-2">
-                  {TOOL_OPTIONS.map((t) => (
-                    <button
-                      key={t.value}
-                      type="button"
-                      aria-pressed={draft.tools.includes(t.value)}
-                      onClick={() => toggleTool(t.value)}
-                      className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium transition ${
-                        draft.tools.includes(t.value)
-                          ? 'border-transparent bg-primary text-primary-foreground'
-                          : 'border-border-light bg-surface-secondary text-text-secondary hover:border-border-medium'
-                      }`}
-                    >
-                      {t.label}
-                    </button>
-                  ))}
+                <div className="mt-1">
+                  <CadencePicker
+                    value={draft.cadence}
+                    onChange={(cron) => setDraft((d) => ({ ...d, cadence: cron }))}
+                  />
                 </div>
               </div>
 
               <div className="flex justify-end gap-2">
                 <button
-                  type="button"
-                  onClick={() => {
-                    setShowForm(false);
-                    setError(null);
-                  }}
-                  className="rounded-full border border-border-light px-4 py-1.5 text-sm font-medium text-text-secondary hover:bg-surface-secondary"
-                >
-                  {localize('com_signals_cancel')}
-                </button>
-                <button
                   type="submit"
-                  disabled={createSignal.isLoading}
+                  disabled={submitting}
                   className="inline-flex items-center rounded-full border border-transparent bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 disabled:opacity-50"
                 >
-                  {localize('com_signals_create')}
+                  {editing ? localize('com_signals_save') : localize('com_signals_create')}
                 </button>
               </div>
             </form>
@@ -256,14 +259,11 @@ export default function SignalsManager() {
                     <div className="min-w-0">
                       <p className="truncate text-sm font-semibold text-text-primary">{s.name}</p>
                       <p className="mt-0.5 text-xs text-text-secondary">
-                        <span className="capitalize">{s.type}</span>
-                        {' · '}
+                        {s.cadenceCron ? describeCron(s.cadenceCron, loc) + ' · ' : ''}
                         {localize('com_signals_next_run')}: {fmt(s.nextRunAt, localize)}
-                        {' · '}
-                        {localize('com_signals_last_run')}: {fmt(s.lastRunAt, localize)}
                       </p>
                     </div>
-                    <div className="flex shrink-0 items-center gap-2">
+                    <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
                       <button
                         type="button"
                         disabled={runSignalNow.isLoading}
@@ -271,6 +271,13 @@ export default function SignalsManager() {
                         className="rounded-full border border-border-light px-3 py-1 text-xs font-medium text-text-secondary transition hover:border-border-medium hover:bg-surface-secondary disabled:opacity-50"
                       >
                         {localize('com_signals_run_now')}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => openEdit(s)}
+                        className="rounded-full border border-border-light px-3 py-1 text-xs font-medium text-text-secondary transition hover:border-border-medium hover:bg-surface-secondary"
+                      >
+                        {localize('com_signals_edit')}
                       </button>
                       <button
                         type="button"

@@ -282,6 +282,9 @@ export interface TSignal {
   isActive: boolean;
   nextRunAt: string | null;
   lastRunAt: string | null;
+  /** Raw cron (editable fields surfaced for the Edit form). */
+  cadenceCron: string | null;
+  promptTemplate: string | null;
 }
 
 /** Response of GET /api/signals (the user's signals). */
@@ -303,6 +306,16 @@ export interface TSignalCreateInput {
     tool_plan: Array<{ tool: TSignalTool; args?: Record<string, unknown> }>;
   };
   delivery_channels: Array<'chat_feed' | 'inapp'>;
+}
+
+/** Partial payload for PATCH /api/signals/:id (update). All fields optional. */
+export interface TSignalUpdateInput {
+  name?: string;
+  description?: string | null;
+  is_active?: boolean;
+  trigger_config?: { cadence_cron: string; timezone?: string };
+  action_config?: { prompt_template: string };
+  delivery_channels?: Array<'chat_feed' | 'inapp'>;
 }
 
 /** Response of create / run-now. */

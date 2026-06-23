@@ -19,6 +19,8 @@ function toSignal(s) {
     isActive: !!s.is_active,
     nextRunAt: s.next_run_at ?? null,
     lastRunAt: s.last_run_at ?? null,
+    cadenceCron: s.cadence_cron ?? null,
+    promptTemplate: s.prompt_template ?? null,
   };
 }
 
@@ -111,6 +113,33 @@ router.delete('/:id', async (req, res) => {
     return res.json({ deleted: true, id: req.params.id });
   } catch (err) {
     return res.status(422).json({ error: err?.message || 'Could not delete signal.' });
+  }
+});
+
+/**
+ * PATCH /signals/:id
+ * Partial update of a signal the user owns. Body is the TSignalUpdateInput.
+ */
+router.patch('/:id', async (req, res) => {
+  try {
+    const raw = await callSignalTool(req.user, 'update_signal', {
+      signal_id: req.params.id,
+      signal_json: JSON.stringify(req.body ?? {}),
+    });
+    if (!raw || !raw.id) {
+      return res.status(422).json({
+        error: typeof raw === 'string' ? raw : 'Could not update signal.',
+      });
+    }
+    return res.json({
+      id: raw.id,
+      name: raw.name,
+      type: raw.type,
+      nextRunAt: raw.next_run_at ?? null,
+      isActive: !!raw.is_active,
+    });
+  } catch (err) {
+    return res.status(422).json({ error: err?.message || 'Could not update signal.' });
   }
 });
 

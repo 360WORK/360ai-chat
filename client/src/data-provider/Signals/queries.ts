@@ -11,6 +11,7 @@ import type {
   TSignalCreateInput,
   TSignalCreateResponse,
   TSignalRunResponse,
+  TSignalUpdateInput,
 } from 'librechat-data-provider';
 
 /**
@@ -66,6 +67,18 @@ export const useCreateSignal = (): UseMutationResult<
 > => {
   const invalidate = useInvalidateSignals();
   return useMutation((input) => dataService.createSignal(input), {
+    onSuccess: invalidate,
+  });
+};
+
+/** Update a signal (partial); invalidates the list on success. */
+export const useUpdateSignal = (): UseMutationResult<
+  TSignalCreateResponse,
+  unknown,
+  { id: string; input: TSignalUpdateInput }
+> => {
+  const invalidate = useInvalidateSignals();
+  return useMutation(({ id, input }) => dataService.updateSignal(id, input), {
     onSuccess: invalidate,
   });
 };
