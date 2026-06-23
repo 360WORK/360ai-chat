@@ -1369,3 +1369,19 @@ export const getAcumenWorkspaces = (): Promise<q.TAcumenWorkspacesResponse> => {
 export const syncSignals = (): Promise<q.TSignalsSyncResponse> => {
   return request.post(endpoints.signalsSync());
 };
+
+export const getSignals = (): Promise<q.TSignalsResponse> => {
+  return request.get(endpoints.signals());
+};
+
+export const createSignal = (payload: q.TSignalCreateInput): Promise<q.TSignalCreateResponse> => {
+  return request.post(endpoints.signals(), payload);
+};
+
+export const runSignalNow = (id: string): Promise<q.TSignalRunResponse> => {
+  return request.post(endpoints.signalRun(id));
+};
+
+export const deleteSignal = (id: string): Promise<unknown> => {
+  return request.delete(endpoints.signalById(id));
+};

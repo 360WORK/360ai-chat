@@ -91,6 +91,7 @@ export enum QueryKeys {
   acumenWorkspaces = 'acumenWorkspaces',
   /* Signals */
   signalsSync = 'signalsSync',
+  signalsList = 'signalsList',
 }
 
 // Dynamic query keys that require parameters

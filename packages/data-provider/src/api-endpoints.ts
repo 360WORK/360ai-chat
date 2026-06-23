@@ -295,6 +295,9 @@ export const acumenWorkspaces = () => `${BASE_URL}/api/acumen/workspaces`;
 
 /* Signals */
 export const signalsSync = () => `${BASE_URL}/api/signals/sync`;
+export const signals = () => `${BASE_URL}/api/signals`;
+export const signalRun = (id: string) => `${BASE_URL}/api/signals/${id}/run`;
+export const signalById = (id: string) => `${BASE_URL}/api/signals/${id}`;
 
 export const mcp = {
   tools: `${BASE_URL}/api/mcp/tools`,
