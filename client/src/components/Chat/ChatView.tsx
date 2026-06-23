@@ -16,6 +16,9 @@ import {
 } from '~/hooks';
 import { ChatContext, AddedChatContext, ChatFormProvider, useFileMapContext } from '~/Providers';
 import { AcumenWorkspaces } from '~/components/Acumen';
+import AcumenConfirmDock from '~/components/Acumen/AcumenConfirmDock';
+import useCurrentConfirmFrame from '~/components/Acumen/useCurrentConfirmFrame';
+import { useSignalsSync } from '~/data-provider/Signals/queries';
 import OnboardingStarters from '~/components/Onboarding/OnboardingStarters';
 import OnboardingHero from '~/components/Onboarding/OnboardingHero';
 import useOnboardingGate from '~/components/Onboarding/useOnboardingGate';
@@ -104,6 +107,10 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
   const queryClient = useQueryClient();
   const { gateActive, isCompanyScope } = useOnboardingGate();
   const { step: activeStep } = useCurrentOnboardingStep(gateActive, messagesTree);
+  const { frame: confirmFrame } = useCurrentConfirmFrame(messagesTree);
+  // Periodically pull new signal-run digests into the user's "Signals"
+  // conversation. Silent (no UI); the messages list refetch shows new digests.
+  useSignalsSync();
 
   // Refetch onboarding status whenever the user lands on the new-chat page so
   // that a just-completed onboarding is reflected without a full page reload.
@@ -148,6 +155,7 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
                       {isLandingPage && <AcumenWorkspaces />}
                       {isLandingPage && <OnboardingStarters />}
                       <OnboardingPillDock step={activeStep} submitting={isSubmitting} />
+                      <AcumenConfirmDock frame={confirmFrame} submitting={isSubmitting} />
                       <ChatForm index={index} placeholder={chatFormPlaceholder} />
                       {!isLandingPage && <Footer />}
                     </div>
