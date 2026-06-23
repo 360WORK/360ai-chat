@@ -6,8 +6,6 @@ import { accumulateConstraints } from './constraints';
 import { selectUseCase } from './router';
 import { renderPrompt } from './render';
 
-const instructionCache = new Map<string, { ordered: LayerRecord[]; cacheKey: string }>();
-
 const resolveInstructionLayers = (
   store: LayerStore,
   businessType: ComposeInput['businessType'],
@@ -37,11 +35,7 @@ export const composeSystemPrompt = (
 
   const ordered = resolveInstructionLayers(store, input.businessType, selected);
 
-  const cacheKey = ordered.map((l) => `${l.id}@${l.version}`).join('|');
-  if (!instructionCache.has(cacheKey)) {
-    instructionCache.set(cacheKey, { ordered, cacheKey });
-  }
-
+  // Caching of the assembled instruction-layer prompt is deferred until there is a measured need (LayerStore is versioned, so it can be keyed by id@version when added).
   const fields = mergeFields(ordered);
   const { constraints, flags } = accumulateConstraints(ordered);
 
@@ -55,5 +49,3 @@ export const composeSystemPrompt = (
 
   return { prompt, resolvedLayers: ordered.map((l) => l.id), selectedUseCase: selected, flags };
 };
-
-export const __clearAcumenCache = (): void => instructionCache.clear();
