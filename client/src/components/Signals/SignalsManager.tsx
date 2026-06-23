@@ -148,7 +148,7 @@ export default function SignalsManager() {
   const formTitle = editing ? localize('com_signals_edit_title') : localize('com_signals_new');
 
   return (
-    <div className="flex h-full w-full flex-col bg-presentation">
+    <div className="flex h-full w-full flex-col bg-surface-primary-alt">
       <div className="flex-1 overflow-y-auto">
         <div className="mx-auto w-full max-w-3xl p-6">
           <div className="flex items-center justify-between">
