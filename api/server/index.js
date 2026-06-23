@@ -270,6 +270,7 @@ const startServer = async () => {
   app.use('/api/memories', routes.memories);
   app.use('/api/onboarding', routes.onboarding);
   app.use('/api/acumen', routes.acumen);
+  app.use('/api/signals', routes.signals);
   app.use('/api/permissions', routes.accessPermissions);
 
   app.use('/api/tags', routes.tags);

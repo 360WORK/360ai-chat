@@ -13,6 +13,7 @@ const staticRoute = require('./static');
 const messages = require('./messages');
 const onboarding = require('./onboarding');
 const acumen = require('./acumen');
+const signals = require('./signals');
 const memories = require('./memories');
 const presets = require('./presets');
 const projects = require('./projects');
@@ -73,6 +74,7 @@ module.exports = {
   memories,
   onboarding,
   acumen,
+  signals,
   endpoints,
   assistants,
   categories,
