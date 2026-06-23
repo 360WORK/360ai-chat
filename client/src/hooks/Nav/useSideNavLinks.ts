@@ -8,6 +8,7 @@ import {
   ScrollText,
   ArrowRightToLine,
   SlidersHorizontal,
+  Radar,
 } from 'lucide-react';
 import {
   Permissions,
@@ -34,6 +35,7 @@ import { MemoryPanel } from '~/components/SidePanel/Memories';
 import FilesPanel from '~/components/SidePanel/Files/Panel';
 import { PromptsAccordion } from '~/components/Prompts';
 import { SkillsAccordion } from '~/components/Skills';
+import SignalsManager from '~/components/Signals/SignalsManager';
 
 export default function useSideNavLinks({
   hidePanel,
@@ -169,6 +171,15 @@ export default function useSideNavLinks({
         Component: BookmarkPanel,
       });
     }
+
+    // 360AI Signals: always-on management surface for onboarded users.
+    links.push({
+      title: 'com_nav_signals',
+      label: '',
+      icon: Radar,
+      id: 'signals',
+      Component: SignalsManager,
+    });
 
     links.push({
       title: 'com_sidepanel_attach_files',
