@@ -6,6 +6,7 @@ import {
   useUpdateSignal,
   useRunSignalNow,
   useDeleteSignal,
+  useSignalLatestRunQuery,
 } from '~/data-provider/Signals/queries';
 import type { TSignal } from 'librechat-data-provider';
 import CadencePicker, { describeCron } from './CadencePicker';
@@ -35,6 +36,55 @@ function fmt(iso: string | null, localize: (k: 'com_signals_never') => string): 
   return Number.isNaN(d.getTime()) ? localize('com_signals_never') : d.toLocaleString();
 }
 
+const TERMINAL = new Set(['succeeded', 'failed', 'no_change']);
+
+/** Inline result of a just-polled Run: spinner while running, digest when done. */
+function RunResult({
+  status,
+  summary,
+  localize,
+  onDismiss,
+}: {
+  status: string;
+  summary: string | null;
+  localize: (k: string) => string;
+  onDismiss: () => void;
+}) {
+  const done = TERMINAL.has(status);
+  if (!done) {
+    return null; // the button spinner already conveys "running"
+  }
+  const failed = status === 'failed';
+  const nothing = status === 'no_change' || !summary;
+  return (
+    <div
+      className={`mt-3 rounded-lg border p-3 text-sm ${
+        failed
+          ? 'border-red-300 bg-red-50 text-red-700'
+          : 'border-border-light bg-surface-secondary text-text-primary'
+      }`}
+    >
+      <div className="mb-1 flex items-center justify-between">
+        <span className="text-xs font-semibold uppercase opacity-70">
+          {failed
+            ? localize('com_signals_result_failed')
+            : nothing
+              ? localize('com_signals_result_nothing')
+              : localize('com_signals_result_done')}
+        </span>
+        <button
+          type="button"
+          onClick={onDismiss}
+          className="text-xs font-medium text-text-secondary hover:text-text-primary"
+        >
+          {localize('com_signals_dismiss')}
+        </button>
+      </div>
+      {nothing ? null : <div className="whitespace-pre-line text-sm">{summary}</div>}
+    </div>
+  );
+}
+
 export default function SignalsManager() {
   const localize = useLocalize();
   const loc = localize as unknown as (k: string) => string;
@@ -50,6 +100,8 @@ export default function SignalsManager() {
   const [draft, setDraft] = useState<Draft>(emptyDraft);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
+  // Signal id whose Run is being polled to completion (shows inline spinner + result).
+  const [pollingSignalId, setPollingSignalId] = useState<string | null>(null);
 
   const signals: TSignal[] = useMemo(() => data?.signals ?? [], [data]);
   const editing = editingId ? (signals.find((s) => s.id === editingId) ?? null) : null;
@@ -61,6 +113,13 @@ export default function SignalsManager() {
     runSignalNow.isLoading && typeof runSignalNow.variables === 'string'
       ? runSignalNow.variables
       : null;
+
+  // Poll the latest run for the signal we just clicked Run on, until terminal.
+  const latestRun = useSignalLatestRunQuery(pollingSignalId, {
+    enabled: pollingSignalId !== null,
+  });
+  // id currently showing as in-flight (mutation OR poll-not-yet-terminal)
+  const inFlightId = pollingSignalId ?? runningId;
 
   const openCreate = () => {
     setEditingId(null);
@@ -136,11 +195,14 @@ export default function SignalsManager() {
   const handleRun = async (id: string) => {
     setNotice(null);
     setError(null);
+    setPollingSignalId(id);
     try {
       await runSignalNow.mutateAsync(id);
-      setNotice(localize('com_signals_queued'));
+      // Polling is now active via useSignalLatestRunQuery(pollingSignalId).
+      // The hook stops itself once the run is terminal, then we clear it.
     } catch {
       setError(localize('com_signals_error_run'));
+      setPollingSignalId(null);
     }
   };
 
@@ -287,17 +349,17 @@ export default function SignalsManager() {
                     <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
                       <button
                         type="button"
-                        disabled={runningId === s.id}
+                        disabled={inFlightId === s.id}
                         onClick={() => handleRun(s.id)}
                         className="inline-flex items-center gap-1.5 rounded-full border border-border-light px-3 py-1 text-xs font-medium text-text-secondary transition hover:border-border-medium hover:bg-surface-secondary disabled:opacity-50"
                       >
-                        {runningId === s.id ? (
+                        {inFlightId === s.id ? (
                           <span
                             className="size-3 animate-spin rounded-full border-2 border-text-secondary border-t-transparent"
                             aria-hidden="true"
                           />
                         ) : null}
-                        {runningId === s.id
+                        {inFlightId === s.id
                           ? localize('com_signals_running')
                           : localize('com_signals_run_now')}
                       </button>
@@ -318,6 +380,14 @@ export default function SignalsManager() {
                       </button>
                     </div>
                   </div>
+                  {pollingSignalId === s.id && latestRun.data ? (
+                    <RunResult
+                      status={latestRun.data.status}
+                      summary={latestRun.data.summary}
+                      localize={loc}
+                      onDismiss={() => setPollingSignalId(null)}
+                    />
+                  ) : null}
                 </div>
               ))
             )}

@@ -1378,8 +1378,19 @@ export const createSignal = (payload: q.TSignalCreateInput): Promise<q.TSignalCr
   return request.post(endpoints.signals(), payload);
 };
 
+export const updateSignal = (
+  id: string,
+  payload: q.TSignalUpdateInput,
+): Promise<q.TSignalCreateResponse> => {
+  return request.patch(endpoints.signalById(id), payload);
+};
+
 export const runSignalNow = (id: string): Promise<q.TSignalRunResponse> => {
   return request.post(endpoints.signalRun(id));
+};
+
+export const getSignalLatestRun = (id: string): Promise<q.TSignalLatestRun> => {
+  return request.get(endpoints.signalLatestRun(id));
 };
 
 export const deleteSignal = (id: string): Promise<unknown> => {

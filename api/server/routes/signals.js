@@ -58,6 +58,35 @@ router.get('/', async (req, res) => {
 });
 
 /**
+ * GET /signals/:id/latest-run
+ * Newest run for a signal (status + summary). Used by the client to poll a
+ * just-clicked "Run now" until it finishes, so the spinner can stop and the
+ * digest can render inline. Reuses get_signal_runs (no new upstream tool).
+ * Returns 404 if the signal has no runs yet.
+ */
+router.get('/:id/latest-run', async (req, res) => {
+  try {
+    const raw = await callSignalTool(req.user, 'get_signal_runs', {});
+    const runs = Array.isArray(raw?.runs) ? raw.runs : [];
+    const latest = runs
+      .filter((r) => r && r.signal_id === req.params.id)
+      .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)))[0];
+    if (!latest) {
+      return res.status(404).json({ error: 'No run yet.' });
+    }
+    return res.json({
+      status: latest.status,
+      summary: latest.summary ?? null,
+      createdAt: latest.created_at ?? null,
+    });
+  } catch (err) {
+    return res.status(502).json({
+      error: 'Could not reach the signals service. If this persists, try logging out and back in.',
+    });
+  }
+});
+
+/**
  * POST /signals
  * Create a signal. Body is the TSignalCreateInput; forwarded as signal_json.
  */

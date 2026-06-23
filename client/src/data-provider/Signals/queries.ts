@@ -12,6 +12,7 @@ import type {
   TSignalCreateResponse,
   TSignalRunResponse,
   TSignalUpdateInput,
+  TSignalLatestRun,
 } from 'librechat-data-provider';
 
 /**
@@ -97,4 +98,31 @@ export const useDeleteSignal = (): UseMutationResult<unknown, unknown, string> =
   return useMutation((id: string) => dataService.deleteSignal(id), {
     onSuccess: invalidate,
   });
+};
+
+/** Run statuses that are terminal (no more polling). */
+const TERMINAL_RUN_STATUSES = new Set(['succeeded', 'failed', 'no_change']);
+
+/**
+ * Poll the latest run for a signal until it reaches a terminal status.
+ * Only enable while a run is in-flight: pass `enabled` true after clicking Run,
+ * and the query auto-disables (via `refetchInterval`) once the status is
+ * terminal so polling stops. Returns the latest run (status + summary).
+ */
+export const useSignalLatestRunQuery = (
+  signalId: string | null,
+  options?: { enabled?: boolean },
+): QueryObserverResult<TSignalLatestRun> => {
+  const enabled = !!signalId && (options?.enabled ?? false);
+  return useQuery<TSignalLatestRun>(
+    ['signalLatestRun', signalId],
+    () => dataService.getSignalLatestRun(signalId as string),
+    {
+      enabled,
+      // Poll every 2s while non-terminal; the refetchInterval function returns
+      // false (stop) once the data is terminal, which halts polling.
+      refetchInterval: (data) => (data && TERMINAL_RUN_STATUSES.has(data.status) ? false : 2000),
+      retry: false,
+    },
+  );
 };

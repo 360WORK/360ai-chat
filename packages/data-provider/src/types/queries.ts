@@ -333,6 +333,13 @@ export interface TSignalRunResponse {
   summaryExcerpt: string | null;
 }
 
+/** Latest run for a signal — the shape returned by GET /api/signals/:id/latest-run. */
+export interface TSignalLatestRun {
+  status: 'queued' | 'running' | 'succeeded' | 'failed' | 'no_change' | string;
+  summary: string | null;
+  createdAt: string | null;
+}
+
 /* SharePoint Graph API Token */
 export type GraphTokenParams = {
   scopes: string;
