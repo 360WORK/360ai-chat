@@ -38,7 +38,7 @@ function fmt(iso: string | null, localize: (k: 'com_signals_never') => string): 
 export default function SignalsManager() {
   const localize = useLocalize();
   const loc = localize as unknown as (k: string) => string;
-  const { data, isLoading } = useSignalsQuery();
+  const { data, isLoading, isError } = useSignalsQuery();
   const createSignal = useCreateSignal();
   const updateSignal = useUpdateSignal();
   const runSignalNow = useRunSignalNow();
@@ -243,7 +243,11 @@ export default function SignalsManager() {
           ) : null}
 
           <div className="mt-6 space-y-3">
-            {isLoading ? (
+            {isError ? (
+              <p className="rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-700">
+                {localize('com_signals_load_error')}
+              </p>
+            ) : isLoading ? (
               <p className="text-sm text-text-secondary">{localize('com_ui_loading')}</p>
             ) : signals.length === 0 ? (
               <p className="rounded-xl border border-dashed border-border-light p-6 text-center text-sm text-text-secondary">

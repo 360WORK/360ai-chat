@@ -18,6 +18,7 @@ jest.mock('~/data-provider/Signals/queries', () => ({
       ],
     },
     isLoading: false,
+    isError: false,
   }),
   useCreateSignal: () => ({ mutateAsync: jest.fn(), isLoading: false }),
   useUpdateSignal: () => ({ mutateAsync: jest.fn(), isLoading: false }),

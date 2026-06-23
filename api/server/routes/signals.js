@@ -41,6 +41,9 @@ router.post('/sync', async (req, res) => {
 /**
  * GET /signals
  * List the authenticated user's signals (owned + subscribed).
+ * Returns 502 (not an empty list) when the upstream MCP call fails, so the
+ * client can surface a real error (e.g. expired OIDC token) instead of
+ * silently looking empty.
  */
 router.get('/', async (req, res) => {
   try {
@@ -48,7 +51,9 @@ router.get('/', async (req, res) => {
     const signals = Array.isArray(raw?.signals) ? raw.signals.map(toSignal).filter(Boolean) : [];
     return res.json({ signals });
   } catch (err) {
-    return res.json({ signals: [] });
+    return res.status(502).json({
+      error: 'Could not reach the signals service. If this persists, try logging out and back in.',
+    });
   }
 });
 
