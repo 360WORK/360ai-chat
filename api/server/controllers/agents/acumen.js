@@ -1,31 +1,65 @@
-const { composeSystemPrompt, isBusinessType } = require('@librechat/api');
+const {
+  composeSystemPrompt,
+  normalizeBusinessType,
+  buildUserContextSummary,
+} = require('@librechat/api');
+const { getOnboardingStatus } = require('../../services/Onboarding');
+
+const PROFILE_TTL_MS = 5 * 60 * 1000;
+const profileCache = new Map();
+
+function readCache(userId) {
+  const hit = profileCache.get(userId);
+  if (!hit) {
+    return null;
+  }
+  if (hit.expiresAt <= Date.now()) {
+    profileCache.delete(userId);
+    return null;
+  }
+  return hit.value;
+}
+
+async function resolveProfile(user) {
+  const userId = user?.id ? String(user.id) : null;
+  if (userId) {
+    const cached = readCache(userId);
+    if (cached) {
+      return cached;
+    }
+  }
+  const status = await getOnboardingStatus(user);
+  const company = status?.company?.profile || null;
+  const personal = status?.personal?.profile || null;
+  const businessType = normalizeBusinessType(company?.business_type);
+  const userContext = buildUserContextSummary({ company, personal });
+  const value = { businessType, userContext };
+  if (userId) {
+    profileCache.set(userId, { value, expiresAt: Date.now() + PROFILE_TTL_MS });
+  }
+  return value;
+}
 
 /**
  * Build the composed Acumen system prompt for the primary 360ai agent.
- *
- * This is a thin JS wrapper (per repo CLAUDE.md: `/api` changes are thin JS
- * wrappers only). The composition itself lives in `composeSystemPrompt` from
- * `@librechat/api` (Plan 3 Task 9).
- *
- * GUARD: returns null when `user.oidcClaims.businessType` is absent or not yet
- * a valid BusinessType (today's real case — the claim is promoted in a later
- * sub-project). This keeps the live agent path unchanged until the claim exists.
- *
- * @param {object | undefined} user - The authenticated request user (req.user).
- * @param {string | undefined} brief - The latest user message text for use-case routing.
- * @returns {string | null} The composed system prompt to append, or null to no-op.
+ * Fetches the onboarding profile (source of truth) to resolve business type and
+ * user context. Returns null (no-op) when the business type is unknown or any
+ * lookup fails, so the live path is never broken.
  */
-function acumenContextPart(user, brief) {
-  const claims = user?.oidcClaims;
-  if (!claims) {
+async function acumenContextPart(user, brief) {
+  if (!user) {
     return null;
   }
-  if (!isBusinessType(claims.businessType)) {
+  try {
+    const { businessType, userContext } = await resolveProfile(user);
+    if (!businessType) {
+      return null;
+    }
+    const { prompt } = composeSystemPrompt({ businessType, userContext, brief });
+    return prompt || null;
+  } catch (err) {
     return null;
   }
-  const userContext = claims.onboardingSummary || undefined;
-  const { prompt } = composeSystemPrompt({ businessType: claims.businessType, userContext, brief });
-  return prompt || null;
 }
 
 module.exports = { acumenContextPart };

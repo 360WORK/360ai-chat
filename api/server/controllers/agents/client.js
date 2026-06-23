@@ -514,7 +514,7 @@ class AgentClient extends BaseClient {
     const configServers = await resolveConfigServers(this.options.req);
 
     await Promise.all(
-      allAgents.map(({ agent, agentId }) => {
+      allAgents.map(async ({ agent, agentId }) => {
         const agentRunContextParts = [sharedRunContext];
         if (memoryContext && (agentId === this.options.agent.id || memoryAgentEnabled)) {
           agentRunContextParts.push(memoryContext);
@@ -524,10 +524,7 @@ class AgentClient extends BaseClient {
           if (onboardingPart) {
             agentRunContextParts.push(onboardingPart);
           }
-          const acumenPart = acumenContextPart(
-            this.options.req?.user,
-            messages[messages.length - 1]?.text,
-          );
+          const acumenPart = await acumenContextPart(this.options.req?.user, messages.at(-1)?.text);
           if (acumenPart) {
             agentRunContextParts.push(acumenPart);
           }
