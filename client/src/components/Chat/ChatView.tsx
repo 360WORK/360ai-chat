@@ -1,9 +1,10 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { Spinner } from '@librechat/client';
 import { useParams } from 'react-router-dom';
-import { Constants, buildTree } from 'librechat-data-provider';
+import { useQueryClient } from '@tanstack/react-query';
+import { Constants, buildTree, QueryKeys } from 'librechat-data-provider';
 import type { TChatProject, TMessage } from 'librechat-data-provider';
 import type { ChatFormValues } from '~/common';
 import {
@@ -14,9 +15,12 @@ import {
   useLocalize,
 } from '~/hooks';
 import { ChatContext, AddedChatContext, ChatFormProvider, useFileMapContext } from '~/Providers';
+import { AcumenWorkspaces } from '~/components/Acumen';
 import OnboardingStarters from '~/components/Onboarding/OnboardingStarters';
 import OnboardingHero from '~/components/Onboarding/OnboardingHero';
 import useOnboardingGate from '~/components/Onboarding/useOnboardingGate';
+import useCurrentOnboardingStep from '~/components/Onboarding/useCurrentOnboardingStep';
+import OnboardingPillDock from '~/components/Onboarding/OnboardingPillDock';
 import { useGetMessagesByConvoId } from '~/data-provider';
 import ProjectLandingChip from './ProjectLandingChip';
 import MessagesView from './Messages/MessagesView';
@@ -97,7 +101,17 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
       ? localize('com_ui_new_chat_in_project', { name: project.name })
       : undefined;
 
+  const queryClient = useQueryClient();
   const { gateActive, isCompanyScope } = useOnboardingGate();
+  const { step: activeStep } = useCurrentOnboardingStep(gateActive, messagesTree);
+
+  // Refetch onboarding status whenever the user lands on the new-chat page so
+  // that a just-completed onboarding is reflected without a full page reload.
+  useEffect(() => {
+    if (isLandingPage) {
+      queryClient.invalidateQueries([QueryKeys.onboardingStatus]);
+    }
+  }, [isLandingPage, queryClient]);
 
   return (
     <ChatFormProvider {...methods}>
@@ -131,7 +145,9 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
                       )}
                     >
                       {isProjectLandingPage && project && <ProjectLandingChip project={project} />}
+                      {isLandingPage && <AcumenWorkspaces />}
                       {isLandingPage && <OnboardingStarters />}
+                      <OnboardingPillDock step={activeStep} submitting={isSubmitting} />
                       <ChatForm index={index} placeholder={chatFormPlaceholder} />
                       {!isLandingPage && <Footer />}
                     </div>
