@@ -25,6 +25,22 @@ function parseToolResult(result) {
     const text = result.content?.[0]?.text ?? 'MCP tool returned an error';
     throw new Error(text);
   }
+  // The MCP SDK can return a tool result as a tuple `[text, meta]` where the
+  // first element is a JSON string (and the second is null), or as a bare
+  // array of content blocks. Handle both by extracting the text and parsing.
+  if (Array.isArray(result) && result.length > 0) {
+    const first = result[0];
+    if (typeof first === 'string') {
+      return JSON.parse(first);
+    }
+    if (first && typeof first === 'object') {
+      const blockText = first.text;
+      if (typeof blockText === 'string') {
+        return JSON.parse(blockText);
+      }
+      return first;
+    }
+  }
   if (
     result &&
     result.structuredContent !== undefined &&
@@ -129,10 +145,7 @@ async function resolveSignalsConversationId(user) {
  * @returns {Promise<Set<string>>}
  */
 async function existingSignalsMessageIds(user, conversationId) {
-  const messages = await db.getMessages(
-    { user: user.id, conversationId },
-    'messageId',
-  );
+  const messages = await db.getMessages({ user: user.id, conversationId }, 'messageId');
   const ids = new Set();
   for (const m of Array.isArray(messages) ? messages : []) {
     if (m && typeof m.messageId === 'string') {

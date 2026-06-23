@@ -49,9 +49,18 @@ export default function SignalsManager() {
   const [showCreate, setShowCreate] = useState(false);
   const [draft, setDraft] = useState<Draft>(emptyDraft);
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
 
   const signals: TSignal[] = useMemo(() => data?.signals ?? [], [data]);
   const editing = editingId ? (signals.find((s) => s.id === editingId) ?? null) : null;
+
+  // Per-signal run state: only the signal whose id matches the in-flight
+  // mutation's variables is "running". `isLoading` alone would disable every
+  // Run button at once.
+  const runningId =
+    runSignalNow.isLoading && typeof runSignalNow.variables === 'string'
+      ? runSignalNow.variables
+      : null;
 
   const openCreate = () => {
     setEditingId(null);
@@ -125,10 +134,13 @@ export default function SignalsManager() {
   };
 
   const handleRun = async (id: string) => {
+    setNotice(null);
+    setError(null);
     try {
       await runSignalNow.mutateAsync(id);
+      setNotice(localize('com_signals_queued'));
     } catch {
-      /* silent */
+      setError(localize('com_signals_error_run'));
     }
   };
 
@@ -167,6 +179,11 @@ export default function SignalsManager() {
           </div>
           <p className="mt-1 text-sm text-text-secondary">{localize('com_signals_subtitle')}</p>
 
+          {notice ? (
+            <p className="mt-4 rounded-lg border border-emerald-300 bg-emerald-50 p-3 text-sm text-emerald-700">
+              {notice}
+            </p>
+          ) : null}
           {error ? (
             <p className="mt-4 rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-700">
               {error}
@@ -270,11 +287,19 @@ export default function SignalsManager() {
                     <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
                       <button
                         type="button"
-                        disabled={runSignalNow.isLoading}
+                        disabled={runningId === s.id}
                         onClick={() => handleRun(s.id)}
-                        className="rounded-full border border-border-light px-3 py-1 text-xs font-medium text-text-secondary transition hover:border-border-medium hover:bg-surface-secondary disabled:opacity-50"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-border-light px-3 py-1 text-xs font-medium text-text-secondary transition hover:border-border-medium hover:bg-surface-secondary disabled:opacity-50"
                       >
-                        {localize('com_signals_run_now')}
+                        {runningId === s.id ? (
+                          <span
+                            className="size-3 animate-spin rounded-full border-2 border-text-secondary border-t-transparent"
+                            aria-hidden="true"
+                          />
+                        ) : null}
+                        {runningId === s.id
+                          ? localize('com_signals_running')
+                          : localize('com_signals_run_now')}
                       </button>
                       <button
                         type="button"
