@@ -89,6 +89,8 @@ export enum QueryKeys {
   favorites = 'favorites',
   /* Acumen */
   acumenWorkspaces = 'acumenWorkspaces',
+  /* Signals */
+  signalsSync = 'signalsSync',
 }
 
 // Dynamic query keys that require parameters

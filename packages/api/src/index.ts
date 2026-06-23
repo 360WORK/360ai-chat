@@ -54,6 +54,8 @@ export * from './onboarding/claims';
 export * from './onboarding/interview';
 /* Acumen */
 export * from './acumen';
+/* Signals */
+export * from './signals';
 /* Skills */
 export * from './skills';
 /* Endpoints */

@@ -268,6 +268,12 @@ export interface TAcumenWorkspacesResponse {
   workspaces: TAcumenWorkspace[];
 }
 
+/* Signals */
+export interface TSignalsSyncResponse {
+  /** Number of NEW digest messages persisted this sync (0 when nothing new). */
+  delivered: number;
+}
+
 /* SharePoint Graph API Token */
 export type GraphTokenParams = {
   scopes: string;

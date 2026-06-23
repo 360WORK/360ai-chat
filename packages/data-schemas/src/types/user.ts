@@ -59,6 +59,11 @@ export interface IUser extends Document {
   /** Field for external source identification (for consistency with TPrincipal schema) */
   idOnTheSource?: string;
   tenantId?: string;
+  /**
+   * Stable conversationId of the user's dedicated "Signals" conversation
+   * (chat.360ai). Absent until the first signal digest delivery.
+   */
+  signalsConversationId?: string;
   federatedTokens?: OIDCTokens;
   openidTokens?: OIDCTokens;
   /** 360AI onboarding claims mirrored from the OIDC provider on login. */

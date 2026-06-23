@@ -1364,3 +1364,8 @@ export const getActiveJobs = (): Promise<ActiveJobsResponse> => {
 export const getAcumenWorkspaces = (): Promise<q.TAcumenWorkspacesResponse> => {
   return request.get(endpoints.acumenWorkspaces());
 };
+
+/* Signals */
+export const syncSignals = (): Promise<q.TSignalsSyncResponse> => {
+  return request.post(endpoints.signalsSync());
+};

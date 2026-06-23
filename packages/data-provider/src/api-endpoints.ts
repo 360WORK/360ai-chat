@@ -293,6 +293,9 @@ export const onboardingProfile = () => `${BASE_URL}/api/onboarding/profile`;
 /* Acumen */
 export const acumenWorkspaces = () => `${BASE_URL}/api/acumen/workspaces`;
 
+/* Signals */
+export const signalsSync = () => `${BASE_URL}/api/signals/sync`;
+
 export const mcp = {
   tools: `${BASE_URL}/api/mcp/tools`,
   servers: `${BASE_URL}/api/mcp/servers`,

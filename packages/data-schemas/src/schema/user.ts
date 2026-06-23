@@ -183,6 +183,15 @@ const userSchema: Schema<IUser> = new Schema<IUser>(
       type: String,
       index: true,
     },
+    /**
+     * Stable conversationId of the user's dedicated "Signals" conversation
+     * (chat.360ai). Lazily created + cached on first signal digest delivery so
+     * it is stable across syncs. Absent until the first delivery.
+     */
+    signalsConversationId: {
+      type: String,
+      sparse: true,
+    },
   },
   { timestamps: true },
 );
