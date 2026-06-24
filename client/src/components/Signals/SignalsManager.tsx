@@ -10,6 +10,7 @@ import {
 } from '~/data-provider/Signals/queries';
 import type { TSignal } from 'librechat-data-provider';
 import CadencePicker, { describeCron } from './CadencePicker';
+import Markdown from '~/components/Chat/Messages/Content/Markdown';
 
 /**
  * Default tool_plan for a created/edited signal. Tool selection is automatic —
@@ -80,7 +81,11 @@ function RunResult({
           {localize('com_signals_dismiss')}
         </button>
       </div>
-      {nothing ? null : <div className="whitespace-pre-line text-sm">{summary}</div>}
+      {nothing ? null : (
+        <div className="signals-digest text-sm">
+          <Markdown content={summary ?? ''} isLatestMessage={false} />
+        </div>
+      )}
     </div>
   );
 }
