@@ -10,7 +10,6 @@ import {
 } from '~/data-provider/Signals/queries';
 import type { TSignal } from 'librechat-data-provider';
 import CadencePicker, { describeCron } from './CadencePicker';
-import Markdown from '~/components/Chat/Messages/Content/Markdown';
 
 /**
  * Default tool_plan for a created/edited signal. Tool selection is automatic —
@@ -82,8 +81,8 @@ function RunResult({
         </button>
       </div>
       {nothing ? null : (
-        <div className="signals-digest text-sm">
-          <Markdown content={summary ?? ''} isLatestMessage={false} />
+        <div className="signals-digest whitespace-pre-wrap break-words text-sm text-text-primary">
+          {summary}
         </div>
       )}
     </div>
