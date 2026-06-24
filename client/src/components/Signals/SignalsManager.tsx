@@ -118,8 +118,13 @@ export default function SignalsManager() {
   const latestRun = useSignalLatestRunQuery(pollingSignalId, {
     enabled: pollingSignalId !== null,
   });
-  // id currently showing as in-flight (mutation OR poll-not-yet-terminal)
-  const inFlightId = pollingSignalId ?? runningId;
+  // The signal currently in-flight (spinner shown): the mutating one, OR the
+  // polled one whose latest run is still non-terminal. Once the poll sees a
+  // terminal status this becomes null → the button reverts to "Run now" while
+  // the result card stays visible (dismissable) via pollingSignalId.
+  const pollingNotDone =
+    pollingSignalId !== null && (!latestRun.data || !TERMINAL.has(latestRun.data.status));
+  const inFlightId = runningId ?? (pollingNotDone ? pollingSignalId : null);
 
   const openCreate = () => {
     setEditingId(null);
@@ -195,6 +200,9 @@ export default function SignalsManager() {
   const handleRun = async (id: string) => {
     setNotice(null);
     setError(null);
+    // Clear any stale run result for this signal so the spinner stays on until
+    // the fresh run's status is fetched (avoids a flicker if re-running).
+    latestRun.remove?.();
     setPollingSignalId(id);
     try {
       await runSignalNow.mutateAsync(id);
