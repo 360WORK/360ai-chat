@@ -24,14 +24,18 @@ export function digestMessageId(runId: string): string {
  * Runs without a summary (`no_change` or empty) are not deliverable — callers
  * filter them first; this function returns null for them as a guardrail.
  */
-export function formatDigest(
-  run: TSignalRun,
-): { text: string; messageId: string } | null {
+export function formatDigest(run: TSignalRun): { text: string; messageId: string } | null {
   const summary = run.summary != null ? run.summary.trim() : '';
   if (summary === '') {
     return null;
   }
-  const text = `${summary}\n\n<!--signal-digest:${run.id}-->`;
+  // NOTE: a trailing `<!--signal-digest:RUN_ID-->` marker used to be appended
+  // here for a future rich-card renderer, but the client strip that hides it
+  // lives in render files that carry uncommitted WIP, so it showed raw.
+  // The marker is dropped from stored text until that renderer exists; the
+  // deterministic messageId (uuid-v5 of the run id) still makes delivery
+  // idempotent, which is all that's needed.
+  const text = summary;
   return { text, messageId: digestMessageId(run.id) };
 }
 

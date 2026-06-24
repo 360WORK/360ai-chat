@@ -18,10 +18,10 @@ const run = (over: Partial<TSignalRun>): TSignalRun => ({
 });
 
 describe('formatDigest', () => {
-  it('appends the signal-digest marker and a deterministic messageId', () => {
+  it('returns the summary as text and a deterministic messageId', () => {
     const out = formatDigest(run({ id: 'abc' }));
     expect(out).not.toBeNull();
-    expect(out!.text).toBe('## Open jobs\n3 new roles.\n\n<!--signal-digest:abc-->');
+    expect(out!.text).toBe('## Open jobs\n3 new roles.');
     expect(out!.messageId).toBe(digestMessageId('abc'));
   });
 
@@ -36,9 +36,9 @@ describe('formatDigest', () => {
     expect(formatDigest(run({ summary: '' }))).toBeNull();
   });
 
-  it('trims surrounding whitespace from the summary before marking', () => {
+  it('trims surrounding whitespace from the summary', () => {
     const out = formatDigest(run({ summary: '  hello  ' }));
-    expect(out!.text.startsWith('hello\n')).toBe(true);
+    expect(out!.text).toBe('hello');
   });
 });
 
@@ -83,7 +83,7 @@ describe('deliverNewSignalRuns', () => {
     expect(saved).toHaveLength(2);
     expect(saved.some((t) => t.includes('first'))).toBe(true);
     expect(saved.some((t) => t.includes('second'))).toBe(true);
-    expect(saved.every((t) => t.includes('<!--signal-digest:'))).toBe(true);
+    expect(saved.every((t) => typeof t === 'string' && t.length > 0)).toBe(true);
   });
 
   it('skips runs already delivered (idempotent via messageId)', async () => {
