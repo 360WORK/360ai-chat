@@ -6,7 +6,7 @@ import {
   useUpdateSignal,
   useRunSignalNow,
   useDeleteSignal,
-  useSignalLatestRunQuery,
+  useSignalRunQuery,
 } from '~/data-provider/Signals/queries';
 import type { TSignal } from 'librechat-data-provider';
 import CadencePicker, { describeCron } from './CadencePicker';
@@ -100,8 +100,10 @@ export default function SignalsManager() {
   const [draft, setDraft] = useState<Draft>(emptyDraft);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
-  // Signal id whose Run is being polled to completion (shows inline spinner + result).
-  const [pollingSignalId, setPollingSignalId] = useState<string | null>(null);
+  // The run currently being polled to completion (signalId + runId). The runId
+  // is returned synchronously by run_signal_now; we poll THAT run so we track
+  // the exact run we triggered, not whatever was latest before.
+  const [poll, setPoll] = useState<{ signalId: string; runId: string } | null>(null);
 
   const signals: TSignal[] = useMemo(() => data?.signals ?? [], [data]);
   const editing = editingId ? (signals.find((s) => s.id === editingId) ?? null) : null;
@@ -114,17 +116,14 @@ export default function SignalsManager() {
       ? runSignalNow.variables
       : null;
 
-  // Poll the latest run for the signal we just clicked Run on, until terminal.
-  const latestRun = useSignalLatestRunQuery(pollingSignalId, {
-    enabled: pollingSignalId !== null,
-  });
+  // Poll the specific run we triggered, until terminal.
+  const runQuery = useSignalRunQuery(poll?.runId ?? null, { enabled: poll !== null });
   // The signal currently in-flight (spinner shown): the mutating one, OR the
-  // polled one whose latest run is still non-terminal. Once the poll sees a
-  // terminal status this becomes null → the button reverts to "Run now" while
-  // the result card stays visible (dismissable) via pollingSignalId.
-  const pollingNotDone =
-    pollingSignalId !== null && (!latestRun.data || !TERMINAL.has(latestRun.data.status));
-  const inFlightId = runningId ?? (pollingNotDone ? pollingSignalId : null);
+  // polled run that is still non-terminal. Once the polled run is terminal this
+  // becomes null → the button reverts to "Run now" while the result card stays
+  // visible (dismissable) via `poll`.
+  const pollingNotDone = poll !== null && (!runQuery.data || !TERMINAL.has(runQuery.data.status));
+  const inFlightId = runningId ?? (pollingNotDone ? poll!.signalId : null);
 
   const openCreate = () => {
     setEditingId(null);
@@ -200,17 +199,16 @@ export default function SignalsManager() {
   const handleRun = async (id: string) => {
     setNotice(null);
     setError(null);
-    // Clear any stale run result for this signal so the spinner stays on until
-    // the fresh run's status is fetched (avoids a flicker if re-running).
-    latestRun.remove?.();
-    setPollingSignalId(id);
     try {
-      await runSignalNow.mutateAsync(id);
-      // Polling is now active via useSignalLatestRunQuery(pollingSignalId).
-      // The hook stops itself once the run is terminal, then we clear it.
+      const res = await runSignalNow.mutateAsync(id);
+      // run_signal_now pre-creates the run and returns its id; poll THAT run.
+      const runId = res?.signalRunId;
+      if (runId) {
+        setPoll({ signalId: id, runId });
+      }
     } catch {
       setError(localize('com_signals_error_run'));
-      setPollingSignalId(null);
+      setPoll(null);
     }
   };
 
@@ -388,12 +386,12 @@ export default function SignalsManager() {
                       </button>
                     </div>
                   </div>
-                  {pollingSignalId === s.id && latestRun.data ? (
+                  {poll?.signalId === s.id && runQuery.data ? (
                     <RunResult
-                      status={latestRun.data.status}
-                      summary={latestRun.data.summary}
+                      status={runQuery.data.status}
+                      summary={runQuery.data.summary}
                       localize={loc}
-                      onDismiss={() => setPollingSignalId(null)}
+                      onDismiss={() => setPoll(null)}
                     />
                   ) : null}
                 </div>

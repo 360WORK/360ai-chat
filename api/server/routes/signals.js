@@ -58,26 +58,24 @@ router.get('/', async (req, res) => {
 });
 
 /**
- * GET /signals/:id/latest-run
- * Newest run for a signal (status + summary). Used by the client to poll a
- * just-clicked "Run now" until it finishes, so the spinner can stop and the
- * digest can render inline. Reuses get_signal_runs (no new upstream tool).
- * Returns 404 if the signal has no runs yet.
+ * GET /signals/run/:runId
+ * A specific run by id (status + summary). The client polls THIS run after
+ * clicking Run now (the run id is returned synchronously by run_signal_now)
+ * until it reaches a terminal status. Reuses get_signal_runs.
  */
-router.get('/:id/latest-run', async (req, res) => {
+router.get('/run/:runId', async (req, res) => {
   try {
     const raw = await callSignalTool(req.user, 'get_signal_runs', {});
     const runs = Array.isArray(raw?.runs) ? raw.runs : [];
-    const latest = runs
-      .filter((r) => r && r.signal_id === req.params.id)
-      .sort((a, b) => String(b.created_at).localeCompare(String(a.created_at)))[0];
-    if (!latest) {
-      return res.status(404).json({ error: 'No run yet.' });
+    const run = runs.find((r) => r && r.id === req.params.runId);
+    if (!run) {
+      // Run may not yet appear in the latest-25 window right after creation.
+      return res.status(404).json({ error: 'Run not found.' });
     }
     return res.json({
-      status: latest.status,
-      summary: latest.summary ?? null,
-      createdAt: latest.created_at ?? null,
+      status: run.status,
+      summary: run.summary ?? null,
+      createdAt: run.created_at ?? null,
     });
   } catch (err) {
     return res.status(502).json({

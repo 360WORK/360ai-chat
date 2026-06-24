@@ -24,7 +24,7 @@ jest.mock('~/data-provider/Signals/queries', () => ({
   useUpdateSignal: () => ({ mutateAsync: jest.fn(), isLoading: false }),
   useRunSignalNow: () => ({ mutateAsync: jest.fn(), isLoading: false, variables: undefined }),
   useDeleteSignal: () => ({ mutateAsync: jest.fn(), isLoading: false }),
-  useSignalLatestRunQuery: () => ({ data: undefined }),
+  useSignalRunQuery: () => ({ data: undefined }),
 }));
 jest.mock('~/hooks', () => ({
   __esModule: true,

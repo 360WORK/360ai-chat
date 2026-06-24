@@ -1389,8 +1389,8 @@ export const runSignalNow = (id: string): Promise<q.TSignalRunResponse> => {
   return request.post(endpoints.signalRun(id));
 };
 
-export const getSignalLatestRun = (id: string): Promise<q.TSignalLatestRun> => {
-  return request.get(endpoints.signalLatestRun(id));
+export const getSignalRun = (runId: string): Promise<q.TSignalLatestRun> => {
+  return request.get(endpoints.signalRunById(runId));
 };
 
 export const deleteSignal = (id: string): Promise<unknown> => {

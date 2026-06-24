@@ -104,23 +104,21 @@ export const useDeleteSignal = (): UseMutationResult<unknown, unknown, string> =
 const TERMINAL_RUN_STATUSES = new Set(['succeeded', 'failed', 'no_change']);
 
 /**
- * Poll the latest run for a signal until it reaches a terminal status.
- * Only enable while a run is in-flight: pass `enabled` true after clicking Run,
- * and the query auto-disables (via `refetchInterval`) once the status is
- * terminal so polling stops. Returns the latest run (status + summary).
+ * Poll a specific run (by id) until it reaches a terminal status. Pass the
+ * runId returned synchronously by run_signal_now; the query polls every 2s
+ * while non-terminal and auto-halts (refetchInterval false) once terminal.
  */
-export const useSignalLatestRunQuery = (
-  signalId: string | null,
+export const useSignalRunQuery = (
+  runId: string | null,
   options?: { enabled?: boolean },
 ): QueryObserverResult<TSignalLatestRun> => {
-  const enabled = !!signalId && (options?.enabled ?? false);
+  const enabled = !!runId && (options?.enabled ?? false);
   return useQuery<TSignalLatestRun>(
-    ['signalLatestRun', signalId],
-    () => dataService.getSignalLatestRun(signalId as string),
+    ['signalRun', runId],
+    () => dataService.getSignalRun(runId as string),
     {
       enabled,
-      // Poll every 2s while non-terminal; the refetchInterval function returns
-      // false (stop) once the data is terminal, which halts polling.
+      // Poll every 2s while non-terminal; stop once terminal.
       refetchInterval: (data) => (data && TERMINAL_RUN_STATUSES.has(data.status) ? false : 2000),
       retry: false,
     },
