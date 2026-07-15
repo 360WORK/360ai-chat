@@ -178,45 +178,41 @@ function PillOptions({ step, onSubmit, submitting = false }: PillOptionsProps) {
   const compound = step.groups.length > 1;
 
   return (
-    <div className="animate-fadeIn w-full px-4 py-2">
-      <div className="mx-auto md:max-w-[47rem] xl:max-w-[55rem]">
-        <div className="pl-9">
-          <div className="mb-3">
-            <div className="text-base font-medium text-text-primary">{step.prompt}</div>
-            {step.helper && <div className="mt-0.5 text-sm text-text-secondary">{step.helper}</div>}
-          </div>
-          <div className={compound ? 'flex flex-col gap-4' : 'flex flex-col gap-3'}>
-            {step.groups.map((group) => (
-              <div key={group.id} className="flex flex-col gap-2">
-                {group.label && (
-                  <div className="text-xs font-semibold uppercase tracking-wide text-text-tertiary">
-                    {group.label}
-                  </div>
-                )}
-                <GroupPills
-                  group={group}
-                  selected={selection[group.id] ?? []}
-                  onToggle={(value) => toggle(group.id, value)}
-                  disabled={submitting}
-                />
-              </div>
-            ))}
-          </div>
-          {!isSingleSelect && complete && (
-            <div className="animate-fadeIn mt-3">
-              <button
-                type="button"
-                onClick={handleSubmit}
-                disabled={submitting}
-                className={`${pillBase} ${pillSelected}`}
-              >
-                {localize('com_onboarding_continue')}
-                <ArrowRight className="size-3.5" aria-hidden="true" />
-              </button>
-            </div>
-          )}
-        </div>
+    <div className="animate-fadeIn w-full">
+      <div className="mb-3">
+        <div className="text-base font-medium text-text-primary">{step.prompt}</div>
+        {step.helper && <div className="mt-0.5 text-sm text-text-secondary">{step.helper}</div>}
       </div>
+      <div className={compound ? 'flex flex-col gap-4' : 'flex flex-col gap-3'}>
+        {step.groups.map((group) => (
+          <div key={group.id} className="flex flex-col gap-2">
+            {group.label && (
+              <div className="text-xs font-semibold uppercase tracking-wide text-text-tertiary">
+                {group.label}
+              </div>
+            )}
+            <GroupPills
+              group={group}
+              selected={selection[group.id] ?? []}
+              onToggle={(value) => toggle(group.id, value)}
+              disabled={submitting}
+            />
+          </div>
+        ))}
+      </div>
+      {!isSingleSelect && complete && (
+        <div className="animate-fadeIn mt-3">
+          <button
+            type="button"
+            onClick={handleSubmit}
+            disabled={submitting}
+            className={`${pillBase} ${pillSelected}`}
+          >
+            {localize('com_onboarding_continue')}
+            <ArrowRight className="size-3.5" aria-hidden="true" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

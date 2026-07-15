@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { QueryKeys } from 'librechat-data-provider';
 import { useQueryClient } from '@tanstack/react-query';
+import { useLocalize } from '~/hooks';
+import ChatDock from '~/components/Chat/ChatDock';
 import useSubmitMessage from '~/hooks/Messages/useSubmitMessage';
 import PillOptions from './PillOptions';
 import type { OnboardingStep } from './onboardingSchema';
@@ -22,6 +24,7 @@ export type OnboardingPillDockProps = {
  * providers in the returned JSX.
  */
 function OnboardingPillDock({ step, submitting = false }: OnboardingPillDockProps) {
+  const localize = useLocalize();
   const queryClient = useQueryClient();
   const { submitMessage } = useSubmitMessage();
   const stepId = step?.id ?? null;
@@ -39,13 +42,13 @@ function OnboardingPillDock({ step, submitting = false }: OnboardingPillDockProp
     return null;
   }
   return (
-    <div className="mb-3 border-t border-border-light pt-2">
+    <ChatDock ariaLabel={localize('com_onboarding_pills_aria')}>
       <PillOptions
         step={step}
         onSubmit={(text) => submitMessage({ text })}
         submitting={submitting}
       />
-    </div>
+    </ChatDock>
   );
 }
 
