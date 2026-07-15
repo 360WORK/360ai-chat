@@ -1,0 +1,104 @@
+name: Build & Push 360AI Chat Image (GHCR)
+
+# Builds the production `api-build` image from Dockerfile.multi and pushes it to
+# GitHub Container Registry so the Hetzner server only PULLS (no on-box build).
+#
+# Consumed by deploy-compose.override.yml via CHAT_IMAGE, e.g.:
+#   CHAT_IMAGE=ghcr.io/360work/360ai-chat:latest  ->  ./deploy/manage.sh deploy
+#
+# Tags produced (docker/metadata-action):
+#   - `latest`            on pushes to main
+#   - `<branch>`          on pushes to any matched branch
+#   - `sha-<short>`       always (immutable, pin prod to this)
+#   - `vX.Y.Z` / `X.Y`    on semver tags
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+    paths:
+      - 'api/**'
+      - 'client/**'
+      - 'packages/**'
+      - 'config/**'
+      - 'skill/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'Dockerfile.multi'
+      - '.github/workflows/deploy-image.yml'
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-push:
+    name: Build api-build image and push to GHCR
+    runs-on: ubuntu-latest
+    timeout-minutes: 130
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Compute image tags and labels
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix=sha-
+
+      - name: Compute build metadata
+        run: |
+          echo "BUILD_COMMIT=${{ github.sha }}" >> "$GITHUB_ENV"
+          echo "BUILD_BRANCH=${{ github.ref_name }}" >> "$GITHUB_ENV"
+          echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "$GITHUB_ENV"
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.multi
+          target: api-build
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            BUILD_COMMIT=${{ env.BUILD_COMMIT }}
+            BUILD_BRANCH=${{ env.BUILD_BRANCH }}
+            BUILD_DATE=${{ env.BUILD_DATE }}
+            NODE_MAX_OLD_SPACE_SIZE=6144
+
+      - name: Image summary
+        run: |
+          {
+            echo "### Pushed image tags"
+            echo '```'
+            echo "${{ steps.meta.outputs.tags }}"
+            echo '```'
+            echo "On the server set \`CHAT_IMAGE\` to one of these in \`.env\`, then run \`./deploy/manage.sh deploy\`."
+          } >> "$GITHUB_STEP_SUMMARY"

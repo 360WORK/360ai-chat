@@ -270,7 +270,7 @@ export default function SignalsManager() {
 
   const renderSignalCard = (s: TSignal) => (
     <div key={s.id} className="rounded-xl border border-border-light bg-surface-primary p-4">
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
           <p className="truncate text-sm font-semibold text-text-primary">{s.name}</p>
           <p className="mt-0.5 text-xs text-text-secondary">
@@ -278,7 +278,7 @@ export default function SignalsManager() {
             {localize('com_signals_next_run')}: {fmt(s.nextRunAt, localize)}
           </p>
         </div>
-        <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
+        <div className="flex flex-wrap items-center gap-2 sm:shrink-0 sm:justify-end">
           <button
             type="button"
             disabled={inFlightId === s.id}

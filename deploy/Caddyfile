@@ -1,0 +1,21 @@
+# Caddy reverse proxy for chat.360ai — automatic HTTPS via Let's Encrypt.
+# CHAT_DOMAIN and ACME_EMAIL are injected from ../.env by the caddy service.
+#
+# Caddy obtains + auto-renews the cert for CHAT_DOMAIN, redirects HTTP→HTTPS,
+# and proxies to the api container over the internal docker network.
+
+{
+	email {$ACME_EMAIL}
+}
+
+{$CHAT_DOMAIN} {
+	encode zstd gzip
+
+	# LibreChat serves both the SPA and /api from the same origin on :3080.
+	reverse_proxy api:3080
+
+	# Allow large file/image uploads (matches LibreChat's own limits).
+	request_body {
+		max_size 100MB
+	}
+}
