@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react';
 import { QueryKeys, dataService } from 'librechat-data-provider';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type {
@@ -32,6 +33,7 @@ export const useSignalsSync = (
 ): QueryObserverResult<TSignalsSyncResponse> => {
   return useQuery<TSignalsSyncResponse>([QueryKeys.signalsSync], () => dataService.syncSignals(), {
     refetchInterval: DEFAULT_SYNC_MS,
+    staleTime: 60 * 1000,
     refetchOnWindowFocus: true,
     refetchOnReconnect: true,
     refetchOnMount: true,
@@ -103,24 +105,72 @@ export const useDeleteSignal = (): UseMutationResult<unknown, unknown, string> =
 /** Run statuses that are terminal (no more polling). */
 const TERMINAL_RUN_STATUSES = new Set(['succeeded', 'failed', 'no_change']);
 
+const RUN_POLL_BASE_MS = 2000;
+const RUN_POLL_MAX_MS = 10 * 1000;
+const RUN_POLL_TIMEOUT_MS = 3 * 60 * 1000;
+const RUN_POLL_MAX_CONSECUTIVE_ERRORS = 5;
+
+export type TSignalRunPollResult = {
+  data: TSignalLatestRun | undefined;
+  isError: boolean;
+  /** True once polling gave up (timeout or repeated errors) before a terminal status. */
+  halted: boolean;
+};
+
 /**
  * Poll a specific run (by id) until it reaches a terminal status. Pass the
- * runId returned synchronously by run_signal_now; the query polls every 2s
- * while non-terminal and auto-halts (refetchInterval false) once terminal.
+ * runId returned synchronously by run_signal_now. Polls with exponential
+ * backoff (2s → 4s → 8s, capped at 10s) and auto-halts once terminal — or
+ * gives up (`halted: true`) after ~3 minutes of polling or 5 consecutive
+ * errors (e.g. the run never appears in the latest-runs window, or the
+ * upstream MCP is down) so callers can surface an error and stop spinners.
  */
 export const useSignalRunQuery = (
   runId: string | null,
   options?: { enabled?: boolean },
-): QueryObserverResult<TSignalLatestRun> => {
+): TSignalRunPollResult => {
   const enabled = !!runId && (options?.enabled ?? false);
-  return useQuery<TSignalLatestRun>(
+  const [halted, setHalted] = useState(false);
+  const startedAtRef = useRef(Date.now());
+  const attemptsRef = useRef(0);
+  const errorsRef = useRef(0);
+
+  useEffect(() => {
+    startedAtRef.current = Date.now();
+    attemptsRef.current = 0;
+    errorsRef.current = 0;
+    setHalted(false);
+  }, [runId]);
+
+  const query = useQuery<TSignalLatestRun>(
     ['signalRun', runId],
-    () => dataService.getSignalRun(runId as string),
+    () => {
+      attemptsRef.current += 1;
+      return dataService.getSignalRun(runId as string);
+    },
     {
-      enabled,
-      // Poll every 2s while non-terminal; stop once terminal.
-      refetchInterval: (data) => (data && TERMINAL_RUN_STATUSES.has(data.status) ? false : 2000),
+      enabled: enabled && !halted,
       retry: false,
+      onSuccess: () => {
+        errorsRef.current = 0;
+      },
+      onError: () => {
+        errorsRef.current += 1;
+      },
+      refetchInterval: (data) => {
+        if (data && TERMINAL_RUN_STATUSES.has(data.status)) {
+          return false;
+        }
+        const expired = Date.now() - startedAtRef.current >= RUN_POLL_TIMEOUT_MS;
+        if (expired || errorsRef.current >= RUN_POLL_MAX_CONSECUTIVE_ERRORS) {
+          setHalted(true);
+          return false;
+        }
+        const exponent = Math.max(attemptsRef.current - 1, 0);
+        return Math.min(RUN_POLL_BASE_MS * 2 ** exponent, RUN_POLL_MAX_MS);
+      },
     },
   );
+
+  return { data: query.data, isError: query.isError, halted };
 };

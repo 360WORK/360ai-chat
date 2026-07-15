@@ -131,7 +131,7 @@ export default function useMessageActions(props: TMessageActions) {
     } else if (assistant) {
       return assistant.name ?? '360AI';
     } else {
-      return '360AI';
+      return message?.sender || '360AI';
     }
   }, [message, agent, assistant, UsernameDisplay, user, localize]);
 

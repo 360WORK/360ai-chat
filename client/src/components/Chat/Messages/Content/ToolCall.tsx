@@ -14,7 +14,7 @@ import { ToolIcon, getToolIconType, isError } from './ToolOutput';
 import { useMCPIconMap } from '~/hooks/MCP';
 import { AttachmentGroup } from './Parts';
 import ToolCallInfo from './ToolCallInfo';
-import AI360ToolResult, { parse360Output, is360Tool } from './AI360';
+import AI360ToolResult, { parse360Output, is360Tool, AI360_MCP_SERVER } from './AI360';
 import ProgressText from './ProgressText';
 import { logger } from '~/utils';
 import store from '~/store';
@@ -107,11 +107,11 @@ export default function ToolCall({
   }, [name, parsedAuthUrl]);
 
   const parsed360 = useMemo(() => {
-    if (!output || !is360Tool(function_name)) {
+    if (!output || mcpServerName !== AI360_MCP_SERVER || !is360Tool(function_name)) {
       return null;
     }
     return parse360Output(function_name, output);
-  }, [output, function_name]);
+  }, [output, function_name, mcpServerName]);
 
   const toolIconType = useMemo(() => getToolIconType(name), [name]);
   const mcpIconMap = useMCPIconMap();

@@ -1,14 +1,13 @@
 import type { Talent } from '../types';
 import { useLocalize } from '~/hooks';
+import { safeHref } from '../href';
 import { cn } from '~/utils';
 import { Avatar } from '../Bits';
 
 export default function TalentCard({ talent }: { talent: Talent }) {
   const localize = useLocalize();
-  const meta = [talent.title, talent.current_company, talent.location]
-    .filter(Boolean)
-    .join(' · ');
-  const href = talent.profile_url || talent.linkedin_url || undefined;
+  const meta = [talent.title, talent.current_company, talent.location].filter(Boolean).join(' · ');
+  const href = safeHref(talent.profile_url) ?? safeHref(talent.linkedin_url);
   const className = cn(
     'flex items-center gap-3 rounded-xl border border-ai360-card-border bg-ai360-card px-3 py-2.5',
     'transition-colors hover:bg-surface-secondary',

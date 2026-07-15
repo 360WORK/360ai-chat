@@ -1,5 +1,15 @@
-import { useMemo, useState } from 'react';
-import { useLocalize } from '~/hooks';
+import { useMemo, useState, useEffect } from 'react';
+import {
+  Button,
+  Spinner,
+  OGDialog,
+  OGDialogClose,
+  OGDialogTitle,
+  OGDialogHeader,
+  OGDialogContent,
+} from '@librechat/client';
+import type { TSignal } from 'librechat-data-provider';
+import type { TranslationKeys } from '~/hooks';
 import {
   useSignalsQuery,
   useCreateSignal,
@@ -8,8 +18,8 @@ import {
   useDeleteSignal,
   useSignalRunQuery,
 } from '~/data-provider/Signals/queries';
-import type { TSignal } from 'librechat-data-provider';
 import CadencePicker, { describeCron } from './CadencePicker';
+import { useLocalize } from '~/hooks';
 
 /**
  * Default tool_plan for a created/edited signal. Tool selection is automatic —
@@ -25,10 +35,12 @@ type Draft = {
   cadence: string;
 };
 
+type Localize = (key: TranslationKeys) => string;
+
 const emptyDraft = (): Draft => ({ name: '', prompt: '', cadence: '0 8 * * 1' });
 
 /** Format an ISO timestamp for display, or show a placeholder. */
-function fmt(iso: string | null, localize: (k: 'com_signals_never') => string): string {
+function fmt(iso: string | null, localize: Localize): string {
   if (!iso) {
     return localize('com_signals_never');
   }
@@ -37,6 +49,25 @@ function fmt(iso: string | null, localize: (k: 'com_signals_never') => string): 
 }
 
 const TERMINAL = new Set(['succeeded', 'failed', 'no_change']);
+
+/** Header label key for a finished run result. */
+function runResultLabelKey(failed: boolean, nothing: boolean): TranslationKeys {
+  if (failed) {
+    return 'com_signals_result_failed';
+  }
+  if (nothing) {
+    return 'com_signals_result_nothing';
+  }
+  return 'com_signals_result_done';
+}
+
+/** User-facing message for a failed create/update submit. */
+function submitErrorMessage(err: unknown, isEditing: boolean, localize: Localize): string {
+  if (err && typeof err === 'object' && 'message' in err && typeof err.message === 'string') {
+    return err.message;
+  }
+  return isEditing ? localize('com_signals_error_update') : localize('com_signals_error_create');
+}
 
 /** Inline result of a just-polled Run: spinner while running, digest when done. */
 function RunResult({
@@ -47,7 +78,7 @@ function RunResult({
 }: {
   status: string;
   summary: string | null;
-  localize: (k: string) => string;
+  localize: Localize;
   onDismiss: () => void;
 }) {
   const done = TERMINAL.has(status);
@@ -60,17 +91,13 @@ function RunResult({
     <div
       className={`mt-3 rounded-lg border p-3 text-sm ${
         failed
-          ? 'border-red-300 bg-red-50 text-red-700'
+          ? 'border-red-300 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300'
           : 'border-border-light bg-surface-secondary text-text-primary'
       }`}
     >
       <div className="mb-1 flex items-center justify-between">
         <span className="text-xs font-semibold uppercase opacity-70">
-          {failed
-            ? localize('com_signals_result_failed')
-            : nothing
-              ? localize('com_signals_result_nothing')
-              : localize('com_signals_result_done')}
+          {localize(runResultLabelKey(failed, nothing))}
         </span>
         <button
           type="button"
@@ -91,7 +118,6 @@ function RunResult({
 
 export default function SignalsManager() {
   const localize = useLocalize();
-  const loc = localize as unknown as (k: string) => string;
   const { data, isLoading, isError } = useSignalsQuery();
   const createSignal = useCreateSignal();
   const updateSignal = useUpdateSignal();
@@ -104,6 +130,7 @@ export default function SignalsManager() {
   const [draft, setDraft] = useState<Draft>(emptyDraft);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<TSignal | null>(null);
   // The run currently being polled to completion (signalId + runId). The runId
   // is returned synchronously by run_signal_now; we poll THAT run so we track
   // the exact run we triggered, not whatever was latest before.
@@ -120,14 +147,28 @@ export default function SignalsManager() {
       ? runSignalNow.variables
       : null;
 
-  // Poll the specific run we triggered, until terminal.
+  // Poll the specific run we triggered, until terminal (or the poll gives up).
   const runQuery = useSignalRunQuery(poll?.runId ?? null, { enabled: poll !== null });
   // The signal currently in-flight (spinner shown): the mutating one, OR the
-  // polled run that is still non-terminal. Once the polled run is terminal this
-  // becomes null → the button reverts to "Run now" while the result card stays
-  // visible (dismissable) via `poll`.
-  const pollingNotDone = poll !== null && (!runQuery.data || !TERMINAL.has(runQuery.data.status));
+  // polled run that is still non-terminal. Once the polled run is terminal (or
+  // halted) this becomes null → the button reverts to "Run now" while the
+  // result card stays visible (dismissable) via `poll`.
+  const pollingNotDone =
+    poll !== null &&
+    runQuery.halted !== true &&
+    (!runQuery.data || !TERMINAL.has(runQuery.data.status));
   const inFlightId = runningId ?? (pollingNotDone ? poll!.signalId : null);
+
+  // The poll gave up (run never surfaced, or the service kept erroring):
+  // surface the error and stop tracking so the Run button is re-enabled.
+  const pollHalted = poll !== null && runQuery.halted === true;
+  useEffect(() => {
+    if (!pollHalted) {
+      return;
+    }
+    setError(localize('com_signals_poll_timeout'));
+    setPoll(null);
+  }, [pollHalted, localize]);
 
   const openCreate = () => {
     setEditingId(null);
@@ -190,13 +231,7 @@ export default function SignalsManager() {
       }
       closeForm();
     } catch (err) {
-      setError(
-        err && typeof err === 'object' && 'message' in err && typeof err.message === 'string'
-          ? err.message
-          : editing
-            ? localize('com_signals_error_update')
-            : localize('com_signals_error_create'),
-      );
+      setError(submitErrorMessage(err, editing !== null, localize));
     }
   };
 
@@ -216,20 +251,98 @@ export default function SignalsManager() {
     }
   };
 
-  const handleDelete = async (id: string, name: string) => {
-    if (!window.confirm(localize('com_signals_confirm_delete').replace('{name}', name))) {
+  const confirmDelete = async () => {
+    if (!deleteTarget) {
       return;
     }
     try {
-      await deleteSignal.mutateAsync(id);
+      await deleteSignal.mutateAsync(deleteTarget.id);
     } catch {
-      /* silent */
+      setError(localize('com_signals_error_delete'));
+    } finally {
+      setDeleteTarget(null);
     }
   };
 
   const formOpen = showCreate || editing !== null;
   const submitting = createSignal.isLoading || updateSignal.isLoading;
   const formTitle = editing ? localize('com_signals_edit_title') : localize('com_signals_new');
+
+  const renderSignalCard = (s: TSignal) => (
+    <div key={s.id} className="rounded-xl border border-border-light bg-surface-primary p-4">
+      <div className="flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="truncate text-sm font-semibold text-text-primary">{s.name}</p>
+          <p className="mt-0.5 text-xs text-text-secondary">
+            {s.cadenceCron ? describeCron(s.cadenceCron, localize) + ' · ' : ''}
+            {localize('com_signals_next_run')}: {fmt(s.nextRunAt, localize)}
+          </p>
+        </div>
+        <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
+          <button
+            type="button"
+            disabled={inFlightId === s.id}
+            onClick={() => handleRun(s.id)}
+            className="inline-flex items-center gap-1.5 rounded-full border border-border-light px-3 py-1 text-xs font-medium text-text-secondary transition hover:border-border-medium hover:bg-surface-secondary disabled:opacity-50"
+          >
+            {inFlightId === s.id ? (
+              <span
+                className="size-3 animate-spin rounded-full border-2 border-text-secondary border-t-transparent"
+                aria-hidden="true"
+              />
+            ) : null}
+            {inFlightId === s.id
+              ? localize('com_signals_running')
+              : localize('com_signals_run_now')}
+          </button>
+          <button
+            type="button"
+            onClick={() => openEdit(s)}
+            className="rounded-full border border-border-light px-3 py-1 text-xs font-medium text-text-secondary transition hover:border-border-medium hover:bg-surface-secondary"
+          >
+            {localize('com_signals_edit')}
+          </button>
+          <button
+            type="button"
+            disabled={deleteSignal.isLoading}
+            onClick={() => setDeleteTarget(s)}
+            className="rounded-full border border-border-light px-3 py-1 text-xs font-medium text-red-600 transition hover:bg-red-50 disabled:opacity-50 dark:text-red-400 dark:hover:bg-red-950"
+          >
+            {localize('com_ui_delete')}
+          </button>
+        </div>
+      </div>
+      {poll?.signalId === s.id && runQuery.data ? (
+        <RunResult
+          status={runQuery.data.status}
+          summary={runQuery.data.summary}
+          localize={localize}
+          onDismiss={() => setPoll(null)}
+        />
+      ) : null}
+    </div>
+  );
+
+  const renderList = () => {
+    if (isError) {
+      return (
+        <p className="rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300">
+          {localize('com_signals_load_error')}
+        </p>
+      );
+    }
+    if (isLoading) {
+      return <p className="text-sm text-text-secondary">{localize('com_ui_loading')}</p>;
+    }
+    if (signals.length === 0) {
+      return (
+        <p className="rounded-xl border border-dashed border-border-light p-6 text-center text-sm text-text-secondary">
+          {localize('com_signals_empty')}
+        </p>
+      );
+    }
+    return signals.map(renderSignalCard);
+  };
 
   return (
     <div className="flex h-full w-full flex-col bg-surface-primary-alt">
@@ -252,12 +365,12 @@ export default function SignalsManager() {
           <p className="mt-1 text-sm text-text-secondary">{localize('com_signals_subtitle')}</p>
 
           {notice ? (
-            <p className="mt-4 rounded-lg border border-emerald-300 bg-emerald-50 p-3 text-sm text-emerald-700">
+            <p className="mt-4 rounded-lg border border-emerald-300 bg-emerald-50 p-3 text-sm text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
               {notice}
             </p>
           ) : null}
           {error ? (
-            <p className="mt-4 rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-700">
+            <p className="mt-4 rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300">
               {error}
             </p>
           ) : null}
@@ -279,10 +392,11 @@ export default function SignalsManager() {
               </div>
 
               <div>
-                <label className="text-sm font-medium text-text-primary">
+                <label htmlFor="signal-name" className="text-sm font-medium text-text-primary">
                   {localize('com_signals_field_name')}
                 </label>
                 <input
+                  id="signal-name"
                   required
                   maxLength={120}
                   value={draft.name}
@@ -293,10 +407,11 @@ export default function SignalsManager() {
               </div>
 
               <div>
-                <label className="text-sm font-medium text-text-primary">
+                <label htmlFor="signal-prompt" className="text-sm font-medium text-text-primary">
                   {localize('com_signals_field_prompt')}
                 </label>
                 <textarea
+                  id="signal-prompt"
                   required
                   maxLength={4000}
                   rows={3}
@@ -308,10 +423,10 @@ export default function SignalsManager() {
               </div>
 
               <div>
-                <label className="text-sm font-medium text-text-primary">
+                <label id="signal-cadence-label" className="text-sm font-medium text-text-primary">
                   {localize('com_signals_field_cadence')}
                 </label>
-                <div className="mt-1">
+                <div role="group" aria-labelledby="signal-cadence-label" className="mt-1">
                   <CadencePicker
                     value={draft.cadence}
                     onChange={(cron) => setDraft((d) => ({ ...d, cadence: cron }))}
@@ -331,79 +446,43 @@ export default function SignalsManager() {
             </form>
           ) : null}
 
-          <div className="mt-6 space-y-3">
-            {isError ? (
-              <p className="rounded-xl border border-red-300 bg-red-50 p-4 text-sm text-red-700">
-                {localize('com_signals_load_error')}
-              </p>
-            ) : isLoading ? (
-              <p className="text-sm text-text-secondary">{localize('com_ui_loading')}</p>
-            ) : signals.length === 0 ? (
-              <p className="rounded-xl border border-dashed border-border-light p-6 text-center text-sm text-text-secondary">
-                {localize('com_signals_empty')}
-              </p>
-            ) : (
-              signals.map((s) => (
-                <div
-                  key={s.id}
-                  className="rounded-xl border border-border-light bg-surface-primary p-4"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <p className="truncate text-sm font-semibold text-text-primary">{s.name}</p>
-                      <p className="mt-0.5 text-xs text-text-secondary">
-                        {s.cadenceCron ? describeCron(s.cadenceCron, loc) + ' · ' : ''}
-                        {localize('com_signals_next_run')}: {fmt(s.nextRunAt, localize)}
-                      </p>
-                    </div>
-                    <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
-                      <button
-                        type="button"
-                        disabled={inFlightId === s.id}
-                        onClick={() => handleRun(s.id)}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-border-light px-3 py-1 text-xs font-medium text-text-secondary transition hover:border-border-medium hover:bg-surface-secondary disabled:opacity-50"
-                      >
-                        {inFlightId === s.id ? (
-                          <span
-                            className="size-3 animate-spin rounded-full border-2 border-text-secondary border-t-transparent"
-                            aria-hidden="true"
-                          />
-                        ) : null}
-                        {inFlightId === s.id
-                          ? localize('com_signals_running')
-                          : localize('com_signals_run_now')}
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => openEdit(s)}
-                        className="rounded-full border border-border-light px-3 py-1 text-xs font-medium text-text-secondary transition hover:border-border-medium hover:bg-surface-secondary"
-                      >
-                        {localize('com_signals_edit')}
-                      </button>
-                      <button
-                        type="button"
-                        disabled={deleteSignal.isLoading}
-                        onClick={() => handleDelete(s.id, s.name)}
-                        className="rounded-full border border-border-light px-3 py-1 text-xs font-medium text-red-600 transition hover:bg-red-50 disabled:opacity-50"
-                      >
-                        {localize('com_ui_delete')}
-                      </button>
-                    </div>
-                  </div>
-                  {poll?.signalId === s.id && runQuery.data ? (
-                    <RunResult
-                      status={runQuery.data.status}
-                      summary={runQuery.data.summary}
-                      localize={loc}
-                      onDismiss={() => setPoll(null)}
-                    />
-                  ) : null}
-                </div>
-              ))
-            )}
-          </div>
+          <div className="mt-6 space-y-3">{renderList()}</div>
         </div>
       </div>
+
+      <OGDialog
+        open={deleteTarget !== null}
+        onOpenChange={(open) => {
+          if (!open) {
+            setDeleteTarget(null);
+          }
+        }}
+      >
+        <OGDialogContent
+          className="w-11/12 max-w-md"
+          showCloseButton={false}
+          aria-describedby="delete-signal-description"
+        >
+          <OGDialogHeader>
+            <OGDialogTitle>{localize('com_signals_delete_title')}</OGDialogTitle>
+          </OGDialogHeader>
+          <p id="delete-signal-description" className="w-full truncate text-sm text-text-primary">
+            {deleteTarget
+              ? localize('com_signals_confirm_delete').replace('{name}', deleteTarget.name)
+              : null}
+          </p>
+          <div className="flex justify-end gap-4 pt-4">
+            <OGDialogClose asChild>
+              <Button aria-label="cancel" variant="outline">
+                {localize('com_signals_cancel')}
+              </Button>
+            </OGDialogClose>
+            <Button variant="destructive" onClick={confirmDelete} disabled={deleteSignal.isLoading}>
+              {deleteSignal.isLoading ? <Spinner /> : localize('com_ui_delete')}
+            </Button>
+          </div>
+        </OGDialogContent>
+      </OGDialog>
     </div>
   );
 }

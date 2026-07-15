@@ -1,68 +1,21 @@
 'use strict';
 
 const { v4: uuidv4 } = require('uuid');
+const { logger } = require('@librechat/data-schemas');
 const { deliverNewSignalRuns } = require('@librechat/api');
-const { CacheKeys } = require('librechat-data-provider');
-const { getMCPServersRegistry, getFlowStateManager, getMCPManager } = require('~/config');
-const { getLogStores } = require('~/cache');
+const { getAppConfig } = require('~/server/services/Config');
+const { callMcp360Tool } = require('./mcp360');
+const { User } = require('~/db/models');
 const db = require('~/models');
 
-const { findToken, createToken, updateToken, deleteTokens } = db;
-
-const SERVER_NAME = '360ai';
-const SIGNALS_AGENT_ID = '360ai-signals';
 const SIGNALS_CONVO_TITLE = 'Signals';
+/** Fallbacks mirroring the enforced '360ai' modelSpec in librechat.yaml. */
+const FALLBACK_SPEC = { endpoint: 'anthropic', model: 'claude-opus-4-6', spec: '360ai' };
 
 /**
- * Parse the raw result returned by mcpManager.callTool into a plain object.
- * Mirrors `parseToolResult` in services/Onboarding.js (same three shapes).
- *
- * @param {unknown} result
- * @returns {object}
- */
-function parseToolResult(result) {
-  if (result && result.isError) {
-    const text = result.content?.[0]?.text ?? 'MCP tool returned an error';
-    throw new Error(text);
-  }
-  // The MCP SDK can return a tool result as a tuple `[text, meta]` where the
-  // first element is a JSON string (and the second is null), or as a bare
-  // array of content blocks. Handle both by extracting the text and parsing.
-  if (Array.isArray(result) && result.length > 0) {
-    const first = result[0];
-    if (typeof first === 'string') {
-      return JSON.parse(first);
-    }
-    if (first && typeof first === 'object') {
-      const blockText = first.text;
-      if (typeof blockText === 'string') {
-        return JSON.parse(blockText);
-      }
-      return first;
-    }
-  }
-  if (
-    result &&
-    result.structuredContent !== undefined &&
-    result.structuredContent !== null &&
-    !Array.isArray(result.structuredContent)
-  ) {
-    return result.structuredContent;
-  }
-  if (!result || !Array.isArray(result.content)) {
-    return result;
-  }
-  const text = result.content[0]?.text;
-  if (text == null) {
-    throw new Error('Empty MCP tool result.');
-  }
-  return JSON.parse(text);
-}
-
-/**
- * Call a 360ai MCP tool authenticated as the user. Identical wiring to
- * `callOnboardingTool` (services/Onboarding.js) — kept local so the Signals
- * surface owns no cross-cutting dependency on the onboarding module.
+ * Call a 360ai MCP tool authenticated as the user. Thin alias over the shared
+ * `callMcp360Tool` (services/mcp360.js), kept so the Signals surface's public
+ * API is stable.
  *
  * @param {import('@librechat/data-schemas').IUser} user
  * @param {string} toolName
@@ -70,33 +23,7 @@ function parseToolResult(result) {
  * @returns {Promise<object>}
  */
 async function callSignalTool(user, toolName, toolArguments = {}) {
-  const userId = user?.id;
-  const flowsCache = getLogStores(CacheKeys.FLOWS);
-  const flowManager = getFlowStateManager(flowsCache);
-  const mcpManager = getMCPManager(userId);
-  const serverConfig = await getMCPServersRegistry().getServerConfig(SERVER_NAME, userId);
-
-  const result = await mcpManager.callTool({
-    serverName: SERVER_NAME,
-    serverConfig,
-    toolName,
-    toolArguments,
-    provider: undefined,
-    user,
-    requestBody: undefined,
-    requestScopedConnections: undefined,
-    customUserVars: undefined,
-    flowManager,
-    tokenMethods: { findToken, createToken, updateToken, deleteTokens },
-    options: {},
-    oauthStart: undefined,
-    oauthEnd: undefined,
-    graphTokenResolver: undefined,
-    oboTokenResolver: undefined,
-    oboTrustChecker: undefined,
-  });
-
-  return parseToolResult(result);
+  return callMcp360Tool(user, toolName, toolArguments);
 }
 
 /**
@@ -111,59 +38,154 @@ async function fetchSignalRuns(user) {
 }
 
 /**
- * Resolve (and lazily create) the user's dedicated "Signals" conversation id,
- * cached on the user document so it is stable across syncs. Returns a UUID
- * conversationId valid for `saveMessage`.
+ * Resolve the endpoint/model/spec for the Signals conversation from the
+ * enforced modelSpecs list (default spec wins, first spec otherwise), so
+ * replies in the digest thread hit a real, configured endpoint. Falls back to
+ * the known '360ai' spec values when config is unavailable.
  *
- * @param {{ id: string; signalsConversationId?: string }} user
- * @returns {Promise<string>}
+ * @returns {Promise<{ endpoint: string; model: string; spec: string }>}
  */
-async function resolveSignalsConversationId(user) {
-  if (user.signalsConversationId) {
-    return user.signalsConversationId;
+async function resolveSignalsPreset() {
+  try {
+    const appConfig = await getAppConfig();
+    const list = appConfig?.modelSpecs?.list;
+    const spec = Array.isArray(list) ? (list.find((s) => s?.default) ?? list[0]) : null;
+    if (spec?.preset?.endpoint && spec?.preset?.model) {
+      return { endpoint: spec.preset.endpoint, model: spec.preset.model, spec: spec.name };
+    }
+  } catch (err) {
+    logger.warn('[SignalsDelivery] Could not resolve modelSpec preset from app config:', err);
   }
-  const conversationId = uuidv4();
-  const reqCtx = { userId: user.id };
-  await db.saveConvo(reqCtx, {
-    conversationId,
-    title: SIGNALS_CONVO_TITLE,
-    endpoint: 'agents',
-    agentId: SIGNALS_AGENT_ID,
-    model: SIGNALS_AGENT_ID,
-  });
-  await db.updateUser(user.id, { signalsConversationId: conversationId });
-  return conversationId;
+  return FALLBACK_SPEC;
 }
 
 /**
- * Return the messageIds already present in the user's Signals conversation so
- * delivery can skip runs already persisted (defensive dedup on top of the
- * deterministic messageId upsert).
+ * Atomically claim the user's `signalsConversationId` slot. Only succeeds if
+ * the field is still unset, so two concurrent syncs cannot both win.
+ *
+ * @param {string} userId
+ * @param {string} conversationId
+ * @returns {Promise<boolean>} true when this call won the claim
+ */
+async function claimSignalsConversationId(userId, conversationId) {
+  const result = await User.updateOne(
+    {
+      _id: userId,
+      $or: [{ signalsConversationId: { $exists: false } }, { signalsConversationId: null }],
+    },
+    { $set: { signalsConversationId: conversationId } },
+  );
+  return (result?.modifiedCount ?? 0) > 0;
+}
+
+/**
+ * Verify the user's cached Signals conversation still exists. When the user
+ * deleted it, clear the stale pointer so a fresh conversation is created.
+ *
+ * @param {{ id: string; signalsConversationId?: string }} user
+ * @returns {Promise<string | null>}
+ */
+async function verifiedSignalsConversationId(user) {
+  if (!user.signalsConversationId) {
+    return null;
+  }
+  const convo = await db.getConvo(user.id, user.signalsConversationId);
+  if (convo) {
+    return user.signalsConversationId;
+  }
+  await User.updateOne(
+    { _id: user.id, signalsConversationId: user.signalsConversationId },
+    { $set: { signalsConversationId: null } },
+  );
+  return null;
+}
+
+/**
+ * Create a Signals conversation and atomically claim it. If a concurrent sync
+ * won the claim first, the orphan conversation is deleted and the winner's id
+ * is returned instead, so digests never split across conversations.
+ *
+ * @param {{ id: string }} user
+ * @param {{ endpoint: string; model: string; spec: string }} preset
+ * @returns {Promise<string>}
+ */
+async function createAndClaimSignalsConversation(user, preset) {
+  const conversationId = uuidv4();
+  await db.saveConvo(
+    { userId: user.id },
+    {
+      conversationId,
+      title: SIGNALS_CONVO_TITLE,
+      endpoint: preset.endpoint,
+      model: preset.model,
+      spec: preset.spec,
+    },
+  );
+  const claimed = await claimSignalsConversationId(user.id, conversationId);
+  if (claimed) {
+    return conversationId;
+  }
+  await db.deleteConvos(user.id, { conversationId });
+  const winner = await db.findUser({ _id: user.id }, 'signalsConversationId');
+  if (winner?.signalsConversationId) {
+    return winner.signalsConversationId;
+  }
+  throw new Error('Could not resolve the Signals conversation.');
+}
+
+/**
+ * Resolve (and lazily create) the user's dedicated "Signals" conversation id,
+ * cached on the user document so it is stable across syncs. Verifies the
+ * cached conversation still exists and recreates it when deleted.
+ *
+ * @param {{ id: string; signalsConversationId?: string }} user
+ * @param {{ endpoint: string; model: string; spec: string }} [preset]
+ * @returns {Promise<string>}
+ */
+async function resolveSignalsConversationId(user, preset) {
+  const existingId = await verifiedSignalsConversationId(user);
+  if (existingId) {
+    return existingId;
+  }
+  const resolvedPreset = preset ?? (await resolveSignalsPreset());
+  return createAndClaimSignalsConversation(user, resolvedPreset);
+}
+
+/**
+ * Load the user's Signals conversation messages once: the set of messageIds
+ * already delivered (dedup) plus the newest messageId (chain anchor for the
+ * next digest's parentMessageId).
  *
  * @param {{ id: string }} user
  * @param {string} conversationId
- * @returns {Promise<Set<string>>}
+ * @returns {Promise<{ ids: Set<string>; latestMessageId: string | null }>}
  */
-async function existingSignalsMessageIds(user, conversationId) {
+async function loadSignalsMessages(user, conversationId) {
   const messages = await db.getMessages({ user: user.id, conversationId }, 'messageId');
   const ids = new Set();
+  let latestMessageId = null;
   for (const m of Array.isArray(messages) ? messages : []) {
     if (m && typeof m.messageId === 'string') {
       ids.add(m.messageId);
+      latestMessageId = m.messageId;
     }
   }
-  return ids;
+  return { ids, latestMessageId };
 }
 
 /**
- * Persist one digest assistant message into the Signals conversation.
+ * Persist one digest assistant message into the Signals conversation, chained
+ * to the previous message so the conversation renders as one chronological
+ * feed instead of multiple roots with a branch pager.
  *
  * @param {{ id: string }} user
  * @param {string} conversationId
  * @param {{ messageId: string; text: string }} message
+ * @param {{ endpoint: string; model: string }} preset
+ * @param {string | null} parentMessageId
  * @returns {Promise<unknown>}
  */
-async function saveSignalsMessage(user, conversationId, message) {
+async function saveSignalsMessage(user, conversationId, message, preset, parentMessageId) {
   const reqCtx = { userId: user.id };
   return db.saveMessage(reqCtx, {
     messageId: message.messageId,
@@ -172,11 +194,10 @@ async function saveSignalsMessage(user, conversationId, message) {
     role: 'assistant',
     sender: 'Assistant',
     isCreatedByUser: false,
-    parentMessageId: null,
+    parentMessageId,
     text: message.text,
-    endpoint: 'agents',
-    agentId: SIGNALS_AGENT_ID,
-    model: SIGNALS_AGENT_ID,
+    endpoint: preset.endpoint,
+    model: preset.model,
     finish_reason: 'stop',
     unfinished: false,
     error: false,
@@ -194,17 +215,34 @@ async function deliverSignalsForUser(user) {
   if (!user || !user.id) {
     return { delivered: 0 };
   }
+  const preset = await resolveSignalsPreset();
+  const chain = { parentMessageId: null };
   return deliverNewSignalRuns(user, {
     fetchRuns: fetchSignalRuns,
-    resolveConversationId: resolveSignalsConversationId,
-    existingMessageIds: existingSignalsMessageIds,
-    saveMessage: saveSignalsMessage,
+    resolveConversationId: (u) => resolveSignalsConversationId(u, preset),
+    existingMessageIds: async (u, conversationId) => {
+      const { ids, latestMessageId } = await loadSignalsMessages(u, conversationId);
+      chain.parentMessageId = latestMessageId;
+      return ids;
+    },
+    saveMessage: async (u, conversationId, message) => {
+      const saved = await saveSignalsMessage(
+        u,
+        conversationId,
+        message,
+        preset,
+        chain.parentMessageId,
+      );
+      chain.parentMessageId = message.messageId;
+      return saved;
+    },
   });
 }
 
 module.exports = {
   callSignalTool,
   fetchSignalRuns,
+  resolveSignalsPreset,
   resolveSignalsConversationId,
   deliverSignalsForUser,
 };

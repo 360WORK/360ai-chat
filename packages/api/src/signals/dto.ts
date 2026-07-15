@@ -21,7 +21,7 @@ export interface TSignalRun {
   id: string;
   signalId: string;
   signalName: string | null;
-  status: 'succeeded' | 'failed' | 'no_change';
+  status: 'queued' | 'running' | 'succeeded' | 'failed' | 'no_change';
   /** Markdown summary; null for no_change / empty runs (never delivered). */
   summary: string | null;
   createdAt: string | null;

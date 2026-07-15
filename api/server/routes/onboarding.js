@@ -1,8 +1,14 @@
 'use strict';
 
 const express = require('express');
+const { logger } = require('@librechat/data-schemas');
 const { requireJwtAuth } = require('~/server/middleware');
-const { getOnboardingStatus, refreshUserClaims, saveOnboardingProfile } = require('~/server/services/Onboarding');
+const { invalidateAcumenProfile } = require('~/server/controllers/agents/acumen');
+const {
+  getOnboardingStatus,
+  refreshUserClaims,
+  saveOnboardingProfile,
+} = require('~/server/services/Onboarding');
 
 const router = express.Router();
 router.use(requireJwtAuth);
@@ -18,6 +24,7 @@ router.get('/status', async (req, res) => {
     await refreshUserClaims(req.user, status);
     res.json({ onboarding: status });
   } catch (error) {
+    logger.warn('[GET /onboarding/status] Failed to load onboarding status:', error);
     res.status(502).json({ error: 'Failed to load onboarding status.' });
   }
 });
@@ -37,9 +44,15 @@ router.put('/profile', async (req, res) => {
   }
 
   try {
-    const result = await saveOnboardingProfile(req.user, { scope, profile, tailoredPrompts: tailored_prompts });
+    const result = await saveOnboardingProfile(req.user, {
+      scope,
+      profile,
+      tailoredPrompts: tailored_prompts,
+    });
+    invalidateAcumenProfile(req.user.id);
     res.json(result);
-  } catch (_error) {
+  } catch (error) {
+    logger.warn('[PUT /onboarding/profile] Failed to save onboarding profile:', error);
     res.status(502).json({ error: 'Failed to save onboarding profile.' });
   }
 });

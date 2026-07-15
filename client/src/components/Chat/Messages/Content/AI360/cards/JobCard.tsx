@@ -1,5 +1,6 @@
 import type { Job } from '../types';
 import { useLocalize } from '~/hooks';
+import { safeHref } from '../href';
 import { cn } from '~/utils';
 import { Pill } from '../Bits';
 
@@ -17,7 +18,7 @@ export default function JobCard({ job, variant }: { job: Job; variant: 'search' 
           .filter(Boolean)
           .join(' · ');
   const pill = variant === 'search' ? job.workplace_type : job.status;
-  const href = variant === 'search' ? job.posting_url || undefined : undefined;
+  const href = variant === 'search' ? safeHref(job.posting_url) : undefined;
   const className = cn(
     'flex items-center gap-3 rounded-xl border border-ai360-card-border bg-ai360-card px-3 py-2.5',
     'transition-colors hover:bg-surface-secondary',

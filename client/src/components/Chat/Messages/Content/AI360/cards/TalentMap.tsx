@@ -3,6 +3,7 @@ import Supercluster from 'supercluster';
 import { useEffect, useMemo, useState, useCallback } from 'react';
 import type { Talent } from '../types';
 import { Map, useMap, MapMarker, MarkerContent, MarkerTooltip, MarkerPopup } from '../map/Map';
+import { safeHref } from '../href';
 import { Avatar } from '../Bits';
 import { useLocalize } from '~/hooks';
 
@@ -55,18 +56,18 @@ function TalentHoverCard({
   withProfileLink?: boolean;
 }) {
   const meta = [talent.title, talent.current_company].filter(Boolean).join(' · ');
-  const profileUrl = talent.profile_url || talent.linkedin_url || undefined;
+  const profileUrl = safeHref(talent.profile_url) ?? safeHref(talent.linkedin_url);
   return (
-    <div className="flex flex-col p-3 w-60 bg-neutral-900 rounded-xl shadow-xl">
+    <div className="flex w-60 flex-col rounded-xl bg-neutral-900 p-3 shadow-xl">
       <div className="flex items-start gap-2">
         <div className="shrink-0">
           <Avatar src={talent.avatar} name={talent.name} />
         </div>
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-semibold text-white capitalize">{talent.name}</p>
-          {meta ? <p className="truncate text-xs text-gray-300 mt-0.5">{meta}</p> : null}
+          <p className="truncate text-sm font-semibold capitalize text-white">{talent.name}</p>
+          {meta ? <p className="mt-0.5 truncate text-xs text-gray-300">{meta}</p> : null}
           {talent.location ? (
-            <p className="truncate text-xs text-gray-400 mt-0.5">{talent.location}</p>
+            <p className="mt-0.5 truncate text-xs text-gray-400">{talent.location}</p>
           ) : null}
           {talent.open_to_work === true ? (
             <div className="mt-1.5">
@@ -194,13 +195,13 @@ function ClusterLayer({
                 <button
                   type="button"
                   onClick={handleClick}
-                  className="relative flex items-center justify-center cursor-pointer"
+                  className="relative flex cursor-pointer items-center justify-center"
                   aria-label={`Cluster of ${count} talents`}
                 >
-                  <div className="size-10 rounded-full ring-2 ring-white shadow-lg overflow-hidden [&>img]:size-10 [&>div]:size-10">
+                  <div className="size-10 overflow-hidden rounded-full shadow-lg ring-2 ring-white [&>div]:size-10 [&>img]:size-10">
                     {rep ? <Avatar src={rep.avatar} name={rep.name} /> : null}
                   </div>
-                  <span className="absolute -bottom-1 -right-1 flex items-center justify-center min-w-[18px] h-[18px] rounded-full bg-blue-600 text-white text-[10px] font-bold px-1 shadow">
+                  <span className="absolute -bottom-1 -right-1 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-blue-600 px-1 text-[10px] font-bold text-white shadow">
                     +{count}
                   </span>
                 </button>
@@ -212,16 +213,24 @@ function ClusterLayer({
         const pf = feature as PointFeature;
         const t = pf.properties.talent;
         return (
-          <MapMarker key={`talent-${String(t.id ?? `${lng},${lat}`)}`} longitude={lng} latitude={lat}>
+          <MapMarker
+            key={`talent-${String(t.id ?? `${lng},${lat}`)}`}
+            longitude={lng}
+            latitude={lat}
+          >
             <MarkerContent>
-              <div className="group size-8 rounded-full ring-2 ring-white shadow-md transition-transform hover:scale-110 [&>img]:size-8 [&>div]:size-8">
+              <div className="group size-8 rounded-full shadow-md ring-2 ring-white transition-transform hover:scale-110 [&>div]:size-8 [&>img]:size-8">
                 <Avatar src={t.avatar} name={t.name} />
               </div>
             </MarkerContent>
             <MarkerTooltip offset={20} anchor="top">
               <TalentHoverCard talent={t} localize={localize} />
             </MarkerTooltip>
-            <MarkerPopup className="w-auto p-0 bg-transparent border-0 shadow-none" closeButton offset={14}>
+            <MarkerPopup
+              className="w-auto border-0 bg-transparent p-0 shadow-none"
+              closeButton
+              offset={14}
+            >
               <TalentHoverCard talent={t} localize={localize} withProfileLink />
             </MarkerPopup>
           </MapMarker>

@@ -10,9 +10,17 @@
  * restarted. The refresh_token was stored at login but never used.
  *
  * Fix: before relying on the access token, refresh it via the OIDC
- * refresh_token grant if it is expired or close to expiring, persisting the new
- * tokens to the session + user document so every subsequent caller (the agent
- * MCP path, onboarding, acumen, signals) reads a fresh token.
+ * refresh_token grant if it is expired or close to expiring. The refreshed
+ * tokens are applied to the session and the in-memory user for the current
+ * request; persistence is session-scoped by design — tokens are never written
+ * to the user document (the schema has no such field, and storing plaintext
+ * OAuth tokens at rest is undesirable). If the session is unavailable the
+ * refresh only benefits the current request.
+ *
+ * Concurrency: Laravel Passport rotates refresh tokens (single-use), so
+ * concurrent requests must not each run their own refresh grant. A per-user
+ * in-flight lock ensures one grant runs at a time; concurrent callers await
+ * the same promise and all receive the same refreshed tokens.
  */
 
 const client = require('openid-client');
@@ -22,6 +30,17 @@ const logger = require('~/config/winston');
 const EXPIRY_SKEW_SECONDS = 60;
 
 let cachedConfig = null;
+
+/** @type {Map<string, Promise<RefreshedTokens | null>>} per-user in-flight refresh grants */
+const inflightRefreshes = new Map();
+
+/**
+ * @typedef {object} RefreshedTokens
+ * @property {string} access_token
+ * @property {string} refresh_token
+ * @property {number | undefined} expires_at - unix seconds
+ * @property {number} refreshed_at - epoch ms
+ */
 
 /**
  * Lazily build (and cache) the openid-client Configuration from the same env
@@ -59,15 +78,60 @@ function isExpired(expiresAtSeconds, skewSeconds = EXPIRY_SKEW_SECONDS) {
 }
 
 /**
+ * Seconds until expiry from an openid-client v6 token endpoint response.
+ * v6 responses expose `expires_in` (seconds) and an `expiresIn()` helper —
+ * there is no `expires_at` field. Handles both the response class and a plain
+ * object defensively.
+ */
+function resolveExpiresIn(grant) {
+  if (typeof grant?.expiresIn === 'function') {
+    const seconds = Number(grant.expiresIn());
+    if (Number.isFinite(seconds)) {
+      return seconds;
+    }
+  }
+  const seconds = Number(grant?.expires_in);
+  return Number.isFinite(seconds) ? seconds : undefined;
+}
+
+/**
+ * Run the refresh_token grant. Never throws: returns the refreshed token
+ * bundle, or null on failure (revoked refresh token, provider down, etc.).
+ * @returns {Promise<RefreshedTokens | null>}
+ */
+async function executeRefresh(refreshToken) {
+  try {
+    const config = await getConfig();
+    const grant = await client.refreshTokenGrant(config, refreshToken);
+    const expiresIn = resolveExpiresIn(grant);
+    const refreshedAt = Date.now();
+    logger.info('[openIdTokenRefresh] refreshed OIDC access token');
+    return {
+      access_token: grant.access_token,
+      refresh_token: grant.refresh_token || refreshToken, // rotation optional
+      expires_at: expiresIn !== undefined ? Math.floor(refreshedAt / 1000) + expiresIn : undefined,
+      refreshed_at: refreshedAt,
+    };
+  } catch (err) {
+    logger.warn(`[openIdTokenRefresh] refresh failed: ${err?.message || err}`);
+    return null;
+  }
+}
+
+/**
  * Ensure the user has a non-expired OIDC access token, refreshing via the
- * stored refresh_token if needed. Mutates + persists:
+ * stored refresh_token if needed. Mutates:
  *  - `req.session.openidTokens` (accessToken / refreshToken / expiresAt)
  *  - `user.federatedTokens` (in-memory, for the current request's callers)
- *  - the user document (so it survives across requests if session is absent)
  *
- * Best-effort and never throws: on any failure it returns the user unchanged so
- * the caller proceeds with whatever token it has (the MCP call will 401 and the
- * route surfaces that, rather than crashing the request).
+ * Persistence is session-scoped by design: tokens are not written to the user
+ * document. Concurrent requests for the same user share a single in-flight
+ * refresh grant (Passport rotates refresh tokens, so a second grant with the
+ * same token would fail and could revoke the stored token).
+ *
+ * Best-effort and never throws: on any failure it returns the user unchanged
+ * so the caller proceeds with whatever token it has (the MCP call will 401 and
+ * the route surfaces that, rather than crashing the request).
  *
  * @param {object} user - Passport user (carries federatedTokens).
  * @param {object} [session] - req.session (where openidTokens live).
@@ -91,50 +155,38 @@ async function refreshOpenIdTokenIfNeeded(user, session) {
     return user;
   }
 
-  try {
-    const config = await getConfig();
-    const grant = await client.refreshTokenGrant(config, refreshToken);
-    const newAccess = grant.access_token;
-    const newRefresh = grant.refresh_token || refreshToken; // rotation optional
-    const newExpiresAt = grant.expires_at
-      ? Math.floor(Number(grant.expires_at) / 1000)
-      : undefined;
+  const lockKey = String(user.id ?? user._id ?? refreshToken);
+  let pending = inflightRefreshes.get(lockKey);
+  if (!pending) {
+    pending = executeRefresh(refreshToken).finally(() => {
+      inflightRefreshes.delete(lockKey);
+    });
+    inflightRefreshes.set(lockKey, pending);
+  }
 
-    // Persist to the session (authoritative store read by openIdJwtStrategy).
-    if (session) {
-      session.openidTokens = {
-        ...(session.openidTokens || {}),
-        accessToken: newAccess,
-        refreshToken: newRefresh,
-        expiresAt: newExpiresAt ? newExpiresAt * 1000 : session.openidTokens?.expiresAt,
-        lastRefreshedAt: Date.now(),
-      };
-    }
+  const tokens = await pending;
+  if (!tokens) {
+    return user;
+  }
 
-    // Update the in-memory user for the current request's callers (agent MCP,
-    // onboarding, acumen, signals all read user.federatedTokens).
-    user.federatedTokens = {
-      ...fed,
-      access_token: newAccess,
-      refresh_token: newRefresh,
-      expires_at: newExpiresAt ?? fed.expires_at,
+  // Update the in-memory user for the current request's callers (agent MCP,
+  // onboarding, acumen, signals all read user.federatedTokens).
+  user.federatedTokens = {
+    ...fed,
+    access_token: tokens.access_token,
+    refresh_token: tokens.refresh_token,
+    expires_at: tokens.expires_at ?? fed.expires_at,
+  };
+
+  // Persist to this caller's session (authoritative store read by openIdJwtStrategy).
+  if (session) {
+    session.openidTokens = {
+      ...(session.openidTokens || {}),
+      accessToken: tokens.access_token,
+      refreshToken: tokens.refresh_token,
+      expiresAt: tokens.expires_at ? tokens.expires_at * 1000 : session.openidTokens?.expiresAt,
+      lastRefreshedAt: tokens.refreshed_at,
     };
-
-    // Persist to the user document so it survives if the session is unavailable.
-    try {
-      const { updateUser } = require('~/models');
-      await updateUser(user.id, {
-        federatedTokens: user.federatedTokens,
-      });
-    } catch (persistErr) {
-      logger.warn('[openIdTokenRefresh] could not persist refreshed token', persistErr);
-    }
-
-    logger.info('[openIdTokenRefresh] refreshed OIDC access token');
-  } catch (err) {
-    // Refresh failed (revoked refresh token, provider down, etc.). Don't crash;
-    // let the downstream MCP call surface the 401. The user may need to re-login.
-    logger.warn(`[openIdTokenRefresh] refresh failed: ${err?.message || err}`);
   }
 
   return user;

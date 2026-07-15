@@ -12,7 +12,7 @@ import { cn } from '~/utils';
 
 const TalentMap = lazy(() => import('./cards/TalentMap'));
 
-export { is360Tool } from './tools';
+export { is360Tool, AI360_MCP_SERVER } from './tools';
 export { parse360Output } from './parse';
 
 type Localize = ReturnType<typeof useLocalize>;
@@ -32,7 +32,10 @@ function TalentsResult({ result }: { result: Extract<Parsed360Result, { kind: 't
             type="button"
             onClick={() => setView('list')}
             aria-pressed={view === 'list'}
-            className={cn('rounded-md px-2.5 py-1 text-xs', view === 'list' ? 'bg-ai360-action-bg text-ai360-action' : 'text-text-secondary')}
+            className={cn(
+              'rounded-md px-2.5 py-1 text-xs',
+              view === 'list' ? 'bg-ai360-action-bg text-ai360-action' : 'text-text-secondary',
+            )}
           >
             {localize('com_ui_360_list_view')}
           </button>
@@ -40,7 +43,10 @@ function TalentsResult({ result }: { result: Extract<Parsed360Result, { kind: 't
             type="button"
             onClick={() => setView('map')}
             aria-pressed={view === 'map'}
-            className={cn('rounded-md px-2.5 py-1 text-xs', view === 'map' ? 'bg-ai360-action-bg text-ai360-action' : 'text-text-secondary')}
+            className={cn(
+              'rounded-md px-2.5 py-1 text-xs',
+              view === 'map' ? 'bg-ai360-action-bg text-ai360-action' : 'text-text-secondary',
+            )}
           >
             {localize('com_ui_360_map_view')}
           </button>
@@ -65,7 +71,10 @@ function TalentsResult({ result }: { result: Extract<Parsed360Result, { kind: 't
   );
 }
 
-const RENDERERS: Record<Parsed360Result['kind'], (result: Parsed360Result, localize: Localize) => JSX.Element> = {
+const RENDERERS: Record<
+  Parsed360Result['kind'],
+  (result: Parsed360Result, localize: Localize) => JSX.Element
+> = {
   companies: (r, localize) => {
     const { companies, count } = r as Extract<Parsed360Result, { kind: 'companies' }>;
     return (

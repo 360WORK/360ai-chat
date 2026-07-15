@@ -1,3 +1,4 @@
+import type { PersonalProfileKey } from '../onboarding/interview';
 import type { BusinessType } from './types';
 
 const BUSINESS_TYPE_MAP: Record<string, BusinessType> = {
@@ -21,14 +22,18 @@ export interface CompanyProfileData {
   hiring_volume?: string | string[];
 }
 
-export interface PersonalProfileData {
-  desk?: string | string[];
-  role?: string | string[];
-  seniority_focus?: string | string[];
-  geographies?: string | string[];
-  workflow?: string | string[];
-  copilot_goals?: string | string[];
-}
+export const LEGACY_PERSONAL_KEYS = [
+  'seniority_focus',
+  'geographies',
+  'workflow',
+  'copilot_goals',
+] as const;
+
+type LegacyPersonalKey = (typeof LEGACY_PERSONAL_KEYS)[number];
+
+type ProfileValue = string | string[];
+
+export type PersonalProfileData = Partial<Record<PersonalProfileKey | LegacyPersonalKey, ProfileValue>>;
 
 const asText = (v: string | string[] | undefined): string | null => {
   if (Array.isArray(v)) {
@@ -65,9 +70,19 @@ export const buildUserContextSummary = (input: {
       line('You', [
         ['role', p.role],
         ['desk', p.desk],
-        ['seniority focus', p.seniority_focus],
-        ['geographies', p.geographies],
-        ['workflow', p.workflow],
+        ['how you work', p.how_we_work ?? p.workflow],
+        ['recruits', p.recruits],
+        ['seniority', p.seniority ?? p.level ?? p.seniority_focus],
+        ['regions', p.regions ?? p.geographies],
+        ['search start', p.search_start],
+        ['practice areas', p.practice_areas],
+        ['functions', p.functions],
+        ['engagement model', p.model],
+        ['hiring profile', p.profile],
+        ['sectors', p.sectors],
+        ['company does', p.company_does],
+        ['hires for', p.hire_for],
+        ['uses 360AI for', p.use_for],
         ['goals', p.copilot_goals],
       ]),
   ].filter((l): l is string => Boolean(l));

@@ -1,55 +1,11 @@
 'use strict';
 
-const { CacheKeys } = require('librechat-data-provider');
-const { getMCPServersRegistry, getFlowStateManager, getMCPManager } = require('~/config');
-const { getLogStores } = require('~/cache');
-const db = require('~/models');
-
-const { findToken, createToken, updateToken, deleteTokens } = db;
-
-const SERVER_NAME = '360ai';
-
-/**
- * Parses the raw result returned by mcpManager.callTool into a plain object.
- * Handles three shapes:
- *  1. Already-parsed object (no `content` array) — returned directly.
- *  2. `{ isError: true, content: [{ text }] }` — throws the error text.
- *  3. `{ content: [{ text }] }` — JSON-parses `text` and returns the result.
- *
- * @param {unknown} result
- * @returns {object}
- */
-function parseToolResult(result) {
-  if (result && result.isError) {
-    const text = result.content?.[0]?.text ?? 'MCP tool returned an error';
-    throw new Error(text);
-  }
-
-  if (result && result.structuredContent !== undefined && result.structuredContent !== null && !Array.isArray(result.structuredContent)) {
-    return result.structuredContent;
-  }
-
-  if (!result || !Array.isArray(result.content)) {
-    return result;
-  }
-
-  const text = result.content[0]?.text;
-  if (text == null) {
-    throw new Error('Empty MCP tool result.');
-  }
-  return JSON.parse(text);
-}
+const { parseToolResult, callMcp360Tool } = require('./mcp360');
 
 /**
  * Calls a tool on the 360ai MCP server authenticated as the given user.
- * Mirrors the MCP.js createToolInstance/_call pattern exactly:
- *  - getMCPManager(userId) for the per-user manager
- *  - getFlowStateManager(getLogStores(CacheKeys.FLOWS)) for OAuth flows
- *  - getMCPServersRegistry().getServerConfig(SERVER_NAME, userId) for serverConfig
- *  - provider left undefined (not an LLM provider context)
- *  - tokenMethods from ~/models (findToken/createToken/updateToken/deleteTokens)
- *  - user carries federatedTokens so processMCPEnv resolves {{LIBRECHAT_OPENID_ACCESS_TOKEN}}
- *  - requestBody/customUserVars/oauthStart/oauthEnd omitted (not applicable outside agent loop)
+ * Thin alias over the shared `callMcp360Tool` (services/mcp360.js), kept so
+ * the onboarding surface's public API is stable.
  *
  * @param {import('@librechat/data-schemas').IUser} user - Passport-populated req.user
  * @param {string} toolName - e.g. 'get_onboarding' or 'save_onboarding_profile'
@@ -57,39 +13,7 @@ function parseToolResult(result) {
  * @returns {Promise<object>} Parsed JSON returned by the MCP tool
  */
 async function callOnboardingTool(user, toolName, toolArguments = {}) {
-  const userId = user?.id;
-  const flowsCache = getLogStores(CacheKeys.FLOWS);
-  const flowManager = getFlowStateManager(flowsCache);
-  const mcpManager = getMCPManager(userId);
-  const serverConfig = await getMCPServersRegistry().getServerConfig(SERVER_NAME, userId);
-
-  const result = await mcpManager.callTool({
-    serverName: SERVER_NAME,
-    serverConfig,
-    toolName,
-    toolArguments,
-    provider: undefined,
-    user,
-    requestBody: undefined,
-    requestScopedConnections: undefined,
-    customUserVars: undefined,
-    flowManager,
-    tokenMethods: {
-      findToken,
-      createToken,
-      updateToken,
-      deleteTokens,
-    },
-    // 360ai uses Bearer auth (no OBO); options/oboTrustChecker mirror MCP.js's call shape
-    options: {},
-    oauthStart: undefined,
-    oauthEnd: undefined,
-    graphTokenResolver: undefined,
-    oboTokenResolver: undefined,
-    oboTrustChecker: undefined,
-  });
-
-  return parseToolResult(result);
+  return callMcp360Tool(user, toolName, toolArguments);
 }
 
 /**
@@ -111,16 +35,27 @@ async function getOnboardingStatus(user) {
   };
 }
 
+const CLAIM_FIELDS = [
+  'isOwner',
+  'role',
+  'clientId',
+  'clientName',
+  'companyOnboarded',
+  'personalOnboarded',
+];
+
 /**
  * Maps the nested snake_case `get_onboarding` result to flat camelCase `TOnboardingClaims`
- * and persists it on the user document via `updateUser`.
+ * and persists it on the user document via `updateUser`. The Mongo write is skipped when
+ * the derived claims match the already-persisted `user.oidcClaims`. When an onboarding
+ * flag transitions to true, the Acumen profile cache is invalidated so the chat server
+ * picks up the new profile immediately.
  *
  * @param {import('@librechat/data-schemas').IUser} user
  * @param {object} status - Result of `getOnboardingStatus`
- * @returns {Promise<object>} The persisted camelCase claims
+ * @returns {Promise<object>} The derived camelCase claims
  */
 async function refreshUserClaims(user, status) {
-  const { updateUser } = require('~/models');
   const oidcClaims = {
     isOwner: !!status.is_owner,
     role: status.is_owner ? 'owner' : 'member',
@@ -129,6 +64,19 @@ async function refreshUserClaims(user, status) {
     companyOnboarded: !!status.company?.completed,
     personalOnboarded: !!status.personal?.completed,
   };
+  const existing = user.oidcClaims || {};
+  const changed = CLAIM_FIELDS.some((field) => existing[field] !== oidcClaims[field]);
+  if (!changed) {
+    return oidcClaims;
+  }
+  const onboardedNow =
+    (oidcClaims.companyOnboarded && !existing.companyOnboarded) ||
+    (oidcClaims.personalOnboarded && !existing.personalOnboarded);
+  if (onboardedNow) {
+    const { invalidateAcumenProfile } = require('~/server/controllers/agents/acumen');
+    invalidateAcumenProfile(user.id);
+  }
+  const { updateUser } = require('~/models');
   await updateUser(user.id, { oidcClaims });
   return oidcClaims;
 }
@@ -148,4 +96,10 @@ async function saveOnboardingProfile(user, { scope, profile, tailoredPrompts }) 
   return callOnboardingTool(user, 'save_onboarding_profile', args);
 }
 
-module.exports = { parseToolResult, callOnboardingTool, getOnboardingStatus, refreshUserClaims, saveOnboardingProfile };
+module.exports = {
+  parseToolResult,
+  callOnboardingTool,
+  getOnboardingStatus,
+  refreshUserClaims,
+  saveOnboardingProfile,
+};

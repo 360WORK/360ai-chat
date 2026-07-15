@@ -2,7 +2,6 @@ import {
   digestMessageId,
   formatDigest,
   deliverNewSignalRuns,
-  SIGNAL_DIGEST_MARKER_PREFIX,
   type SignalsDeliveryDeps,
 } from './delivery';
 import type { TSignalRun, TSignalRunsToolResult } from './dto';
@@ -39,6 +38,11 @@ describe('formatDigest', () => {
   it('trims surrounding whitespace from the summary', () => {
     const out = formatDigest(run({ summary: '  hello  ' }));
     expect(out!.text).toBe('hello');
+  });
+
+  it('does not append a signal-digest marker to the stored text', () => {
+    const out = formatDigest(run({ id: 'abc', summary: 'plain summary' }));
+    expect(out!.text).not.toContain('<!--signal-digest');
   });
 });
 
@@ -163,9 +167,5 @@ describe('deliverNewSignalRuns', () => {
     expect(res).toEqual({ delivered: 1 });
     expect(saved).toHaveLength(1);
     expect(saved[0]).toContain('second');
-  });
-
-  it('marker prefix is the documented HTML comment', () => {
-    expect(SIGNAL_DIGEST_MARKER_PREFIX).toBe('<!--signal-digest:');
   });
 });

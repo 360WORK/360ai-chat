@@ -96,7 +96,7 @@ export default function useTextarea({
       }
 
       return `${localize('com_endpoint_message_new', {
-        0: '360AI Agent',
+        0: entityName || '360AI Agent',
       })}`;
     };
 

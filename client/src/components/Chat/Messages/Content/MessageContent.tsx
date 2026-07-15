@@ -13,6 +13,8 @@ import Container from './Container';
 import Markdown from './Markdown';
 import { cn } from '~/utils';
 import store from '~/store';
+import { stripOnboardingMarkers } from '~/components/Onboarding/onboardingSchema';
+import { stripConfirmMarkers } from '~/components/Acumen/confirmSchema';
 
 const ERROR_CONNECTION_TEXT = 'Error connecting to server, try refreshing the page.';
 const DELAYED_ERROR_TIMEOUT = 5500;
@@ -102,7 +104,12 @@ const DisplayMessage = ({ text, isCreatedByUser, message, showCursor }: TDisplay
 
   const content = useMemo(() => {
     if (!isCreatedByUser) {
-      return <Markdown content={text} isLatestMessage={isLatestMessage} />;
+      // Hide the agent's machine-readable onboarding markers (the step-id
+      // HTML comment and any inline onboarding JSON block) and acumen-confirm
+      // blocks from the rendered transcript. The pill UI and the confirm dock
+      // read them separately; users shouldn't see them.
+      const cleanText = stripConfirmMarkers(stripOnboardingMarkers(text));
+      return <Markdown content={cleanText} isLatestMessage={isLatestMessage} />;
     }
     if (enableUserMsgMarkdown) {
       return <MarkdownLite content={text} />;

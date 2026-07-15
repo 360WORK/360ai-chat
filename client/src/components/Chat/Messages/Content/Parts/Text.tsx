@@ -5,6 +5,8 @@ import Markdown from '~/components/Chat/Messages/Content/Markdown';
 import { useMessageContext } from '~/Providers';
 import { cn } from '~/utils';
 import store from '~/store';
+import { stripOnboardingMarkers } from '~/components/Onboarding/onboardingSchema';
+import { stripConfirmMarkers } from '~/components/Acumen/confirmSchema';
 
 type TextPartProps = {
   text: string;
@@ -24,7 +26,11 @@ const TextPart = memo(function TextPart({ text, isCreatedByUser, showCursor }: T
 
   const content: ContentType = useMemo(() => {
     if (!isCreatedByUser) {
-      return <Markdown content={text} isLatestMessage={isLatestMessage} />;
+      // Hide the agent's onboarding markers (step-id comment + inline spec)
+      // and acumen-confirm blocks from the transcript. The pill UI and the
+      // confirm dock read them separately.
+      const cleanText = stripConfirmMarkers(stripOnboardingMarkers(text));
+      return <Markdown content={cleanText} isLatestMessage={isLatestMessage} />;
     } else if (enableUserMsgMarkdown) {
       return <MarkdownLite content={text} />;
     } else {

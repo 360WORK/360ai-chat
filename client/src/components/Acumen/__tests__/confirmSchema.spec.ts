@@ -73,6 +73,26 @@ describe('stripConfirmMarkers', () => {
   it('passes through text without a block unchanged (minus trim)', () => {
     expect(stripConfirmMarkers('hello world')).toBe('hello world');
   });
+
+  it('strips a mid-stream UNCLOSED fence (no closing ``` yet)', () => {
+    const text = 'Let me confirm.\n\n```acumen-confirm\n{ "id": "cfo-search-frame", "title": "Run';
+    expect(stripConfirmMarkers(text)).toBe('Let me confirm.');
+  });
+
+  it('strips an unclosed fence whose closing fence is only partial (``)', () => {
+    const text = 'Let me confirm.\n\n```acumen-confirm\n{ "id": "x" }\n``';
+    expect(stripConfirmMarkers(text)).toBe('Let me confirm.');
+  });
+
+  it('strips a partial trailing bare marker with no closing -->', () => {
+    const text = 'Ready to run.\n<!--acumen-confirm:cfo-sear';
+    expect(stripConfirmMarkers(text)).toBe('Ready to run.');
+  });
+
+  it('still strips a complete block followed by an unclosed streaming one', () => {
+    const text = `First.\n\n${frameBlock(validFrame)}\n\nSecond.\n\n\`\`\`acumen-confirm\n{ "id"`;
+    expect(stripConfirmMarkers(text)).toBe('First.\n\nSecond.');
+  });
 });
 
 describe('ACUMEN_CONFIRM_BLOCK regex', () => {

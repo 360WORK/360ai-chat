@@ -1,3 +1,5 @@
+import { ACUMEN_USE_CASE_IDS } from 'librechat-data-provider';
+
 export type LayerKind = 'foundations' | 'core' | 'profile' | 'lens';
 
 export const BUSINESS_TYPES = [
@@ -10,15 +12,8 @@ export const BUSINESS_TYPES = [
 ] as const;
 export type BusinessType = (typeof BUSINESS_TYPES)[number];
 
-export const USE_CASE_IDS = [
-  'talent-mapping',
-  'market-mapping',
-  'skill-mapping',
-  'workforce-planning',
-  'prospecting',
-  'signal-tracking',
-  'recruitment-research',
-] as const;
+/** Canonical use-case ids live in data-provider (shared with the client cards). */
+export const USE_CASE_IDS: typeof ACUMEN_USE_CASE_IDS = ACUMEN_USE_CASE_IDS;
 export type UseCaseId = (typeof USE_CASE_IDS)[number];
 
 export const isBusinessType = (v: string): v is BusinessType =>

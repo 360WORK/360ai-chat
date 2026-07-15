@@ -368,7 +368,7 @@ mcpSettings:
 mcpServers:
   360ai:
     type: streamable-http
-    url: https://360ai.test/mcp/api
+    url: '${MCP_360AI_URL}'
     headers:
       Authorization: 'Bearer {{LIBRECHAT_OPENID_ACCESS_TOKEN}}'
     startup: false

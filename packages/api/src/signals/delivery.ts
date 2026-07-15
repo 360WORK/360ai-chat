@@ -9,17 +9,12 @@ import { mapSignalRunsResult } from './dto';
  */
 export const SIGNAL_DIGEST_NAMESPACE = 'c1a5e7a0-5d8a-4b2e-9f1a-360a1c5e0001';
 
-/** HTML-comment marker appended to every digest message (forward-compatible). */
-export const SIGNAL_DIGEST_MARKER_PREFIX = '<!--signal-digest:';
-
 export function digestMessageId(runId: string): string {
   return uuidv5(`signal-digest:${runId}`, SIGNAL_DIGEST_NAMESPACE);
 }
 
 /**
- * The assistant-visible digest text for a run: the run's summary followed by a
- * trailing machine-readable marker line. The marker is stripped before render
- * on the client; later it can drive a rich card renderer.
+ * The assistant-visible digest text for a run: the run's trimmed summary.
  *
  * Runs without a summary (`no_change` or empty) are not deliverable — callers
  * filter them first; this function returns null for them as a guardrail.

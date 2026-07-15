@@ -1,8 +1,45 @@
 'use strict';
 
 const express = require('express');
+const { logger } = require('@librechat/data-schemas');
 const { requireJwtAuth } = require('~/server/middleware');
 const { deliverSignalsForUser, callSignalTool } = require('../services/SignalsDelivery');
+
+const SIGNALS_UNREACHABLE_ERROR =
+  'Could not reach the signals service. If this persists, try logging out and back in.';
+
+const RUNS_CACHE_TTL_MS = 4000;
+const RUNS_CACHE_MAX_USERS = 500;
+/**
+ * Tiny per-user cache for the upstream runs-list fetch used by the run-status
+ * poll. The client polls GET /run/:runId on an interval; without this every
+ * tick refetches the user's entire get_signal_runs list from the MCP server.
+ * Caching the in-flight promise also coalesces concurrent ticks.
+ *
+ * @type {Map<string, { at: number; promise: Promise<object> }>}
+ */
+const runsListCache = new Map();
+
+/** Fetch the user's runs list with a short-lived per-user cache. */
+function fetchRunsList(user) {
+  const now = Date.now();
+  const cached = runsListCache.get(user.id);
+  if (cached && now - cached.at < RUNS_CACHE_TTL_MS) {
+    return cached.promise;
+  }
+  const entry = { at: now, promise: callSignalTool(user, 'get_signal_runs', {}) };
+  entry.promise.catch(() => {
+    if (runsListCache.get(user.id) === entry) {
+      runsListCache.delete(user.id);
+    }
+  });
+  runsListCache.set(user.id, entry);
+  if (runsListCache.size > RUNS_CACHE_MAX_USERS) {
+    const oldestKey = runsListCache.keys().next().value;
+    runsListCache.delete(oldestKey);
+  }
+  return entry.promise;
+}
 
 const router = express.Router();
 router.use(requireJwtAuth);
@@ -34,6 +71,7 @@ router.post('/sync', async (req, res) => {
     const { delivered } = await deliverSignalsForUser(req.user);
     return res.json({ delivered });
   } catch (err) {
+    logger.warn('[POST /signals/sync] Failed to deliver signal digests:', err);
     return res.json({ delivered: 0 });
   }
 });
@@ -51,9 +89,8 @@ router.get('/', async (req, res) => {
     const signals = Array.isArray(raw?.signals) ? raw.signals.map(toSignal).filter(Boolean) : [];
     return res.json({ signals });
   } catch (err) {
-    return res.status(502).json({
-      error: 'Could not reach the signals service. If this persists, try logging out and back in.',
-    });
+    logger.warn('[GET /signals] Failed to list signals:', err);
+    return res.status(502).json({ error: SIGNALS_UNREACHABLE_ERROR });
   }
 });
 
@@ -65,7 +102,7 @@ router.get('/', async (req, res) => {
  */
 router.get('/run/:runId', async (req, res) => {
   try {
-    const raw = await callSignalTool(req.user, 'get_signal_runs', {});
+    const raw = await fetchRunsList(req.user);
     const runs = Array.isArray(raw?.runs) ? raw.runs : [];
     const run = runs.find((r) => r && r.id === req.params.runId);
     if (!run) {
@@ -78,9 +115,8 @@ router.get('/run/:runId', async (req, res) => {
       createdAt: run.created_at ?? null,
     });
   } catch (err) {
-    return res.status(502).json({
-      error: 'Could not reach the signals service. If this persists, try logging out and back in.',
-    });
+    logger.warn('[GET /signals/run/:runId] Failed to load signal run:', err);
+    return res.status(502).json({ error: SIGNALS_UNREACHABLE_ERROR });
   }
 });
 
@@ -94,9 +130,8 @@ router.post('/', async (req, res) => {
       signal_json: JSON.stringify(req.body ?? {}),
     });
     if (!created || !created.id) {
-      return res.status(422).json({
-        error: typeof created === 'string' ? created : 'Could not create signal.',
-      });
+      logger.warn('[POST /signals] Unexpected create_signal result:', created);
+      return res.status(422).json({ error: 'Could not create signal.' });
     }
     return res.status(201).json({
       id: created.id,
@@ -106,7 +141,8 @@ router.post('/', async (req, res) => {
       isActive: !!created.is_active,
     });
   } catch (err) {
-    return res.status(422).json({ error: err?.message || 'Could not create signal.' });
+    logger.warn('[POST /signals] Failed to create signal:', err);
+    return res.status(422).json({ error: 'Could not create signal.' });
   }
 });
 
@@ -120,9 +156,8 @@ router.post('/:id/run', async (req, res) => {
       signal_id: req.params.id,
     });
     if (!raw || !raw.signal_id) {
-      return res.status(422).json({
-        error: typeof raw === 'string' ? raw : 'Could not run signal.',
-      });
+      logger.warn('[POST /signals/:id/run] Unexpected run_signal_now result:', raw);
+      return res.status(422).json({ error: 'Could not run signal.' });
     }
     return res.json({
       signalId: raw.signal_id,
@@ -131,7 +166,8 @@ router.post('/:id/run', async (req, res) => {
       summaryExcerpt: raw.summary_excerpt ?? null,
     });
   } catch (err) {
-    return res.status(422).json({ error: err?.message || 'Could not run signal.' });
+    logger.warn('[POST /signals/:id/run] Failed to run signal:', err);
+    return res.status(422).json({ error: 'Could not run signal.' });
   }
 });
 
@@ -144,7 +180,8 @@ router.delete('/:id', async (req, res) => {
     await callSignalTool(req.user, 'delete_signal', { signal_id: req.params.id });
     return res.json({ deleted: true, id: req.params.id });
   } catch (err) {
-    return res.status(422).json({ error: err?.message || 'Could not delete signal.' });
+    logger.warn('[DELETE /signals/:id] Failed to delete signal:', err);
+    return res.status(422).json({ error: 'Could not delete signal.' });
   }
 });
 
@@ -159,9 +196,8 @@ router.patch('/:id', async (req, res) => {
       signal_json: JSON.stringify(req.body ?? {}),
     });
     if (!raw || !raw.id) {
-      return res.status(422).json({
-        error: typeof raw === 'string' ? raw : 'Could not update signal.',
-      });
+      logger.warn('[PATCH /signals/:id] Unexpected update_signal result:', raw);
+      return res.status(422).json({ error: 'Could not update signal.' });
     }
     return res.json({
       id: raw.id,
@@ -171,7 +207,8 @@ router.patch('/:id', async (req, res) => {
       isActive: !!raw.is_active,
     });
   } catch (err) {
-    return res.status(422).json({ error: err?.message || 'Could not update signal.' });
+    logger.warn('[PATCH /signals/:id] Failed to update signal:', err);
+    return res.status(422).json({ error: 'Could not update signal.' });
   }
 });
 

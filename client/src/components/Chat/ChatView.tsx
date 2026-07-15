@@ -131,7 +131,8 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
                 {isLandingPage && gateActive ? (
                   <div className={cn('flex flex-col', 'flex-1 items-center justify-center')}>
                     <OnboardingHero isCompanyScope={isCompanyScope} />
-                    <div className="sr-only" aria-hidden="true">
+                    {/* The form must stay mounted for form-context registration; `inert` keeps its content unfocusable (React 18 needs the string-spread form). */}
+                    <div className="sr-only" aria-hidden="true" {...{ inert: '' }}>
                       <ChatForm index={index} placeholder={chatFormPlaceholder} />
                     </div>
                   </div>
@@ -144,7 +145,7 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
                         : 'h-full overflow-y-auto',
                     )}
                   >
-                    {content}
+                    {isLandingPage ? <div className="w-full shrink-0">{content}</div> : content}
                     <div
                       className={cn(
                         'w-full',
@@ -152,8 +153,8 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
                       )}
                     >
                       {isProjectLandingPage && project && <ProjectLandingChip project={project} />}
-                      {isLandingPage && <AcumenWorkspaces />}
                       {isLandingPage && <OnboardingStarters />}
+                      {isLandingPage && <AcumenWorkspaces />}
                       <OnboardingPillDock step={activeStep} submitting={isSubmitting} />
                       <AcumenConfirmDock frame={confirmFrame} submitting={isSubmitting} />
                       <ChatForm index={index} placeholder={chatFormPlaceholder} />

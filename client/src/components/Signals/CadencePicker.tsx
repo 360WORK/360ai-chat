@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import type { TranslationKeys } from '~/hooks';
 import { useLocalize } from '~/hooks';
 
 /**
@@ -10,7 +11,7 @@ import { useLocalize } from '~/hooks';
 
 export type CadenceFrequency = 'weekly' | 'daily' | 'hourly';
 
-const DAYS: Array<{ value: number; cron: number; key: string }> = [
+const DAYS: Array<{ value: number; cron: number; key: TranslationKeys }> = [
   { value: 0, cron: 1, key: 'com_signals_day_mon' },
   { value: 1, cron: 2, key: 'com_signals_day_tue' },
   { value: 2, cron: 3, key: 'com_signals_day_wed' },
@@ -86,7 +87,7 @@ export function parseCron(cron: string): {
 }
 
 /** A human-readable label for a cron, e.g. "Every Monday at 08:00". */
-export function describeCron(cron: string, localize: (k: string) => string): string {
+export function describeCron(cron: string, localize: (k: TranslationKeys) => string): string {
   const { frequency, day, hour, minute } = parseCron(cron);
   const time = `${pad(hour)}:${pad(minute)}`;
   if (frequency === 'hourly') {
@@ -106,14 +107,14 @@ export type CadencePickerProps = {
   onChange: (cron: string) => void;
 };
 
-const FREQUENCIES: Array<{ value: CadenceFrequency; key: string }> = [
+const FREQUENCIES: Array<{ value: CadenceFrequency; key: TranslationKeys }> = [
   { value: 'weekly', key: 'com_signals_freq_weekly' },
   { value: 'daily', key: 'com_signals_freq_daily' },
   { value: 'hourly', key: 'com_signals_freq_hourly' },
 ];
 
 const pillCls = (selected: boolean) =>
-  `inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium transition ${
+  `inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background ${
     selected
       ? 'border-transparent bg-primary text-primary-foreground'
       : 'border-border-light bg-surface-secondary text-text-secondary hover:border-border-medium'
@@ -121,9 +122,6 @@ const pillCls = (selected: boolean) =>
 
 export default function CadencePicker({ value, onChange }: CadencePickerProps) {
   const localize = useLocalize();
-  // `useLocalize` is typed to known keys only; we render keys from arrays, so
-  // widen to a plain string->string for dynamic lookups (runtime is unchanged).
-  const loc = localize as unknown as (k: string) => string;
   const initial = useMemo(() => parseCron(value), []); // eslint-disable-line react-hooks/exhaustive-deps
   const [frequency, setFrequency] = useState<CadenceFrequency>(initial.frequency);
   const [day, setDay] = useState<number>(initial.day);
@@ -133,7 +131,7 @@ export default function CadencePicker({ value, onChange }: CadencePickerProps) {
   // Re-emit a cron whenever any control changes.
   useEffect(() => {
     onChange(buildCron(frequency, day, hour, minute));
-    // eslint-disable-next react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [frequency, day, hour, minute]);
 
   return (
@@ -147,7 +145,7 @@ export default function CadencePicker({ value, onChange }: CadencePickerProps) {
             onClick={() => setFrequency(f.value)}
             className={pillCls(frequency === f.value)}
           >
-            {loc(f.key)}
+            {localize(f.key)}
           </button>
         ))}
       </div>
@@ -162,7 +160,7 @@ export default function CadencePicker({ value, onChange }: CadencePickerProps) {
               onClick={() => setDay(d.value)}
               className={pillCls(day === d.value)}
             >
-              {loc(d.key)}
+              {localize(d.key)}
             </button>
           ))}
         </div>
@@ -170,7 +168,7 @@ export default function CadencePicker({ value, onChange }: CadencePickerProps) {
 
       {frequency === 'hourly' ? (
         <label className="flex items-center gap-2 text-xs text-text-secondary">
-          {loc('com_signals_cadence_at_minute')}
+          {localize('com_signals_cadence_at_minute')}
           <select
             value={minute}
             onChange={(e) => setMinute(Number(e.target.value))}
@@ -185,7 +183,7 @@ export default function CadencePicker({ value, onChange }: CadencePickerProps) {
         </label>
       ) : (
         <label className="flex items-center gap-2 text-xs text-text-secondary">
-          {loc('com_signals_cadence_at_time')}
+          {localize('com_signals_cadence_at_time')}
           <input
             type="time"
             value={`${pad(hour)}:${pad(minute)}`}
@@ -200,7 +198,7 @@ export default function CadencePicker({ value, onChange }: CadencePickerProps) {
       )}
 
       <p className="text-xs font-medium text-text-primary">
-        {describeCron(buildCron(frequency, day, hour, minute), loc)}
+        {describeCron(buildCron(frequency, day, hour, minute), localize)}
       </p>
     </div>
   );

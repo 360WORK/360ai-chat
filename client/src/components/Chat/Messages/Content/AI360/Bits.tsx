@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { ReactNode } from 'react';
 import { Copy, Check, ChevronDown } from 'lucide-react';
 import { useLocalize } from '~/hooks';
+import { safeHref } from './href';
 import { cn } from '~/utils';
 
 export function Pill({ children }: { children: ReactNode }) {
@@ -24,17 +25,28 @@ export function LinkButton({
   if (!href) {
     return null;
   }
+  const safe = safeHref(href);
+  if (!safe) {
+    return (
+      <span className="inline-flex items-center gap-1.5 rounded-lg border border-ai360-card-border px-2.5 py-1 text-xs font-medium text-text-secondary">
+        <span className="shrink-0 [&>svg]:h-3.5 [&>svg]:w-3.5" aria-hidden="true">
+          {icon}
+        </span>
+        <span>{label}</span>
+      </span>
+    );
+  }
   return (
     <a
-      href={href}
+      href={safe}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
       className={cn(
         'inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-xs font-medium',
         'border-ai360-action-border bg-ai360-action-bg text-ai360-action',
-        'transition-colors hover:bg-ai360-action-border/40',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ai360-action/40',
+        'hover:bg-ai360-action-border/40 transition-colors',
+        'focus-visible:ring-ai360-action/40 focus-visible:outline-none focus-visible:ring-2',
       )}
     >
       <span className="shrink-0 [&>svg]:h-3.5 [&>svg]:w-3.5" aria-hidden="true">

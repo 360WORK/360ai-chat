@@ -1,12 +1,16 @@
 /* Onboarding */
 import { QueryKeys, dataService } from 'librechat-data-provider';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
-import type { UseQueryOptions, UseMutationOptions, QueryObserverResult } from '@tanstack/react-query';
 import type {
   TOnboardingStatusResponse,
   TUpdateOnboardingProfileParams,
   TUpdateOnboardingProfileResponse,
 } from 'librechat-data-provider';
+import type {
+  UseQueryOptions,
+  UseMutationOptions,
+  QueryObserverResult,
+} from '@tanstack/react-query';
 
 export const useOnboardingStatusQuery = (
   config?: UseQueryOptions<TOnboardingStatusResponse>,
@@ -15,9 +19,10 @@ export const useOnboardingStatusQuery = (
     [QueryKeys.onboardingStatus],
     () => dataService.getOnboardingStatus(),
     {
+      staleTime: 30 * 1000,
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
-      refetchOnMount: false,
+      refetchOnMount: true,
       ...config,
     },
   );

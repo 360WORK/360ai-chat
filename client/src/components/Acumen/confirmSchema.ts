@@ -10,7 +10,9 @@
  *     ```
  *
  * This module parses that block into a typed frame and strips it from rendered
- * markdown (the dock renders the frame; users shouldn't see the raw JSON).
+ * markdown — the chat render paths (MessageContent, Parts/Text) compose
+ * `stripConfirmMarkers` with the onboarding strip, and the dock renders the
+ * frame; users shouldn't see the raw JSON.
  * Mirrors the onboarding inline-block pattern (onboardingSchema.ts) but is
  * standalone so the Acumen confirm surface owns no cross-cutting dependency.
  */
@@ -31,6 +33,9 @@ export interface AcumenConfirmFrame {
 
 /** Regex matching the fenced acumen-confirm block; captures the JSON body in group 1. */
 export const ACUMEN_CONFIRM_BLOCK = /```acumen-confirm\s*\n([\s\S]*?)```/i;
+
+/** Global variant of the block regex, for stripping every occurrence. */
+const ACUMEN_CONFIRM_BLOCK_ALL = /```acumen-confirm\s*\n[\s\S]*?```/gi;
 
 /** Regex matching the bare HTML-comment marker (lightweight fallback signal). */
 export const ACUMEN_CONFIRM_MARKER = /<!--\s*acumen-confirm:([a-z0-9_-]+)\s*-->/gi;
@@ -80,21 +85,35 @@ export function hasConfirmBlock(text: string): boolean {
   if (typeof text !== 'string' || text.length === 0) {
     return false;
   }
-  ACUMEN_CONFIRM_BLOCK.lastIndex = 0;
   return ACUMEN_CONFIRM_BLOCK.test(text);
+}
+
+/**
+ * Strip an unclosed trailing opener (a block still streaming in token-by-token)
+ * by cutting from its first remaining occurrence to the end. Called AFTER
+ * complete blocks/markers are removed, so any occurrence left is unclosed —
+ * but only cut when no closer follows.
+ */
+function stripUnclosedTail(text: string, opener: string, closer: string): string {
+  const idx = text.indexOf(opener);
+  if (idx === -1 || text.indexOf(closer, idx + opener.length) !== -1) {
+    return text;
+  }
+  return text.slice(0, idx);
 }
 
 /**
  * Strip acumen-confirm blocks + bare markers from text, collapsing the blank
  * lines a trailing block can leave behind. Safe to call on any message text.
+ * Also strips a trailing UNCLOSED fence/marker so raw JSON never flashes while
+ * a block streams in before its closing fence has arrived.
  */
 export function stripConfirmMarkers(text: string): string {
   if (typeof text !== 'string' || text.length === 0) {
     return text;
   }
-  return text
-    .replace(ACUMEN_CONFIRM_BLOCK, '')
-    .replace(ACUMEN_CONFIRM_MARKER, '')
-    .replace(/\n{3,}/g, '\n\n')
-    .trim();
+  let stripped = text.replace(ACUMEN_CONFIRM_BLOCK_ALL, '').replace(ACUMEN_CONFIRM_MARKER, '');
+  stripped = stripUnclosedTail(stripped, '```acumen-confirm', '```');
+  stripped = stripUnclosedTail(stripped, '<!--acumen-confirm', '-->');
+  return stripped.replace(/\n{3,}/g, '\n\n').trim();
 }

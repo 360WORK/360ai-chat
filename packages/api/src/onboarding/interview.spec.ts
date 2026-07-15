@@ -1,4 +1,8 @@
-import { selectInterviewScope, buildInterviewInstructions, getOnboardingInjection } from './interview';
+import {
+  selectInterviewScope,
+  buildInterviewInstructions,
+  getOnboardingInjection,
+} from './interview';
 import type { TOnboardingClaims } from 'librechat-data-provider';
 
 const base: TOnboardingClaims = {
@@ -39,16 +43,26 @@ describe('selectInterviewScope', () => {
 });
 
 describe('buildInterviewInstructions', () => {
-  it('company script names the company fields and the save tool', () => {
+  it('company script uses the shared pill tree, the marker, and the save tool', () => {
     const s = buildInterviewInstructions('company');
     expect(s).toContain('save_onboarding_profile');
     expect(s).toContain('company');
-    expect(s).toContain('industry');
+    // The shared pill tree is now used for both scopes (owners and members see
+    // the same pills), so the company script must reference the root step and
+    // the marker rule — not the old free-text 'industry' interview.
+    expect(s).toContain('business_type');
+    expect(s).toContain('onboarding-step:');
+  });
+  it('company script persists BOTH scopes so the owner is never asked twice', () => {
+    const s = buildInterviewInstructions('company');
+    expect(s).toContain('scope:"company"');
+    expect(s).toContain('scope:"personal"');
   });
   it('personal script names the personal fields and the save tool', () => {
     const s = buildInterviewInstructions('personal');
     expect(s).toContain('save_onboarding_profile');
     expect(s).toContain('desk');
+    expect(s).toContain('scope:"personal"');
   });
 });
 
