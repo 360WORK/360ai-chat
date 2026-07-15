@@ -156,7 +156,10 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
                       {isLandingPage && <OnboardingStarters />}
                       {isLandingPage && <AcumenWorkspaces />}
                       <OnboardingPillDock step={activeStep} submitting={isSubmitting} />
-                      <AcumenConfirmDock frame={confirmFrame} submitting={isSubmitting} />
+                      <AcumenConfirmDock
+                        frame={activeStep ? null : confirmFrame}
+                        submitting={isSubmitting}
+                      />
                       <ChatForm index={index} placeholder={chatFormPlaceholder} />
                       {!isLandingPage && <Footer />}
                     </div>

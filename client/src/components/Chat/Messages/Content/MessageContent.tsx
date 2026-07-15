@@ -15,6 +15,8 @@ import { cn } from '~/utils';
 import store from '~/store';
 import { stripOnboardingMarkers } from '~/components/Onboarding/onboardingSchema';
 import { stripConfirmMarkers } from '~/components/Acumen/confirmSchema';
+import { extractSignalCard, stripSignalCardMarkers } from '~/components/Signals/signalCardSchema';
+import SignalCard from '~/components/Signals/SignalCard';
 
 const ERROR_CONNECTION_TEXT = 'Error connecting to server, try refreshing the page.';
 const DELAYED_ERROR_TIMEOUT = 5500;
@@ -105,11 +107,18 @@ const DisplayMessage = ({ text, isCreatedByUser, message, showCursor }: TDisplay
   const content = useMemo(() => {
     if (!isCreatedByUser) {
       // Hide the agent's machine-readable onboarding markers (the step-id
-      // HTML comment and any inline onboarding JSON block) and acumen-confirm
-      // blocks from the rendered transcript. The pill UI and the confirm dock
-      // read them separately; users shouldn't see them.
-      const cleanText = stripConfirmMarkers(stripOnboardingMarkers(text));
-      return <Markdown content={cleanText} isLatestMessage={isLatestMessage} />;
+      // HTML comment and any inline onboarding JSON block), acumen-confirm
+      // blocks, and signal-card blocks from the rendered transcript. The pill UI
+      // and confirm dock read the first two; the signal briefing renders as a
+      // card below the prose.
+      const cleanText = stripSignalCardMarkers(stripConfirmMarkers(stripOnboardingMarkers(text)));
+      const signalCard = extractSignalCard(text);
+      return (
+        <>
+          <Markdown content={cleanText} isLatestMessage={isLatestMessage} />
+          {signalCard && <SignalCard card={signalCard} />}
+        </>
+      );
     }
     if (enableUserMsgMarkdown) {
       return <MarkdownLite content={text} />;

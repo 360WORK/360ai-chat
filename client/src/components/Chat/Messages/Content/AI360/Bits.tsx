@@ -7,9 +7,31 @@ import { cn } from '~/utils';
 
 export function Pill({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-full border border-ai360-chip-border bg-transparent px-2.5 py-0.5 text-xs text-text-secondary">
+    <span className="inline-flex shrink-0 items-center rounded-full border border-ai360-chip-border bg-transparent px-2.5 py-0.5 text-xs text-text-secondary">
       {children}
     </span>
+  );
+}
+
+export function CardShell({ href, children }: { href?: string | null; children: ReactNode }) {
+  const base =
+    'flex items-center gap-3 rounded-xl border border-ai360-card-border bg-ai360-card px-3 py-2.5';
+  if (!href) {
+    return <div className={base}>{children}</div>;
+  }
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={cn(
+        base,
+        'transition-colors hover:bg-surface-secondary',
+        'focus-visible:ring-ai360-action/40 focus-visible:outline-none focus-visible:ring-2',
+      )}
+    >
+      {children}
+    </a>
   );
 }
 

@@ -52,7 +52,7 @@ function AcumenConfirmDock({ frame, submitting = false }: AcumenConfirmDockProps
           aria-label={confirmLabel}
           disabled={submitting}
           onClick={() => submitMessage({ text: localize('com_acumen_confirm_confirmed') })}
-          className="inline-flex items-center gap-1.5 rounded-full border border-transparent bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 rounded-full border border-transparent bg-primary px-4 py-1.5 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background disabled:opacity-50"
         >
           {confirmLabel}
         </button>
@@ -61,7 +61,7 @@ function AcumenConfirmDock({ frame, submitting = false }: AcumenConfirmDockProps
           aria-label={adjustLabel}
           disabled={submitting}
           onClick={() => submitMessage({ text: localize('com_acumen_confirm_adjust_reply') })}
-          className="inline-flex items-center gap-1.5 rounded-full border border-border-light bg-surface-primary px-4 py-1.5 text-sm font-medium text-text-secondary transition hover:border-border-medium hover:bg-surface-tertiary hover:text-text-primary disabled:opacity-50"
+          className="inline-flex items-center gap-1.5 rounded-full border border-border-light bg-surface-primary px-4 py-1.5 text-sm font-medium text-text-secondary transition hover:border-border-medium hover:bg-surface-tertiary hover:text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background disabled:opacity-50"
         >
           {adjustLabel}
         </button>

@@ -5,7 +5,6 @@ import { MessageSquare, Command, DollarSign, Info } from 'lucide-react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import {
   GearIcon,
-  DataIcon,
   UserIcon,
   SpeechIcon,
   useMediaQuery,
@@ -36,7 +35,13 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
   const [activeTab, setActiveTab] = useState(SettingsTabValues.GENERAL);
   const tabRefs = useRef({});
   const { hasAnyPersonalizationFeature, hasMemoryOptOut } = usePersonalizationAccess();
-  const aboutEnabled = startupConfig?.interface?.buildInfo !== false;
+  // 360AI: Commands, About, and Personalization settings tabs hidden. Frontend-only;
+  // flip a flag to restore. (Reference-saved-memories stays on by default.)
+  const showCommandsTab = false;
+  const showAboutTab = false;
+  const showPersonalizationTab = false;
+  const aboutEnabled = showAboutTab && startupConfig?.interface?.buildInfo !== false;
+  const personalizationTabVisible = showPersonalizationTab && hasAnyPersonalizationFeature;
 
   useEffect(() => {
     if (!aboutEnabled && activeTab === SettingsTabValues.ABOUT) {
@@ -48,10 +53,9 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
     const tabs: SettingsTabValues[] = [
       SettingsTabValues.GENERAL,
       SettingsTabValues.CHAT,
-      SettingsTabValues.COMMANDS,
+      ...(showCommandsTab ? [SettingsTabValues.COMMANDS] : []),
       SettingsTabValues.SPEECH,
-      ...(hasAnyPersonalizationFeature ? [SettingsTabValues.PERSONALIZATION] : []),
-      SettingsTabValues.DATA,
+      ...(personalizationTabVisible ? [SettingsTabValues.PERSONALIZATION] : []),
       ...(startupConfig?.balance?.enabled ? [SettingsTabValues.BALANCE] : []),
       SettingsTabValues.ACCOUNT,
       SettingsTabValues.WORKSPACE_PROFILE,
@@ -94,17 +98,21 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
       icon: <MessageSquare className="icon-sm" aria-hidden="true" />,
       label: 'com_nav_setting_chat',
     },
-    {
-      value: SettingsTabValues.COMMANDS,
-      icon: <Command className="icon-sm" aria-hidden="true" />,
-      label: 'com_nav_commands',
-    },
+    ...(showCommandsTab
+      ? [
+          {
+            value: SettingsTabValues.COMMANDS,
+            icon: <Command className="icon-sm" aria-hidden="true" />,
+            label: 'com_nav_commands' as TranslationKeys,
+          },
+        ]
+      : ([] as { value: SettingsTabValues; icon: React.JSX.Element; label: TranslationKeys }[])),
     {
       value: SettingsTabValues.SPEECH,
       icon: <SpeechIcon className="icon-sm" aria-hidden="true" />,
       label: 'com_nav_setting_speech',
     },
-    ...(hasAnyPersonalizationFeature
+    ...(personalizationTabVisible
       ? [
           {
             value: SettingsTabValues.PERSONALIZATION,
@@ -113,11 +121,6 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
           },
         ]
       : []),
-    {
-      value: SettingsTabValues.DATA,
-      icon: <DataIcon />,
-      label: 'com_nav_setting_data',
-    },
     ...(startupConfig?.balance?.enabled
       ? [
           {
@@ -251,13 +254,15 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
                     <Tabs.Content value={SettingsTabValues.CHAT} tabIndex={-1}>
                       <Chat />
                     </Tabs.Content>
-                    <Tabs.Content value={SettingsTabValues.COMMANDS} tabIndex={-1}>
-                      <Commands />
-                    </Tabs.Content>
+                    {showCommandsTab && (
+                      <Tabs.Content value={SettingsTabValues.COMMANDS} tabIndex={-1}>
+                        <Commands />
+                      </Tabs.Content>
+                    )}
                     <Tabs.Content value={SettingsTabValues.SPEECH} tabIndex={-1}>
                       <Speech />
                     </Tabs.Content>
-                    {hasAnyPersonalizationFeature && (
+                    {personalizationTabVisible && (
                       <Tabs.Content value={SettingsTabValues.PERSONALIZATION} tabIndex={-1}>
                         <Personalization
                           hasMemoryOptOut={hasMemoryOptOut}
@@ -265,9 +270,6 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
                         />
                       </Tabs.Content>
                     )}
-                    <Tabs.Content value={SettingsTabValues.DATA} tabIndex={-1}>
-                      <Data />
-                    </Tabs.Content>
                     {startupConfig?.balance?.enabled && (
                       <Tabs.Content value={SettingsTabValues.BALANCE} tabIndex={-1}>
                         <Balance />
@@ -275,6 +277,7 @@ export default function Settings({ open, onOpenChange }: TDialogProps) {
                     )}
                     <Tabs.Content value={SettingsTabValues.ACCOUNT} tabIndex={-1}>
                       <Account />
+                      <Data />
                     </Tabs.Content>
                     <Tabs.Content value={SettingsTabValues.WORKSPACE_PROFILE} tabIndex={-1}>
                       <WorkspaceProfile />

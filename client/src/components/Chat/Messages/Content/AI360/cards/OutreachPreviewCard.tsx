@@ -10,7 +10,9 @@ export default function OutreachPreviewCard({ outreach }: { outreach: OutreachPr
     return (
       <div className="flex items-center gap-2 rounded-xl border border-ai360-card-border bg-ai360-card px-3 py-2.5">
         <CheckCircle className="size-4 shrink-0 text-ai360-positive" aria-hidden="true" />
-        <p className="text-sm font-medium text-text-primary">{localize('com_ui_360_outreach_sent')}</p>
+        <p className="text-sm font-medium text-text-primary">
+          {localize('com_ui_360_outreach_sent')}
+        </p>
       </div>
     );
   }
@@ -28,11 +30,15 @@ export default function OutreachPreviewCard({ outreach }: { outreach: OutreachPr
           <span className="shrink-0 text-xs text-text-secondary">
             {localize('com_ui_360_outreach_subject')}
           </span>
-          <span className="truncate text-xs font-medium text-text-primary">{outreach.subject}</span>
+          <span className="min-w-0 flex-1 truncate text-xs font-medium text-text-primary">
+            {outreach.subject}
+          </span>
         </div>
       )}
       <ExpandableText text={outreach.body} clamp={3} />
-      <p className="text-xs italic text-text-secondary">{localize('com_ui_360_outreach_awaiting')}</p>
+      <p className="text-xs italic text-text-secondary">
+        {localize('com_ui_360_outreach_awaiting')}
+      </p>
     </div>
   );
 }

@@ -20,7 +20,7 @@ export default function AcumenWorkspaces({ businessTypeOverride }: AcumenWorkspa
   }
 
   return (
-    <div className="mx-auto mb-4 flex w-full max-w-3xl flex-col gap-3 px-4">
+    <div className="mx-auto mb-4 flex w-full flex-col gap-3 px-2 md:max-w-3xl xl:max-w-4xl">
       <p className="text-sm font-medium text-text-secondary">
         {localize('com_acumen_workspaces_header')}
       </p>

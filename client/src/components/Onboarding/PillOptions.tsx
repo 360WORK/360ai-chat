@@ -18,7 +18,7 @@ export type PillOptionsProps = {
 };
 
 const pillBase =
-  'inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background';
+  'inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1 focus-visible:ring-offset-background disabled:opacity-50 disabled:pointer-events-none';
 
 const pillDeselected =
   'border-border-light bg-surface-primary text-text-secondary hover:border-border-medium hover:bg-surface-secondary hover:text-text-primary';

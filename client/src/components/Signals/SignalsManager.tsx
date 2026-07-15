@@ -89,6 +89,8 @@ function RunResult({
   const nothing = status === 'no_change' || !summary;
   return (
     <div
+      role="status"
+      aria-live="polite"
       className={`mt-3 rounded-lg border p-3 text-sm ${
         failed
           ? 'border-red-300 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300'
@@ -129,7 +131,6 @@ export default function SignalsManager() {
   const [showCreate, setShowCreate] = useState(false);
   const [draft, setDraft] = useState<Draft>(emptyDraft);
   const [error, setError] = useState<string | null>(null);
-  const [notice, setNotice] = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<TSignal | null>(null);
   // The run currently being polled to completion (signalId + runId). The runId
   // is returned synchronously by run_signal_now; we poll THAT run so we track
@@ -236,7 +237,6 @@ export default function SignalsManager() {
   };
 
   const handleRun = async (id: string) => {
-    setNotice(null);
     setError(null);
     try {
       const res = await runSignalNow.mutateAsync(id);
@@ -304,9 +304,8 @@ export default function SignalsManager() {
           </button>
           <button
             type="button"
-            disabled={deleteSignal.isLoading}
             onClick={() => setDeleteTarget(s)}
-            className="rounded-full border border-border-light px-3 py-1 text-xs font-medium text-red-600 transition hover:bg-red-50 disabled:opacity-50 dark:text-red-400 dark:hover:bg-red-950"
+            className="rounded-full border border-border-light px-3 py-1 text-xs font-medium text-red-600 transition hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950"
           >
             {localize('com_ui_delete')}
           </button>
@@ -348,7 +347,7 @@ export default function SignalsManager() {
     <div className="flex h-full w-full flex-col bg-surface-primary-alt">
       <div className="flex-1 overflow-y-auto">
         <div className="mx-auto w-full max-w-3xl p-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <h1 className="text-xl font-semibold text-text-primary">
               {localize('com_signals_title')}
             </h1>
@@ -364,11 +363,6 @@ export default function SignalsManager() {
           </div>
           <p className="mt-1 text-sm text-text-secondary">{localize('com_signals_subtitle')}</p>
 
-          {notice ? (
-            <p className="mt-4 rounded-lg border border-emerald-300 bg-emerald-50 p-3 text-sm text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
-              {notice}
-            </p>
-          ) : null}
           {error ? (
             <p className="mt-4 rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-300">
               {error}
@@ -428,6 +422,7 @@ export default function SignalsManager() {
                 </label>
                 <div role="group" aria-labelledby="signal-cadence-label" className="mt-1">
                   <CadencePicker
+                    key={editingId ?? 'create'}
                     value={draft.cadence}
                     onChange={(cron) => setDraft((d) => ({ ...d, cadence: cron }))}
                   />
@@ -466,14 +461,17 @@ export default function SignalsManager() {
           <OGDialogHeader>
             <OGDialogTitle>{localize('com_signals_delete_title')}</OGDialogTitle>
           </OGDialogHeader>
-          <p id="delete-signal-description" className="w-full truncate text-sm text-text-primary">
+          <p
+            id="delete-signal-description"
+            className="w-full break-words text-sm text-text-primary"
+          >
             {deleteTarget
               ? localize('com_signals_confirm_delete').replace('{name}', deleteTarget.name)
               : null}
           </p>
           <div className="flex justify-end gap-4 pt-4">
             <OGDialogClose asChild>
-              <Button aria-label="cancel" variant="outline">
+              <Button aria-label={localize('com_signals_cancel')} variant="outline">
                 {localize('com_signals_cancel')}
               </Button>
             </OGDialogClose>

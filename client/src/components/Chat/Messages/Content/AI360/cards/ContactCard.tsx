@@ -6,11 +6,9 @@ import { Avatar, CopyButton, LinkButton } from '../Bits';
 export default function ContactCard({ contact }: { contact: Contact }) {
   const localize = useLocalize();
   const allEmails = [
-    ...(contact.work_emails ?? []),
-    ...(contact.personal_emails ?? []),
+    ...new Set([...(contact.work_emails ?? []), ...(contact.personal_emails ?? [])]),
   ];
-  const hasSocials =
-    contact.linkedin_url || contact.twitter_url || contact.github_url;
+  const hasSocials = contact.linkedin_url || contact.twitter_url || contact.github_url;
 
   return (
     <div className="flex flex-col gap-3 rounded-xl border border-ai360-card-border bg-ai360-card px-3 py-2.5">
@@ -36,7 +34,7 @@ export default function ContactCard({ contact }: { contact: Contact }) {
           {allEmails.map((email) => (
             <div key={email} className="flex items-center gap-2">
               <Mail className="size-3.5 shrink-0 text-text-secondary" aria-hidden="true" />
-              <span className="truncate text-xs text-text-primary">{email}</span>
+              <span className="min-w-0 flex-1 truncate text-xs text-text-primary">{email}</span>
               <CopyButton text={email} label={localize('com_ui_360_copy')} />
             </div>
           ))}
@@ -51,7 +49,7 @@ export default function ContactCard({ contact }: { contact: Contact }) {
           {contact.phones.map((phone) => (
             <div key={phone} className="flex items-center gap-2">
               <Phone className="size-3.5 shrink-0 text-text-secondary" aria-hidden="true" />
-              <span className="truncate text-xs text-text-primary">{phone}</span>
+              <span className="min-w-0 flex-1 truncate text-xs text-text-primary">{phone}</span>
               <CopyButton text={phone} label={localize('com_ui_360_copy')} />
             </div>
           ))}

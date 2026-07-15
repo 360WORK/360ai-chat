@@ -23,6 +23,14 @@ function TalentsResult({ result }: { result: Extract<Parsed360Result, { kind: 't
   const hasCoords = result.talents.some(
     (t) => typeof t.latitude === 'number' && typeof t.longitude === 'number',
   );
+  const tabCls = (active: boolean) =>
+    cn(
+      'rounded-md px-2.5 py-1 text-xs transition-colors',
+      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ai360-action/40',
+      active
+        ? 'bg-ai360-action-bg text-ai360-action'
+        : 'text-text-secondary hover:text-text-primary',
+    );
 
   return (
     <div className="space-y-2">
@@ -32,10 +40,7 @@ function TalentsResult({ result }: { result: Extract<Parsed360Result, { kind: 't
             type="button"
             onClick={() => setView('list')}
             aria-pressed={view === 'list'}
-            className={cn(
-              'rounded-md px-2.5 py-1 text-xs',
-              view === 'list' ? 'bg-ai360-action-bg text-ai360-action' : 'text-text-secondary',
-            )}
+            className={tabCls(view === 'list')}
           >
             {localize('com_ui_360_list_view')}
           </button>
@@ -43,10 +48,7 @@ function TalentsResult({ result }: { result: Extract<Parsed360Result, { kind: 't
             type="button"
             onClick={() => setView('map')}
             aria-pressed={view === 'map'}
-            className={cn(
-              'rounded-md px-2.5 py-1 text-xs',
-              view === 'map' ? 'bg-ai360-action-bg text-ai360-action' : 'text-text-secondary',
-            )}
+            className={tabCls(view === 'map')}
           >
             {localize('com_ui_360_map_view')}
           </button>

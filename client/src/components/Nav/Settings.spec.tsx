@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
 import Settings from './Settings';
 
 const mockUseGetStartupConfig = jest.fn();
@@ -40,6 +39,7 @@ jest.mock('./SettingsTabs', () => ({
   Balance: () => <div data-testid="balance-panel" />,
   Account: () => <div data-testid="account-panel" />,
   About: () => <div data-testid="about-panel" />,
+  WorkspaceProfile: () => <div data-testid="workspace-profile-panel" />,
 }));
 
 function renderSettings() {
@@ -51,35 +51,36 @@ beforeEach(() => {
 });
 
 describe('Settings', () => {
-  it('shows the About tab while startup config is loading', () => {
+  // 360AI: the About and Commands tabs are hidden via a frontend flag, regardless
+  // of the upstream buildInfo config. These tests lock in that override.
+  it('hides the About tab even while startup config is loading', () => {
     mockUseGetStartupConfig.mockReturnValue({ data: undefined });
 
     renderSettings();
 
-    expect(screen.getByText('com_nav_setting_about')).toBeInTheDocument();
+    expect(screen.queryByText('com_nav_setting_about')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('about-panel')).not.toBeInTheDocument();
   });
 
-  it('hides the About tab only when buildInfo is explicitly disabled', () => {
-    mockUseGetStartupConfig.mockReturnValue({ data: { interface: { buildInfo: false } } });
+  it('keeps the About tab hidden even when buildInfo is enabled', () => {
+    mockUseGetStartupConfig.mockReturnValue({ data: { interface: { buildInfo: true } } });
 
     renderSettings();
 
     expect(screen.queryByText('com_nav_setting_about')).not.toBeInTheDocument();
   });
 
-  it('resets the active tab when loaded config disables About', async () => {
-    const user = userEvent.setup();
-    const { rerender } = renderSettings();
+  it('hides the Commands tab', () => {
+    renderSettings();
 
-    await user.click(screen.getByText('com_nav_setting_about'));
-    expect(screen.getByTestId('about-panel')).toBeInTheDocument();
+    expect(screen.queryByText('com_nav_commands')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('commands-panel')).not.toBeInTheDocument();
+  });
 
-    mockUseGetStartupConfig.mockReturnValue({ data: { interface: { buildInfo: false } } });
-    rerender(<Settings open={true} onOpenChange={jest.fn()} />);
+  it('still renders the core tabs (General and Chat)', () => {
+    renderSettings();
 
-    await waitFor(() => {
-      expect(screen.queryByTestId('about-panel')).not.toBeInTheDocument();
-    });
-    expect(screen.getByTestId('general-panel')).toBeInTheDocument();
+    expect(screen.getByText('com_nav_setting_general')).toBeInTheDocument();
+    expect(screen.getByText('com_nav_setting_chat')).toBeInTheDocument();
   });
 });

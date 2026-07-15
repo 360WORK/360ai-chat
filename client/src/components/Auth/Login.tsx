@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { ErrorTypes, registerPage } from 'librechat-data-provider';
-import { OpenIDIcon, useToastContext } from '@librechat/client';
+import { useToastContext } from '@librechat/client';
 import { useOutletContext, useSearchParams, useLocation } from 'react-router-dom';
 import type { TLoginLayoutContext } from '~/common';
 import { getLoginError, persistRedirectToSession } from '~/utils';
 import { ErrorMessage } from '~/components/Auth/ErrorMessage';
-import SocialButton from '~/components/Auth/SocialButton';
 import { useAuthContext } from '~/hooks/AuthContext';
 import { useLocalize } from '~/hooks';
 import LoginForm from './LoginForm';
@@ -72,27 +71,23 @@ function Login() {
   }, [shouldAutoRedirect, startupConfig]);
 
   if (shouldAutoRedirect) {
+    // Seamless SSO hand-off from 360AI: show a branded splash (logo + spinner)
+    // rather than an "OpenID" redirect notice or button, so moving from 360ai to
+    // chat.360ai feels like one continuous product. Covers the whole auth layout
+    // for the brief moment before the browser navigates to the provider.
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center p-4">
-        <p className="text-lg font-semibold">
-          {localize('com_ui_redirecting_to_provider', { 0: startupConfig.openidLabel })}
-        </p>
-        <div className="mt-4">
-          <SocialButton
-            key="openid"
-            enabled={startupConfig.openidLoginEnabled}
-            serverDomain={startupConfig.serverDomain}
-            oauthPath="openid"
-            Icon={() =>
-              startupConfig.openidImageUrl ? (
-                <img src={startupConfig.openidImageUrl} alt="OpenID Logo" className="h-5 w-5" />
-              ) : (
-                <OpenIDIcon />
-              )
-            }
-            label={startupConfig.openidLabel}
-            id="openid"
-          />
+      <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 bg-white dark:bg-gray-900">
+        <img
+          src="assets/logo.svg"
+          className="h-9 w-auto object-contain"
+          alt={startupConfig.appTitle ?? '360AI'}
+        />
+        <div
+          role="status"
+          aria-live="polite"
+          className="h-6 w-6 animate-spin rounded-full border-2 border-gray-200 border-t-blue-500 dark:border-gray-700 dark:border-t-blue-400"
+        >
+          <span className="sr-only">{localize('com_auth_signing_you_in')}</span>
         </div>
       </div>
     );
