@@ -71,7 +71,8 @@ function parseTalents(data: unknown): Parsed360Result | null {
 }
 
 function candidateToTalent(candidate: CandidateProfile): Talent {
-  const linkedin = candidate.profiles?.find((p) => p.network === 'linkedin')?.url ?? null;
+  const profiles = Array.isArray(candidate.profiles) ? candidate.profiles : [];
+  const linkedin = profiles.find((p) => isRecord(p) && p.network === 'linkedin')?.url ?? null;
   const openToWork = isRecord(candidate.open_to_work)
     ? candidate.open_to_work.looking === true
     : candidate.open_to_work === true;

@@ -206,6 +206,30 @@ describe('parse360Output', () => {
     }
   });
 
+  it('survives malformed nested shapes on get_candidates items', () => {
+    const output = JSON.stringify({
+      count: 1,
+      candidates: [
+        {
+          id: 'a',
+          name: 'Jane Doe',
+          title: 'Engineer',
+          profiles: 'oops',
+          open_to_work: 'oops',
+        },
+      ],
+    });
+    const result = parse360Output('get_candidates', output);
+    expect(result?.kind).toBe('talents');
+    if (result?.kind === 'talents') {
+      expect(result.talents).toHaveLength(1);
+      expect(result.talents[0].name).toBe('Jane Doe');
+      expect(result.talents[0].title).toBe('Engineer');
+      expect(result.talents[0].linkedin_url).toBeNull();
+      expect(result.talents[0].open_to_work).toBe(false);
+    }
+  });
+
   it('returns null for get_candidates error or malformed payloads', () => {
     expect(parse360Output('get_candidates', JSON.stringify({ error: 'nope' }))).toBeNull();
     expect(parse360Output('get_candidates', JSON.stringify({ candidates: 'oops' }))).toBeNull();
