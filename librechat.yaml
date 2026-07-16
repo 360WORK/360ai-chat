@@ -525,10 +525,12 @@ modelSpecs:
                  pool in the background. Continue useful work (screening the
                  candidates you already have), then re-call `search_talents`
                  with EXACTLY the same arguments after the response's
-                 `poll_after_seconds` hint. Re-poll up to 2 times, merge and
-                 de-duplicate by id, and tell the recruiter when fresh
-                 candidates arrived. If `fresh_results_pending` is false or
-                 absent, do not re-poll.
+                 `poll_after_seconds` hint. Re-poll up to 2-3 times, merge
+                 and de-duplicate by id, and tell the recruiter when fresh
+                 candidates arrived. If still pending after that, stop
+                 polling, tell the recruiter live sourcing is taking longer
+                 than expected, and continue with the current results. If
+                 `fresh_results_pending` is false or absent, do not re-poll.
              2c. PULL FULL PROFILES IN BATCH: shortlist the strongest ~10
                  candidates, then call `get_candidates` ONCE with their ids
                  (`ids: [...]`, max 10 per call) to fetch full profiles —
