@@ -4,6 +4,7 @@ import { is360Tool } from '../tools';
 describe('is360Tool', () => {
   it('recognizes 360AI tool names and rejects others', () => {
     expect(is360Tool('search_companies')).toBe(true);
+    expect(is360Tool('resolve_companies')).toBe(true);
     expect(is360Tool('search_talents')).toBe(true);
     expect(is360Tool('search_candidates')).toBe(true);
     expect(is360Tool('search_jobs')).toBe(true);
@@ -50,6 +51,44 @@ describe('parse360Output', () => {
         },
       ],
     });
+  });
+
+  it('parses resolve_companies envelope into the companies kind, keeping matched_by', () => {
+    const output = JSON.stringify({
+      count: 1,
+      companies: [
+        {
+          id: '7',
+          name: 'Acme',
+          website: 'acme.com',
+          linkedin_url: 'https://www.linkedin.com/company/acme',
+          matched_by: 'linkedin',
+        },
+      ],
+      not_found: ['Ghost Corp'],
+      import_pending: true,
+      poll_after_seconds: 8,
+    });
+    const result = parse360Output('resolve_companies', output);
+    expect(result).toEqual({
+      kind: 'companies',
+      count: 1,
+      companies: [
+        {
+          id: '7',
+          name: 'Acme',
+          website: 'acme.com',
+          linkedin_url: 'https://www.linkedin.com/company/acme',
+          matched_by: 'linkedin',
+        },
+      ],
+    });
+  });
+
+  it('returns null for resolve_companies error envelopes and malformed output', () => {
+    expect(parse360Output('resolve_companies', JSON.stringify({ error: 'boom' }))).toBeNull();
+    expect(parse360Output('resolve_companies', JSON.stringify({ foo: 'bar' }))).toBeNull();
+    expect(parse360Output('resolve_companies', '{not json')).toBeNull();
   });
 
   it('parses search_talents envelope with meta', () => {

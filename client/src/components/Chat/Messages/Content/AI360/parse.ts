@@ -177,6 +177,7 @@ export function parse360Output(toolName: string, output?: string | null): Parsed
   }
   switch (toolName) {
     case 'search_companies':
+    case 'resolve_companies':
       return parseCompanies(data);
     case 'search_talents':
     case 'search_candidates':

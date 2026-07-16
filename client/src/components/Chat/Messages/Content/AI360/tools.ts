@@ -2,6 +2,7 @@ export const AI360_MCP_SERVER = '360ai';
 
 export const AI360_TOOLS = {
   search_companies: 'companies',
+  resolve_companies: 'companies',
   search_talents: 'talents',
   search_candidates: 'talents',
   get_candidates: 'talents',

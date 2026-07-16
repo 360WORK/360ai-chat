@@ -8,6 +8,7 @@ export interface Company {
   employee_range?: string | null;
   location?: string | null;
   description?: string | null;
+  matched_by?: 'linkedin' | 'domain' | 'name';
 }
 
 export interface Talent {
