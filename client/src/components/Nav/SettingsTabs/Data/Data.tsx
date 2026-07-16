@@ -12,6 +12,8 @@ import { useHasAccess } from '~/hooks';
 function Data() {
   const dataTabRef = useRef(null);
   const [confirmClearConvos, setConfirmClearConvos] = useState(false);
+  // 360AI: Shared links hidden for now. Frontend-only; flip to restore.
+  const showSharedLinks = false;
   useOnClickOutside(dataTabRef, () => confirmClearConvos && setConfirmClearConvos(false), []);
   const hasAccessToApiKeys = useHasAccess({
     permissionType: PermissionTypes.REMOTE_AGENTS,
@@ -23,9 +25,11 @@ function Data() {
       <div className="pb-3">
         <ImportConversations />
       </div>
-      <div className="pb-3">
-        <SharedLinks />
-      </div>
+      {showSharedLinks && (
+        <div className="pb-3">
+          <SharedLinks />
+        </div>
+      )}
       {hasAccessToApiKeys && (
         <div className="pb-3">
           <AgentApiKeys />
