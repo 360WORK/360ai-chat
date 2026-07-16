@@ -27,6 +27,26 @@ export interface Talent {
   longitude?: number | null;
 }
 
+export interface CandidateProfileLink {
+  network?: string | null;
+  url?: string | null;
+}
+
+/** Full-profile shape returned by the get_candidates batch MCP tool. */
+export interface CandidateProfile {
+  id?: string | null;
+  name?: string | null;
+  avatar?: string | null;
+  title?: string | null;
+  headline?: string | null;
+  summary?: string | null;
+  location?: string | null;
+  current_company?: string | null;
+  open_to_work?: { looking?: boolean } | boolean | null;
+  skills?: string[];
+  profiles?: CandidateProfileLink[];
+}
+
 export interface Job {
   id: string | number;
   title?: string | null;

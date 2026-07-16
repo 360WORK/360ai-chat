@@ -4,6 +4,7 @@ export const AI360_TOOLS = {
   search_companies: 'companies',
   search_talents: 'talents',
   search_candidates: 'talents',
+  get_candidates: 'talents',
   search_jobs: 'jobs',
   list_jobs: 'jobs',
   get_job: 'job',

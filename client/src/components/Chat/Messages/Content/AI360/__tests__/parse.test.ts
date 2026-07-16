@@ -9,6 +9,8 @@ describe('is360Tool', () => {
     expect(is360Tool('search_jobs')).toBe(true);
     expect(is360Tool('list_jobs')).toBe(true);
     expect(is360Tool('get_job')).toBe(true);
+    expect(is360Tool('get_candidates')).toBe(true);
+    expect(is360Tool('get_candidate')).toBe(false);
     expect(is360Tool('whoami')).toBe(false);
     expect(is360Tool('some_other_tool')).toBe(false);
   });
@@ -154,5 +156,59 @@ describe('parse360Output', () => {
     const t = (out as Extract<typeof out, { kind: 'talents' }>).talents[0];
     expect(t.latitude).toBe(40.7128);
     expect(t.longitude).toBe(-74.006);
+  });
+
+  it('parses get_candidates batch envelope into talents kind', () => {
+    const output = JSON.stringify({
+      count: 2,
+      not_found: ['zzz'],
+      candidates: [
+        {
+          id: 'a',
+          name: 'Jane Doe',
+          avatar: 'https://cdn.example.com/jane.png',
+          title: 'Senior Laravel Engineer',
+          current_company: 'Acme',
+          location: 'London, United Kingdom',
+          skills: ['PHP', 'Laravel'],
+          summary: 'Ten years of PHP.',
+          open_to_work: { looking: true, availability: 'immediately' },
+          profiles: [
+            { network: 'github', url: 'https://github.com/janedoe' },
+            { network: 'linkedin', url: 'https://www.linkedin.com/in/janedoe' },
+          ],
+        },
+        { id: 'b', name: 'John Roe', open_to_work: null, profiles: [] },
+      ],
+    });
+    const result = parse360Output('get_candidates', output);
+    expect(result?.kind).toBe('talents');
+    if (result?.kind === 'talents') {
+      expect(result.count).toBe(2);
+      expect(result.talents).toHaveLength(2);
+      expect(result.talents[0].open_to_work).toBe(true);
+      expect(result.talents[0].linkedin_url).toBe('https://www.linkedin.com/in/janedoe');
+      expect(result.talents[0].skills).toEqual(['PHP', 'Laravel']);
+      expect(result.talents[1].open_to_work).toBe(false);
+      expect(result.talents[1].linkedin_url).toBeNull();
+    }
+  });
+
+  it('falls back to candidates length when get_candidates count is missing', () => {
+    const output = JSON.stringify({
+      candidates: [{ id: 'a', name: 'Jane Doe' }],
+      not_found: [],
+    });
+    const result = parse360Output('get_candidates', output);
+    expect(result?.kind).toBe('talents');
+    if (result?.kind === 'talents') {
+      expect(result.count).toBe(1);
+    }
+  });
+
+  it('returns null for get_candidates error or malformed payloads', () => {
+    expect(parse360Output('get_candidates', JSON.stringify({ error: 'nope' }))).toBeNull();
+    expect(parse360Output('get_candidates', JSON.stringify({ candidates: 'oops' }))).toBeNull();
+    expect(parse360Output('get_candidates', 'not json')).toBeNull();
   });
 });

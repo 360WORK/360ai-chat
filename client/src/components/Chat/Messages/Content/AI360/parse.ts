@@ -7,6 +7,7 @@ import type {
   JobDetail,
   PipelineStage,
   Parsed360Result,
+  CandidateProfile,
 } from './types';
 import { is360Tool } from './tools';
 
@@ -67,6 +68,33 @@ function parseTalents(data: unknown): Parsed360Result | null {
     pool: typeof data.pool === 'string' ? data.pool : undefined,
     talentFinderUrl: typeof data.talent_finder_url === 'string' ? data.talent_finder_url : null,
   };
+}
+
+function candidateToTalent(candidate: CandidateProfile): Talent {
+  const linkedin = candidate.profiles?.find((p) => p.network === 'linkedin')?.url ?? null;
+  const openToWork = isRecord(candidate.open_to_work)
+    ? candidate.open_to_work.looking === true
+    : candidate.open_to_work === true;
+  return {
+    id: candidate.id,
+    name: candidate.name,
+    avatar: candidate.avatar,
+    title: candidate.title,
+    current_company: candidate.current_company,
+    location: candidate.location,
+    linkedin_url: linkedin,
+    open_to_work: openToWork,
+    skills: candidate.skills,
+    summary: candidate.summary,
+  };
+}
+
+function parseCandidateProfiles(data: unknown): Parsed360Result | null {
+  if (!isRecord(data) || !Array.isArray(data.candidates)) {
+    return null;
+  }
+  const talents = filterRecords<CandidateProfile>(data.candidates, 'name').map(candidateToTalent);
+  return { kind: 'talents', talents, count: toCount(data.count, talents.length) };
 }
 
 function parseJobs(toolName: string, data: unknown): Parsed360Result | null {
@@ -152,6 +180,8 @@ export function parse360Output(toolName: string, output?: string | null): Parsed
     case 'search_talents':
     case 'search_candidates':
       return parseTalents(data);
+    case 'get_candidates':
+      return parseCandidateProfiles(data);
     case 'search_jobs':
     case 'list_jobs':
       return parseJobs(toolName, data);
