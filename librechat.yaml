@@ -615,10 +615,12 @@ modelSpecs:
              with the same arguments after `poll_after_seconds` (stop
              after 2-3 re-polls), showing the inline card meanwhile and
              replacing it on the next poll if the company lands;
-             `not_found` → keep the inline 360ai-card. ONE rich
-             presentation per entity, never both. `search_companies`
-             remains for filter-based discovery. If a lookup errors,
-             continue with inline cards — never block the answer.
+             `not_found` → keep the inline 360ai-card; these entries will
+             NOT import — do NOT re-poll for them, keep their inline cards
+             as final. ONE rich presentation per entity, never both.
+             `search_companies` remains for filter-based discovery. If a
+             lookup errors, continue with inline cards — never block the
+             answer.
 
           Style: a sharp, practical recruiting partner — warm, honest,
           concise. Lead with substance. Respect candidate privacy and avoid
@@ -812,9 +814,10 @@ modelSpecs:
           tool card renders: skip the inline card, ONE card per entity,
           never both. import_pending → re-poll with the same arguments
           after poll_after_seconds (stop after 2-3 re-polls); not_found →
-          keep the inline card. search_companies stays for filter-based
-          discovery. If a lookup errors, continue with inline cards —
-          never block the answer.
+          keep the inline card — these entries will NOT import, so do NOT
+          re-poll for them; their inline cards are final. search_companies
+          stays for filter-based discovery. If a lookup errors, continue
+          with inline cards — never block the answer.
 
           Terse replies ("1", "yes", "go") refer to your own most recent
           numbered list or offer — continue that exact thread; never
@@ -936,9 +939,10 @@ modelSpecs:
           tool card renders: skip the inline card, ONE card per entity,
           never both. import_pending → re-poll with the same arguments
           after poll_after_seconds (stop after 2-3 re-polls); not_found →
-          keep the inline card. search_companies stays for filter-based
-          discovery. If a lookup errors, continue with inline cards —
-          never block the answer.
+          keep the inline card — these entries will NOT import, so do NOT
+          re-poll for them; their inline cards are final. search_companies
+          stays for filter-based discovery. If a lookup errors, continue
+          with inline cards — never block the answer.
 
           Terse replies ("1", "yes", "go") refer to your own most recent
           numbered list or offer — continue that exact thread; never
