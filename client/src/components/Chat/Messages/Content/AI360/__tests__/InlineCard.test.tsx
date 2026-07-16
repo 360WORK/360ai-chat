@@ -8,6 +8,18 @@ const TALENT_JSON =
 const COMPANY_WITH_SIGNAL_JSON =
   '{"kind":"company","name":"Acme GmbH","signal":"Raised $125M Series C"}';
 const TALENT_WITH_SIGNAL_JSON = '{"kind":"talent","name":"Jane Doe","signal":"Open to new roles"}';
+const COMPANY_WITH_SIGNAL_AND_SUMMARY_JSON = JSON.stringify({
+  kind: 'company',
+  name: 'Acme GmbH',
+  signal: 'Raised $125M Series C',
+  summary: 'EDR vendor',
+});
+const TALENT_WITH_SIGNAL_AND_SUMMARY_JSON = JSON.stringify({
+  kind: 'talent',
+  name: 'Jane Doe',
+  signal: 'Open to new roles',
+  summary: 'CISSP, 8 yrs detection engineering',
+});
 
 describe('InlineCard', () => {
   it('renders a CompanyCard for a valid company body', () => {
@@ -63,5 +75,17 @@ describe('InlineCard', () => {
   it('omits the muted line when there is no signal or summary', () => {
     render(<InlineCard>{COMPANY_JSON}</InlineCard>);
     expect(screen.queryByText(/raised|series|hiring|open to/i)).not.toBeInTheDocument();
+  });
+
+  it('prefers the signal over the summary in the muted line when both are present (company)', () => {
+    render(<InlineCard>{COMPANY_WITH_SIGNAL_AND_SUMMARY_JSON}</InlineCard>);
+    expect(screen.getByText('Raised $125M Series C')).toBeInTheDocument();
+    expect(screen.queryByText('EDR vendor')).not.toBeInTheDocument();
+  });
+
+  it('prefers the signal over the summary in the muted line when both are present (talent)', () => {
+    render(<InlineCard>{TALENT_WITH_SIGNAL_AND_SUMMARY_JSON}</InlineCard>);
+    expect(screen.getByText('Open to new roles')).toBeInTheDocument();
+    expect(screen.queryByText('CISSP, 8 yrs detection engineering')).not.toBeInTheDocument();
   });
 });

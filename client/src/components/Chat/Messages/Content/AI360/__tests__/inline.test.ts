@@ -15,6 +15,7 @@ describe('parseInlineCard', () => {
     });
     expect(parseInlineCard(text)).toEqual({
       kind: 'company',
+      signal: 'Raised EUR 20M Series A',
       company: {
         name: 'Acme GmbH',
         location: 'Berlin',
@@ -34,6 +35,38 @@ describe('parseInlineCard', () => {
     expect(result?.kind).toBe('company');
     if (result?.kind === 'company') {
       expect(result.company.description).toBe('Hiring 6 engineers');
+    }
+  });
+
+  it('exposes signal distinctly from the folded description when both are present (company)', () => {
+    const result = parseInlineCard(
+      JSON.stringify({
+        kind: 'company',
+        name: 'Acme',
+        signal: 'Raised $125M Series C',
+        summary: 'EDR vendor',
+      }),
+    );
+    expect(result?.kind).toBe('company');
+    if (result?.kind === 'company') {
+      expect(result.signal).toBe('Raised $125M Series C');
+      expect(result.company.description).toBe('EDR vendor');
+    }
+  });
+
+  it('exposes signal distinctly from the folded summary when both are present (talent)', () => {
+    const result = parseInlineCard(
+      JSON.stringify({
+        kind: 'talent',
+        name: 'Jane Doe',
+        signal: 'Open to new roles',
+        summary: 'CISSP, 8 yrs detection engineering',
+      }),
+    );
+    expect(result?.kind).toBe('talent');
+    if (result?.kind === 'talent') {
+      expect(result.signal).toBe('Open to new roles');
+      expect(result.talent.summary).toBe('CISSP, 8 yrs detection engineering');
     }
   });
 

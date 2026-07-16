@@ -2,8 +2,8 @@ import type { Company, Talent } from './types';
 import { isRecord } from './parse';
 
 export type InlineCardResult =
-  | { kind: 'company'; company: Company }
-  | { kind: 'talent'; talent: Talent };
+  | { kind: 'company'; company: Company; signal?: string }
+  | { kind: 'talent'; talent: Talent; signal?: string };
 
 function asOptionalString(value: unknown): string | undefined {
   return typeof value === 'string' && value.trim().length > 0 ? value : undefined;
@@ -56,11 +56,12 @@ export function parseInlineCard(text: string): InlineCardResult | null {
   if (name === undefined) {
     return null;
   }
+  const signal = asOptionalString(data.signal);
   if (data.kind === 'company') {
-    return { kind: 'company', company: toCompany(data, name) };
+    return { kind: 'company', company: toCompany(data, name), signal };
   }
   if (data.kind === 'talent') {
-    return { kind: 'talent', talent: toTalent(data, name) };
+    return { kind: 'talent', talent: toTalent(data, name), signal };
   }
   return null;
 }

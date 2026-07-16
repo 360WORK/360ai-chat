@@ -24,15 +24,16 @@ export default function InlineCard({ children }: { children: ReactNode }) {
   if (parsed === null) {
     return null;
   }
-  const signal = parsed.kind === 'company' ? parsed.company.description : parsed.talent.summary;
+  const folded = parsed.kind === 'company' ? parsed.company.description : parsed.talent.summary;
+  const signal = parsed.signal ?? folded;
   return (
-    <span className="not-prose my-2 block whitespace-normal font-sans">
+    <div className="not-prose my-2 block whitespace-normal font-sans">
       {parsed.kind === 'company' ? (
         <CompanyCard company={parsed.company} />
       ) : (
         <TalentCard talent={parsed.talent} />
       )}
       {signal && <p className="mt-1 line-clamp-2 text-xs text-text-secondary">{signal}</p>}
-    </span>
+    </div>
   );
 }
