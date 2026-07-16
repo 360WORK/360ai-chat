@@ -27,8 +27,8 @@ type MdastNode = {
 /**
  * Mirror the `code` component's decision for whether a fenced block renders as a
  * runnable CodeBlock (and therefore consumes a block index). Every fenced code
- * block does, except `math` and `mermaid` fences, which have dedicated
- * renderers. mdast strips a fenced block's trailing newline, but
+ * block does, except `math`, `mermaid`, and `360ai-card` fences, which have
+ * dedicated renderers. mdast strips a fenced block's trailing newline, but
  * react-markdown/remark-rehype re-add it, so the `code` component never treats a
  * fenced block as single-line inline code regardless of its language — only true
  * inline code (an `inlineCode` node, not counted here) is.
@@ -44,6 +44,9 @@ const renderedCodeLang = (lang: string): string =>
  * `math` or `mermaid`, which have dedicated renderers.
  */
 const isExecutableCode = (lang: string): boolean => {
+  if (lang === '360ai-card') {
+    return false;
+  }
   const normalized = renderedCodeLang(lang);
   return normalized !== 'math' && normalized !== 'mermaid';
 };
