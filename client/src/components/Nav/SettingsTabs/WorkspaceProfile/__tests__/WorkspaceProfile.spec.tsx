@@ -41,13 +41,21 @@ const ownerStatus = {
       is_owner: true,
       role: 'owner' as const,
       client: { id: 1, name: 'Acme' },
-      company: { completed: true, profile: { industry: 'SaaS', tooling: ['Greenhouse'] } },
+      company: {
+        completed: true,
+        profile: { industry: 'SaaS', business_type: 'recruitment_agency' },
+      },
       personal: { completed: true, profile: { desk: 'Agency desk', role: 'Senior recruiter' } },
       tailored_prompts: [],
     },
   },
   isLoading: false,
   isError: false,
+};
+
+const addTag = (input: HTMLElement, value: string) => {
+  fireEvent.change(input, { target: { value } });
+  fireEvent.keyDown(input, { key: 'Enter' });
 };
 
 describe('WorkspaceProfile', () => {
@@ -67,13 +75,13 @@ describe('WorkspaceProfile', () => {
     expect(screen.getByText('com_onboarding_personal_section')).toBeInTheDocument();
   });
 
-  it('member editing a personal field and saving calls mutate with scope=personal and updated profile', () => {
+  it('member editing a personal text field saves scope=personal with the update', () => {
     mockUseStatus.mockReturnValue(memberStatus);
     render(<WorkspaceProfile />);
 
-    const deskInput = screen.getByDisplayValue('AI startups');
-    fireEvent.change(deskInput, { target: { value: 'AI scaleups' } });
-
+    fireEvent.change(screen.getByLabelText('com_onboarding_field_desk'), {
+      target: { value: 'AI scaleups' },
+    });
     fireEvent.click(screen.getByText('com_onboarding_save'));
 
     expect(mockMutate).toHaveBeenCalledWith(
@@ -84,15 +92,14 @@ describe('WorkspaceProfile', () => {
     );
   });
 
-  it('owner editing a company field and saving calls mutate with scope=company and updated profile', () => {
+  it('owner editing a company text field saves scope=company with the update', () => {
     mockUseStatus.mockReturnValue(ownerStatus);
     render(<WorkspaceProfile />);
 
-    const industryInput = screen.getByDisplayValue('SaaS');
-    fireEvent.change(industryInput, { target: { value: 'Fintech' } });
-
-    const saveButtons = screen.getAllByText('com_onboarding_save');
-    fireEvent.click(saveButtons[0]);
+    fireEvent.change(screen.getByLabelText('com_onboarding_field_industry'), {
+      target: { value: 'Fintech' },
+    });
+    fireEvent.click(screen.getAllByText('com_onboarding_save')[0]);
 
     expect(mockMutate).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -102,22 +109,49 @@ describe('WorkspaceProfile', () => {
     );
   });
 
-  it('array fields are split on save', () => {
+  it('owner can set business_type, which saves under the company profile', () => {
     mockUseStatus.mockReturnValue(ownerStatus);
     render(<WorkspaceProfile />);
 
-    const toolingInput = screen.getByDisplayValue('Greenhouse');
-    fireEvent.change(toolingInput, { target: { value: 'Greenhouse, Lever' } });
-
-    const saveButtons = screen.getAllByText('com_onboarding_save');
-    fireEvent.click(saveButtons[0]);
+    fireEvent.change(screen.getByLabelText('com_onboarding_field_business_type'), {
+      target: { value: 'executive_search' },
+    });
+    fireEvent.click(screen.getAllByText('com_onboarding_save')[0]);
 
     expect(mockMutate).toHaveBeenCalledWith(
       expect.objectContaining({
         scope: 'company',
-        profile: expect.objectContaining({ tooling: ['Greenhouse', 'Lever'] }),
+        profile: expect.objectContaining({ business_type: 'executive_search' }),
       }),
     );
+  });
+
+  it('tag fields save as arrays', () => {
+    mockUseStatus.mockReturnValue(ownerStatus);
+    render(<WorkspaceProfile />);
+
+    addTag(screen.getByLabelText('com_onboarding_field_target_roles'), 'DevOps');
+    fireEvent.click(screen.getAllByText('com_onboarding_save')[0]);
+
+    expect(mockMutate).toHaveBeenCalledWith(
+      expect.objectContaining({
+        scope: 'company',
+        profile: expect.objectContaining({ target_roles: ['DevOps'] }),
+      }),
+    );
+  });
+
+  it('personal seniority writes the canonical `seniority` key, not the legacy `seniority_focus`', () => {
+    mockUseStatus.mockReturnValue(memberStatus);
+    render(<WorkspaceProfile />);
+
+    addTag(screen.getByLabelText('com_onboarding_field_seniority_focus'), 'Senior');
+    fireEvent.click(screen.getByText('com_onboarding_save'));
+
+    const saved = mockMutate.mock.calls[0][0];
+    expect(saved.scope).toBe('personal');
+    expect(saved.profile.seniority).toEqual(['Senior']);
+    expect(saved.profile).not.toHaveProperty('seniority_focus');
   });
 
   it('shows loading state', () => {

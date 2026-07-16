@@ -20,6 +20,8 @@ export interface CompanyProfileData {
   seniority?: string | string[];
   markets?: string | string[];
   hiring_volume?: string | string[];
+  candidate_icp?: string | string[];
+  employer_value_prop?: string | string[];
 }
 
 export const LEGACY_PERSONAL_KEYS = [
@@ -33,7 +35,9 @@ type LegacyPersonalKey = (typeof LEGACY_PERSONAL_KEYS)[number];
 
 type ProfileValue = string | string[];
 
-export type PersonalProfileData = Partial<Record<PersonalProfileKey | LegacyPersonalKey, ProfileValue>>;
+export type PersonalProfileData = Partial<
+  Record<PersonalProfileKey | LegacyPersonalKey, ProfileValue>
+>;
 
 const asText = (v: string | string[] | undefined): string | null => {
   if (Array.isArray(v)) {
@@ -42,7 +46,10 @@ const asText = (v: string | string[] | undefined): string | null => {
   return v && v.trim() ? v.trim() : null;
 };
 
-const line = (label: string, fields: Array<[string, string | string[] | undefined]>): string | null => {
+const line = (
+  label: string,
+  fields: Array<[string, string | string[] | undefined]>,
+): string | null => {
   const parts = fields
     .map(([k, v]) => [k, asText(v)] as const)
     .filter((entry): entry is readonly [string, string] => entry[1] !== null)
@@ -65,6 +72,8 @@ export const buildUserContextSummary = (input: {
         ['seniority', c.seniority],
         ['markets', c.markets],
         ['hiring volume', c.hiring_volume],
+        ['candidate ICP', c.candidate_icp],
+        ['employer value proposition', c.employer_value_prop],
       ]),
     p &&
       line('You', [
