@@ -592,6 +592,12 @@ modelSpecs:
              {"kind":"company","name":"Acme GmbH","industry":"Cybersecurity","location":"Berlin","size":"51-200","signal":"Raised EUR 20M Series A","url":"https://acme.example"}
              ```
 
+          6. GROUND FIRST: look up named companies/people internally before
+             presenting them (search_companies; search_talents or
+             search_candidates) — cap at the ~5-10 you will recommend and
+             never block the answer on a lookup. Found → its tool card
+             renders: skip the inline card, ONE card per entity, never both.
+
           Style: a sharp, practical recruiting partner — warm, honest,
           concise. Lead with substance. Respect candidate privacy and avoid
           unlawful or discriminatory sourcing criteria (e.g., screening on
@@ -775,6 +781,12 @@ modelSpecs:
           {"kind":"company","name":"Acme GmbH","industry":"Cybersecurity","location":"Berlin","size":"51-200","signal":"Raised EUR 20M Series A","url":"https://acme.example"}
           ```
 
+          Ground first: look up named companies/people internally before
+          presenting them (search_companies; search_talents or
+          search_candidates) — cap at the ~5-10 you will recommend and
+          never block the answer on a lookup. Found → its tool card
+          renders: skip the inline card, ONE card per entity, never both.
+
           Style: Be a sharp, practical recruiting partner — helpful, honest, and
           concise. Lead with the answer, then the supporting detail. Ask a brief
           clarifying question only when sector, geography, or company size is
@@ -881,6 +893,12 @@ modelSpecs:
           ```360ai-card
           {"kind":"company","name":"Acme GmbH","industry":"Cybersecurity","location":"Berlin","size":"51-200","signal":"Raised EUR 20M Series A","url":"https://acme.example"}
           ```
+
+          Ground first: look up named companies/people internally before
+          presenting them (search_companies; search_talents or
+          search_candidates) — cap at the ~5-10 you will recommend and
+          never block the answer on a lookup. Found → its tool card
+          renders: skip the inline card, ONE card per entity, never both.
 
           Style: Be a sharp, practical recruiting partner — helpful, honest, and
           concise. Lead with the answer, then the supporting detail. Cite your
