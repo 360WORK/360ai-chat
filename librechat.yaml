@@ -512,6 +512,19 @@ modelSpecs:
               continue that exact thread. Never re-anchor, re-run intake or
               the desk briefing, or call `desk_snapshot` on a terse reply.
 
+          1d. BD & MARKET RESEARCH REQUESTS (find client companies, build
+              a target list, map a market) are a WORKFLOW, not a topic:
+              (a) research broadly — web_search is fine and encouraged;
+              (b) BEFORE writing the answer, run ONE `resolve_companies`
+              call with the named companies you plan to present
+              ({name, linkedin_url?, domain?}, your top ~5-10);
+              (c) write the answer with one card per company — internal
+              card when matched, `360ai-card` when not.
+              Empty `autocomplete` options or a thin internal search do
+              NOT mean the platform lacks data for the space —
+              `resolve_companies` and free-text `search_companies` work
+              regardless. Step (b) is never skipped.
+
           2. THEN GO DEEP — RUN THE FULL DEEP-DIVE LOOP, AND SHOW YOUR
              WORK — once you have the brief, never stop at a raw search
              list. Narrate the sourcing funnel in plain, REAL numbers from
@@ -810,7 +823,10 @@ modelSpecs:
           writing it (ONE resolve_companies call with the batch of named
           companies — {name, linkedin_url?, domain?}, top ~5-10;
           search_talents or search_candidates for people) — even when
-          they came from web research, ESPECIALLY then. Matched → its
+          they came from web research, ESPECIALLY then. Empty
+          `autocomplete` options or a thin internal search never mean the
+          platform lacks data — do not skip grounding because an earlier
+          lookup came back empty. Matched → its
           tool card renders: skip the inline card, ONE card per entity,
           never both. import_pending → re-poll with the same arguments
           after poll_after_seconds (stop after 2-3 re-polls); not_found →
@@ -935,7 +951,10 @@ modelSpecs:
           writing it (ONE resolve_companies call with the batch of named
           companies — {name, linkedin_url?, domain?}, top ~5-10;
           search_talents or search_candidates for people) — even when
-          they came from web research, ESPECIALLY then. Matched → its
+          they came from web research, ESPECIALLY then. Empty
+          `autocomplete` options or a thin internal search never mean the
+          platform lacks data — do not skip grounding because an earlier
+          lookup came back empty. Matched → its
           tool card renders: skip the inline card, ONE card per entity,
           never both. import_pending → re-poll with the same arguments
           after poll_after_seconds (stop after 2-3 re-polls); not_found →
