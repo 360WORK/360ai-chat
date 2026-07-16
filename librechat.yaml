@@ -817,6 +817,15 @@ endpoints:
   anthropic:
     titleModel: 'claude-opus-4-6'
     streamRate: 25
+  # 360AI: deep-dive sourcing runs need a high agent-loop ceiling (rich search →
+  # fresh-results re-polls → batch profile pull → per-company verification →
+  # synthesis). Model-spec conversations run as ephemeral agents with no
+  # per-agent recursion_limit, so endpoints.agents.recursionLimit is the only
+  # effective knob — see resolveRecursionLimit in
+  # packages/api/src/agents/config.ts (fork default 50; upstream comments below
+  # claiming 25 are stale).
+  agents:
+    recursionLimit: 80
   # assistants:
   #   disableBuilder: false # Disable Assistants Builder Interface by setting to `true`
   #   pollIntervalMs: 3000  # Polling interval for checking assistant updates
