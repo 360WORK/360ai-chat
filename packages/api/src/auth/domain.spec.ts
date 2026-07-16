@@ -846,6 +846,23 @@ describe('extractMCPServerDomain', () => {
     jest.clearAllMocks();
   });
 
+  describe('env variable placeholders in url', () => {
+    afterEach(() => {
+      delete process.env.TEST_MCP_SERVER_URL;
+    });
+
+    it('resolves ${VAR} urls via the environment before extracting the origin', () => {
+      process.env.TEST_MCP_SERVER_URL = 'https://360ai.test/mcp/api';
+      const config = { url: '${TEST_MCP_SERVER_URL}' };
+      expect(extractMCPServerDomain(config)).toBe('https://360ai.test');
+    });
+
+    it('returns null when the placeholder cannot be resolved from the environment', () => {
+      const config = { url: '${TEST_MCP_SERVER_URL}' };
+      expect(extractMCPServerDomain(config)).toBe(null);
+    });
+  });
+
   describe('URL extraction (returns full origin for protocol/port matching)', () => {
     it('should extract full origin from HTTPS URL', () => {
       const config = { url: 'https://api.example.com/sse' };
