@@ -102,3 +102,33 @@ jobs:
             echo '```'
             echo "On the server set \`CHAT_IMAGE\` to one of these in \`.env\`, then run \`./deploy/manage.sh deploy\`."
           } >> "$GITHUB_STEP_SUMMARY"
+
+  deploy:
+    name: Deploy to production (Hetzner)
+    needs: build-and-push
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: production
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: false
+    steps:
+      - name: Deploy over SSH
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          DEPLOY_PORT: ${{ secrets.DEPLOY_PORT || 22 }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh -i ~/.ssh/deploy_key \
+            -o StrictHostKeyChecking=accept-new \
+            -o ConnectTimeout=15 \
+            -p "$DEPLOY_PORT" \
+            "$DEPLOY_USER@$DEPLOY_HOST" \
+            'cd /opt/chat360 && git pull --ff-only && ./deploy/manage.sh deploy'
+
+      - name: Deploy summary
+        run: echo "Deployed \`${{ github.sha }}\` to production via \`manage.sh deploy\`." >> "$GITHUB_STEP_SUMMARY"
