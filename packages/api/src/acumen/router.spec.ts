@@ -40,6 +40,7 @@ describe('selectUseCase', () => {
     ['plan next year headcount for the platform team', 'workforce-planning', 'enterprise-talent'],
     ['send me a weekly digest of fintech funding rounds', 'signal-tracking', 'executive-search'],
     ['keep an eye on Acme leadership moves', 'signal-tracking', 'executive-search'],
+    ['Send me a digest of the market landscape for fintech', 'market-mapping', 'enterprise-talent'],
   ];
 
   it.each(CASES)('routes "%s" to %s', (brief, useCaseId, businessType) => {

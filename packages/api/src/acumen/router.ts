@@ -13,7 +13,7 @@ const KEYWORDS: Record<UseCaseId, RegExp> = {
   prospecting:
     /\b(prospect|pitch|business development|bd list|win(?:ning)? clients|leads|target (?:account|client|company) list|target accounts?|companies .*pitch|pitch .*companies|new (?:clients?|business))\b/i,
   'signal-tracking':
-    /\b(alert me|watch|track|notify|monitor|when .* (?:change|move|raise)|digest|keep an eye|(?:weekly|daily) (?:digest|briefing|summary))\b/i,
+    /\b(alert me|watch|track|notify|monitor|when .* (?:change|move|raise)|keep an eye|(?:weekly|daily) (?:digest|briefing|summary))\b/i,
   'recruitment-research': /\b(research|find out|what(?:'s| is) the|how many)\b/i,
 };
 
