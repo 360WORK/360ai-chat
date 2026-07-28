@@ -1,9 +1,18 @@
 import { createElement } from 'react';
 import { MessageSquare, Info } from 'lucide-react';
 import { SettingsTabValues } from 'librechat-data-provider';
-import { GearIcon, DataIcon, UserIcon, SpeechIcon } from '@librechat/client';
+import { GearIcon, DataIcon, UserIcon, SpeechIcon, PersonalizationIcon } from '@librechat/client';
 import type { ComponentType, ReactNode } from 'react';
 import type { TranslationKeys } from '~/hooks';
+
+/** 360AI: settings hidden from users. Frontend-only; flip a flag to restore. */
+export const settings360 = {
+  showCommandSettings: false,
+  showAboutTab: false,
+  showAvatarControls: false,
+  showUsernameDisplay: false,
+  showSharedLinks: false,
+} as const;
 
 export type SettingsTab =
   | SettingsTabValues.GENERAL
@@ -11,9 +20,11 @@ export type SettingsTab =
   | SettingsTabValues.SPEECH
   | SettingsTabValues.DATA
   | SettingsTabValues.ACCOUNT
+  | SettingsTabValues.WORKSPACE_PROFILE
   | SettingsTabValues.ABOUT;
 
 export type SectionId =
+  | 'workspaceProfile'
   | 'appearance'
   | 'layout'
   | 'accessibility'
@@ -127,10 +138,16 @@ export const TABS: TabMeta[] = [
     ],
   },
   {
+    id: SettingsTabValues.WORKSPACE_PROFILE,
+    labelKey: 'com_onboarding_tab_label',
+    icon: createElement(PersonalizationIcon),
+    sections: [{ id: 'workspaceProfile', labelKey: 'com_onboarding_tab_label' }],
+  },
+  {
     id: SettingsTabValues.ABOUT,
     labelKey: 'com_nav_setting_about',
     icon: createElement(Info, { className: 'icon-sm', 'aria-hidden': true }),
     sections: [{ id: 'about', labelKey: 'com_nav_setting_about' }],
-    show: (ctx) => ctx.aboutEnabled,
+    show: (ctx) => settings360.showAboutTab && ctx.aboutEnabled,
   },
 ];

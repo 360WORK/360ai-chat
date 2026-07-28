@@ -4,6 +4,7 @@ import { useToastContext } from '@librechat/client';
 import { PermissionTypes, Permissions, apiBaseUrl } from 'librechat-data-provider';
 import Mermaid, { MermaidErrorBoundary } from '~/components/Messages/Content/Mermaid';
 import CodeBlock from '~/components/Messages/Content/CodeBlock';
+import InlineCard from './AI360/InlineCard';
 import useHasAccess from '~/hooks/Roles/useHasAccess';
 import { useFileDownload } from '~/data-provider';
 import { useCodeBlockContext } from '~/Providers';
@@ -27,6 +28,10 @@ const isSingleLineCode = (children: React.ReactNode): boolean => {
   return false;
 };
 
+const CARD_LANGUAGE = /language-360ai-card\b/;
+
+const is360aiCard = (className?: string): boolean => CARD_LANGUAGE.test(className ?? '');
+
 export const code: React.ElementType = memo(function MarkdownCode({
   className,
   children,
@@ -37,18 +42,21 @@ export const code: React.ElementType = memo(function MarkdownCode({
   });
   const match = /language-(\w+)/.exec(className ?? '');
   const lang = match && match[1];
+  const isCard = is360aiCard(className);
   const isMath = lang === 'math';
   const isMermaid = lang === 'mermaid';
   const isSingleLine = isSingleLineCode(children);
 
   const { getNextIndex, resetCounter } = useCodeBlockContext();
-  const blockIndex = useRef(getNextIndex(isMath || isMermaid || isSingleLine)).current;
+  const blockIndex = useRef(getNextIndex(isCard || isMath || isMermaid || isSingleLine)).current;
 
   useEffect(() => {
     resetCounter();
   }, [children, resetCounter]);
 
-  if (isMath) {
+  if (isCard) {
+    return <InlineCard>{children}</InlineCard>;
+  } else if (isMath) {
     return <>{children}</>;
   } else if (isMermaid) {
     const content = typeof children === 'string' ? children : String(children);
@@ -83,7 +91,9 @@ export const codeNoExecution: React.ElementType = memo(function MarkdownCodeNoEx
   const match = /language-(\w+)/.exec(className ?? '');
   const lang = match && match[1];
 
-  if (lang === 'math') {
+  if (is360aiCard(className)) {
+    return <InlineCard>{children}</InlineCard>;
+  } else if (lang === 'math') {
     return children;
   } else if (lang === 'mermaid') {
     const content = typeof children === 'string' ? children : String(children);

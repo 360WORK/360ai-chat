@@ -1,9 +1,10 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { Spinner } from '@librechat/client';
 import { useParams } from 'react-router-dom';
-import { Constants, buildTree } from 'librechat-data-provider';
+import { useQueryClient } from '@tanstack/react-query';
+import { Constants, buildTree, QueryKeys } from 'librechat-data-provider';
 import type { TChatProject, TMessage } from 'librechat-data-provider';
 import type { ChatFormValues } from '~/common';
 import {
@@ -15,7 +16,15 @@ import {
   useLocalize,
 } from '~/hooks';
 import { ChatContext, AddedChatContext, ChatFormProvider, useFileMapContext } from '~/Providers';
-import ConversationStarters from './Input/ConversationStarters';
+import { AcumenWorkspaces } from '~/components/Acumen';
+import AcumenConfirmDock from '~/components/Acumen/AcumenConfirmDock';
+import useCurrentConfirmFrame from '~/components/Acumen/useCurrentConfirmFrame';
+import { useSignalsSync } from '~/data-provider/Signals/queries';
+import OnboardingStarters from '~/components/Onboarding/OnboardingStarters';
+import OnboardingHero from '~/components/Onboarding/OnboardingHero';
+import useOnboardingGate from '~/components/Onboarding/useOnboardingGate';
+import useCurrentOnboardingStep from '~/components/Onboarding/useCurrentOnboardingStep';
+import OnboardingPillDock from '~/components/Onboarding/OnboardingPillDock';
 import { useGetMessagesByConvoId } from '~/data-provider';
 import ProjectLandingChip from './ProjectLandingChip';
 import MessagesView from './Messages/MessagesView';
@@ -109,6 +118,22 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
       ? localize('com_ui_new_chat_in_project', { name: project.name })
       : undefined;
 
+  const queryClient = useQueryClient();
+  const { gateActive, isCompanyScope } = useOnboardingGate();
+  const { step: activeStep } = useCurrentOnboardingStep(gateActive, messagesTree);
+  const { frame: confirmFrame } = useCurrentConfirmFrame(messagesTree);
+  // Periodically pull new signal-run digests into the user's "Signals"
+  // conversation. Silent (no UI); the messages list refetch shows new digests.
+  useSignalsSync();
+
+  // Refetch onboarding status whenever the user lands on the new-chat page so
+  // that a just-completed onboarding is reflected without a full page reload.
+  useEffect(() => {
+    if (isLandingPage) {
+      queryClient.invalidateQueries([QueryKeys.onboardingStatus]);
+    }
+  }, [isLandingPage, queryClient]);
+
   return (
     <ChatFormProvider {...methods}>
       <ChatContext.Provider value={chatHelpers}>
@@ -117,28 +142,44 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
             <div className="relative flex h-full w-full flex-col">
               <Header />
               <>
-                <div
-                  className={cn(
-                    'flex flex-col',
-                    isLandingPage
-                      ? 'flex-1 items-center justify-end sm:justify-center'
-                      : 'h-full overflow-y-auto',
-                  )}
-                >
-                  {content}
+                {isLandingPage && gateActive ? (
+                  <div className={cn('flex flex-col', 'flex-1 items-center justify-center')}>
+                    <OnboardingHero isCompanyScope={isCompanyScope} />
+                    {/* The form must stay mounted for form-context registration; `inert` keeps its content unfocusable (React 18 needs the string-spread form). */}
+                    <div className="sr-only" aria-hidden="true" {...{ inert: '' }}>
+                      <ChatForm index={index} placeholder={chatFormPlaceholder} />
+                    </div>
+                  </div>
+                ) : (
                   <div
                     className={cn(
-                      'w-full',
-                      isLandingPage && 'max-w-3xl transition-all duration-200 xl:max-w-4xl',
+                      'flex flex-col',
+                      isLandingPage
+                        ? 'flex-1 items-center justify-end sm:justify-center'
+                        : 'h-full overflow-y-auto',
                     )}
                   >
-                    {isProjectLandingPage && project && <ProjectLandingChip project={project} />}
-                    {isLandingPage && <ConversationStarters />}
-                    <ChatForm index={index} placeholder={chatFormPlaceholder} />
-                    {!isLandingPage && <Footer />}
+                    {isLandingPage ? <div className="w-full shrink-0">{content}</div> : content}
+                    <div
+                      className={cn(
+                        'w-full',
+                        isLandingPage && 'max-w-3xl transition-all duration-200 xl:max-w-4xl',
+                      )}
+                    >
+                      {isProjectLandingPage && project && <ProjectLandingChip project={project} />}
+                      {isLandingPage && <OnboardingStarters />}
+                      {isLandingPage && <AcumenWorkspaces />}
+                      <OnboardingPillDock step={activeStep} submitting={isSubmitting} />
+                      <AcumenConfirmDock
+                        frame={activeStep ? null : confirmFrame}
+                        submitting={isSubmitting}
+                      />
+                      <ChatForm index={index} placeholder={chatFormPlaceholder} />
+                      {!isLandingPage && <Footer />}
+                    </div>
                   </div>
-                </div>
-                {isLandingPage && <Footer />}
+                )}
+                {isLandingPage && !gateActive && <Footer />}
               </>
             </div>
           </Presentation>

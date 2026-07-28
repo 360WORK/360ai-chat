@@ -252,6 +252,7 @@ describe('refreshController – OpenID path', () => {
     res = {
       status: jest.fn().mockReturnThis(),
       send: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis(),
       redirect: jest.fn(),
     };
   });
@@ -687,22 +688,24 @@ describe('refreshController – OpenID path', () => {
     expect(res.status).toHaveBeenCalledWith(200);
   });
 
-  it('should return 401 and redirect to /login when findOpenIDUser returns no user', async () => {
+  it('should return 401 JSON (no redirect) when findOpenIDUser returns no user', async () => {
     findOpenIDUser.mockResolvedValue({ user: null, error: null, migration: false });
 
     await refreshController(req, res);
 
     expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.redirect).toHaveBeenCalledWith('/login');
+    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ message: expect.any(String) }));
+    expect(res.redirect).not.toHaveBeenCalled();
   });
 
-  it('should return 401 and redirect when findOpenIDUser returns an error', async () => {
+  it('should return 401 JSON (no redirect) when findOpenIDUser returns an error', async () => {
     findOpenIDUser.mockResolvedValue({ user: null, error: 'AUTH_FAILED', migration: false });
 
     await refreshController(req, res);
 
     expect(res.status).toHaveBeenCalledWith(401);
-    expect(res.redirect).toHaveBeenCalledWith('/login');
+    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ message: expect.any(String) }));
+    expect(res.redirect).not.toHaveBeenCalled();
   });
 
   it('should preserve invalid OpenID refresh token behavior', async () => {
@@ -739,6 +742,39 @@ describe('refreshController – OpenID path', () => {
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.send).toHaveBeenCalledWith('Refresh token not provided');
   });
+
+  it('resolves sub from access_token when id_token is absent (no-id_token refresh grant)', async () => {
+    const accessPayload = { sub: baseClaims.sub, email: baseClaims.email, oid: baseClaims.oid };
+    const accessToken = jwt.sign(accessPayload, 'any-secret');
+    mockTokenset.claims.mockReturnValue(undefined);
+    mockTokenset.access_token = accessToken;
+    mockTokenset.id_token = undefined;
+
+    await refreshController(req, res);
+
+    expect(setOpenIDAuthTokens).toHaveBeenCalledWith(
+      mockTokenset,
+      req,
+      res,
+      expect.objectContaining({ userId: 'user-db-id' }),
+    );
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.send).toHaveBeenCalledWith(expect.objectContaining({ token: 'new-app-token' }));
+  });
+
+  it('returns 401 JSON (no redirect) when access_token also lacks sub after id_token-less grant', async () => {
+    const accessToken = jwt.sign({ email: 'user@example.com' }, 'any-secret');
+    mockTokenset.claims.mockReturnValue(undefined);
+    mockTokenset.access_token = accessToken;
+    mockTokenset.id_token = undefined;
+
+    await refreshController(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(401);
+    expect(res.json).toHaveBeenCalledWith(expect.objectContaining({ message: expect.any(String) }));
+    expect(res.redirect).not.toHaveBeenCalled();
+    expect(setOpenIDAuthTokens).not.toHaveBeenCalled();
+  });
 });
 
 describe('refreshController – LibreChat path', () => {
@@ -763,6 +799,7 @@ describe('refreshController – LibreChat path', () => {
     res = {
       status: jest.fn().mockReturnThis(),
       send: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis(),
       redirect: jest.fn(),
     };
   });

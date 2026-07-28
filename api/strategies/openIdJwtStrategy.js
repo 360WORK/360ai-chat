@@ -194,6 +194,21 @@ const openIdJwtLogin = (openIdConfig) => {
             expires_at: payload.exp,
           };
 
+          /**
+           * Proactively refresh the OIDC access token if it is expired/about to
+           * expire, using the stored refresh_token. This keeps the token fresh
+           * for every downstream caller in this request (agent MCP, onboarding,
+           * acumen, signals) and persists it to the session (session-scoped by
+           * design), so the enforced 360ai MCP connection stops dying on token
+           * expiry.
+           */
+          try {
+            const { refreshOpenIdTokenIfNeeded } = require('~/server/services/OpenIdTokenRefresh');
+            await refreshOpenIdTokenIfNeeded(user, req.session);
+          } catch (refreshErr) {
+            logger.warn('[openIdJwtLogin] token refresh skipped', refreshErr);
+          }
+
           done(null, user);
         } else {
           logger.warn(

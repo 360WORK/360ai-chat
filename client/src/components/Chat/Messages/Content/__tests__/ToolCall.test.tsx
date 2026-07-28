@@ -98,6 +98,14 @@ jest.mock('~/utils', () => ({
   cn: (...classes: any[]) => classes.filter(Boolean).join(' '),
 }));
 
+jest.mock('../AI360', () => ({
+  __esModule: true,
+  default: ({ result }: any) => <div data-testid="ai360-cards">{result?.kind}</div>,
+  AI360_MCP_SERVER: '360ai',
+  is360Tool: (name: string) => name === 'search_companies',
+  parse360Output: () => ({ kind: 'companies', companies: [{ id: '1', name: 'Acme' }], count: 1 }),
+}));
+
 describe('ToolCall', () => {
   const mockProps = {
     args: '{"test": "input"}',
@@ -543,6 +551,46 @@ describe('ToolCall', () => {
       const liveRegion = document.querySelector('[aria-live="polite"]');
       expect(liveRegion).not.toBeNull();
       expect(liveRegion!.className).toContain('sr-only');
+    });
+  });
+
+  describe('360AI cards (always-visible placement)', () => {
+    const name360 = `search_companies${Constants.mcp_delimiter}360ai`;
+
+    it('renders 360AI cards without expanding the tool-call panel', () => {
+      renderWithRecoil(<ToolCall {...mockProps} name={name360} output={'{"count":1}'} />);
+      // No click on progress-text: cards must be visible outside the collapsible.
+      const cards = screen.getByTestId('ai360-cards');
+      expect(cards).toBeInTheDocument();
+      expect(cards.textContent).toBe('companies');
+    });
+
+    it('does not render 360AI cards for non-360 tools', () => {
+      renderWithRecoil(<ToolCall {...mockProps} name="testFunction" output={'Test output'} />);
+      expect(screen.queryByTestId('ai360-cards')).not.toBeInTheDocument();
+    });
+
+    it('does not render 360AI cards for same-named tools from other MCP servers', () => {
+      renderWithRecoil(
+        <ToolCall
+          {...mockProps}
+          name={`search_companies${Constants.mcp_delimiter}crustdata`}
+          output={'{"count":1}'}
+        />,
+      );
+      expect(screen.queryByTestId('ai360-cards')).not.toBeInTheDocument();
+    });
+
+    it('does not render 360AI cards for bare (non-MCP) tool names', () => {
+      renderWithRecoil(<ToolCall {...mockProps} name="search_companies" output={'{"count":1}'} />);
+      expect(screen.queryByTestId('ai360-cards')).not.toBeInTheDocument();
+    });
+
+    it('does not render 360AI cards while output is still empty (streaming)', () => {
+      renderWithRecoil(
+        <ToolCall {...mockProps} name={name360} output={''} initialProgress={0.3} />,
+      );
+      expect(screen.queryByTestId('ai360-cards')).not.toBeInTheDocument();
     });
   });
 });

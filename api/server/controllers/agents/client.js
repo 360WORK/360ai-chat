@@ -102,6 +102,8 @@ const {
   removeNullishValues,
   DEFAULT_MEMORY_MAX_INPUT_TOKENS,
 } = require('librechat-data-provider');
+const { onboardingContextPart } = require('./onboarding');
+const { acumenContextPart } = require('./acumen');
 const { filterFilesByAgentAccess } = require('~/server/services/Files/permissions');
 const { encodeAndFormat } = require('~/server/services/Files/images/encode');
 const { createContextHandlers } = require('~/app/clients/prompts');
@@ -791,6 +793,16 @@ class AgentClient extends BaseClient {
           );
           if (agentMemoryContext) {
             agentRunContextParts.push(agentMemoryContext);
+          }
+        }
+        if (agentId === this.options.agent.id) {
+          const onboardingPart = onboardingContextPart(this.options.req?.user?.oidcClaims);
+          if (onboardingPart) {
+            agentRunContextParts.push(onboardingPart);
+          }
+          const acumenPart = await acumenContextPart(this.options.req?.user, messages.at(-1)?.text);
+          if (acumenPart) {
+            agentRunContextParts.push(acumenPart);
           }
         }
         const scopedContext = agentScopedContext.get(agentId);

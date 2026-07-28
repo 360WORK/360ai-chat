@@ -140,6 +140,27 @@ const userSchema: Schema<IUser> = new Schema<IUser>(
       },
       default: {},
     },
+    /**
+     * 360AI onboarding claims mirrored from the OIDC provider on login.
+     *
+     * No `default` is set on purpose: an absent field must stay `undefined`
+     * (not `{}`) so the `onboardingContextPart` guard in
+     * `api/server/controllers/agents/onboarding.js` can distinguish users
+     * without OIDC claims (local users, legacy docs) from users whose claims
+     * were actually populated. The mapper `extractOnboardingClaims` returns
+     * `undefined` for absent claims; this schema must match that contract.
+     */
+    oidcClaims: {
+      type: {
+        _id: false,
+        isOwner: { type: Boolean, default: false },
+        role: { type: String, default: 'member', enum: ['owner', 'member'] },
+        clientId: { type: String, default: null },
+        clientName: { type: String, default: null },
+        companyOnboarded: { type: Boolean, default: false },
+        personalOnboarded: { type: Boolean, default: false },
+      },
+    },
     favorites: {
       type: [
         {
@@ -165,6 +186,15 @@ const userSchema: Schema<IUser> = new Schema<IUser>(
     tenantId: {
       type: String,
       index: true,
+    },
+    /**
+     * Stable conversationId of the user's dedicated "Signals" conversation
+     * (chat.360ai). Lazily created + cached on first signal digest delivery so
+     * it is stable across syncs. Absent until the first delivery.
+     */
+    signalsConversationId: {
+      type: String,
+      sparse: true,
     },
   },
   { timestamps: true },

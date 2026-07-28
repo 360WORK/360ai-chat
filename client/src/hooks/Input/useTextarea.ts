@@ -3,7 +3,6 @@ import debounce from 'lodash/debounce';
 import { useToastContext } from '@librechat/client';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { EToolResources, isAssistantsEndpoint } from 'librechat-data-provider';
-import type { TEndpointOption } from 'librechat-data-provider';
 import type { KeyboardEvent } from 'react';
 import {
   parseBinding,
@@ -11,13 +10,7 @@ import {
   bindingFromEvent,
   resolveSubmitOverrideAction,
 } from '~/utils/shortcuts';
-import {
-  forceResize,
-  insertTextAtCursor,
-  getEntityName,
-  getEntity,
-  checkIfScrollable,
-} from '~/utils';
+import { forceResize, insertTextAtCursor, getEntity, checkIfScrollable } from '~/utils';
 import { useAssistantsMapContext } from '~/Providers/AssistantsMapContext';
 import { useLatestMessageMeta } from '~/hooks/Messages/useLatestMessage';
 import useFileUploadRouter from '~/hooks/Files/useFileUploadRouter';
@@ -137,13 +130,8 @@ export default function useTextarea({
         return placeholder;
       }
 
-      const sender =
-        isAssistant || isAgent
-          ? getEntityName({ name: entityName, isAgent, localize })
-          : getSender(conversation as TEndpointOption);
-
       return `${localize('com_endpoint_message_new', {
-        0: sender ? sender : localize('com_endpoint_ai'),
+        0: entityName || '360AI Agent',
       })}`;
     };
 

@@ -246,6 +246,114 @@ export type TToolFavorite = {
   itemId: string;
 };
 
+/* Onboarding */
+export type TOnboardingStatusResponse = {
+  onboarding: {
+    is_owner: boolean;
+    role: 'owner' | 'member';
+    client: { id: string | number; name: string } | null;
+    company: { completed: boolean; profile: Record<string, unknown> | null };
+    personal: { completed: boolean; profile: Record<string, unknown> | null };
+    tailored_prompts: string[];
+  };
+};
+
+export type TUpdateOnboardingProfileParams = {
+  scope: string;
+  profile: Record<string, unknown>;
+  tailored_prompts?: string[];
+};
+
+export type TUpdateOnboardingProfileResponse = {
+  status: string;
+  scope: string;
+  completed: boolean;
+};
+
+/* Acumen */
+export interface TAcumenWorkspace {
+  useCaseId: string;
+  label: string;
+  kickoff: string;
+}
+
+export interface TAcumenWorkspacesResponse {
+  businessType: string | null;
+  workspaces: TAcumenWorkspace[];
+}
+
+/* Signals */
+export interface TSignalsSyncResponse {
+  /** Number of NEW digest messages persisted this sync (0 when nothing new). */
+  delivered: number;
+}
+
+/** A recruiter Signal (owned or subscribed) for the management UI. */
+export interface TSignal {
+  id: string;
+  name: string;
+  type: 'briefing' | 'custom';
+  isActive: boolean;
+  nextRunAt: string | null;
+  lastRunAt: string | null;
+  /** Raw cron (editable fields surfaced for the Edit form). */
+  cadenceCron: string | null;
+  promptTemplate: string | null;
+}
+
+/** Response of GET /api/signals (the user's signals). */
+export interface TSignalsResponse {
+  signals: TSignal[];
+}
+
+/** Tool allowed in a signal's tool plan (kept in lockstep with the Laravel tool). */
+export type TSignalTool = 'list_jobs' | 'get_job' | 'pipeline_stages';
+
+/** Payload for POST /api/signals (create). Matches the Laravel create_signal tool. */
+export interface TSignalCreateInput {
+  name: string;
+  type: 'briefing' | 'custom';
+  trigger_config: { cadence_cron: string; timezone?: string };
+  action_config: {
+    agent_key: 'recruiting' | 'sourcing' | 'interviewing';
+    prompt_template: string;
+    tool_plan: Array<{ tool: TSignalTool; args?: Record<string, unknown> }>;
+  };
+  delivery_channels: Array<'chat_feed' | 'inapp'>;
+}
+
+/** Partial payload for PATCH /api/signals/:id (update). All fields optional. */
+export interface TSignalUpdateInput {
+  name?: string;
+  description?: string | null;
+  is_active?: boolean;
+  trigger_config?: { cadence_cron: string; timezone?: string };
+  action_config?: { prompt_template: string };
+  delivery_channels?: Array<'chat_feed' | 'inapp'>;
+}
+
+/** Response of create / run-now. */
+export interface TSignalCreateResponse {
+  id: string;
+  name: string;
+  type: string;
+  nextRunAt: string | null;
+  isActive: boolean;
+}
+export interface TSignalRunResponse {
+  signalId: string;
+  signalRunId: string | null;
+  status: string | null;
+  summaryExcerpt: string | null;
+}
+
+/** A signal run — the shape returned by GET /api/signals/run/:runId. */
+export interface TSignalLatestRun {
+  status: 'queued' | 'running' | 'succeeded' | 'failed' | 'no_change' | string;
+  summary: string | null;
+  createdAt: string | null;
+}
+
 /* SharePoint Graph API Token */
 export type GraphTokenParams = {
   scopes: string;

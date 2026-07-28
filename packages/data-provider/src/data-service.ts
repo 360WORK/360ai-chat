@@ -1323,6 +1323,17 @@ export function verifyTwoFactorTemp(
   return request.post(endpoints.verifyTwoFactorTemp(), payload);
 }
 
+/* Onboarding */
+export const getOnboardingStatus = (): Promise<q.TOnboardingStatusResponse> => {
+  return request.get(endpoints.onboardingStatus());
+};
+
+export const updateOnboardingProfile = (
+  payload: q.TUpdateOnboardingProfileParams,
+): Promise<q.TUpdateOnboardingProfileResponse> => {
+  return request.put(endpoints.onboardingProfile(), payload);
+};
+
 /* Memories */
 export const getMemories = (): Promise<q.MemoriesResponse> => {
   return request.get(endpoints.memories());
@@ -1411,4 +1422,41 @@ export interface ActiveJobsResponse {
 
 export const getActiveJobs = (): Promise<ActiveJobsResponse> => {
   return request.get(endpoints.activeJobs());
+};
+
+/* Acumen */
+export const getAcumenWorkspaces = (): Promise<q.TAcumenWorkspacesResponse> => {
+  return request.get(endpoints.acumenWorkspaces());
+};
+
+/* Signals */
+export const syncSignals = (): Promise<q.TSignalsSyncResponse> => {
+  return request.post(endpoints.signalsSync());
+};
+
+export const getSignals = (): Promise<q.TSignalsResponse> => {
+  return request.get(endpoints.signals());
+};
+
+export const createSignal = (payload: q.TSignalCreateInput): Promise<q.TSignalCreateResponse> => {
+  return request.post(endpoints.signals(), payload);
+};
+
+export const updateSignal = (
+  id: string,
+  payload: q.TSignalUpdateInput,
+): Promise<q.TSignalCreateResponse> => {
+  return request.patch(endpoints.signalById(id), payload);
+};
+
+export const runSignalNow = (id: string): Promise<q.TSignalRunResponse> => {
+  return request.post(endpoints.signalRun(id));
+};
+
+export const getSignalRun = (runId: string): Promise<q.TSignalLatestRun> => {
+  return request.get(endpoints.signalRunById(runId));
+};
+
+export const deleteSignal = (id: string): Promise<unknown> => {
+  return request.delete(endpoints.signalById(id));
 };

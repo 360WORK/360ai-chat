@@ -182,3 +182,12 @@ hive-mind-prompt-*.txt
 CLAUDE.md
 .gsd
 codedb.snapshot
+
+# Build/test caches (must never be committed)
+node-compile-cache/
+jest_dx/
+.gstack/
+
+# Stray artifacts from sibling Laravel tooling run with wrong cwd
+/*.php
+/[0-9]*-[0-9]*/

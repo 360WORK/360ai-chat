@@ -206,7 +206,24 @@ const refreshController = async (req, res) => {
         has_refresh_token: Boolean(tokenset.refresh_token),
         expires_in: tokenset.expires_in,
       });
-      const claims = tokenset.claims();
+      let claims = tokenset.claims();
+      if (!claims?.sub) {
+        const accessClaims = tokenset.access_token ? jwt.decode(tokenset.access_token) : null;
+        claims = claims || accessClaims || {};
+        if (!claims.sub && accessClaims?.sub) {
+          claims.sub = accessClaims.sub;
+        }
+        if (!claims.email && accessClaims?.email) {
+          claims.email = accessClaims.email;
+        }
+        if (!claims.oid && accessClaims?.oid) {
+          claims.oid = accessClaims.oid;
+        }
+      }
+      if (!claims.sub) {
+        logger.warn('[refreshController] No sub in claims after access_token fallback');
+        return res.status(401).json({ message: 'OpenID refresh failed: no sub claim' });
+      }
       const openidIssuer = getOpenIdIssuer(claims, openIdConfig);
       const { user, error, migration } = await findOpenIDUser({
         findUser,
@@ -223,9 +240,9 @@ const refreshController = async (req, res) => {
 
       if (error || !user) {
         logger.warn(
-          `[refreshController] Redirecting to /login: error=${error ?? 'null'}, user=${user ? 'exists' : 'null'}`,
+          `[refreshController] OpenID refresh rejected: error=${error ?? 'null'}, user=${user ? 'exists' : 'null'}`,
         );
-        return res.status(401).redirect('/login');
+        return res.status(401).json({ message: 'OpenID refresh failed: user not found' });
       }
 
       // Handle migration: update user with openidId if found by email without openidId
@@ -265,7 +282,7 @@ const refreshController = async (req, res) => {
     const payload = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
     const user = await getUserById(payload.id, AUTH_REFRESH_USER_PROJECTION);
     if (!user) {
-      return res.status(401).redirect('/login');
+      return res.status(401).json({ message: 'User not found for refresh token' });
     }
 
     const userId = payload.id;
@@ -292,7 +309,7 @@ const refreshController = async (req, res) => {
       // Retrying from a refresh token request that failed (401)
       res.status(403).send('No session found');
     } else if (payload.exp < Date.now() / 1000) {
-      res.status(403).redirect('/login');
+      res.status(403).json({ message: 'Refresh token expired' });
     } else {
       res.status(401).send('Refresh token expired or not found for this user');
     }

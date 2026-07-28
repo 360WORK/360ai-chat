@@ -183,3 +183,119 @@ Multi-line imports count total character length across all lines. Consolidate va
 ## Formatting
 
 Fix all formatting lint errors (trailing spaces, tabs, newlines, indentation) using auto-fix when available. All TypeScript/ESLint warnings and errors **must** be resolved.
+
+---
+
+# 360AI Adaptation
+
+## Purpose & context (read first)
+
+**The main product is the 360AI platform — a Laravel app at `/Users/eth0/Herd/360ai`** (GitHub `360WORK/hire-suite`). That is the primary system; this repo exists to serve it.
+
+**This repo (chat.360ai) is a fork of LibreChat being adapted into the chat interface *for* 360AI.** It is a satellite of the Laravel app, not a standalone product. Over time we will progressively adapt LibreChat to 360AI's product requirements (branding, auth, data, features), so expect ongoing 360AI-specific changes. When making decisions here, optimize for what serves the **360AI product**, not generic LibreChat.
+
+Guiding principles:
+- The 360AI Laravel app is the source of truth for identity, users, and (increasingly) product behavior; chat.360ai integrates with it.
+- Keep upstream LibreChat code changes minimal and isolated — prefer config/`.env` and thin adapters — so we can still pull upstream updates while layering 360AI behavior on top.
+- App title is "360AI Chat"; it authenticates against the 360AI identity platform (see below).
+
+## Identity & SSO (OpenID Connect)
+
+chat.360ai is an **OIDC client**; the **360AI platform is the provider** (Laravel 11 + Laravel Passport with a custom OIDC layer).
+
+- **Provider repo (local):** `/Users/eth0/Herd/360ai` — GitHub `360WORK/hire-suite`. All provider-side auth lives there.
+- **Issuer:** `https://360ai.test` (local Herd domain); discovery at `/.well-known/openid-configuration`. **Client app:** `https://chat.360ai.test`.
+- Config lives in the **root `.env`** (`OPENID_*`). Key vars:
+  - `OPENID_ISSUER=https://360ai.test`
+  - `OPENID_CLIENT_ID=a1c92a9e-8c31-443e-9a2d-73eb5e6e8c87` — the active LibreChat Passport client. (A stale duplicate `a1c92288-…` also exists in the provider DB; don't confuse them.)
+  - `OPENID_SCOPE="openid profile email"`, `OPENID_USE_PKCE=true`, `OPENID_AUTO_REDIRECT=true`
+  - `OPENID_*_CLAIM` map provider claims → LibreChat fields (email / preferred_username / name).
+  - `NODE_EXTRA_CA_CERTS` points at Herd's self-signed CA so Node can reach `https://360ai.test`.
+- Client strategy code: `api/strategies/openidStrategy.js`.
+
+### Login flow
+1. `OPENID_AUTO_REDIRECT=true` sends users straight to the 360AI authorize endpoint (no LibreChat login form).
+2. **Consent is auto-skipped**: the provider treats this client as first-party via `skipsAuthorization()` in the provider's `app/Models/Passport/Client.php` — `TRUSTED_CLIENT_IDS` must contain `OPENID_CLIENT_ID`. If an "Authorize" screen appears, the client ID is missing from that list.
+3. On callback, LibreChat reads claims from `/oauth/userinfo` (and the id_token) to provision/update the user.
+
+### Avatars
+- LibreChat downloads the OIDC **`picture`** claim on every login and stores it (`openidStrategy.js` ~L788), unless the user set a manual avatar (stored `avatar` contains `manual=true`).
+- The provider supplies `picture` from the user's `profile_photo_url` (`app/Support/Oidc/OidcClaims.php`): a `ui-avatars.com` URL by default, or `https://360ai.test/storage/...` for uploaded photos.
+
+### Provider-side OIDC map (in `/Users/eth0/Herd/360ai`)
+- Claims assembled: `app/Support/Oidc/OidcClaims.php` (shared by userinfo + id_token).
+- Userinfo: `routes/ai.php` → `OAuthUserinfoController` (`GET /oauth/userinfo`).
+- id_token injection: `app/Http/Middleware/OidcInjectIdToken.php` · Discovery: `app/Http/Controllers/OAuthDiscoveryController.php`.
+- Consent skip / trusted clients: `app/Models/Passport/Client.php` (registered via `AuthServiceProvider::useClientModel`).
+- After editing provider OIDC/claims/clients, run `php artisan optimize:clear`.
+
+## Local dev (this fork)
+- Node **24.16.0** (`.nvmrc`); run `nvm use`. If `npm_config_prefix` is set in the shell, `unset` it first or nvm refuses to switch.
+- MongoDB on `:27017` (e.g. `docker run -d --name librechat-mongo -p 27017:27017 -v librechat-mongo-data:/data/db mongo:latest`).
+- Vite's dev host allow-list reads `VITE_ALLOWED_HOSTS` from root `.env` via `loadEnv` in `client/vite.config.ts` — add Herd hostnames there (already includes `chat.360ai.test`).
+- Run: `npm run build:packages` once, then `npm run backend:dev` + `npm run frontend:dev`. App at `https://chat.360ai.test` (Herd) or `http://localhost:3090`.
+
+---
+
+# context-mode — MANDATORY routing rules
+
+You have context-mode MCP tools available. These rules are NOT optional — they protect your context window from flooding. A single unrouted command can dump 56 KB into context and waste the entire session.
+
+## BLOCKED commands — do NOT attempt these
+
+### curl / wget — BLOCKED
+Any Bash command containing `curl` or `wget` is intercepted and replaced with an error message. Do NOT retry.
+Instead use:
+- `ctx_fetch_and_index(url, source)` to fetch and index web pages
+- `ctx_execute(language: "javascript", code: "const r = await fetch(...)")` to run HTTP calls in sandbox
+
+### Inline HTTP — BLOCKED
+Any Bash command containing `fetch('http`, `requests.get(`, `requests.post(`, `http.get(`, or `http.request(` is intercepted and replaced with an error message. Do NOT retry with Bash.
+Instead use:
+- `ctx_execute(language, code)` to run HTTP calls in sandbox — only stdout enters context
+
+### WebFetch — BLOCKED
+WebFetch calls are denied entirely. The URL is extracted and you are told to use `ctx_fetch_and_index` instead.
+Instead use:
+- `ctx_fetch_and_index(url, source)` then `ctx_search(queries)` to query the indexed content
+
+## REDIRECTED tools — use sandbox equivalents
+
+### Bash (>20 lines output)
+Bash is ONLY for: `git`, `mkdir`, `rm`, `mv`, `cd`, `ls`, `npm install`, `pip install`, and other short-output commands.
+For everything else, use:
+- `ctx_batch_execute(commands, queries)` — run multiple commands + search in ONE call
+- `ctx_execute(language: "shell", code: "...")` — run in sandbox, only stdout enters context
+
+### Read (for analysis)
+If you are reading a file to **Edit** it → Read is correct (Edit needs content in context).
+If you are reading to **analyze, explore, or summarize** → use `ctx_execute_file(path, language, code)` instead. Only your printed summary enters context. The raw file content stays in the sandbox.
+
+### Grep (large results)
+Grep results can flood context. Use `ctx_execute(language: "shell", code: "grep ...")` to run searches in sandbox. Only your printed summary enters context.
+
+## Tool selection hierarchy
+
+1. **GATHER**: `ctx_batch_execute(commands, queries)` — Primary tool. Runs all commands, auto-indexes output, returns search results. ONE call replaces 30+ individual calls.
+2. **FOLLOW-UP**: `ctx_search(queries: ["q1", "q2", ...])` — Query indexed content. Pass ALL questions as array in ONE call.
+3. **PROCESSING**: `ctx_execute(language, code)` | `ctx_execute_file(path, language, code)` — Sandbox execution. Only stdout enters context.
+4. **WEB**: `ctx_fetch_and_index(url, source)` then `ctx_search(queries)` — Fetch, chunk, index, query. Raw HTML never enters context.
+5. **INDEX**: `ctx_index(content, source)` — Store content in FTS5 knowledge base for later search.
+
+## Subagent routing
+
+When spawning subagents (Agent/Task tool), the routing block is automatically injected into their prompt. Bash-type subagents are upgraded to general-purpose so they have access to MCP tools. You do NOT need to manually instruct subagents about context-mode.
+
+## Output constraints
+
+- Keep responses under 500 words.
+- Write artifacts (code, configs, PRDs) to FILES — never return them as inline text. Return only: file path + 1-line description.
+- When indexing content, use descriptive source labels so others can `ctx_search(source: "label")` later.
+
+## ctx commands
+
+| Command | Action |
+|---------|--------|
+| `ctx stats` | Call the `ctx_stats` MCP tool and display the full output verbatim |
+| `ctx doctor` | Call the `ctx_doctor` MCP tool, run the returned shell command, display as checklist |
+| `ctx upgrade` | Call the `ctx_upgrade` MCP tool, run the returned shell command, display as checklist |

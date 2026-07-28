@@ -41,6 +41,11 @@ const loadSkillsView = () =>
     Component: m.default,
   }));
 
+const loadSignalsView = () =>
+  import('~/components/Signals/SignalsManager').then((m) => ({
+    Component: m.default,
+  }));
+
 const loadProjectsView = () =>
   import('~/components/Projects').then((m) => ({
     Component: m.ProjectsView,
@@ -161,6 +166,10 @@ export const router = createBrowserRouter(
             {
               path: 'skills/:skillId/edit',
               lazy: loadSkillsView,
+            },
+            {
+              path: 'signals',
+              lazy: loadSignalsView,
             },
             {
               path: 'projects',

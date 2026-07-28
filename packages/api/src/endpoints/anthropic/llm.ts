@@ -191,6 +191,12 @@ function getLLMConfig(
   const mergedOptions = Object.assign(defaultOptions, options.modelOptions);
 
   let enableWebSearch = mergedOptions.web_search;
+  // Claude-native code execution (sandboxed Python) — enables list-building,
+  // data crunching, comp reports, etc. Mirrors the web_search wiring below.
+  // (Accessed loosely: the spec schema is permissive and passes this through.)
+  let enableCodeExecution = (mergedOptions as Record<string, unknown>).code_execution as
+    | boolean
+    | undefined;
 
   let requestOptions: AnthropicClientOptions & { stream?: boolean } = {
     model: mergedOptions.model,
@@ -317,6 +323,13 @@ function getLLMConfig(
         }
         continue;
       }
+      /** Handle code_execution separately - don't add to config */
+      if (key === 'code_execution') {
+        if (enableCodeExecution === undefined && typeof value === 'boolean') {
+          enableCodeExecution = value;
+        }
+        continue;
+      }
 
       if (knownAnthropicParams.has(key)) {
         /** Route known Anthropic params to requestOptions only if undefined */
@@ -333,6 +346,13 @@ function getLLMConfig(
       if (key === 'web_search') {
         if (typeof value === 'boolean') {
           enableWebSearch = value;
+        }
+        continue;
+      }
+      /** Handle code_execution separately - don't add to config */
+      if (key === 'code_execution') {
+        if (typeof value === 'boolean') {
+          enableCodeExecution = value;
         }
         continue;
       }
@@ -353,6 +373,10 @@ function getLLMConfig(
     options.dropParams.forEach((param) => {
       if (param === 'web_search') {
         enableWebSearch = false;
+        return;
+      }
+      if (param === 'code_execution') {
+        enableCodeExecution = false;
         return;
       }
 
@@ -394,6 +418,16 @@ function getLLMConfig(
         WEB_SEARCH_BETA,
       );
     }
+  }
+
+  // Claude-native code execution (sandboxed Python). Enables the model to
+  // build lists, crunch data, and produce computed artifacts (e.g. CSVs,
+  // ranked shortlists, comp tables) for recruiting workflows.
+  if (enableCodeExecution) {
+    tools.push({
+      type: 'code_execution_20250519',
+      name: 'code_execution',
+    });
   }
 
   if (!shouldDropClientOptions) {

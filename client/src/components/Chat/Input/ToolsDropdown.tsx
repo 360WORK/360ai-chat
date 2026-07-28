@@ -158,6 +158,13 @@ const ToolsDropdown = ({ disabled }: ToolsDropdownProps) => {
 
   const dropdownItems: MenuItemProps[] = [];
 
+  // 360AI: tools hidden from the tools menu for now. Frontend-only hide — the
+  // underlying capabilities/permissions are untouched; flip a flag to restore.
+  const showWebSearch = false;
+  const showSkills = false;
+  const showRunCode = false;
+  const showArtifacts = false;
+
   if (fileSearchEnabled && canUseFileSearch) {
     dropdownItems.push({
       onClick: handleFileSearchToggle,
@@ -190,7 +197,7 @@ const ToolsDropdown = ({ disabled }: ToolsDropdownProps) => {
     });
   }
 
-  if (canUseWebSearch && webSearchEnabled) {
+  if (showWebSearch && canUseWebSearch && webSearchEnabled) {
     dropdownItems.push({
       onClick: handleWebSearchToggle,
       hideOnClick: false,
@@ -244,7 +251,7 @@ const ToolsDropdown = ({ disabled }: ToolsDropdownProps) => {
     });
   }
 
-  if (canUseSkills && skillsEnabled) {
+  if (showSkills && canUseSkills && skillsEnabled) {
     dropdownItems.push({
       onClick: handleSkillsToggle,
       hideOnClick: false,
@@ -308,7 +315,7 @@ const ToolsDropdown = ({ disabled }: ToolsDropdownProps) => {
     });
   }
 
-  if (canRunCode && codeEnabled) {
+  if (showRunCode && canRunCode && codeEnabled) {
     dropdownItems.push({
       onClick: handleCodeInterpreterToggle,
       hideOnClick: false,
@@ -342,7 +349,7 @@ const ToolsDropdown = ({ disabled }: ToolsDropdownProps) => {
     });
   }
 
-  if (artifactsEnabled && setIsArtifactsPinned != null) {
+  if (showArtifacts && artifactsEnabled && setIsArtifactsPinned != null) {
     dropdownItems.push({
       hideOnClick: false,
       render: (props) => (

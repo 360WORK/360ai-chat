@@ -8,6 +8,7 @@ import {
   ScrollText,
   ArrowRightToLine,
   SlidersHorizontal,
+  Radar,
 } from 'lucide-react';
 import {
   Permissions,
@@ -34,6 +35,7 @@ import { MemoryPanel } from '~/components/SidePanel/Memories';
 import FilesPanel from '~/components/SidePanel/Files/Panel';
 import { PromptsAccordion } from '~/components/Prompts';
 import { SkillsAccordion } from '~/components/Skills';
+import SignalsManager from '~/components/Signals/SignalsManager';
 
 export default function useSideNavLinks({
   hidePanel,
@@ -130,7 +132,12 @@ export default function useSideNavLinks({
       });
     }
 
-    if (hasAccessToSkills && skillsEnabled) {
+    // 360AI: Skills and Prompts side-nav panels are hidden for now. Frontend-only
+    // hide — access/permissions and the panels themselves are left intact; flip
+    // these flags to restore the tabs.
+    const showSkillsNav = false;
+    const showPromptsNav = false;
+    if (showSkillsNav && hasAccessToSkills && skillsEnabled) {
       links.push({
         title: 'com_ui_skills',
         label: '',
@@ -140,7 +147,7 @@ export default function useSideNavLinks({
       });
     }
 
-    if (hasAccessToPrompts) {
+    if (showPromptsNav && hasAccessToPrompts) {
       links.push({
         title: 'com_ui_prompts',
         label: '',
@@ -170,6 +177,15 @@ export default function useSideNavLinks({
       });
     }
 
+    // 360AI Signals: always-on management surface for onboarded users.
+    links.push({
+      title: 'com_nav_signals',
+      label: '',
+      icon: Radar,
+      id: 'signals',
+      Component: SignalsManager,
+    });
+
     links.push({
       title: 'com_sidepanel_attach_files',
       label: '',
@@ -193,9 +209,14 @@ export default function useSideNavLinks({
       });
     }
 
+    // 360AI: MCP Settings panel is hidden from the side nav for now. This is a
+    // frontend-only hide — the MCP capability, permissions, and servers are left
+    // fully intact; flip `showMcpNav` to true to restore the panel.
+    const showMcpNav = false;
     if (
-      (hasAccessToUseMCPSettings && availableMCPServers && availableMCPServers.length > 0) ||
-      hasAccessToCreateMCP
+      showMcpNav &&
+      ((hasAccessToUseMCPSettings && availableMCPServers && availableMCPServers.length > 0) ||
+        hasAccessToCreateMCP)
     ) {
       links.push({
         title: 'com_nav_setting_mcp',

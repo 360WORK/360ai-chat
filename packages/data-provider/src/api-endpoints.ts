@@ -294,6 +294,20 @@ export const agents = ({ path = '', options }: { path?: string; options?: object
 
 export const activeJobs = () => `${BASE_URL}/api/agents/chat/active`;
 
+/* Onboarding */
+export const onboardingStatus = () => `${BASE_URL}/api/onboarding/status`;
+export const onboardingProfile = () => `${BASE_URL}/api/onboarding/profile`;
+
+/* Acumen */
+export const acumenWorkspaces = () => `${BASE_URL}/api/acumen/workspaces`;
+
+/* Signals */
+export const signalsSync = () => `${BASE_URL}/api/signals/sync`;
+export const signals = () => `${BASE_URL}/api/signals`;
+export const signalRun = (id: string) => `${BASE_URL}/api/signals/${id}/run`;
+export const signalById = (id: string) => `${BASE_URL}/api/signals/${id}`;
+export const signalRunById = (runId: string) => `${BASE_URL}/api/signals/run/${runId}`;
+
 export const mcp = {
   tools: `${BASE_URL}/api/mcp/tools`,
   servers: `${BASE_URL}/api/mcp/servers`,

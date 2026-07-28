@@ -14,6 +14,7 @@ import { ToolIcon, getToolIconType, isError } from './ToolOutput';
 import { useMCPIconMap } from '~/hooks/MCP';
 import { AttachmentGroup } from './Parts';
 import ToolCallInfo from './ToolCallInfo';
+import AI360ToolResult, { parse360Output, is360Tool, AI360_MCP_SERVER } from './AI360';
 import ProgressText from './ProgressText';
 import { logger } from '~/utils';
 import store from '~/store';
@@ -106,6 +107,13 @@ export default function ToolCall({
       mcpServerName: '',
     };
   }, [name, parsedAuthUrl]);
+
+  const parsed360 = useMemo(() => {
+    if (!output || mcpServerName !== AI360_MCP_SERVER || !is360Tool(function_name)) {
+      return null;
+    }
+    return parse360Output(function_name, output);
+  }, [output, function_name, mcpServerName]);
 
   const toolIconType = useMemo(() => getToolIconType(name), [name]);
   const mcpIconMap = useMCPIconMap();
@@ -247,6 +255,11 @@ export default function ToolCall({
           error={showCancelled}
         />
       </div>
+      {parsed360 && (
+        <div className="my-1.5">
+          <AI360ToolResult result={parsed360} />
+        </div>
+      )}
       <div style={expandStyle} data-tool-call-output-id={toolCallId}>
         <div className="overflow-hidden" ref={expandRef}>
           {hasInfo && (

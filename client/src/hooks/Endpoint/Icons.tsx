@@ -1,4 +1,3 @@
-import { Feather } from 'lucide-react';
 import { EModelEndpoint } from 'librechat-data-provider';
 import {
   GPTIcon,
@@ -38,7 +37,7 @@ const AssistantAvatar = ({
   return <Sparkles className={cn(context === 'landing' ? 'icon-2xl' : '', className)} />;
 };
 
-const AgentAvatar = ({ className = '', avatar = '', agentName, size }: AgentIconMapProps) => {
+const AgentAvatar = ({ className = '', avatar = '', agentName }: AgentIconMapProps) => {
   if (agentName != null && agentName && avatar) {
     return (
       <img
@@ -51,7 +50,13 @@ const AgentAvatar = ({ className = '', avatar = '', agentName, size }: AgentIcon
     );
   }
 
-  return <Feather className={cn(agentName === '' ? 'icon-2xl' : '', className)} size={size} />;
+  return (
+    <img
+      src="assets/360-mark.png"
+      alt="360AI"
+      className={cn(agentName === '' ? 'icon-2xl' : '', 'object-contain dark:invert', className)}
+    />
+  );
 };
 
 const Bedrock = ({ className = '' }: IconMapProps) => {

@@ -56,6 +56,13 @@
   --amber-900: #78350f;
   --amber-950: #451a03;
   --brand-purple: #ab68ff;
+  --blue-400: #5aa2f5;
+  --blue-500: #2f80ed;
+  --blue-600: #1f6fd6;
+  --indigo-300: #a5b4fc;
+  --indigo-400: #818cf8;
+  --indigo-500: #6366f1;
+  --indigo-600: #4f46e5;
   --gizmo-gray-500: #999;
   --gizmo-gray-600: #666;
   --gizmo-gray-950: #0f0f0f;
@@ -169,6 +176,19 @@ html {
   --border-heavy: var(--gray-400);
   --border-xheavy: var(--gray-500);
   --border-destructive: var(--red-600);
+  /* 360AI brand tokens */
+  --ai360-accent: var(--blue-500);
+  --ai360-accent-hover: var(--blue-600);
+  --ai360-action: var(--indigo-500);
+  --ai360-action-bg: rgba(99, 102, 241, 0.08);
+  --ai360-action-border: rgba(99, 102, 241, 0.28);
+  --ai360-positive: var(--green-600);
+  --ai360-positive-bg: var(--green-100);
+  --ai360-alert: var(--red-600);
+  --ai360-alert-bg: var(--red-100);
+  --ai360-card: var(--white);
+  --ai360-card-border: var(--gray-200);
+  --ai360-chip-border: var(--gray-200);
   /* These are test styles */
 
   --background: 0 0% 100%;
@@ -231,6 +251,19 @@ html {
   --border-heavy: var(--gray-500);
   --border-xheavy: var(--gray-400);
   --border-destructive: var(--red-500);
+  /* 360AI brand tokens */
+  --ai360-accent: var(--blue-400);
+  --ai360-accent-hover: #7fb4f7;
+  --ai360-action: var(--indigo-300);
+  --ai360-action-bg: rgba(129, 140, 248, 0.14);
+  --ai360-action-border: rgba(129, 140, 248, 0.34);
+  --ai360-positive: var(--green-400);
+  --ai360-positive-bg: rgba(16, 185, 129, 0.16);
+  --ai360-alert: var(--red-400);
+  --ai360-alert-bg: rgba(239, 68, 68, 0.16);
+  --ai360-card: var(--gray-850);
+  --ai360-card-border: var(--gray-700);
+  --ai360-chip-border: var(--gray-700);
   /* These are test styles */
 
   --background: 0 0% 7%;
@@ -3026,4 +3059,16 @@ html {
 
 .sharepoint-picker-bg {
   background-color: #f5f5f5;
+}
+
+/* TalentMap: neutralize MapLibre popup chrome so the dark TalentHoverCard is the only visual */
+.ai360-talent-map .maplibregl-popup-content {
+  background: transparent;
+  padding: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.ai360-talent-map .maplibregl-popup-tip {
+  display: none;
 }

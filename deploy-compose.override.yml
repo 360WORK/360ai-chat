@@ -1,0 +1,55 @@
+# 360AI production overrides for deploy-compose.yml
+#
+# Compose does NOT auto-merge this onto deploy-compose.yml — always pass BOTH files:
+#   docker compose -f deploy-compose.yml -f deploy-compose.override.yml up -d
+# Use ./deploy/manage.sh (it wires both -f flags for you).
+#
+# What this changes vs upstream deploy-compose.yml:
+#   1. api      → build OUR fork from Dockerfile.multi (not the upstream image)
+#   2. api      → drop the public 3080 port; only Caddy (same network) reaches it
+#   3. client   → disable the bundled nginx (Caddy replaces it, does TLS)
+#   4. caddy    → new service: 80/443 + automatic Let's Encrypt for the subdomain
+#
+# Requires Docker Compose v2.24+ for the `!override` tag (get.docker.com ships newer).
+
+services:
+  api:
+    # Local build tags this name; a CI/GHCR deploy overrides it via CHAT_IMAGE
+    # (e.g. CHAT_IMAGE=ghcr.io/360work/360ai-chat:latest) so the box only pulls.
+    image: ${CHAT_IMAGE:-chat360/librechat:latest}
+    build:
+      context: .
+      dockerfile: Dockerfile.multi
+      target: api-build
+      args:
+        NODE_MAX_OLD_SPACE_SIZE: "3072"
+    # Replace the inherited "3080:3080" so the app is NOT publicly exposed.
+    # Loopback bind keeps `curl localhost:3080/health` working on the box for debugging.
+    ports: !override
+      - "127.0.0.1:3080:3080"
+
+  # Disable the bundled nginx container — Caddy below terminates TLS and proxies.
+  client:
+    profiles:
+      - disabled
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: chat-caddy
+    restart: always
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - CHAT_DOMAIN=${CHAT_DOMAIN}
+      - ACME_EMAIL=${ACME_EMAIL}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

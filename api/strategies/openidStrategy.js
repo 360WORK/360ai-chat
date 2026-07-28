@@ -23,6 +23,7 @@ const {
   getOpenIdRoleSyncOptions,
   getOpenIdRolesForOpenIdSync,
   getLibreChatRolesForOpenIdSync,
+  extractOnboardingClaims,
 } = require('@librechat/api');
 const { getStrategyFunctions } = require('~/server/services/Files/strategies');
 const { resizeAvatar } = require('~/server/services/Files/images/avatar');
@@ -693,6 +694,7 @@ async function processOpenIDAuth(tokenset, existingUsersOnly = false) {
       name: fullName,
       idOnTheSource: userinfo.oid,
       openidIssuer,
+      oidcClaims: extractOnboardingClaims(userinfo),
     };
 
     const balanceConfig = getBalanceConfig(appConfig);
@@ -706,6 +708,7 @@ async function processOpenIDAuth(tokenset, existingUsersOnly = false) {
     user.username = username;
     user.name = fullName;
     user.idOnTheSource = userinfo.oid;
+    user.oidcClaims = extractOnboardingClaims(userinfo);
     if (email && email !== user.email) {
       user.email = email;
       user.emailVerified = userinfo.email_verified || false;

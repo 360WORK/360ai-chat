@@ -1,5 +1,6 @@
 import { SettingsTabValues } from 'librechat-data-provider';
 import type { SettingEntry } from './types';
+import { settings360 } from './types';
 import {
   TextToSpeechSwitch,
   VoiceDropdown,
@@ -35,6 +36,7 @@ import { TokenCredits, AutoRefill } from './BillingControls';
 import SharedLinks from '../SettingsTabs/Data/SharedLinks';
 import { showThinkingAtom } from '~/store/showThinking';
 import ProviderKeys from '../SettingsTabs/ProviderKeys';
+import WorkspaceProfile from '../SettingsTabs/WorkspaceProfile';
 import Avatar from '../SettingsTabs/Account/Avatar';
 import About from '../SettingsTabs/About/About';
 import ApiKeys from '../SettingsTabs/ApiKeys';
@@ -42,7 +44,7 @@ import MemoryToggle from './MemoryToggle';
 import { TTSEndpoints } from '~/common';
 import store from '~/store';
 
-const { GENERAL, CHAT, SPEECH, DATA, ACCOUNT, ABOUT } = SettingsTabValues;
+const { GENERAL, CHAT, SPEECH, DATA, ACCOUNT, WORKSPACE_PROFILE, ABOUT } = SettingsTabValues;
 
 export const registry: SettingEntry[] = [
   // General · Appearance
@@ -177,6 +179,7 @@ export const registry: SettingEntry[] = [
     tab: CHAT,
     section: 'commands',
     labelKey: 'com_nav_at_command_description',
+    show: () => settings360.showCommandSettings,
     Component: toggleControl({
       stateAtom: store.atCommand,
       localizationKey: 'com_nav_at_command_description',
@@ -188,7 +191,7 @@ export const registry: SettingEntry[] = [
     tab: CHAT,
     section: 'commands',
     labelKey: 'com_nav_plus_command_description',
-    show: (ctx) => ctx.hasMultiConvo,
+    show: (ctx) => settings360.showCommandSettings && ctx.hasMultiConvo,
     Component: toggleControl({
       stateAtom: store.plusCommand,
       localizationKey: 'com_nav_plus_command_description',
@@ -200,7 +203,7 @@ export const registry: SettingEntry[] = [
     tab: CHAT,
     section: 'commands',
     labelKey: 'com_nav_slash_command_description',
-    show: (ctx) => ctx.hasPrompts,
+    show: (ctx) => settings360.showCommandSettings && ctx.hasPrompts,
     Component: toggleControl({
       stateAtom: store.slashCommand,
       localizationKey: 'com_nav_slash_command_description',
@@ -225,6 +228,7 @@ export const registry: SettingEntry[] = [
     section: 'messages',
     labelKey: 'com_nav_user_name_display',
     keywords: ['username', 'name'],
+    show: () => settings360.showUsernameDisplay,
     Component: DisplayUsernameMessages,
   },
   {
@@ -473,6 +477,7 @@ export const registry: SettingEntry[] = [
     tab: DATA,
     section: 'data',
     labelKey: 'com_ui_settings_label_shared_links',
+    show: () => settings360.showSharedLinks,
     Component: SharedLinks,
   },
   // Data controls · API keys
@@ -522,6 +527,7 @@ export const registry: SettingEntry[] = [
     tab: ACCOUNT,
     section: 'profile',
     labelKey: 'com_ui_settings_label_avatar',
+    show: () => settings360.showAvatarControls,
     Component: Avatar,
   },
   // Account · Security
@@ -568,6 +574,16 @@ export const registry: SettingEntry[] = [
     Component: DeleteAccount,
   },
 
+  // 360AI · Workspace profile
+  {
+    id: 'workspaceProfile',
+    tab: WORKSPACE_PROFILE,
+    section: 'workspaceProfile',
+    labelKey: 'com_onboarding_tab_label',
+    keywords: ['workspace', 'profile', 'company', 'onboarding'],
+    Component: WorkspaceProfile,
+  },
+
   // About
   {
     id: 'about',
@@ -575,7 +591,7 @@ export const registry: SettingEntry[] = [
     section: 'about',
     labelKey: 'com_nav_setting_about',
     keywords: ['version', 'build', 'diagnostics'],
-    show: (ctx) => ctx.aboutEnabled,
+    show: (ctx) => settings360.showAboutTab && ctx.aboutEnabled,
     Component: About,
   },
 ];

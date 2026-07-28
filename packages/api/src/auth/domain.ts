@@ -1,4 +1,5 @@
 import { lookup } from 'node:dns/promises';
+import { extractEnvVariable } from 'librechat-data-provider';
 import {
   normalizePort,
   isAddressInAllowedSet,
@@ -397,7 +398,13 @@ export function extractMCPServerDomain(config: Record<string, unknown>): string 
   }
 
   try {
-    const parsedUrl = new URL(url);
+    /**
+     * Resolve `${ENV_VAR}` placeholders the same way `processMCPEnv` does at
+     * connection time — the yaml config stores the raw placeholder, and an
+     * unparseable raw url would fail-closed as domain "unknown" under an
+     * active allowlist. Unresolved placeholders still parse-fail → null.
+     */
+    const parsedUrl = new URL(extractEnvVariable(url));
     // Return full origin (protocol://hostname:port) for proper domain validation
     // This allows admins to restrict by protocol/port in allowedDomains
     return parsedUrl.origin;

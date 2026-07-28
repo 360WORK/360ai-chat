@@ -34,10 +34,14 @@ function Header() {
     permission: Permissions.USE,
   });
 
-  const hasAccessToTemporaryChat = useHasAccess({
+  // 360AI: Temporary Chat is hidden from the header for now. Frontend-only hide —
+  // the TEMPORARY_CHAT permission is untouched; flip `showTemporaryChat` to restore.
+  const showTemporaryChat = false;
+  const canUseTemporaryChat = useHasAccess({
     permissionType: PermissionTypes.TEMPORARY_CHAT,
     permission: Permissions.USE,
   });
+  const hasAccessToTemporaryChat = showTemporaryChat && canUseTemporaryChat === true;
 
   const isSmallScreen = useMediaQuery('(max-width: 768px)');
 
@@ -62,7 +66,7 @@ function Header() {
                   <ExportAndShareMenu
                     isSharedButtonEnabled={startupConfig?.sharedLinksEnabled ?? false}
                   />
-                  {hasAccessToTemporaryChat === true && <TemporaryChat />}
+                  {hasAccessToTemporaryChat && <TemporaryChat />}
                 </>
               )}
             </div>
@@ -74,7 +78,7 @@ function Header() {
             <ExportAndShareMenu
               isSharedButtonEnabled={startupConfig?.sharedLinksEnabled ?? false}
             />
-            {hasAccessToTemporaryChat === true && <TemporaryChat />}
+            {hasAccessToTemporaryChat && <TemporaryChat />}
           </div>
         )}
       </div>

@@ -41,9 +41,9 @@ describe('Sidebar', () => {
     expect(screen.queryByText('About')).not.toBeInTheDocument();
   });
 
-  it('shows the About tab when build info is enabled', () => {
+  it('keeps the About tab hidden even when build info is enabled (360AI)', () => {
     setup({ aboutEnabled: true });
-    expect(screen.getByText('About')).toBeInTheDocument();
+    expect(screen.queryByText('About')).not.toBeInTheDocument();
   });
 
   it('forwards typing to onQueryChange', async () => {
