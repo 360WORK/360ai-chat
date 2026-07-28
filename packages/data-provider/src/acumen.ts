@@ -38,7 +38,7 @@ export const ACUMEN_CARD_META: Record<AcumenUseCaseId, AcumenCardMeta> = {
   },
   'skill-mapping': {
     label: 'Skill Mapping',
-    kickoff: 'Map the skills landscape for a capability I care about.',
+    kickoff: 'Map the skills gap for a capability I care about.',
   },
   'workforce-planning': {
     label: 'Workforce Planning',
