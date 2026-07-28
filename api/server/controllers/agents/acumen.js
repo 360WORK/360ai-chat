@@ -9,7 +9,7 @@ const { getOnboardingStatus } = require('../../services/Onboarding');
 const PROFILE_TTL_MS = 5 * 60 * 1000;
 const NEGATIVE_TTL_MS = 45 * 1000;
 const PROFILE_CACHE_MAX = 500;
-const CONTEXT_TIMEOUT_MS = 1500;
+const CONTEXT_TIMEOUT_MS = 2500;
 const profileCache = new Map();
 
 function readCache(userId) {

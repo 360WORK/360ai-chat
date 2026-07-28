@@ -108,7 +108,7 @@ describe('acumenContextPart timeout', () => {
   it('returns null when profile resolution exceeds the hot-path timeout', async () => {
     getOnboardingStatus.mockImplementation(() => new Promise(() => {}));
     const pending = acumenContextPart(user, null);
-    jest.advanceTimersByTime(1600);
+    jest.advanceTimersByTime(2600);
     await expect(pending).resolves.toBeNull();
   });
 
