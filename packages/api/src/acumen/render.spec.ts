@@ -40,3 +40,15 @@ describe('renderPrompt', () => {
     expect(out).not.toContain('Thresholds:');
   });
 });
+
+describe('renderPrompt override header', () => {
+  it('opens with the Live Instruction override header', () => {
+    const prompt = renderPrompt({
+      ordered: [R('foundations', 'foundations', 'FOUNDATION SCAFFOLD')],
+      fields: {},
+      constraints: { offLimits: [], guardrails: [] },
+    });
+    expect(prompt.startsWith('# Live Instruction (Acumen)')).toBe(true);
+    expect(prompt).toContain('THIS section wins');
+  });
+});

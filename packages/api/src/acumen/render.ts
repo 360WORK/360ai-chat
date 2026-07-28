@@ -18,8 +18,12 @@ const HEADINGS: Record<LayerRecord['kind'], string> = {
 const section = (title: string, body: string | undefined): string | null =>
   body && body.trim() ? `${title}\n${body.trim()}` : null;
 
+const OVERRIDE_HEADER =
+  '# Live Instruction (Acumen)\n' +
+  'This section defines your working method for this session. Where it conflicts with any general workflow guidance elsewhere in your instructions, THIS section wins — except hard constraints and safety rules, which always apply and only tighten.';
+
 export const renderPrompt = (input: RenderInput): string => {
-  const parts: (string | null)[] = [];
+  const parts: (string | null)[] = [OVERRIDE_HEADER];
 
   for (const layer of input.ordered) {
     parts.push(section(HEADINGS[layer.kind], layer.body));
