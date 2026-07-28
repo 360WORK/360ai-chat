@@ -23,6 +23,9 @@ describe('selectUseCase', () => {
     expect(selectUseCase('', 'rec2rec')).toBeNull();
     expect(selectUseCase('hi there', 'rec2rec')).toBeNull();
   });
+  it('does not route a weekly briefing brief to signal-tracking (desk_snapshot territory)', () => {
+    expect(selectUseCase('give me my weekly briefing', 'executive-search')).toBeNull();
+  });
 
   const CASES: Array<[string, UseCaseId, BusinessType]> = [
     ['find me senior fintech candidates in London', 'talent-mapping', 'rec2rec'],
