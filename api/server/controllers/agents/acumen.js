@@ -196,7 +196,8 @@ function resetAcumenStickyCache() {
 }
 
 function isClassifierEnabled() {
-  return Boolean(process.env.ANTHROPIC_API_KEY) && process.env.ACUMEN_CLASSIFIER !== 'false';
+  const key = process.env.ANTHROPIC_API_KEY;
+  return Boolean(key && key !== 'user_provided') && process.env.ACUMEN_CLASSIFIER !== 'false';
 }
 
 function countWords(brief) {

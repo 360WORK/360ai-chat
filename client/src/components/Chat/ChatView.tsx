@@ -176,7 +176,9 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
                       {isLandingPage && <AcumenWorkspaces />}
                       <OnboardingPillDock step={activeStep} submitting={isSubmitting} />
                       <AcumenLensChip
-                        conversationId={conversationId}
+                        conversationId={
+                          conversationId !== Constants.NEW_CONVO ? conversationId : undefined
+                        }
                         lastMessageId={lastMessageId}
                       />
                       <AcumenConfirmDock

@@ -195,6 +195,35 @@ describe('acumen use-case routing', () => {
     expect(getActiveUseCase('conv-classifier-long')?.useCaseId).toBe('prospecting');
   });
 
+  it('does not call the classifier when ANTHROPIC_API_KEY is the user_provided placeholder', async () => {
+    process.env.ANTHROPIC_API_KEY = 'user_provided';
+    getOnboardingStatus.mockResolvedValue(statusWith('executive_search'));
+
+    const result = await acumenContextPart(
+      user,
+      'help me understand the pricing structure of a rival vendor',
+      'conv-classifier-user-provided',
+    );
+    expect(mockAnthropicCreate).not.toHaveBeenCalled();
+    expect(result).not.toBeNull();
+    expect(getActiveUseCase('conv-classifier-user-provided')).toBeNull();
+  });
+
+  it('does not call the classifier when ACUMEN_CLASSIFIER is disabled', async () => {
+    process.env.ANTHROPIC_API_KEY = 'test-key';
+    process.env.ACUMEN_CLASSIFIER = 'false';
+    getOnboardingStatus.mockResolvedValue(statusWith('executive_search'));
+
+    const result = await acumenContextPart(
+      user,
+      'help me understand the pricing structure of a rival vendor',
+      'conv-classifier-disabled',
+    );
+    expect(mockAnthropicCreate).not.toHaveBeenCalled();
+    expect(result).not.toBeNull();
+    expect(getActiveUseCase('conv-classifier-disabled')).toBeNull();
+  });
+
   it('proceeds without a use case when the classifier call fails', async () => {
     process.env.ANTHROPIC_API_KEY = 'test-key';
     getOnboardingStatus.mockResolvedValue(statusWith('executive_search'));
