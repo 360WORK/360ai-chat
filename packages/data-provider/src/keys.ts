@@ -89,6 +89,7 @@ export enum QueryKeys {
   favorites = 'favorites',
   /* Acumen */
   acumenWorkspaces = 'acumenWorkspaces',
+  acumenActive = 'acumenActive',
   /* Signals */
   signalsSync = 'signalsSync',
   signalsList = 'signalsList',

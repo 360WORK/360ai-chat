@@ -1425,6 +1425,10 @@ export const getActiveJobs = (): Promise<ActiveJobsResponse> => {
 };
 
 /* Acumen */
+export const getAcumenActive = (conversationId?: string): Promise<q.TAcumenActiveResponse> => {
+  return request.get(endpoints.acumenActive(conversationId));
+};
+
 export const getAcumenWorkspaces = (): Promise<q.TAcumenWorkspacesResponse> => {
   return request.get(endpoints.acumenWorkspaces());
 };
