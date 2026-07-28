@@ -23,6 +23,7 @@ export default function ToolCall({
   initialProgress = 0.1,
   isLast = false,
   isSubmitting,
+  toolCallId,
   name,
   args: _args = '',
   output,
@@ -34,6 +35,7 @@ export default function ToolCall({
   initialProgress: number;
   isLast?: boolean;
   isSubmitting: boolean;
+  toolCallId?: string;
   name: string;
   args: string | Record<string, unknown>;
   output?: string | null;
@@ -222,7 +224,11 @@ export default function ToolCall({
           return getFinishedText();
         })()}
       </span>
-      <div className="relative my-1.5 flex h-5 shrink-0 items-center gap-2.5">
+      <div
+        className="relative my-1.5 flex h-5 shrink-0 items-center gap-2.5"
+        data-testid="tool-call"
+        data-tool-call-id={toolCallId}
+      >
         <ProgressText
           progress={progress}
           onClick={handleToggleInfo}
@@ -254,7 +260,7 @@ export default function ToolCall({
           <AI360ToolResult result={parsed360} />
         </div>
       )}
-      <div style={expandStyle}>
+      <div style={expandStyle} data-tool-call-output-id={toolCallId}>
         <div className="overflow-hidden" ref={expandRef}>
           {hasInfo && (
             <div className="my-2 overflow-hidden rounded-lg border border-border-light bg-surface-secondary">

@@ -2,12 +2,13 @@ import { UserPlus, Bell, BarChart3, Search } from 'lucide-react';
 import { ACUMEN_CARD_META } from 'librechat-data-provider';
 import type { AcumenUseCaseId } from 'librechat-data-provider';
 import type { LucideIcon } from 'lucide-react';
+import type { TranslationKeys } from '~/hooks';
 
 export type AcumenCard = {
   id: AcumenUseCaseId;
   icon: LucideIcon;
-  labelKey: string;
-  descKey: string;
+  labelKey: TranslationKeys;
+  descKey: TranslationKeys;
   kickoff: string;
 };
 
@@ -50,7 +51,7 @@ const CARDS: AcumenCard[] = [
 ];
 
 /** Per-business-type description overrides keyed by card id. */
-const DESC_OVERRIDES: Record<string, Record<string, string>> = {
+const DESC_OVERRIDES: Record<string, Record<string, TranslationKeys>> = {
   rec2rec: {
     'talent-mapping': 'com_acumen_card_talent_desc_rec2rec',
     'signal-tracking': 'com_acumen_card_signal_desc_rec2rec',

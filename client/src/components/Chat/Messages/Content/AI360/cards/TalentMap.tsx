@@ -2,6 +2,7 @@ import maplibregl from 'maplibre-gl';
 import Supercluster from 'supercluster';
 import { useEffect, useMemo, useState, useCallback } from 'react';
 import type { Talent } from '../types';
+import type { TranslationKeys } from '~/hooks';
 import { Map, useMap, MapMarker, MarkerContent, MarkerTooltip, MarkerPopup } from '../map/Map';
 import { safeHref } from '../href';
 import { Avatar } from '../Bits';
@@ -52,7 +53,7 @@ function TalentHoverCard({
   withProfileLink,
 }: {
   talent: Located;
-  localize: (k: string) => string;
+  localize: (k: TranslationKeys) => string;
   withProfileLink?: boolean;
 }) {
   const meta = [talent.title, talent.current_company].filter(Boolean).join(' · ');
@@ -148,7 +149,7 @@ function ClusterLayer({
   localize,
 }: {
   located: Located[];
-  localize: (k: string) => string;
+  localize: (k: TranslationKeys) => string;
 }) {
   const { map, isLoaded } = useMap();
   const [clusters, setClusters] = useState<ClusterItem[]>([]);

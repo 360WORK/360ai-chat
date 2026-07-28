@@ -66,7 +66,7 @@ function Header() {
                   <ExportAndShareMenu
                     isSharedButtonEnabled={startupConfig?.sharedLinksEnabled ?? false}
                   />
-                  {hasAccessToTemporaryChat === true && <TemporaryChat />}
+                  {hasAccessToTemporaryChat && <TemporaryChat />}
                 </>
               )}
             </div>
@@ -78,7 +78,7 @@ function Header() {
             <ExportAndShareMenu
               isSharedButtonEnabled={startupConfig?.sharedLinksEnabled ?? false}
             />
-            {hasAccessToTemporaryChat === true && <TemporaryChat />}
+            {hasAccessToTemporaryChat && <TemporaryChat />}
           </div>
         )}
       </div>

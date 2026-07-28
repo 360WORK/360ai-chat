@@ -12,6 +12,7 @@ import {
   useResumeOnLoad,
   useAdaptiveSSE,
   useChatHelpers,
+  useQueueDrain,
   useLocalize,
 } from '~/hooks';
 import { ChatContext, AddedChatContext, ChatFormProvider, useFileMapContext } from '~/Providers';
@@ -58,7 +59,11 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
 
   const fileMap = useFileMapContext();
 
-  const { data: messagesTree = null, isLoading } = useGetMessagesByConvoId(
+  const {
+    data: messagesTree = null,
+    isLoading,
+    isFetching,
+  } = useGetMessagesByConvoId(
     conversationId ?? '',
     {
       select: useCallback(
@@ -68,7 +73,11 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
         },
         [fileMap],
       ),
-      enabled: !!fileMap,
+      enabled: !!conversationId && conversationId !== Constants.SEARCH,
+      /** Refetch stale caches on mount: navigation invalidates (not removes)
+       * messages now, so a warm conversation renders instantly from cache and
+       * reconciles in the background instead of unmounting into a spinner. */
+      refetchOnMount: true,
     },
     { isStreaming: isSubmitting },
   );
@@ -78,9 +87,14 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
 
   useAdaptiveSSE(rootSubmission, chatHelpers, false, index);
 
-  // Auto-resume if navigating back to conversation with active job
-  // Wait for messages to load before resuming to avoid race condition
-  useResumeOnLoad(conversationId, chatHelpers.getMessages, index, !isLoading);
+  // Auto-resume if navigating back to conversation with active job.
+  // Wait for messages to load AND the warm-cache background revalidation to
+  // settle: a stale invalidated cache mounts with isLoading false while the
+  // refetch is in flight, and resume must not build from (or race) it.
+  useResumeOnLoad(conversationId, chatHelpers.getMessages, index, !isLoading && !isFetching);
+
+  // Auto-send queued follow-up messages once a run finishes cleanly.
+  useQueueDrain(index, conversationId, chatHelpers.ask);
 
   let content: JSX.Element | null | undefined;
   const isLandingPage =
