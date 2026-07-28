@@ -11,7 +11,7 @@ const {
   composeSystemPrompt,
   normalizeBusinessType,
 } = require('@librechat/api');
-const { resolveProfile } = require('../controllers/agents/acumen');
+const { resolveProfile, getActiveUseCase } = require('../controllers/agents/acumen');
 const { requireJwtAuth } = require('~/server/middleware');
 
 const router = express.Router();
@@ -112,6 +112,25 @@ router.get('/workspaces', async (req, res) => {
   } catch (err) {
     logger.warn('[GET /acumen/workspaces] Failed to resolve workspaces:', err);
     return res.json({ businessType: null, workspaces: [] });
+  }
+});
+
+/**
+ * GET /acumen/active?conversationId=<id>
+ * Returns the authenticated user's business type and the sticky use case (if
+ * any) currently active for the conversation, so the client can render the
+ * lens the agent is routed to. Never 500s: profile-resolution failure and a
+ * missing conversationId both fall back to null fields with a 200.
+ */
+router.get('/active', async (req, res) => {
+  try {
+    const { conversationId } = req.query;
+    const { businessType } = await resolveProfile(req.user);
+    const sticky = conversationId ? getActiveUseCase(conversationId) : null;
+    return res.json({ businessType, useCaseId: sticky?.useCaseId ?? null });
+  } catch (err) {
+    logger.warn('[GET /acumen/active] Failed to resolve active lens:', err);
+    return res.json({ businessType: null, useCaseId: null });
   }
 });
 
