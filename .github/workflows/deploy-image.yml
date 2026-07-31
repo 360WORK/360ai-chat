@@ -137,7 +137,7 @@ jobs:
             -o ConnectTimeout=15 \
             -p "$DEPLOY_PORT" \
             "$DEPLOY_USER@$DEPLOY_HOST" \
-            'cd /opt/chat360 && git pull --ff-only && ./deploy/manage.sh deploy'
+            'cd /opt/chat360 && git fetch origin main && git reset --hard origin/main && ./deploy/manage.sh deploy'
 
       - name: Deploy summary
         run: echo "Deployed \`${{ github.sha }}\` to production via \`manage.sh deploy\`." >> "$GITHUB_STEP_SUMMARY"
