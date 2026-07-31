@@ -38,7 +38,7 @@ case "$cmd" in
       exit 1
     fi
     "${COMPOSE[@]}" pull api
-    "${COMPOSE[@]}" up -d --no-build
+    "${COMPOSE[@]}" up -d --no-build --force-recreate api caddy
     ;;
   down)       "${COMPOSE[@]}" down ;;
   restart)    "${COMPOSE[@]}" restart ;;

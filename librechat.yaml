@@ -351,8 +351,10 @@ actions:
 mcpSettings:
   allowedDomains:
     - '360ai.test'
+    - '360ai.io'
   allowedAddresses:
     - '360ai.test:443'
+    - '360ai.io:443'
 
 # 360AI: recruiting tools from the 360AI platform's MCP server (RecruitingServer).
 # No manual token: chat.360ai logs users in via OIDC against the same 360AI
@@ -387,9 +389,11 @@ modelSpecs:
   prioritize: true
   list:
     - name: '360ai'
-      label: '360AI'
+      label: '360AI Guru'
       default: true
-      showOnLanding: false
+      showOnLanding: true
+      showIconInHeader: true
+      iconURL: '/assets/360-mark.png'
       # 360AI: always activate the 360ai MCP recruiting tools for every
       # conversation. This spec is enforced, so the tools are on by default with
       # no per-conversation toggle (load.ts adds modelSpec.mcpServers to the

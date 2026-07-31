@@ -117,6 +117,23 @@ const loadAgent = (params) => loadAgentFn(params, { getAgent: db.getAgent, getMC
 
 const MEMORY_INPUT_CHARS_PER_TOKEN = 8;
 
+const PROVIDER_NAME_PATTERN =
+  /\b(?:anthropic|claude|openai|gpt|azure|google|gemini|vertex|bedrock|mistral|deepseek|xai|grok)\b/i;
+const ACCOUNT_ERROR_PATTERN =
+  /credit balance|billing|quota|rate.?limit|api.?key|unauthorized|authentication|overloaded/i;
+
+/**
+ * 360AI: user-facing errors must never leak the upstream model provider
+ * (vendor names, billing hints, request ids). Full details remain in logs.
+ */
+const sanitizeErrorMessage = (message) => {
+  if (!message || ACCOUNT_ERROR_PATTERN.test(message) || PROVIDER_NAME_PATTERN.test(message)) {
+    return 'An error occurred while processing the request: the AI service is temporarily unavailable. Please try again shortly, or contact support if the issue persists.';
+  }
+  const scrubbed = message.replace(/\breq_[A-Za-z0-9]+\b/g, '').replace(/\s{2,}/g, ' ').trim();
+  return `An error occurred while processing the request: ${scrubbed}`;
+};
+
 class AgentClient extends BaseClient {
   constructor(options = {}) {
     super(null, options);
@@ -2001,9 +2018,7 @@ class AgentClient extends BaseClient {
         });
         this.contentParts.push({
           type: ContentTypes.ERROR,
-          [ContentTypes.ERROR]:
-            videoError ??
-            `An error occurred while processing the request${err?.message ? `: ${err.message}` : ''}`,
+          [ContentTypes.ERROR]: videoError ?? sanitizeErrorMessage(err?.message),
         });
       }
     } finally {

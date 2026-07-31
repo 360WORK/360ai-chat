@@ -28,6 +28,8 @@ on:
       - 'package.json'
       - 'package-lock.json'
       - 'Dockerfile.multi'
+      - 'librechat.yaml'
+      - 'deploy/**'
       - '.github/workflows/deploy-image.yml'
 
 permissions:
