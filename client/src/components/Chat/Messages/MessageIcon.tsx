@@ -87,7 +87,7 @@ const MessageIcon = memo(({ iconData, assistant, agent }: MessageIconProps) => {
         className="relative flex items-center justify-center overflow-hidden rounded-sm bg-white p-1 dark:bg-gray-800"
       >
         <img
-          src="assets/360-mark.png"
+          src="assets/360-mark.png?v=guru1"
           alt="360AI"
           className="h-full w-full object-contain dark:invert"
         />

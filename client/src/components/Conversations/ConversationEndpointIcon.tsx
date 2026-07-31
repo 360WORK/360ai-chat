@@ -18,7 +18,7 @@ function ConversationEndpointIcon({ className, size = 20 }: ConversationEndpoint
       className={`flex flex-shrink-0 items-center justify-center overflow-hidden ${className ?? ''}`}
     >
       <img
-        src="assets/360-mark.png"
+        src="assets/360-mark.png?v=guru1"
         alt="360AI"
         className="h-full w-full object-contain dark:invert"
       />

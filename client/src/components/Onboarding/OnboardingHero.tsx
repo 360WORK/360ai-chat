@@ -39,7 +39,7 @@ export default function OnboardingHero({ isCompanyScope }: Props) {
     <div className="animate-fadeIn mx-auto flex w-full max-w-md flex-col px-4">
       <div className="flex flex-col items-center text-center">
         <div className="flex size-14 items-center justify-center rounded-2xl bg-surface-secondary">
-          <img src="/assets/360-mark.png" alt="360AI" className="size-8 object-contain" />
+          <img src="/assets/360-mark.png?v=guru1" alt="360AI" className="size-8 object-contain" />
         </div>
         <h1 className="mt-5 text-xl font-semibold tracking-tight text-text-primary">{title}</h1>
         <p className="mt-2 max-w-sm text-sm leading-relaxed text-text-secondary">{subtitle}</p>

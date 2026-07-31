@@ -54,7 +54,7 @@ export default function ConvoIcon({
     return (
       <div className={containerClassName}>
         <img
-          src="assets/360-mark.png"
+          src="assets/360-mark.png?v=guru1"
           alt="360AI"
           className={`object-contain dark:invert ${className}`}
         />
