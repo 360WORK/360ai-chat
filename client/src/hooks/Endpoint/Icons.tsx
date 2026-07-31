@@ -52,7 +52,7 @@ const AgentAvatar = ({ className = '', avatar = '', agentName }: AgentIconMapPro
 
   return (
     <img
-      src="assets/360-mark.png"
+      src="assets/360-mark.png?v=guru1"
       alt="360AI"
       className={cn(agentName === '' ? 'icon-2xl' : '', 'object-contain dark:invert', className)}
     />
