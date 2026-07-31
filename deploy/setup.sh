@@ -61,10 +61,10 @@ else
 # ============================================================================
 # 360AI production overrides (appended by deploy/setup.sh — last value wins)
 # ============================================================================
-CHAT_DOMAIN=chat.360ai.com
-ACME_EMAIL=ops@360ai.com
-DOMAIN_CLIENT=https://chat.360ai.com
-DOMAIN_SERVER=https://chat.360ai.com
+CHAT_DOMAIN=guru.360ai.io
+ACME_EMAIL=ops@360ai.io
+DOMAIN_CLIENT=https://guru.360ai.io
+DOMAIN_SERVER=https://guru.360ai.io
 
 HOST=0.0.0.0
 PORT=3080
@@ -80,7 +80,7 @@ CREDS_KEY=${CREDS_KEY}
 CREDS_IV=${CREDS_IV}
 MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
 
-OPENID_ISSUER=https://360ai.com
+OPENID_ISSUER=https://360ai.io
 OPENID_CLIENT_ID=
 OPENID_CLIENT_SECRET=
 OPENID_CALLBACK_URL=/oauth/openid/callback
@@ -96,9 +96,9 @@ fi
 echo
 say "Almost done. Edit ./.env and set these before launching:"
 cat <<'EOF'
-    CHAT_DOMAIN        e.g. chat.360ai.com   (also update DOMAIN_CLIENT/SERVER)
+    CHAT_DOMAIN        e.g. guru.360ai.io    (also update DOMAIN_CLIENT/SERVER)
     ACME_EMAIL         Let's Encrypt contact
-    OPENID_ISSUER      production 360AI issuer, e.g. https://360ai.com
+    OPENID_ISSUER      production 360AI issuer, e.g. https://360ai.io
     OPENID_CLIENT_ID   production Passport client id
     OPENID_CLIENT_SECRET (only if not using PKCE)
 
