@@ -255,9 +255,9 @@ const handleAbortError = async (res, req, error, data) => {
     );
   }
 
-  let errorText = error?.message?.includes('"type"')
-    ? error.message
-    : 'An error occurred while processing your request. Please contact the Admin.';
+  /** 360AI: never forward raw provider error bodies (vendor names, billing
+   *  details, request ids) to the client; full details are already logged. */
+  let errorText = 'An error occurred while processing your request. Please contact the Admin.';
 
   if (error?.type === ErrorTypes.INVALID_REQUEST) {
     errorText = `{"type":"${ErrorTypes.INVALID_REQUEST}"}`;
