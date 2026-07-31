@@ -116,6 +116,13 @@ jobs:
       group: deploy-production
       cancel-in-progress: false
     steps:
+      - name: Check deploy secrets
+        run: |
+          if [ -z "${{ secrets.DEPLOY_HOST }}" ] || [ -z "${{ secrets.DEPLOY_USER }}" ] || [ -z "${{ secrets.DEPLOY_SSH_KEY }}" ]; then
+            echo "::error::Missing DEPLOY_HOST, DEPLOY_USER, and/or DEPLOY_SSH_KEY repository secrets — set them in Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+
       - name: Deploy over SSH
         env:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
