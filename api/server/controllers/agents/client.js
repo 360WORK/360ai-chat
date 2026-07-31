@@ -800,7 +800,11 @@ class AgentClient extends BaseClient {
           if (onboardingPart) {
             agentRunContextParts.push(onboardingPart);
           }
-          const acumenPart = await acumenContextPart(this.options.req?.user, messages.at(-1)?.text);
+          const acumenPart = await acumenContextPart(
+            this.options.req?.user,
+            messages.at(-1)?.text,
+            this.options.req?.body?.conversationId,
+          );
           if (acumenPart) {
             agentRunContextParts.push(acumenPart);
           }

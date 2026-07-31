@@ -25,7 +25,11 @@ jest.mock('~/server/middleware', () => ({
 }));
 
 const { composeSystemPrompt, workspacesMetaFor } = require('@librechat/api');
-const { resetAcumenProfileCache } = require('~/server/controllers/agents/acumen');
+const {
+  resetAcumenProfileCache,
+  resetAcumenStickyCache,
+  acumenContextPart,
+} = require('~/server/controllers/agents/acumen');
 
 const TOKEN = 'test-compose-secret';
 
@@ -67,6 +71,7 @@ describe('Acumen Routes', () => {
   beforeEach(() => {
     process.env.ACUMEN_COMPOSE_TOKEN = TOKEN;
     resetAcumenProfileCache();
+    resetAcumenStickyCache();
   });
 
   describe('POST /compose — requireComposeToken', () => {
@@ -266,6 +271,60 @@ describe('Acumen Routes', () => {
 
       expect(response.status).toBe(200);
       expect(response.body).toEqual({ businessType: null, workspaces: [] });
+    });
+  });
+
+  describe('GET /active', () => {
+    const conversationId = 'conv-active-lens';
+
+    it('returns the sticky use case for the conversation after it has been set', async () => {
+      mockGetOnboardingStatus.mockResolvedValue(statusWith('executive_search'));
+      await acumenContextPart(
+        { id: 'test-user-123' },
+        'alert me when these CFOs change roles',
+        conversationId,
+      );
+
+      const response = await request(app)
+        .get('/api/acumen/active')
+        .query({ conversationId });
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({
+        businessType: 'executive-search',
+        useCaseId: 'signal-tracking',
+      });
+    });
+
+    it('returns useCaseId:null when nothing is sticky for the conversation', async () => {
+      mockGetOnboardingStatus.mockResolvedValue(statusWith('recruitment_agency'));
+
+      const response = await request(app)
+        .get('/api/acumen/active')
+        .query({ conversationId: 'conv-with-no-sticky-entry' });
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({ businessType: 'recruitment-agencies', useCaseId: null });
+    });
+
+    it('returns useCaseId:null when conversationId is missing from the query', async () => {
+      mockGetOnboardingStatus.mockResolvedValue(statusWith('recruitment_agency'));
+
+      const response = await request(app).get('/api/acumen/active');
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({ businessType: 'recruitment-agencies', useCaseId: null });
+    });
+
+    it('fails soft with {businessType:null, useCaseId:null} when profile resolution throws', async () => {
+      mockGetOnboardingStatus.mockRejectedValue(new Error('MCP unreachable'));
+
+      const response = await request(app)
+        .get('/api/acumen/active')
+        .query({ conversationId });
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({ businessType: null, useCaseId: null });
     });
   });
 });

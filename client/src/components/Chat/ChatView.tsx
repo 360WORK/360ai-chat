@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useForm } from 'react-hook-form';
 import { Spinner } from '@librechat/client';
@@ -16,9 +16,10 @@ import {
   useLocalize,
 } from '~/hooks';
 import { ChatContext, AddedChatContext, ChatFormProvider, useFileMapContext } from '~/Providers';
-import { AcumenWorkspaces } from '~/components/Acumen';
+import { AcumenWorkspaces, AcumenLensChip } from '~/components/Acumen';
 import AcumenConfirmDock from '~/components/Acumen/AcumenConfirmDock';
 import useCurrentConfirmFrame from '~/components/Acumen/useCurrentConfirmFrame';
+import { getCurrentBranchLeaf } from '~/utils/latestAssistantText';
 import { useSignalsSync } from '~/data-provider/Signals/queries';
 import OnboardingStarters from '~/components/Onboarding/OnboardingStarters';
 import OnboardingHero from '~/components/Onboarding/OnboardingHero';
@@ -122,6 +123,10 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
   const { gateActive, isCompanyScope } = useOnboardingGate();
   const { step: activeStep } = useCurrentOnboardingStep(gateActive, messagesTree);
   const { frame: confirmFrame } = useCurrentConfirmFrame(messagesTree);
+  const lastMessageId = useMemo(
+    () => getCurrentBranchLeaf(messagesTree)?.messageId,
+    [messagesTree],
+  );
   // Periodically pull new signal-run digests into the user's "Signals"
   // conversation. Silent (no UI); the messages list refetch shows new digests.
   useSignalsSync();
@@ -170,6 +175,12 @@ function ChatView({ index = 0, project }: { index?: number; project?: TChatProje
                       {isLandingPage && <OnboardingStarters />}
                       {isLandingPage && <AcumenWorkspaces />}
                       <OnboardingPillDock step={activeStep} submitting={isSubmitting} />
+                      <AcumenLensChip
+                        conversationId={
+                          conversationId !== Constants.NEW_CONVO ? conversationId : undefined
+                        }
+                        lastMessageId={lastMessageId}
+                      />
                       <AcumenConfirmDock
                         frame={activeStep ? null : confirmFrame}
                         submitting={isSubmitting}

@@ -282,6 +282,11 @@ export interface TAcumenWorkspacesResponse {
   workspaces: TAcumenWorkspace[];
 }
 
+export interface TAcumenActiveResponse {
+  businessType: string | null;
+  useCaseId: string | null;
+}
+
 /* Signals */
 export interface TSignalsSyncResponse {
   /** Number of NEW digest messages persisted this sync (0 when nothing new). */

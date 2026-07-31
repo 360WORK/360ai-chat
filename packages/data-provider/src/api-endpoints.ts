@@ -300,6 +300,10 @@ export const onboardingProfile = () => `${BASE_URL}/api/onboarding/profile`;
 
 /* Acumen */
 export const acumenWorkspaces = () => `${BASE_URL}/api/acumen/workspaces`;
+export const acumenActive = (conversationId?: string) =>
+  `${BASE_URL}/api/acumen/active${
+    conversationId ? `?conversationId=${encodeURIComponent(conversationId)}` : ''
+  }`;
 
 /* Signals */
 export const signalsSync = () => `${BASE_URL}/api/signals/sync`;

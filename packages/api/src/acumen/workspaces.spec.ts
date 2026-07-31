@@ -1,3 +1,4 @@
+import { BUSINESS_TYPES } from './types';
 import { workspacesMetaFor } from './workspaces';
 import { selectUseCase } from './router';
 
@@ -5,7 +6,9 @@ describe('workspacesMetaFor', () => {
   it('returns the executive-search workspaces with labels + kickoffs', () => {
     const ws = workspacesMetaFor('executive-search');
     const ids = ws.map((w) => w.useCaseId).sort();
-    expect(ids).toEqual(['market-mapping', 'prospecting', 'signal-tracking', 'talent-mapping'].sort());
+    expect(ids).toEqual(
+      ['market-mapping', 'prospecting', 'signal-tracking', 'talent-mapping'].sort(),
+    );
     for (const w of ws) {
       expect(w.label.length).toBeGreaterThan(0);
       expect(w.kickoff.length).toBeGreaterThan(0);
@@ -21,8 +24,16 @@ describe('workspacesMetaFor', () => {
   });
 
   it('returns [] for a business type with no workspaces is impossible — all six have cells; spot-check rec2rec', () => {
-    expect(workspacesMetaFor('rec2rec').map((w) => w.useCaseId).sort()).toEqual(
-      ['prospecting', 'talent-mapping'].sort(),
-    );
+    expect(
+      workspacesMetaFor('rec2rec')
+        .map((w) => w.useCaseId)
+        .sort(),
+    ).toEqual(['prospecting', 'talent-mapping'].sort());
+  });
+
+  it.each(BUSINESS_TYPES)('every %s kickoff routes to its own use case', (bt) => {
+    for (const ws of workspacesMetaFor(bt)) {
+      expect(selectUseCase(ws.kickoff, bt)?.useCaseId).toBe(ws.useCaseId);
+    }
   });
 });

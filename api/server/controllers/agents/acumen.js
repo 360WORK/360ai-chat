@@ -3,14 +3,25 @@ const {
   composeSystemPrompt,
   normalizeBusinessType,
   buildUserContextSummary,
+  selectUseCase,
+  workspacesFor,
+  buildClassifierRequest,
+  parseClassifierResult,
+  MIN_CLASSIFIER_BRIEF_WORDS,
 } = require('@librechat/api');
+const Anthropic = require('@anthropic-ai/sdk');
 const { getOnboardingStatus } = require('../../services/Onboarding');
 
 const PROFILE_TTL_MS = 5 * 60 * 1000;
 const NEGATIVE_TTL_MS = 45 * 1000;
 const PROFILE_CACHE_MAX = 500;
-const CONTEXT_TIMEOUT_MS = 1500;
+const CONTEXT_TIMEOUT_MS = 2500;
+const STICKY_TTL_MS = 6 * 60 * 60 * 1000;
+const STICKY_CACHE_MAX = 2000;
+const CLASSIFIER_TIMEOUT_MS = 2000;
 const profileCache = new Map();
+const stickyCache = new Map();
+let anthropicClient = null;
 
 function readCache(userId) {
   const entry = profileCache.get(userId);
@@ -133,12 +144,153 @@ function resetAcumenProfileCache() {
 }
 
 /**
+ * Returns the sticky use case for a conversation, or null if unset or expired.
+ * Exported for the routing endpoint (Task 3) and tests.
+ */
+function getActiveUseCase(conversationId) {
+  if (conversationId == null) {
+    return null;
+  }
+  const entry = stickyCache.get(conversationId);
+  if (!entry) {
+    return null;
+  }
+  if (entry.expiresAt <= Date.now()) {
+    stickyCache.delete(conversationId);
+    return null;
+  }
+  return entry;
+}
+
+/** Evicts expired entries, then oldest, so an insert stays within the size cap. */
+function evictForStickyInsert() {
+  if (stickyCache.size < STICKY_CACHE_MAX) {
+    return;
+  }
+  const now = Date.now();
+  for (const [key, entry] of stickyCache) {
+    if (entry.expiresAt <= now) {
+      stickyCache.delete(key);
+    }
+  }
+  while (stickyCache.size >= STICKY_CACHE_MAX) {
+    const oldest = stickyCache.keys().next().value;
+    if (oldest === undefined) {
+      break;
+    }
+    stickyCache.delete(oldest);
+  }
+}
+
+function setActiveUseCase(conversationId, useCaseId) {
+  if (conversationId == null) {
+    return;
+  }
+  evictForStickyInsert();
+  stickyCache.set(conversationId, { useCaseId, expiresAt: Date.now() + STICKY_TTL_MS });
+}
+
+/** Test-only: clears the entire sticky use-case cache. */
+function resetAcumenStickyCache() {
+  stickyCache.clear();
+}
+
+function isClassifierEnabled() {
+  const key = process.env.ANTHROPIC_API_KEY;
+  return Boolean(key && key !== 'user_provided') && process.env.ACUMEN_CLASSIFIER !== 'false';
+}
+
+function countWords(brief) {
+  if (!brief) {
+    return 0;
+  }
+  const trimmed = brief.trim();
+  return trimmed ? trimmed.split(/\s+/).length : 0;
+}
+
+function getAnthropicClient() {
+  if (!anthropicClient) {
+    anthropicClient = new Anthropic();
+  }
+  return anthropicClient;
+}
+
+/**
+ * Classifies a brief into a use case via a bounded Haiku call when the regex
+ * router and sticky store both miss. Any failure, timeout, or malformed
+ * response resolves to null so the message path is never blocked.
+ */
+async function classifyBrief(brief, businessType) {
+  try {
+    const request = buildClassifierRequest(brief, businessType);
+    if (!request) {
+      return null;
+    }
+    const client = getAnthropicClient();
+    const response = await client.messages.create(
+      {
+        model: process.env.ACUMEN_CLASSIFIER_MODEL || 'claude-haiku-4-5',
+        max_tokens: 64,
+        output_config: { format: { type: 'json_schema', schema: request.schema } },
+        system: request.system,
+        messages: [{ role: 'user', content: request.userMessage }],
+      },
+      { timeout: CLASSIFIER_TIMEOUT_MS, maxRetries: 0 },
+    );
+    const textBlock = response?.content?.find((block) => block.type === 'text');
+    if (!textBlock?.text) {
+      return null;
+    }
+    return parseClassifierResult(textBlock.text, businessType);
+  } catch (err) {
+    logger.warn('[acumenContextPart] Classifier call failed:', err);
+    return null;
+  }
+}
+
+/**
+ * Resolves the use case for the current message via regex router, sticky
+ * conversation state, and (last resort) the classifier, in that order.
+ * Only regex and classifier hits refresh the sticky store — a sticky reuse
+ * leaves its own TTL untouched.
+ */
+async function resolveUseCase({ brief, businessType, conversationId }) {
+  const regexUseCaseId = selectUseCase(brief, businessType)?.useCaseId ?? null;
+  const stickyEntry = getActiveUseCase(conversationId);
+  const allowed = new Set(workspacesFor(businessType));
+  const stickyUseCaseId =
+    stickyEntry && allowed.has(stickyEntry.useCaseId) ? stickyEntry.useCaseId : null;
+
+  let resolved = regexUseCaseId ?? stickyUseCaseId;
+  let source = 'none';
+  if (regexUseCaseId) {
+    source = 'regex';
+  } else if (stickyUseCaseId) {
+    source = 'sticky';
+  }
+
+  if (!resolved && isClassifierEnabled() && countWords(brief) >= MIN_CLASSIFIER_BRIEF_WORDS) {
+    const classified = await classifyBrief(brief, businessType);
+    if (classified) {
+      resolved = classified;
+      source = 'classifier';
+    }
+  }
+
+  if (resolved && source !== 'sticky') {
+    setActiveUseCase(conversationId, resolved);
+  }
+
+  return { useCaseId: resolved, source };
+}
+
+/**
  * Build the composed Acumen system prompt for the primary 360ai agent.
  * Fetches the onboarding profile (source of truth) to resolve business type and
  * user context. Returns null (no-op) when the business type is unknown, the
  * profile lookup times out, or any lookup fails, so the live path is never broken.
  */
-async function acumenContextPart(user, brief) {
+async function acumenContextPart(user, brief, conversationId) {
   if (!user) {
     return null;
   }
@@ -147,10 +299,22 @@ async function acumenContextPart(user, brief) {
     if (!profile || !profile.businessType) {
       return null;
     }
+    const { businessType, userContext } = profile;
+    const { useCaseId, source } = await resolveUseCase({ brief, businessType, conversationId });
+
+    logger.debug('[acumen] route', {
+      userId: user?.id,
+      conversationId,
+      businessType,
+      useCaseId,
+      source,
+    });
+
     const { prompt } = composeSystemPrompt({
-      businessType: profile.businessType,
-      userContext: profile.userContext,
+      businessType,
+      userContext,
       brief,
+      useCaseId: useCaseId ?? undefined,
     });
     return prompt || null;
   } catch (err) {
@@ -164,4 +328,6 @@ module.exports = {
   resolveProfile,
   invalidateAcumenProfile,
   resetAcumenProfileCache,
+  getActiveUseCase,
+  resetAcumenStickyCache,
 };
