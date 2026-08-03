@@ -78,8 +78,8 @@ function Login() {
     return (
       <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-8 bg-white dark:bg-gray-900">
         <img
-          src="assets/logo.svg"
-          className="h-9 w-auto object-contain"
+          src="assets/360-mark.png?v=guru1"
+          className="h-10 w-auto object-contain"
           alt={startupConfig.appTitle ?? '360AI'}
         />
         <div
