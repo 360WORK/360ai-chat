@@ -304,6 +304,8 @@ export interface TSignal {
   /** Raw cron (editable fields surfaced for the Edit form). */
   cadenceCron: string | null;
   promptTemplate: string | null;
+  /** IANA timezone the cadence is evaluated in (null when not provided). */
+  timezone: string | null;
 }
 
 /** Response of GET /api/signals (the user's signals). */
@@ -357,6 +359,8 @@ export interface TSignalLatestRun {
   status: 'queued' | 'running' | 'succeeded' | 'failed' | 'no_change' | string;
   summary: string | null;
   createdAt: string | null;
+  /** Failure detail for `failed` runs (null when not provided). */
+  error: string | null;
 }
 
 /* SharePoint Graph API Token */

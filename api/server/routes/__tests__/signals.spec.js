@@ -27,6 +27,7 @@ const RAW_SIGNAL = {
   last_run_at: '2026-07-15T09:00:00Z',
   cadence_cron: '0 9 * * *',
   prompt_template: 'Track fintech leadership moves',
+  timezone: 'Europe/Tirane',
 };
 
 const MAPPED_SIGNAL = {
@@ -38,6 +39,7 @@ const MAPPED_SIGNAL = {
   lastRunAt: '2026-07-15T09:00:00Z',
   cadenceCron: '0 9 * * *',
   promptTemplate: 'Track fintech leadership moves',
+  timezone: 'Europe/Tirane',
 };
 
 describe('Signals Routes', () => {
@@ -116,12 +118,37 @@ describe('Signals Routes', () => {
         status: 'completed',
         summary: 'Found 3 moves',
         createdAt: '2026-07-15T08:00:00Z',
+        error: null,
       });
       expect(mockCallSignalTool).toHaveBeenCalledWith(
         expect.objectContaining({ id: currentUser.id }),
         'get_signal_runs',
         {},
       );
+    });
+
+    it('surfaces the upstream error detail for failed runs', async () => {
+      mockCallSignalTool.mockResolvedValue({
+        runs: [
+          {
+            id: 'run-1',
+            status: 'failed',
+            summary: null,
+            created_at: '2026-07-15T08:00:00Z',
+            error: 'Tool plan step timed out',
+          },
+        ],
+      });
+
+      const response = await request(app).get('/api/signals/run/run-1');
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({
+        status: 'failed',
+        summary: null,
+        createdAt: '2026-07-15T08:00:00Z',
+        error: 'Tool plan step timed out',
+      });
     });
 
     it('returns 404 when the run is not in the runs list', async () => {
@@ -329,6 +356,26 @@ describe('Signals Routes', () => {
         expect.objectContaining({ id: currentUser.id }),
         'update_signal',
         { signal_id: 'sig-1', signal_json: JSON.stringify(UPDATE_BODY) },
+      );
+    });
+
+    it('forwards is_active in signal_json so pause/resume reaches update_signal', async () => {
+      mockCallSignalTool.mockResolvedValue({
+        id: 'sig-1',
+        name: 'Fintech moves',
+        type: 'market',
+        next_run_at: null,
+        is_active: false,
+      });
+
+      const response = await request(app).patch('/api/signals/sig-1').send({ is_active: false });
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual(expect.objectContaining({ id: 'sig-1', isActive: false }));
+      expect(mockCallSignalTool).toHaveBeenCalledWith(
+        expect.objectContaining({ id: currentUser.id }),
+        'update_signal',
+        { signal_id: 'sig-1', signal_json: JSON.stringify({ is_active: false }) },
       );
     });
 

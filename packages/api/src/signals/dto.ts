@@ -14,6 +14,8 @@ export interface TSignalSummary {
   isActive: boolean;
   nextRunAt: string | null;
   lastRunAt: string | null;
+  /** IANA timezone the cadence is evaluated in (optional on the wire). */
+  timezone: string | null;
 }
 
 /** A single run of a Signal, surfaced for chat delivery. */
@@ -25,6 +27,8 @@ export interface TSignalRun {
   /** Markdown summary; null for no_change / empty runs (never delivered). */
   summary: string | null;
   createdAt: string | null;
+  /** Failure detail for `failed` runs (optional on the wire). */
+  error: string | null;
 }
 
 /** Raw snake_case shape returned by the `get_signal_runs` MCP tool. */
@@ -36,6 +40,7 @@ export interface TSignalRunsToolResult {
     is_active: boolean;
     next_run_at: string | null;
     last_run_at: string | null;
+    timezone?: string | null;
   }>;
   runs: Array<{
     id: string;
@@ -44,6 +49,7 @@ export interface TSignalRunsToolResult {
     status: TSignalRun['status'];
     summary: string | null;
     created_at: string | null;
+    error?: string | null;
   }>;
 }
 
@@ -54,9 +60,10 @@ export interface TSignalsSyncResponse {
 }
 
 /** Maps the raw MCP tool result to the internal camelCase DTOs. */
-export function mapSignalRunsResult(
-  raw: TSignalRunsToolResult,
-): { signals: TSignalSummary[]; runs: TSignalRun[] } {
+export function mapSignalRunsResult(raw: TSignalRunsToolResult): {
+  signals: TSignalSummary[];
+  runs: TSignalRun[];
+} {
   return {
     signals: (raw?.signals ?? []).map((s) => ({
       id: s.id,
@@ -65,6 +72,7 @@ export function mapSignalRunsResult(
       isActive: !!s.is_active,
       nextRunAt: s.next_run_at ?? null,
       lastRunAt: s.last_run_at ?? null,
+      timezone: s.timezone ?? null,
     })),
     runs: (raw?.runs ?? []).map((r) => ({
       id: r.id,
@@ -73,6 +81,7 @@ export function mapSignalRunsResult(
       status: r.status,
       summary: r.summary ?? null,
       createdAt: r.created_at ?? null,
+      error: r.error ?? null,
     })),
   };
 }

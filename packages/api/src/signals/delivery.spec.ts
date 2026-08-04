@@ -13,15 +13,42 @@ const run = (over: Partial<TSignalRun>): TSignalRun => ({
   status: 'succeeded',
   summary: '## Open jobs\n3 new roles.',
   createdAt: '2026-06-23T10:00:00Z',
+  error: null,
   ...over,
 });
 
 describe('formatDigest', () => {
-  it('returns the summary as text and a deterministic messageId', () => {
+  it('returns an attribution header plus the summary and a deterministic messageId', () => {
     const out = formatDigest(run({ id: 'abc' }));
     expect(out).not.toBeNull();
-    expect(out!.text).toBe('## Open jobs\n3 new roles.');
+    expect(out!.text).toBe(
+      '### 🛰️ Weekly briefing — Jun 23, 2026, 10:00 AM\n\n## Open jobs\n3 new roles.',
+    );
     expect(out!.messageId).toBe(digestMessageId('abc'));
+  });
+
+  it('formats the header timestamp in the signal timezone when provided', () => {
+    const out = formatDigest(run({}), 'Europe/Tirane');
+    expect(out!.text.split('\n')[0]).toBe('### 🛰️ Weekly briefing — Jun 23, 2026, 12:00 PM');
+  });
+
+  it('falls back to UTC for an invalid timezone', () => {
+    const out = formatDigest(run({}), 'Not/AZone');
+    expect(out!.text.split('\n')[0]).toBe('### 🛰️ Weekly briefing — Jun 23, 2026, 10:00 AM');
+  });
+
+  it('omits the timestamp for a missing or invalid createdAt', () => {
+    expect(formatDigest(run({ createdAt: null }))!.text.split('\n')[0]).toBe(
+      '### 🛰️ Weekly briefing',
+    );
+    expect(formatDigest(run({ createdAt: 'not-a-date' }))!.text.split('\n')[0]).toBe(
+      '### 🛰️ Weekly briefing',
+    );
+  });
+
+  it('falls back to a generic name when signalName is missing', () => {
+    const out = formatDigest(run({ signalName: null, createdAt: null }));
+    expect(out!.text.split('\n')[0]).toBe('### 🛰️ Signal');
   });
 
   it('produces a stable messageId for the same runId across calls', () => {
@@ -36,8 +63,8 @@ describe('formatDigest', () => {
   });
 
   it('trims surrounding whitespace from the summary', () => {
-    const out = formatDigest(run({ summary: '  hello  ' }));
-    expect(out!.text).toBe('hello');
+    const out = formatDigest(run({ summary: '  hello  ', createdAt: null }));
+    expect(out!.text).toBe('### 🛰️ Weekly briefing\n\nhello');
   });
 
   it('does not append a signal-digest marker to the stored text', () => {
@@ -61,8 +88,11 @@ describe('deliverNewSignalRuns', () => {
     };
   };
 
-  const toolResult = (runs: TSignalRun[]): TSignalRunsToolResult => ({
-    signals: [],
+  const toolResult = (
+    runs: TSignalRun[],
+    signals: TSignalRunsToolResult['signals'] = [],
+  ): TSignalRunsToolResult => ({
+    signals,
     runs: runs.map((r) => ({
       id: r.id,
       signal_id: r.signalId,
@@ -111,6 +141,32 @@ describe('deliverNewSignalRuns', () => {
     });
     const res = await deliverNewSignalRuns({ id: 'u1' }, deps);
     expect(res).toEqual({ delivered: 1 });
+  });
+
+  it('formats each digest header in the owning signal timezone', async () => {
+    const saved: string[] = [];
+    const deps = makeDeps({
+      fetchRuns: async () =>
+        toolResult(
+          [run({ id: 'r1', summary: 'body' })],
+          [
+            {
+              id: 'sig-1',
+              name: 'Weekly briefing',
+              type: 'briefing',
+              is_active: true,
+              next_run_at: null,
+              last_run_at: null,
+              timezone: 'Europe/Tirane',
+            },
+          ],
+        ),
+      saveMessage: async (_u, _c, m) => {
+        saved.push(m.text);
+      },
+    });
+    await deliverNewSignalRuns({ id: 'u1' }, deps);
+    expect(saved[0].split('\n')[0]).toBe('### 🛰️ Weekly briefing — Jun 23, 2026, 12:00 PM');
   });
 
   it('saves oldest-first so the thread is chronological', async () => {

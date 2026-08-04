@@ -131,6 +131,8 @@ export type NavLink = {
   Component?: React.ComponentType;
   onClick?: (e?: React.MouseEvent) => void;
   variant?: 'default' | 'ghost';
+  /** Shows an unread indicator dot on the nav icon when true. */
+  showBadge?: boolean;
   id: string;
 };
 

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useRecoilValue } from 'recoil';
 import { MCPIcon, AttachmentIcon, OpenAIMinimalIcon } from '@librechat/client';
 import {
   Bot,
@@ -36,6 +37,7 @@ import FilesPanel from '~/components/SidePanel/Files/Panel';
 import { PromptsAccordion } from '~/components/Prompts';
 import { SkillsAccordion } from '~/components/Skills';
 import SignalsManager from '~/components/Signals/SignalsManager';
+import store from '~/store';
 
 export default function useSideNavLinks({
   hidePanel,
@@ -91,6 +93,7 @@ export default function useSideNavLinks({
     permission: Permissions.CREATE,
   });
   const { availableMCPServers } = useMCPServerManager();
+  const signalsUnread = useRecoilValue(store.signalsUnread);
 
   const { agentsConfig } = useGetAgentsConfig({ endpointsConfig });
   const { skillsEnabled } = useAgentCapabilities(agentsConfig?.capabilities);
@@ -183,6 +186,7 @@ export default function useSideNavLinks({
       label: '',
       icon: Radar,
       id: 'signals',
+      showBadge: signalsUnread,
       Component: SignalsManager,
     });
 
@@ -252,6 +256,7 @@ export default function useSideNavLinks({
     interfaceConfig.parameters,
     endpointType,
     hasAccessToBookmarks,
+    signalsUnread,
     availableMCPServers,
     hasAccessToUseMCPSettings,
     hasAccessToCreateMCP,

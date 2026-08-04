@@ -4,6 +4,7 @@ import isTemporary from './temporary';
 import endpoints from './endpoints';
 import families from './families';
 import settings from './settings';
+import signals from './signals';
 import prompts from './prompts';
 import search from './search';
 import preset from './preset';
@@ -33,6 +34,7 @@ export default {
   ...preset,
   ...lang,
   ...settings,
+  ...signals,
   ...misc,
   ...isTemporary,
 };

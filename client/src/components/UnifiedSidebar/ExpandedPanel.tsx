@@ -99,24 +99,35 @@ const NavIconButton = memo(function NavIconButton({
     [link, isActive, setActive, expanded, onExpand, onCollapse],
   );
 
+  const label =
+    link.showBadge === true
+      ? `${localize(link.title)} — ${localize('com_signals_unread')}`
+      : localize(link.title);
+
   return (
     <TooltipAnchor
-      description={localize(link.title)}
+      description={label}
       side="right"
       render={
         <Button
           size="icon"
           variant="ghost"
-          aria-label={localize(link.title)}
+          aria-label={label}
           aria-pressed={isActive}
           data-testid={`nav-panel-${link.id}`}
           className={cn(
-            'h-9 w-9 rounded-lg',
+            'relative h-9 w-9 rounded-lg',
             isActive ? 'bg-surface-active-alt text-text-primary' : 'text-text-secondary',
           )}
           onClick={handleClick}
         >
           <link.icon className="h-5 w-5" aria-hidden="true" />
+          {link.showBadge === true ? (
+            <span
+              className="absolute right-1 top-1 h-2 w-2 rounded-full bg-primary"
+              aria-hidden="true"
+            />
+          ) : null}
         </Button>
       }
     />

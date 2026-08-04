@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useSetRecoilState } from 'recoil';
 import { QueryKeys, dataService } from 'librechat-data-provider';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import type {
@@ -15,6 +16,7 @@ import type {
   TSignalUpdateInput,
   TSignalLatestRun,
 } from 'librechat-data-provider';
+import store from '~/store';
 
 /**
  * Periodically deliver new signal-run digests into the authenticated user's
@@ -31,6 +33,8 @@ const DEFAULT_SYNC_MS = 5 * 60 * 1000; // 5 minutes
 export const useSignalsSync = (
   config?: UseQueryOptions<TSignalsSyncResponse>,
 ): QueryObserverResult<TSignalsSyncResponse> => {
+  const queryClient = useQueryClient();
+  const setSignalsUnread = useSetRecoilState(store.signalsUnread);
   return useQuery<TSignalsSyncResponse>([QueryKeys.signalsSync], () => dataService.syncSignals(), {
     refetchInterval: DEFAULT_SYNC_MS,
     staleTime: 60 * 1000,
@@ -38,6 +42,12 @@ export const useSignalsSync = (
     refetchOnReconnect: true,
     refetchOnMount: true,
     retry: false,
+    onSuccess: (data) => {
+      if ((data?.delivered ?? 0) > 0) {
+        setSignalsUnread(true);
+        void queryClient.invalidateQueries([QueryKeys.allConversations]);
+      }
+    },
     ...config,
   });
 };

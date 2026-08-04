@@ -1,4 +1,5 @@
 import { useMemo, useState, useEffect } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   Button,
   Spinner,
@@ -18,8 +19,9 @@ import {
   useDeleteSignal,
   useSignalRunQuery,
 } from '~/data-provider/Signals/queries';
-import CadencePicker, { describeCron } from './CadencePicker';
+import CadencePicker, { describeCron, browserTimezone } from './CadencePicker';
 import { useLocalize } from '~/hooks';
+import store from '~/store';
 
 /**
  * Default tool_plan for a created/edited signal. Tool selection is automatic —
@@ -73,11 +75,13 @@ function submitErrorMessage(err: unknown, isEditing: boolean, localize: Localize
 function RunResult({
   status,
   summary,
+  runError,
   localize,
   onDismiss,
 }: {
   status: string;
   summary: string | null;
+  runError: string | null;
   localize: Localize;
   onDismiss: () => void;
 }) {
@@ -109,7 +113,10 @@ function RunResult({
           {localize('com_signals_dismiss')}
         </button>
       </div>
-      {nothing ? null : (
+      {failed && runError ? (
+        <div className="whitespace-pre-wrap break-words text-sm">{runError}</div>
+      ) : null}
+      {failed || nothing ? null : (
         <div className="signals-digest whitespace-pre-wrap break-words text-sm text-text-primary">
           {summary}
         </div>
@@ -132,6 +139,7 @@ export default function SignalsManager() {
   const [draft, setDraft] = useState<Draft>(emptyDraft);
   const [error, setError] = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<TSignal | null>(null);
+  const [togglingId, setTogglingId] = useState<string | null>(null);
   // The run currently being polled to completion (signalId + runId). The runId
   // is returned synchronously by run_signal_now; we poll THAT run so we track
   // the exact run we triggered, not whatever was latest before.
@@ -139,6 +147,15 @@ export default function SignalsManager() {
 
   const signals: TSignal[] = useMemo(() => data?.signals ?? [], [data]);
   const editing = editingId ? (signals.find((s) => s.id === editingId) ?? null) : null;
+
+  // Opening the panel marks delivered digests as seen (clears the nav badge).
+  const sidebarExpanded = useRecoilValue(store.sidebarExpanded);
+  const setSignalsUnread = useSetRecoilState(store.signalsUnread);
+  useEffect(() => {
+    if (sidebarExpanded) {
+      setSignalsUnread(false);
+    }
+  }, [sidebarExpanded, setSignalsUnread]);
 
   // Per-signal run state: only the signal whose id matches the in-flight
   // mutation's variables is "running". `isLoading` alone would disable every
@@ -207,6 +224,7 @@ export default function SignalsManager() {
       setError(localize('com_signals_error_required'));
       return;
     }
+    const timezone = browserTimezone();
     try {
       if (editing) {
         await updateSignal.mutateAsync({
@@ -214,14 +232,14 @@ export default function SignalsManager() {
           input: {
             name: payload.name,
             action_config: { prompt_template: payload.prompt },
-            trigger_config: { cadence_cron: payload.cadence, timezone: 'UTC' },
+            trigger_config: { cadence_cron: payload.cadence, timezone },
           },
         });
       } else {
         await createSignal.mutateAsync({
           name: payload.name,
           type: 'briefing',
-          trigger_config: { cadence_cron: payload.cadence, timezone: 'UTC' },
+          trigger_config: { cadence_cron: payload.cadence, timezone },
           action_config: {
             agent_key: 'recruiting',
             prompt_template: payload.prompt,
@@ -251,6 +269,18 @@ export default function SignalsManager() {
     }
   };
 
+  const handleToggleActive = async (s: TSignal) => {
+    setError(null);
+    setTogglingId(s.id);
+    try {
+      await updateSignal.mutateAsync({ id: s.id, input: { is_active: !s.isActive } });
+    } catch {
+      setError(localize('com_signals_error_update'));
+    } finally {
+      setTogglingId(null);
+    }
+  };
+
   const confirmDelete = async () => {
     if (!deleteTarget) {
       return;
@@ -271,10 +301,18 @@ export default function SignalsManager() {
   const renderSignalCard = (s: TSignal) => (
     <div key={s.id} className="rounded-xl border border-border-light bg-surface-primary p-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-        <div className="min-w-0">
-          <p className="truncate text-sm font-semibold text-text-primary">{s.name}</p>
+        <div className={`min-w-0 ${s.isActive ? '' : 'opacity-60'}`}>
+          <p className="flex items-center gap-2 text-sm font-semibold text-text-primary">
+            <span className="truncate">{s.name}</span>
+            {!s.isActive ? (
+              <span className="shrink-0 rounded-full border border-border-medium px-2 py-0.5 text-[10px] font-medium uppercase text-text-secondary">
+                {localize('com_signals_paused')}
+              </span>
+            ) : null}
+          </p>
           <p className="mt-0.5 text-xs text-text-secondary">
             {s.cadenceCron ? describeCron(s.cadenceCron, localize) + ' · ' : ''}
+            {s.timezone ? s.timezone + ' · ' : ''}
             {localize('com_signals_next_run')}: {fmt(s.nextRunAt, localize)}
           </p>
         </div>
@@ -297,6 +335,16 @@ export default function SignalsManager() {
           </button>
           <button
             type="button"
+            disabled={togglingId === s.id}
+            onClick={() => handleToggleActive(s)}
+            aria-pressed={!s.isActive}
+            aria-label={`${localize(s.isActive ? 'com_signals_pause' : 'com_signals_resume')} ${s.name}`}
+            className="rounded-full border border-border-light px-3 py-1 text-xs font-medium text-text-secondary transition hover:border-border-medium hover:bg-surface-secondary disabled:opacity-50"
+          >
+            {localize(s.isActive ? 'com_signals_pause' : 'com_signals_resume')}
+          </button>
+          <button
+            type="button"
             onClick={() => openEdit(s)}
             className="rounded-full border border-border-light px-3 py-1 text-xs font-medium text-text-secondary transition hover:border-border-medium hover:bg-surface-secondary"
           >
@@ -315,6 +363,7 @@ export default function SignalsManager() {
         <RunResult
           status={runQuery.data.status}
           summary={runQuery.data.summary}
+          runError={runQuery.data.error ?? null}
           localize={localize}
           onDismiss={() => setPoll(null)}
         />

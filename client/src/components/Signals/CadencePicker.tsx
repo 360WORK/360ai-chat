@@ -26,6 +26,15 @@ function pad(n: number): string {
   return String(n).padStart(2, '0');
 }
 
+/** The browser's IANA timezone, falling back to UTC when unavailable. */
+export function browserTimezone(): string {
+  try {
+    return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+  } catch {
+    return 'UTC';
+  }
+}
+
 /**
  * Build a cron expression from frequency + day + time. Day is 0=Mon..6=Sun
  * (UI order); mapped to cron's SUN=0..SAT=6.
@@ -199,6 +208,8 @@ export default function CadencePicker({ value, onChange }: CadencePickerProps) {
 
       <p className="text-xs font-medium text-text-primary">
         {describeCron(buildCron(frequency, day, hour, minute), localize)}
+        {' · '}
+        {localize('com_signals_cadence_tz').replace('{tz}', browserTimezone())}
       </p>
     </div>
   );

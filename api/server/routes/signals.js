@@ -58,6 +58,7 @@ function toSignal(s) {
     lastRunAt: s.last_run_at ?? null,
     cadenceCron: s.cadence_cron ?? null,
     promptTemplate: s.prompt_template ?? null,
+    timezone: s.timezone ?? null,
   };
 }
 
@@ -113,6 +114,7 @@ router.get('/run/:runId', async (req, res) => {
       status: run.status,
       summary: run.summary ?? null,
       createdAt: run.created_at ?? null,
+      error: run.error ?? null,
     });
   } catch (err) {
     logger.warn('[GET /signals/run/:runId] Failed to load signal run:', err);
